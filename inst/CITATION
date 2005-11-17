@@ -1,0 +1,16 @@
+
+citHeader("To cite rv in publications use:")
+
+citEntry(
+  entry = "techreport",
+  school = "Columbia University",
+  title = "Manipulating and Summarizing Posterior Simulations Using Random Variable Objects",
+  author = personList(
+    person(first="Jouni", last="Kerman", email="kerman@stat.columbia.edu"),
+    person(first="Andrew", last="Gelman", email="gelman@stat.columbia.edu")
+  ),
+  url  = "http://www.stat.columbia.edu/~kerman/",
+  textVersion = paste("Kerman, J. and Gelman, A. (2005).",
+	  "Manipulating and Summarizing Posterior Simulations Using Random Variable Objects"
+	)
+)

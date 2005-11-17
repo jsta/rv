@@ -1,0 +1,51 @@
+#!/bin/sh
+
+# deletes all text files in the /man/ directory!!!
+
+for f in ./man/*.txt; do
+    rm -f $f
+done
+
+for f in ./R/*~; do
+    rm -f $f
+done
+
+for f in ./R/*.ps; do
+    rm -f $f
+done
+
+
+for f in ./man/*~; do
+    rm -f $f
+done
+
+for f in ./man/*.ps; do
+    rm -f $f
+done
+
+
+for f in ./inst/*~; do
+    rm -f $f
+done
+
+for f in ./tests/*~; do
+    rm -f $f
+done
+
+for f in ./tests/*.ps; do
+    rm -f $f
+done
+
+for f in ./src/*.*o; do
+    rm -f $f
+done
+
+for f in ./src/*~; do
+    rm -f $f
+done
+
+for f in *~; do
+    rm -f $f
+done
+
+exit 0
