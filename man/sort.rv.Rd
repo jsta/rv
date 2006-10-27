@@ -1,23 +1,25 @@
-\name{abline.rv}
-\title{Random Vectors}
-\alias{abline.rv}
+\name{sort.rv}
+\title{Distribution of Order Statistics of a Random Vector}
+\alias{sort.rv}
 \usage{
- abline.rv(x, size = 5, \dots)
+  \method{sort}{rv}(x, \dots)
 }
 \description{
-  \code{abline.rv} plots \code{n} lines corresponding to 
-  a sample of \code{size} simulations of rv object \code{x}
+  \code{sort.rv} computes the distribution of the order statistics
+  of an rv object.
 }
 \arguments{
   \item{x}{an object}
-  \item{size}{size of sample, i.e. number of lines to draw}
-  \item{\dots}{further arguments passed to or from other methods}
+  \item{\dots}{further arguments passed to \code{sort.rv}}
 }
-\details{
-  ...
+\value{
+  An rv object of the same length as \code{x}.
 }
 \references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
 }
+%\seealso{
+%  Other adapted functions: \code{\link{cov}}.
+%}
 \author{
  Jouni Kerman
  \email{kerman@stat.columbia.edu}

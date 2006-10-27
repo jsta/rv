@@ -1,15 +1,15 @@
-\name{Covariance/Variance Statistic}
+\name{Covariance/Variance/Standard deviation Statistic}
 \title{Distribution of the Covariance Statistic of a Random Vector and Array}
-\alias{cov}
-\alias{var}
 \alias{cov.rv}
 \alias{var.rv}
+\alias{sd.rv}
 \usage{
-  cov(x, y=NULL, \dots)
-  var(x, \dots)
+  cov.rv(x, y=NULL, \dots)
+  var.rv(x, \dots)
+  sd.rv(x, \dots)
 }
 \description{
-  \code{cov}
+  \code{cov}...
 }
 \arguments{
   \item{x}{an object}
@@ -28,8 +28,8 @@ from the resulting vector of simulations.
 
 Similarly, \code{var} computes the variance.
 
-This has been implemented by ``trapping" the original function \code{cov}
-since \code{cov} is not a generic method.
+%%This has been implemented by ``trapping" the original function \code{cov}
+%%since \code{cov} is not a generic method.
 }
 \value{
   A random vector or array.

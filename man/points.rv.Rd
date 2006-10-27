@@ -2,7 +2,7 @@
 \title{Add Points and Intervals to a Plot}
 \alias{points.rv}
 \usage{
-points.rv(x, y = NULL, what=NULL, rvcol=c("green", "red"), \dots)
+points.rv(x, y = NULL, what=NULL, rvcol=c("grey20", "grey40"), \dots)
 }
 \description{
   Draw a sequence of points or uncertainty intervals at specified

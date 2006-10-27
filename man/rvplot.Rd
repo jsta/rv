@@ -1,21 +1,32 @@
 \name{rvplot}
-\title{Scatterplot of Simulations of a Random Vector}
+\title{Horizontal interval plot of components of a random vector}
 \alias{rvplot}
+\alias{rvplot.matrix}
+\alias{rvplot.rv}
 \usage{
-rvplot(x,y,\dots)
+rvplot(x, labels=NULL, pos=NULL, output.file=NULL, \dots)
+\method{rvplot}{matrix}(x, labels, pos=NULL, output.file=NULL, xlim=NULL, vline=0, \dots)
+\method{rvplot}{rv}(x, labels=NULL, \dots)
 }
 \description{
-  Produces a 2-dimensional scatterplot of the simulations of a random vector. 
+  \code{rvplot} plots uncertainty (``credible") intervals 
+  for the scalar components of the given random vector.
 }
 \arguments{
-  \item{x}{an rv object; only two first components are used}
-  \item{y}{(optional) rv object}
-  \item{\dots}{further arguments passed to \code{plot}}
+  \item{x}{an object}
+\item{labels}{alternative labeling}
+\item{pos}{}
+\item{output.file}{alternative output file name}
+\item{xlim}{x-limits}
+\item{vline}{x-coordinate of the vertical reference line}
+\item{\dots}{}
 }
-\details{
-  Only the two first scalars are used if only \code{x} is specified.
-  If both \code{x} and \code{y} are specified, they are assumed to be scalars.
+\note{
+  Under development!
 }
+%\details{
+%  \code{rvplot} 
+%}
 \references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
 }
 \author{

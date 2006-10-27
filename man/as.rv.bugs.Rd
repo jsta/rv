@@ -2,7 +2,7 @@
 \title{Coerce an R2WinBUGS object to an rv object}
 \alias{as.rv.bugs}
 \usage{
-  as.rv.bugs(x)
+  \method{as.rv}{bugs}(x)
 }
 \description{
   \code{as.rv.bugs} coerces an \code{R2WinBUGS} object to an \code{rv} object.
@@ -18,10 +18,6 @@
   to the names of the parameters.
 }
 \references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
-}
-\seealso{
-  \code{\link{split.rv}} to split the named random vector so you can
-  ``attach" it with \code{\link{rvattach}}.
 }
 \author{
  Jouni Kerman

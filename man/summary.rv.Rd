@@ -2,7 +2,7 @@
 \title{Summary of a Random Vector}
 \alias{Summary.rv}
 \usage{
-Summary.rv(\dots, na.rm=FALSE)
+  \method{Summary}{rv}(\dots, na.rm=FALSE)
 }
 \description{
   \code{Summary.rv}

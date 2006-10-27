@@ -4,7 +4,7 @@
 \alias{summary.rv}
 \alias{print.rvsim}
 \usage{
-print.rv(x, \dots)
+  \method{print}{rv}(x, \dots)
 }
 \description{
   \code{print.rv}

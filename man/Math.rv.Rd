@@ -10,8 +10,8 @@
 \alias{cummin.rv}
 \alias{cummax.rv}
 \usage{
-  Math.rv(x, ...)
-  Ops.rv(e1, e2)
+  \method{Math}{rv}(x, ...)
+  \method{Ops}{rv}(e1, e2)
 }
 \description{
   Mathematical functions and operators adapted to work with 

@@ -2,7 +2,7 @@
 \title{Plotting Random Vectors}
 \alias{plot.rv}
 \usage{
-  \method{plot}{rv}(x, y, what=c("95\%","50\%","mean","median"), ylim=range(sims(y)), xlim=range(sims(x)), rvcol=c("green", "red"), \dots)
+  \method{plot}{rv}(x, y, what=c("95\%","50\%","mean","median"), ylim=range(sims(y)), xlim=range(sims(x)), rvcol=c("grey20", "grey40"), \dots)
 }
 \description{
   Draw a "random scatter plot". 
@@ -29,7 +29,6 @@
  \url{http://www.stat.columbia.edu/~kerman}
 }
 \examples{
-  #
   x <- 1:30
   y <- rvnorm(mean=x, sd=1)
   \dontrun{plot.rv(x,y)}  # x is not an rv, so be explicit and specify plot.rv 

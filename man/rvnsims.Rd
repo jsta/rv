@@ -3,7 +3,6 @@
 \alias{rvnsims}
 \usage{
 rvnsims(nsims)
-rvnsims()
 }
 \description{
   Sets or retrieves the default number of simulations.

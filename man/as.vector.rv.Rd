@@ -2,7 +2,7 @@
 \title{Coerce an rv object}
 \alias{as.vector.rv}
 \usage{
-  as.vector.rv(x, mode="any")
+  \method{as.vector}{rv}(x, mode="any")
 }
 \description{
   \code{as.vector.rv} coerces a given \code{rv} object into a vector;

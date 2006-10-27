@@ -2,15 +2,15 @@
 \title{Plot some realized series of random vectors}
 \alias{lines.rv}
 \usage{
-  lines.rv(x, simrows=1:3, lcolors=c("blue", "red", "green", "orange", "yellow"), \dots)
+  lines.rv(x, size=5, col=c("grey80"), \dots)
 }
 \description{
   \code{lines.rv}
 }
 \arguments{
   \item{x}{an object}
-\item{simrows}{which rows of the simulation matrix to plot}
-\item{lcolors}{colors to use when plotting a series}
+\item{size}{size of the sample to plot}
+\item{col}{colors to use when plotting a series}
 \item{\dots}{further arguments passed to \code{lines}}
 }
 \details{

@@ -28,7 +28,8 @@ is.random(x)
 %  \item{\dots}{further arguments passed to or from other methods.}
 }
 \details{
-  \code{rv} creates a random vector vector of the specified length. The elements of the vector are all equal to 0.
+  \code{rv} creates a random vector vector of the specified length. 
+The elements of the vector are all equal to \code{NA}.
 
   \code{is.rv} returns TRUE if its argument is a rv object, FALSE otherwise.
 
@@ -38,8 +39,15 @@ is.random(x)
   for each component of the argument vector, depending on whether the component is 
   a random variable object.
 }
+\value{
+  An rv object of desired length, with the value \code{NA} in the simulations.
+
+  An rv of length zero is \code{NULL}, but still of class 'rv'. 
+}
 \note{
   rv objects are internally lists with the class attribute set to ``\code{rv}".
+  The number of simulations in rv objects is set by \link{rvnsims}.
+  This is by default set to 1000.
 }
 \seealso{
   For a short version of the paper, type \code{doc("rv")}.

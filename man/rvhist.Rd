@@ -2,18 +2,17 @@
 \title{Histogram of Distributions of Components of a Random Vector}
 \alias{rvhist}
 \usage{
-  rvhist(x, main=NULL, \dots)
+  rvhist(x, \dots)
 }
 \description{
-  \code{rvhist}
+  \code{rvhist} shows a grid of histograms of simulations of the components
+  of a random vector.
 }
 \arguments{
   \item{x}{an rv object}
-  \item{main}{main title}
   \item{\dots}{further arguments passed to the hist function}
 }
 \details{
-  \code{rvhist} 
 }
 \references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
 }

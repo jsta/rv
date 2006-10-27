@@ -2,7 +2,7 @@
 \title{Sample from the Simulation Matrix of a Random Variable}
 \alias{rvsample}
 \usage{
-  rvsample(x, size=1, replace=TRUE, prob=NULL)
+  rvsample(x, size=1, prob=NULL)
 }
 \description{
   Draws a sample of desired size from each component of a given random variable \code{x}.
@@ -10,11 +10,11 @@
 \arguments{
   \item{x}{an object}
   \item{size}{size of the sample}
-  \item{replace}{sample with replacement?}
   \item{prob}{optional probability vector, usually not needed}
 }
 \details{
-  
+  Samples (with replacement) from the distribution of the random variable object.
+  In effect it samples from the rows of the simulation matrix \code{sims(x)}.
 }
 \value{
   A \emph{numeric} array of dimensions \code{size} times \code{length(x)}.

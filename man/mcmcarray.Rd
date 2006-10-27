@@ -8,13 +8,14 @@
   \code{mcmcarray}
 }
 \arguments{
-  \item{x}{an rv object that was coerced from a three-way array}
+  \item{x}{an rv object (that was originally coerced from a three-way array) }
 }
 \details{
   \code{mcmcarray} 
 }
 \value{
   A three-way array. 
+  Returns NULL if the argument was not originally coerced from a 3-way array.
 }
 \references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
 }

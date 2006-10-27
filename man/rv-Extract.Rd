@@ -1,8 +1,8 @@
 \name{Extract.rv}
 \title{Extract or Replace Parts of a Random Vector}
 \alias{[.rv}
-\alias{[<-}
-\alias{[<<-}
+\alias{[<-.rv}
+\alias{[<<-.rv}
 \alias{[<-.rv}
 \alias{[<<-.rv}
 \alias{$.rv}
@@ -21,6 +21,8 @@ x$name
   The return value is always an object of class 'rv'.
   Type ?Extract for details.
 
+  Note: the arguments (\code{i}, \code{j}, etc.) may be 
+  themselves random variables.  
 }
 \value{
  A random variable (an rv object).
