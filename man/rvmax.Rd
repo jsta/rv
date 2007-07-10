@@ -12,7 +12,8 @@
   \item{\dots}{further arguments passed to \code{max}}
 }
 \details{
-  \code{rvmax} 
+  \code{rvmin} applies the function \code{min} to the simulations of 
+  each component of the argument \code{x}.
 }
 \value{
   A \emph{numeric} vector of the same dimension as \code{x}.

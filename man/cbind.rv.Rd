@@ -3,8 +3,8 @@
 \alias{cbind.rv}
 \alias{rbind.rv}
 \usage{
- cbind.rv(\dots, deparse.level = 1)
- rbind.rv(\dots, deparse.level = 1)
+ \method{cbind}{rv}(\dots, deparse.level = 1)
+ \method{rbind}{rv}(\dots, deparse.level = 1)
 }
 \description{
   Combines random vectors by columns (\code{cbind.rv}) or rows (\code{rbind.rv}).

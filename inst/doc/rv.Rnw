@@ -1,0 +1,1295 @@
+%\VignetteIndexEntry{rv}
+%\VignettePackage{rv}
+% Fully Bayesian Computing
+% Jouni Kerman and Andrew Gelman.
+% 2004.
+%
+
+\documentclass[10pt,letterpaper]{article}
+\pagenumbering{arabic}
+\usepackage{ifthen,multicol}
+
+% DIRECTIVES
+
+\newcommand{\BLINDED}{not true}
+
+% Graphics
+
+\usepackage[pdftex]{graphics}
+
+% Spacing
+
+\usepackage[left=2.54cm,top=2.54cm,right=2.54cm,nohead,letterpaper]{geometry}
+\usepackage{setspace}
+%\setstretch{1.75}
+\singlespacing
+\twocolumn
+
+% Bibliography
+
+\usepackage{natbib}
+\bibliographystyle{plainnat}
+\bibpunct{(}{)}{;}{a}{,}{,}
+
+% Others
+
+
+
+% ==========================================
+% PREAMBLE: LATEX COMMANDS USED IN THIS FILE
+% ==========================================
+
+% Extra Commands for AMS-LaTeX (Short version)
+% Jouni Kerman
+% 2004-11 : created
+%
+
+% Required packages
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+\DeclareMathAlphabet{\mathsfsl}{OT1}{cmss}{m}{sl}
+
+% Examples
+
+%\newboolean{DRAFT}
+%\setboolean{DRAFT}{true}
+
+% New math operators
+
+\DeclareMathOperator{\Normal}{N}
+\DeclareMathOperator{\InvChi}{\chi^{-1}}
+\DeclareMathOperator{\InvChisq}{Inv-\chi^2}
+\DeclareMathOperator{\Var}{Var}
+
+% Expectation
+
+\newcommand{\E}{\mathbb{E}}
+
+% Symbols
+
+\newcommand{\me}{\mathrm{e}}
+\newcommand{\mi}{\mathrm{i}}
+\newcommand{\dif}{\,\mathrm{d}}
+\newcommand{\eps}{\varepsilon}
+
+% Boldface operators
+
+\newcommand{\R}{\mathbb{R}} 
+\newcommand{\M}{\mathbb{M}} 
+\newcommand{\F}{\mathbb{F}} 
+\newcommand{\I}{\mathbb{I}} 
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Prob}{\mathbb{P}}
+
+% Operators
+
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\pos}[1]{\left\lvert#1\right\rvert^{+}}
+\newcommand{\nega}[1]{\left\lvert#1\right\rvert^{-}}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\vnorm}[1]{\left\lVert\vec{#1}\left\rVert}
+
+% Indicator function
+
+\newcommand{\ind}[1]{\mathbf{1}_{#1}}
+\newcommand{\inds}[1]{\ind{\{#1\}}}
+
+% Vectors, matrices
+
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\mat}[1]{\mathsfsl{#1}}
+\newcommand{\trans}[1]{{#1}\T}
+\newcommand{\matrans}[1]{\mat{#1}\T}
+\newcommand{\matinv}[1]{\mat{#1}^{-1}}
+
+
+% Shortcuts to environments
+
+\newcommand{\Cases}{\begin{cases}}
+\newcommand{\Endcas}{\end{cases}}
+
+\newcommand{\Mat}{\begin{pmatrix}}
+\newcommand{\Endmat}{\end{pmatrix}}
+
+\newcommand{\Determinant}{\begin{vmatrix}}
+\newcommand{\Enddet}{\end{vmatrix}}
+
+\newcommand{\Eqa}{\begin{equation*}\begin{aligned}}
+\newcommand{\Qea}{\end{aligned}\end{equation*}}
+
+\newcommand{\Eq}[1]{\begin{equation}\label{#1}}
+\newcommand{\Qe}{\end{equation}}
+
+% Other commands
+
+\newcommand{\fracs}[2]{\ensuremath{{\textstyle{\frac{#1}{#2}}}}}
+\newcommand{\Probset}[1]{\Prob\left\{\set{#1}\right\}}
+\newcommand{\Probtext}[1]{\Prob\{\text{#1}\}}
+\newcommand{\ds}[1]{\ensuremath{\displaystyle{#1}}}
+
+
+% Pre-defined symbols for convenience
+
+\newcommand{\D}{\dif}
+\newcommand{\dt}{\dif t}
+\newcommand{\du}{\dif u}
+\newcommand{\dv}{\dif v}
+\newcommand{\dx}{\dif x}
+\newcommand{\dy}{\dif y}
+\newcommand{\dz}{\dif z}
+
+\newcommand{\half}{\fracs{1}{2}}
+
+
+
+% ========================
+% BEGINNING OF THE ARTICLE
+% ========================
+
+\title{Using Random Variables to Manipulate and Summarize\\
+Simulations in R}
+
+\ifthenelse{\equal{\BLINDED}{true}}{
+\author{
+ \, \\
+ \, \\
+ \, \\
+ \,
+\and
+ \, \\
+ \, \\
+ \, \\
+ \,
+}
+}{
+\author{
+ Jouni Kerman \\
+ {\tt jouni@kerman.com}
+\and
+ Andrew Gelman \\
+ Department of Statistics \\
+ Columbia University \\
+ {\tt gelman@stat.columbia.edu}
+}
+}
+ 
+\date{\today}
+
+
+\begin{document}
+
+%\onehalfspacing
+
+\maketitle
+
+\begin{abstract}
+A fully Bayesian computing environment calls
+for the possibility of defining vector and array objects
+that may contain both random and deterministic quantities, and syntax rules that allow treating these objects much like any variables or numeric arrays.
+Working within the statistical package R, we introduce a new object-oriented 
+framework based on
+a new random variable data type that is implicitly represented by 
+simulations.
+
+We seek to be able to manipulate 
+random variables
+and posterior simulation objects
+conveniently and transparently and provide a basis for further development of methods and functions that can access these objects directly.
+This new environment is fully Bayesian
+in that the posterior simulations can be handled directly
+as random variables.
+
+%We illustrate the use of this new programming environment with several examples of Bayesian computing, including posterior predictive checking and the manipulation of posterior simulations.
+
+\end{abstract}
+
+Keywords: Bayesian inference, object-oriented programming, posterior simulation, random variable objects
+
+\section{Introduction}
+
+In practical Bayesian data analysis,
+inferences
+are drawn from an $L\times k$ matrix
+of simulations representing 
+$L$ draws from the
+posterior distribution of 
+a vector of $k$ parameters.
+This matrix is typically obtained 
+by a computer program implementing a
+Gibbs sampling scheme
+or other Markov chain Monte Carlo
+(MCMC) process.
+Once the matrix of simulations 
+from the posterior density of the parameters
+is available,
+we may use it to draw inferences about 
+any function of the parameters. 
+
+In the Bayesian paradigm, any quantity 
+is modeled as random; 
+observed values (constants) are but realizations of
+random variables, or
+are random variables that are almost everywhere constant.
+In this paper, we demonstrate how
+an interactive programming environment that
+has a random variable (and random array) 
+\emph{data type}
+makes programming for Bayesian data analysis
+considerably more intuitive.
+Manipulating simulation matrices
+and generating random variables for predictions
+is of course possible using software that is already available.
+However, an intuitive programming environment
+makes problems easier to express in program code
+and hence also easier to debug.
+
+Our implementation integrates
+seamlessly
+into the R programming environment
+and
+is \emph{transparent} 
+in the sense that
+functions that accept numerical arguments
+will also accept random arguments.
+There are also no new syntax rules to be learned.
+
+
+
+\subsection{Our programming environment}
+
+
+Convenient practice of Bayesian data analysis
+requires a programm\-able computing environment,
+which, besides being able to write a program 
+to draw the posterior simulations,
+allows for 
+random variate generation
+and
+easy manipulation of simulations.
+%Now we have plenty of computing power and 
+%some convenient applications
+%to use in our work, 
+%but the current implementations are
+%not fully up to the requirements of 
+%Bayesian data analysis,
+%especially when the user wants
+%to make predictions or do 
+%other things with the parameters
+%beyond simple summaries
+%such as posterior 
+%means, standard deviations,
+%and
+%uncertainty intervals.
+
+%We use the free software package
+%BUGS \citep{R2WinBUGS}
+%to draw posterior simulations.
+%BUGS  features a flexible statistical modeling language
+%and provides the inferences for parameters 
+%as a matrix of posterior simulations.
+%BUGS was originally intended to be a stand-alone 
+%solution and has a graphical user interface
+%and some other features, 
+%but we find the user interface and the other features
+%too restrictive for practical use. 
+%BUGS does not have an interactive console and does not 
+%feature a true programming language. 
+%The models are compiled and provided to BUGS in text file format. 
+
+%Writing samplers in R is convenient when a problem 
+%is too complicated or large for BUGS to handle.
+%Although programs written in R run relatively slowly,
+%we have better control and freedom to change 
+%the code.
+
+Finding posterior simulations is 
+an essential part of any Bayesian
+programming environment,
+but in this paper we concentrate in 
+the post-process\-ing phase of 
+Bayes\-ian data analysis,
+and in our examples we assume that
+we have access to an application that
+draws posterior simulations.
+Such programs include
+MCMCPack \citep{MarQui04}, 
+JAGS \citep{JAGS},
+OpenBUGS \citep{OpenBUGS}.
+%and the Universal MCMC Sampler 
+%\citep{KermanGelman2004umacs}.
+
+Once the simulations have been obtained,
+we post-process them using 
+R
+\citep{Rproject}. 
+The combination of
+BUGS and R
+has proven to be a powerful combination for 
+Bayesian data analysis. 
+R is an interactive, 
+fully programmable,
+object-oriented computing environment originally 
+intended for data analysis.
+R is especially convenient in 
+vector and matrix manipulation, 
+random variable generation, graphics,
+and common programming.
+
+
+R was not developed with Bayesian statisticians in mind,
+but fortunately it is flexible enough to
+be modified to our liking. 
+In R,
+the data are stored in 
+vector format,
+that is,
+in variables that may contain
+several components.
+These vectors, if of suitable length,
+may then have their dimension attributes set 
+to make them appear as matrices and arrays. 
+The vectors may contain numbers (numerical constants)
+and symbols such as 
+{\tt Inf} ($\infty$) and the 
+missing value indicator {\tt NA}.
+Alternatively, vectors can contain character strings
+or logical values ({\tt TRUE}, {\tt FALSE}).
+Our implementation extends the definition
+of a vector or array in R,
+allowing any component of a numeric array 
+to be replaced by an object that contains
+a number of simulations from some distribution.
+
+
+
+\subsection{A simple example}
+
+We illustrate the ``naturalness"
+of our framework 
+with a simple example
+of regression prediction.
+Suppose we have a class with 15 students
+of which all have taken 
+the midterm exam but only 10 have taken the final.
+We shall fit a linear regression model
+to the ten students with complete data,
+predicting final exam scores $y$
+from midterm exam scores $x$,
+$$
+ y_i | \beta_1,\beta_2, x_i, \sigma \sim \Normal( \beta_1 + \beta_2 x_i, \,\sigma^2)
+$$
+and then use this model to 
+predict the final exam scores of the other five students.
+We use a noninformative prior on $(\beta,\log(\sigma))$, 
+or $(\beta,\sigma)\propto 1/\sigma^2$.
+
+The posterior predictive distribution of
+$y$
+is obtained
+by simulating $\beta=(\beta_1,\beta_2)$ and $\sigma$
+from their joint posterior distribution and
+then
+generating the missing elements of $y$
+from the normal distribution above.
+Assume that we have obtained the classical 
+estimates 
+$(\hat{\beta},\hat{\sigma})$
+along with the unscaled covariance matrix $V_\beta$
+using the standard linear fit function {\tt lm()} in R.
+The posterior distribution of $\sigma$ is then
+$$
+ \sigma | x, y
+ \sim
+ \hat{\sigma} \cdot \sqrt{(n-2)/z},
+ \quad
+ \text{where}
+ \quad
+ z\sim\chi^2(n-k).
+$$
+Using our random variable package for R,
+this mathematical formula translates to the 
+statement,
+\small\begin{verbatim}
+ sigma <- sigma.hat*sqrt((n-2)/rvchisq(df=n-2))
+\end{verbatim}\normalsize
+which is remarkably similar to the 
+corresponding mathematical notation.
+The posterior distribution of $\beta$ is 
+$\ds{
+ \beta|\sigma, x, y
+ \sim
+ \Normal\left(
+   \hat{\beta},
+     V_\beta\sigma^2
+     |x,y,\sigma^2
+ \right),
+}$
+simulated by
+\scriptsize\begin{verbatim}
+ beta  <- rvnorm(mean=beta.hat, var=V.beta*sigma^2)
+\end{verbatim}\normalsize
+The predictions for the missing $y$ values
+are obtained by
+\scriptsize\begin{verbatim}
+ y.pred <- rvnorm(mean=beta[1]+beta[2]*x[is.na(y)], sd=sigma)
+\end{verbatim}\normalsize
+and quickly summarized by
+typing the name of the variable on the console.
+This is shown in Figure \ref{ypred}.
+
+
+\begin{figure}\scriptsize
+\begin{verbatim}
+> y.pred
+     name mean   sd      Min  2.5%  25%  50%  75% 97.5% Max  
+[1] Alice 59.0 27.3 ( -28.66  1.66 42.9 59.1 75.6   114 163 )
+[2]   Bob 57.0 29.2 ( -74.14 -1.98 38.3 58.2 75.9   110 202 )
+[3] Cecil 62.6 24.1 ( -27.10 13.25 48.0 63.4 76.3   112 190 )
+[4]  Dave 71.7 18.7 (   2.88 34.32 60.6 71.1 82.9   108 182 )
+[5] Ellen 75.0 17.5 (   4.12 38.42 64.1 75.3 86.2   108 162 )
+\end{verbatim}
+\caption{\label{ypred}
+\small Quick summary of the posterior predictive 
+distribution of $y$
+is obtained 
+by typing the name of the vector ({\tt y.pred}) 
+on the console. 
+ \label{summaries}}
+\end{figure}
+
+
+
+We now can impute the predicted values. 
+Our object-oriented framework allows us
+to combine constants with random variables
+to produce a ``mixed" vector:
+{\tt y[is.na(y)] <- y.pred}
+replaces the missing values (indicated by the symbol {\tt NA})
+by the predicted values, which are
+implicitly represented by simulations.
+The predictions 
+can be plotted along with the observed $(x,y)$ pairs
+using the command
+{\tt plot(x, y)}
+which shows the determinate values as points,
+and the random values as intervals.
+
+%We would also like to display the
+%predicted mean of $y$ given $x$;
+%$y = \E(\beta_1+\beta_2x|x)=\E(\beta_1)+\E(\beta_2)x$.
+%The expected values
+%of $\beta$ are obtained by {\tt E(beta)}
+%and the line is then drawn by a standard
+%R function, {\tt abline(E(beta))}. 
+
+
+
+Any function of the 
+random variables is obtained as 
+easily as a function of constants.
+For example,
+the distribution of the mean score of the class is
+{\tt mean(y)},
+
+\begin{singlespacing}\scriptsize
+\begin{verbatim}
+> mean(y)
+    mean   sd    Min 2.5%  25%  50% 75% 97.5%  Max   
+[1] 70.9 5.22 ( 50.7 60.5 67.9 70.8  74  80.9 98.5 ) 
+\end{verbatim}
+\end{singlespacing}\normalsize
+which is the mean of ten constants and five random variables.
+The probability that the average is more than 80 points is given by
+{\tt Pr(mean(y)>80)}
+which comes to 0.04 in this set of simulations.
+
+
+
+
+\begin{figure}[t] % exam score example: 
+\begin{minipage}[c]{6.0cm}
+\scalebox{0.5}{\includegraphics{fb-examscores-intervals.pdf}}
+\end{minipage}
+\begin{minipage}{6.0cm}\footnotesize
+\begin{verbatim}
+# Predictions for the y values
+y.pred <- rvnorm(
+       mean=beta[1]+beta[2]*x
+       sd=sigma)
+# Imputing the missing values
+y[is.na(y)] <- y.pred[is.na(y)]
+plot(x,y)
+\end{verbatim}
+\end{minipage}
+\caption{\small
+Predicting the final examination scores:
+uncertainty intervals
+of the five predicted final exam scores.
+The 50\% intervals 
+are shown as solid vertical lines
+and the 95\% intervals as
+dotted vertical lines.
+The observed values are shown as circles.
+\label{fb-examscores-intervals}
+}
+\end{figure} % exam score example
+
+
+
+
+
+\subsection{Motivation}
+
+The motivation for a new programming environment has
+grown from our practical needs.
+Suppose, for example, that
+we have obtained posterior simulations 
+for the coefficients 
+$\beta=(\beta_1,\ldots,\beta_k)$
+of a large
+regression model
+$y\sim\Normal(\mat{X}\beta,\sigma^2)$.
+The posterior simulations are then
+(typically)
+stored in an $L\times k$
+-dimensional matrix
+{\tt beta}
+with $L$ simulations
+per parameter.
+Our wish list
+for a ``fully Bayesian"
+programming language
+includes the following
+features:
+
+
+\emph{Hiding unnecessary details.}
+Once we have obtained posterior simulations for 
+the quantities of interest,
+we wish to concentrate on the essential
+and not to think about such details as
+which dimension of the matrix {\tt beta}
+contains the simulations for some $\beta_j$. 
+%Instead of working with objects 
+%that force us to pay attention to computational details,
+%we want to ignore 
+Suppose we want to work with a rotated vector
+$\gamma = R\beta$ where
+$\ds{R = \Mat 1/\sqrt{2} & 1/\sqrt{2} \\ 1/\sqrt{2} & -1\sqrt{2} \Endmat}$.
+We can then simply write
+{\tt   gamma <- R \%*\% beta}
+and not 
+\begin{verbatim}
+  gamma <- array(NA,c(L,length(beta[1,])))
+  for (i in 1:L) {
+     gamma[i] <- R %*% beta[i,]
+  }
+\end{verbatim}
+
+For another example, 
+to compute the 
+posterior distribution of $\beta_1/\beta_2$,
+we wish to write\\
+{\tt ratio <- beta[1]/beta[2]}
+and not\\ 
+{\tt ratio <- beta[,1]/beta[,2]}.\footnote{
+{\tt ratio <- beta[,1]/beta[,2]}
+with output equivalent to
+{\tt  for (i in 1:L) 
+    ratio[i] <- beta[i,1]/beta[i,2]
+}
+where {\tt ratio} will then contain
+the componentwise ratio of the simulations,
+that is, the distribution of the ratio of $\beta_1$ and $\beta_2$.
+}
+
+\emph{Intuitive programming.}
+To draw inferences from the posterior distribution,
+we wish that our program code be as close
+to mathematical notation as possible.
+Ideally, we should be able to express
+the statement $y=\mat{X}\beta$ as
+{\tt y <- X \%*\% beta}
+in the same way we express matrix multiplication
+for numeric vectors.
+
+To implement this 
+for a random (or constant) matrix $\mat{X}$ and
+random vector $\beta$ 
+in ``traditional"
+program code would require at least one loop.
+While writing loops and other typical 
+programming structures are 
+certainly not difficult things to do,
+nevertheless it takes our mind 
+away from the essence of our work:
+Bayesian data analysis,
+or more specifically,
+computation of posterior inferences and predictions.
+We also believe 
+that any program code that does \emph{not}
+resemble mathematical notation is but
+an attempt to emulate such notation.
+For instance,
+draws from the posterior predictive distribution
+$\ds{
+  y^{pred}|\mat{X},\beta,\sigma,y
+  \,\,
+  \sim
+  \,\,
+  \Normal(\mat{X}\beta,\sigma^2\, |\, y)
+}$
+should be accessible using 
+a statement
+that resembles the mathematical expression
+as much as possible: 
+
+\begin{verbatim}
+ y.pred <- rvnorm(mean=X %*% beta, sd=sigma) 
+\end{verbatim}
+This statement, which features
+\emph{random} arguments,
+generates 
+a normally distributed (column) vector of length
+equal to the length of $\mat{X}\beta$.
+
+
+\emph{Transparency.}
+In a fully Bayesian computing environment,
+program code should not be dependent on
+the nature of the parameters:
+the same code should apply to both
+random variables and constants.
+For example,
+{\tt  p <- invlogit( X \%*\% beta )}
+(where \\{\tt invlogit}
+is the inverse logit function
+{\tt 1/(1+exp(-x))})
+works for constant {\tt beta}
+vectors and compatible matrices {\tt X},
+but
+ideally
+it should also work if {\tt beta}
+is a mixed vector of random variables and constants.
+If any of the arguments are random,
+the result should be the \emph{distribution} of {\tt p}.
+
+In R,
+many functions
+adapt automatically to the length of the 
+argument $n$: 
+if $x=(x_1,\ldots,x_n)$ is a vector of length $n$,
+then such a ``vectorized" function $f$
+returns $(f(x_1),\ldots,$
+$f(x_n))$ of length $n$.
+Combined with this convenient
+feature,
+it is possible to write code that
+does not depend on the length of vectors
+\emph{and}
+that does not depend on the nature of arguments.
+
+%\begin{verbatim}
+%\end{verbatim}
+
+%\emph{Robustness.}
+%...
+
+\emph{Faster development and debugging cycle.}
+Short, compact expressions are 
+more readable and easier to understand than
+traditional code with looping structures
+and awkward matrix indexing notation.
+Such code is less prone to contain typographical errors
+and other mistakes.
+
+%One reason that Bayesian methods have
+%not been widely applied until recently has been
+%the lack of 
+%suitable, 
+%convenient computational methods. 
+%Gibbs and Metropolis algorithms are over fifty years old,
+%but only in the last fifteen years or so 
+%have we witnessed any 
+%practical applications emerge.
+
+
+
+%...
+
+%Bayesian programming need not be tedious,
+%repetitive, and hard. 
+
+
+\section{The implementation}
+
+
+
+Our implementation of the 
+ideal Bayesian programming environment 
+is based on putting all numerical quantities
+on a conceptually equal level:
+any numerical vector component is either
+a random variable or is missing.
+Missing values are represented by the special
+value {\tt NA}.
+We refer to this new data 
+type as \emph{random variable}
+and instances of random variables as
+random variable \emph{objects}
+or simply as random variables, vectors, or arrays.
+%We refer to 
+%a one-dimensional component 
+%$x_i$ 
+%of a random vector $x$
+%as 
+%a \emph{random variable}.
+
+A random variable
+is internally
+represented by \emph{simulations},
+that is,
+random draws from its distribution.
+Typically these are obtained
+either from an MCMC
+process or generated using built-in
+random number generators.
+For compatibility,
+pure constants are allowed
+in any component of a random vector.
+
+A random variable
+$x=x_1$ 
+is represented internally by 
+a numerical 
+column vector of
+$L$ simulations:
+$$
+  x_1 = (x^{(1)}_1, x^{(2)}_1, \cdots, x^{(L)}_1)^{\mat{T}}
+$$
+The number of simulations $L$
+is user-definable, 
+typically to a value such as 200 or 1,000
+\citep[pp. 277--278]{BDA}.
+We refer to $x_1$
+as a \emph{vector of simulations};
+this is not usually visible to the user, 
+although it is possible to retrieve 
+the simulations and  manipulate them directly.
+The user only sees a random variable
+{\tt x[1]}: the index {\tt [1]} is the
+subscript 1 in $x_1$. 
+
+Let $n$ be a fixed number.
+A random vector 
+$x=(x_1,\ldots,x_n)$ 
+being by definition an
+$n$-tuple of random variables,
+is represented internally
+by $n$ vectors of simulations.
+Conceptually, 
+these $n$ column vectors 
+form
+an
+$L \times n$
+\emph{matrix of simulations} 
+$$
+ \mat{M}
+ =
+ \Mat
+  x^{(1)}_1 & x^{(1)}_2 & \cdots & x^{(1)}_n\\
+  x^{(2)}_1 & x^{(2)}_2 & \cdots & x^{(2)}_n\\
+  x^{(3)}_1 & x^{(3)}_2 & \cdots & x^{(3)}_n\\
+  \vdots    &  \vdots   & \ddots & \vdots \\
+  x^{(L)}_1 & x^{(L)}_2 & \cdots & x^{(L)}_n\\
+  \Endmat
+$$
+Each row $x^{(\ell)}$ of the matrix $\mat{M}$ 
+is a random draw from the
+\emph{joint distribution}
+of $x$.
+The components of $x^{(\ell)}$
+may be dependent or independent. 
+In our implementation,
+each column $j$ of the matrix is stored
+separately in the slot allocated
+for random variable $x_j$.
+
+In general,
+we may allow random vectors
+to have \emph{random length.}
+For example, suppose that
+$n$ is a Poisson-distributed random variable.
+Then $n$ is internally represented by the 
+vector of $L$ simulations
+$(n^{(1)}, n^{(2)}, \cdots, n^{(L)})^{\mat{T}}.$
+A random vector $x_n$ of random length $n$
+is then represented by 
+a ragged array (a list)
+consisting of rows $x^{(\ell)}$
+where row $\ell$ has length $n^{(\ell)}$. 
+%$$
+% \mat{M_n}
+% =
+% \Mat
+%  x^{(1)}_1 & x^{(1)}_2 & \cdots & \cdots & x^{(1)}_{n^{(1)}}\\
+%  x^{(2)}_1 & x^{(2)}_2 & \cdots & x^{(2)}_{n^{(2)}} & \,\\
+%  x^{(3)}_1 & x^{(3)}_2 & \cdots & \cdots & x^{(3)}_{n^{(3)}}\\
+%  \vdots    &  \vdots   & \, & \, & \, \\
+%  x^{(L)}_1 & x^{(L)}_2 & \cdots & x^{(L)}_{n^{(L)}} & \,\\
+%  \Endmat
+%$$
+This array is
+stored
+as $N=\max_\ell\{n^{(\ell)}\}$ column vectors
+of length $L$. 
+The missing values are represented by {\tt NA}:
+$x^{(\ell)}_j$ equals {\tt NA}
+if $j>n^{(\ell)}$.
+In particular,
+if $n^{(\ell)}=0$,
+all components in row $i$ are {\tt NA}s.
+%Any vector of simulations may 
+%contain any number of {\tt NA}s,
+%but this is natural:
+%vectors of random lengths
+%come up in Bayesian statistics
+%with models of undetermined dimension
+%\citep{GreenRichardson1997}.
+
+Each vector $x^{(\ell)}=(x^{(\ell)}_1,\ldots,x^{(\ell)}_n)$
+may be thought of as the 
+beginning of an infinitely
+long vector   
+with the rest of the vector ``missing."
+The missing part of the vector 
+will then consist of all {\tt NA}s,
+but the tail of the vector
+is of course not stored in memory.
+
+
+
+
+
+\subsection{Vector operations}
+
+A function $f:\R^n\mapsto\R^k$
+taking a random vector $x$
+as its argument
+yields a new random vector 
+of length $k$;
+$f(x)$ is thus equivalent
+to the $L\times k$ matrix of simulations 
+consisting of rows $f(x^{(\ell)})$, $\ell\in\{1,\ldots,L\}$.
+%$$
+% \Mat
+%  f(x^{(1)}) \\
+%  f(x^{(2)}) \\
+%  f(x^{(3)}) \\
+%  \vdots \\
+%  f(x^{(L)}) \\
+%  \Endmat
+%$$
+where $x^{(\ell)}$ is the $\ell$th row
+of the matrix of simulations of $x$.
+
+For example, the summation function ``$+$"
+taking two arguments, say $x_1, x_2$, will in effect 
+yield a random variable
+represented 
+by a matrix of simulations
+with each row $\ell$
+equal to $x^{(\ell)}_1 + x^{(\ell)}_2.$
+%$$
+% \Mat
+%  x^{(1)}_1 + x^{(1)}_2 \\
+%  x^{(2)}_1 + x^{(2)}_2 \\
+%  x^{(3)}_1 + x^{(3)}_2 \\
+%  \vdots \\
+%  x^{(L)}_1 + x^{(L)}_2 \\
+%  \Endmat.
+%$$
+In our implementation, 
+given that the random vector {\tt x} is defined,
+this summation can be performed using the natural statement
+{\tt y <- x[1] + x[2]}.
+
+If {\tt x.sim} is the
+corresponding matrix of simulations,
+this code is then equivalent to
+{\tt y <- x.sim[,1] + x.sim[,2]}.
+This statement adds two vectors of length $L$ componentwise;
+this produces the same output as the loop
+%\footnote{
+%In R there are other ways to write this loop.
+%For example,
+%{\tt y <- apply(x.sim[,1:2], 1, '+')}
+%applies the summation function 
+%{\tt +}
+%to each of the rows of the first two columns of the 
+%simulation matrix {\tt x.sim}.
+%}
+
+\begin{singlespacing}
+\begin{verbatim}
+ y <- array(NA,L)
+ for (i in 1:L)
+   y[i] <- x.sim[i,1] + x.sim[i,2]
+\end{verbatim}
+\end{singlespacing}
+
+%The columns of these matrices
+%are stored separately as $n$ 
+%individual numeric vectors,
+%each corresponding to a different component {\tt x[i]}.
+
+Besides the basic
+arithmetic operators,
+%{\tt + - * / ^},
+also the elementary functions such as
+{\tt exp()}, 
+{\tt log()},
+{\tt sin()},
+{\tt cos()},
+etc. have been adapted to accept random vectors.
+For example,
+if {\tt x} is a random vector of length $n$,
+then {\tt exp(x)} returns a
+random vector of length
+$n$ consisting of components {\tt exp(x[i])}
+for
+$i=1,\ldots,n$,
+corresponding to a $L\times n$ matrix of simulations.
+
+Logical operations
+such as $<$, $\le$,
+produce indicators of events.
+For example, 
+{\tt x>y}
+yields an indicator random variable of 
+$\{x>y\}$.
+We may naturally apply functions
+involving indicators and other random variables:
+{\tt (x-y) * (x>y)}
+yields a random variable with 
+the distribution of 
+$(x-y)\cdot\inds{x>y} \equiv (x-y)^+.$
+
+
+\subsection{Matrix and array operations}
+
+A \emph{random matrix} is implemented
+as a random vector possessing
+a dimension attribute. 
+This corresponds to the way matrices
+are implemented in R.
+To multiply two (compatible) 
+random matrices,
+say $\mat{X}$ and $\mat{Y}$, 
+one can simply write
+{\tt Z <- X \%*\% Y}
+which in effect is equivalent to the code
+
+\begin{singlespacing}
+\begin{verbatim}
+ Z <- array(NA,c(L,k,m))
+ for (i in 1:L)
+     Z[i,,] <- X[i,,] %*% Y[i,,]
+\end{verbatim}
+\end{singlespacing}
+where {\tt k} is the number of rows in {\tt X}
+and {\tt m} is the number of columns in {\tt Y}. 
+
+It is possible to 
+define any matrix function to
+work with random variables.
+For example
+{\tt  det(M)}
+returns the distribution of the determinant of 
+the matrix {\tt M}.
+
+The user can be oblivious to the
+way the simulations are manipulated 
+``behind the scenes."
+Usually 
+there is no need to access the matrices of simulations;
+most of the functions that work
+with numerical arrays also work with random arrays.
+
+
+
+\subsection{Random variate generation}
+
+In practice, 
+we often need to generate 
+random variates 
+to generate simulations. 
+In R,
+this is typically done 
+using built-in functions.
+A single $n$-dimensional 
+draw of independent standard normal random variates is 
+generated by the statement\\
+{\tt z <- rnorm(n,mean=0,sd=1)}.
+
+Our implementation 
+features
+a number of functions that return
+independently and indentically distributed
+(iid)
+simulations as random vector objects;
+let us call such functions
+\emph{random variable-generating} functions.
+For example, to generate a 
+$n$-dimensional standard normal 
+random vector object, the 
+random vector {\tt z} generated by the statement
+
+\begin{verbatim}
+  z <- rvnorm(n,mean=0,sd=1)
+\end{verbatim}
+is internally represented by
+$n$ column vectors of 
+simulations
+(draws from $\Normal(0,1)$)
+of length $L$ each.
+The user sees {\tt z} 
+as an $n$-dimensional object.
+The matrix of simulations 
+is accessible via the method 
+{\tt sims(z)}
+if needed.\footnote{
+{\tt as.matrix(z)}
+would instead return
+the $n\times1$ random matrix object {\tt z}
+and \emph{not} the simulations. 
+}
+
+Consider another example.
+To simulate the distribution of
+the random variable
+$y = \sum_{i=1}^n z_i\inds{z_i>0}/n$
+we can write
+{\tt y <- mean(z*(z>0))}
+where {\tt mean} returns the distribution of the 
+arithmetic average.
+This code will also work with a numerical vector.
+
+
+
+To compute marginal distributions of 
+quantities integrated over random parameters,
+we also need to 
+pass random arguments 
+to random variable-generat\-ing functions.
+Take for example the random variable 
+$z \sim \Normal(\mu,\sigma^2)$,
+where $\mu$ and $\sigma$ are
+themselves random variables.
+We wish to draw simulations from the
+marginal density of $z$.
+%$$
+%  p(z) := \int\int \Normal(z|\mu, \sigma)p(\mu,\sigma)\dif\mu\dif\sigma.
+%$$
+%where $p(\mu,\sigma)$ is the joint density of the 
+two parameters.
+This is obtained by drawing
+$z^{(\ell)} \sim \Normal\left(\mu^{(\ell)}, (\sigma^{(\ell)})^2\right)$
+where $(\mu^{(\ell)},\sigma^{(\ell)})$ are simulations from the
+joint density of $\mu$ and $\sigma$.
+If {\tt mu} and {\tt sigma} are 
+each random variables (random scalars),
+then\\
+{\tt z <- rvnorm(mean=mu, sd=sigma)}
+will be a random variable whose
+vector of simulations consists of components
+with the distribution of $z$.
+
+The parameters may also be of arbitrary length.
+If {\tt mu} and {\tt sigma} are vectors
+of length $k$, then 
+\begin{verbatim}
+  z <- rvnorm(mean=mu,sd=sigma)
+\end{verbatim}
+will generate a random vector of length $k$
+where the $j$th component 
+{\tt z[j]}
+has mean {\tt mu[j]} and standard deviation 
+{\tt sigma[j]}.
+Thus the matrix of simulations of {\tt z} 
+contains components {\tt z[j]} distributed as
+$z^{(\ell)}_j \sim \Normal\left(\mu^{(\ell)}_j, (\sigma^{(\ell)}_j)^2\right).$
+If the lengths of the vectors do not match,
+the shorter vector is ``recycled"
+as necessary.
+Typically {\tt mu} has $k$ different means,
+but $\sigma$ is a scalar, so 
+$z_j \sim \Normal(\mu_j, \sigma^2)$ for $j=1,\ldots,k$.
+
+
+
+\subsection{Numerical summaries}
+
+Once we have the 
+desired distributions (that is, random vectors or arrays),
+we need to summarize the results.
+The distributions being represented by 
+vectors of simulations,
+the only thing we need to access is the simulations.
+We have provided a method {\tt sims(x)}
+to access the matrix of simulations of a random vector
+object {\tt x}; the user may summarize these any way she or he likes.
+However, this is not the preferred way of 
+doing things in an object-oriented computing environment.
+It is usually more productive to write a 
+function (method) that accesses the simulations
+of the argument objects, and produces the desired results.
+
+Our function 
+{\tt simapply()}
+applies a given function to each column of 
+the matrix of simulations of a random vector,
+returning an array of numbers. 
+For example, to find the mean 
+(expectation) of the random variable
+$x_1$, we need obtain the simulations
+$x_1^{(1)},\ldots,x_1^{(L)}$ and compute
+$\sum_{\ell=1}^L x_1^{(\ell)}/L$.
+This is accomplished 
+by {\tt simapply(x[1], mean)}
+which is equivalent to \\
+{\tt mean(sims(x[1]))}, the arithmetic mean
+of the simulations of the first component of the 
+random vector {\tt x}, $x_1$.
+{\tt simapply(x, mean)} 
+applies the {\tt mean()} function
+to the simulation vectors of each component 
+{\tt x[1],...,x[n]}
+and thus yields a numeric vector of length $n$.
+
+On the other hand,
+if {\tt x} is a random vector,
+the function {\tt mean(x)}
+returns the average of
+the individual random components
+{\tt x[1],...,x[n]},
+that is, {\tt sum(x)/length(x)}
+which is a (one-dimensional) random variable,
+internally represented by a vector of $L$ simulations
+from the distribution of $\sum_{i=1}^n x_i/n$.
+
+
+We can imagine 
+{\tt mean(x)} taking the \emph{rowwise} mean of the
+matrix of simulations {\tt sims(x)} 
+and {\tt simapply(x, mean)} 
+taking the \emph{columnwise} means
+of the individual components.
+The former yields a column vector of length $L$,
+that is, a random variable.
+The latter yields a row vector of length $n$
+consisting of constants.
+In the same fashion,
+{\tt var(x)} gives the sample variance;
+if any of the components of {\tt x} is a random variable,
+the result will be the a random variable with
+$L$ random draws from the distribution of
+the random variable $\sum_{i=1}^n (x_i-\bar{x})^2/(n-1)$,
+but {\tt simapply(x, var)}
+gives the $n$ 
+componentwise variances for the $n$-dimensional vector {\tt x}.
+
+Several familiar functions taking numerical vectors
+as arguments have been adapted to 
+accept random vector objects:
+for example,
+{\tt quantile()} for finding quantiles,
+{\tt sort()} for creating distributions 
+of the order statistics,
+{\tt var()} for the sample variance,
+{\tt sd()} for the sample standard deviation.
+Given random variables as arguments,
+these functions return always
+random variables. The argument
+can of course be
+a mixed vector constants and random variables.
+
+
+The most often used summaries 
+can be viewed most conveniently by entering
+the name of the random vector on the console;
+the default printing method returns
+the mean, standard deviation, minimum value,
+maximum, median, and the 2.5\% and 97.5\% quantiles.
+This output routine is customizable.
+See Figure \ref{ypred}.
+
+%%
+
+
+\subsection{Graphical summaries}
+
+We have provided some basic graphical summary methods
+that work on the random vector objects.
+{\tt plot(x)} draws a scatterplot with credible intervals
+drawn for each random component of $x$.
+If all components are constants,
+the command reduces to {\tt plot} function.
+{\tt rvhist(x)} draws a grid of histograms of 
+simulations, each grid cell 
+containing one histogram for each component of $x$.
+Many other functions are being developed.
+Most functions can be adapted easily to
+accept random variable objects as arguments. 
+
+
+%cut here
+%cut end
+
+
+\subsection{Toward fully Bayesian computing}
+
+We believe that we have managed to lay the
+foundation of
+an essential component in an
+ideal, fully Bayesian computing environment.
+The next challenge is to integrate a 
+Bayesian (probabilistic)
+modeling language to R.
+Ideally, this language should be 
+part of the R syntax and
+not just a module that parses BUGS-like
+models saved in a text file:
+this way of programming introduces 
+\emph{redundancy}.
+We need to express our statistical model
+in a language that BUGS understands, 
+but also in R to draw 
+replications and predictions. 
+
+Since computation is an essential part of
+practical Bayesian data analysis,
+we wish that making Bayesian programming
+easier will make 
+Bayesian data analysis methods
+more effective
+by routinely considering all 
+uncertain quantities as random variables.
+
+
+%\pagebreak
+
+\addcontentsline{toc}{chapter}{Bibliography}
+\bibliography{/Users/jkerman/lib/bib/jouni_bibliography}
+
+
+
+\end{document} 
+%END%
+

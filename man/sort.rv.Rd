@@ -6,20 +6,27 @@
 }
 \description{
   \code{sort.rv} computes the distribution of the order statistics
-  of an rv object.
+  of a random vector.
 }
 \arguments{
-  \item{x}{an object}
+  \item{x}{a random vector}
   \item{\dots}{further arguments passed to \code{sort.rv}}
 }
-\value{
+\details{
+ The result is the \emph{distribution} of the order statistic of the given vector \code{x}:
+ that is, the \code{sort} function is applied to each \emph{row}
+ of the matrix of simulations of \code{x} (\code{sims(x)}) and returned then
+ in random vector form. 
+ 
+ See  \code{\link{sort}} for further details of the function \code{sort}.
+}\value{
   An rv object of the same length as \code{x}.
 }
 \references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
 }
-%\seealso{
-%  Other adapted functions: \code{\link{cov}}.
-%}
+\seealso{
+  \code{\link{sort}}
+}
 \author{
  Jouni Kerman
  \email{kerman@stat.columbia.edu}
@@ -29,5 +36,5 @@
   #
 }
 
-\keyword{classes}
+\keyword{manip}
 

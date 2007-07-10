@@ -26,10 +26,12 @@
  \url{http://www.stat.columbia.edu/~kerman}
 }
 \examples{
+  \dontrun{
   x <- 1:20
   y <- rnorm(length(x), mean=x, sd=10)
-  print(summary(lm.fit <- lm(y ~ x)))
-  random.estimates <- postsim(lm.fit)
+  print(summary(fit <- lm(y ~ x)))
+  bayes.estimates <- postsim(fit)
+  }
 }
 
 \keyword{classes}

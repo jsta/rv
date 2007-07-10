@@ -9,7 +9,7 @@
 }
 \arguments{
   \item{n}{integer: number of vectors to generate}
-  \item{alpha}{the parameter vector}
+  \item{alpha}{the parameter vector; may be random}
 }
 \details{
   The Dirichlet distribution is a generalization of the Beta distribution.
@@ -27,7 +27,8 @@
  \url{http://www.stat.columbia.edu/~kerman}
 }
 \examples{
-  #
+  a <- rvdirichlet(1, alpha=c(6, 3, 1)) # 
+  sum(a) # one with probability 1
 }
 
 \keyword{classes}

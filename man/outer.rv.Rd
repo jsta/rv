@@ -16,6 +16,10 @@ outer.rv(X, Y=NULL, FUN="*", \dots)
 \details{
   Implements the outer product for random arrays.
 
+  Note. \code{outer} is not a generic function; thus \code{outer(x)} will not
+  work if \code{x} is an rv object.
+  You must write \code{outer.rv(x)} explicitly.
+
   See the function \code{outer} for further details.
 }
 \value{

@@ -2,7 +2,7 @@
 \title{Create a Random Vector from a Matrix of Simulations}
 \alias{rvsims}
 \usage{
-  rvsims(sims, n.sims=rvnsims(), permute=FALSE, save.order=FALSE)
+  rvsims(sims, n.sims=setnsims(), permute=FALSE, save.order=FALSE)
 }
 \description{
 \code{rvsims} takes a vector, matrix, or 3-way array (\code{sims})

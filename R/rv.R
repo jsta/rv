@@ -19,27 +19,29 @@
 
 .RV <- list()
 
-.rvRegisterFunctionSwitch <- function (FUN, fname, namespace)
+.rvRegisterFunctionSwitch <- function (FUN, fname, namespace, group=3)
 {
   origFUN <- getFromNamespace(fname, namespace)
-  .RV[[namespace]][[fname]] <<- list(R=origFUN, rv=FUN)
+  .RV[[paste(group)]][[namespace]][[fname]] <<- list(R=origFUN, rv=FUN)
 }
 
 .rvFunctionSwitch <- function (attach=TRUE, verbose=TRUE)
 {
   detach <- (!attach)
-  for (namespace in names(.RV)) {
-    funcs <- .RV[[namespace]]
-    for (fun.name in names(funcs)) {
-      f <- funcs[[fun.name]]
-      FUN <- if (attach) f$rv else f$R
-fullname <- paste(namespace, ":::", fun.name, sep="")
-      if (verbose) {
-        cat(paste(namespace, ":::", fun.name, " ", sep=""))
-        if (attach) cat("replaced by a function in package:rv\n")
-        else cat("restored.\n")
+  for (group in names(.RV)) {
+    .RVgroup <- .RV[[group]]
+    for (namespace in names(.RVgroup)) {
+      funcs <- .RVgroup[[namespace]]
+      for (fun.name in names(funcs)) {
+        f <- funcs[[fun.name]]
+        FUN <- if (attach) f$rv else f$R
+        if (verbose) {
+          cat(paste(namespace, ":::", fun.name, " ", sep=""))
+          if (attach) cat("replaced by a function in package:rv\n")
+          else cat("restored.\n")
+        }
+        assignInNamespace(fun.name, FUN, namespace)
       }
-      assignInNamespace(fun.name, FUN, namespace)
     }
   }
   if (verbose) {
@@ -49,10 +51,28 @@ fullname <- paste(namespace, ":::", fun.name, sep="")
   }
 }
 
+.rvRestoreGroup <- function (group, restore=TRUE)
+{
+  for (grp in group) {
+    g <- paste(grp)
+    if (!(g %in% names(.RV))) next
+    .RVgroup <- .RV[[g]]
+    for (namespace in names(.RVgroup)) {
+      funcs <- .RVgroup[[namespace]]
+      for (fun.name in names(funcs)) {
+        f <- funcs[[fun.name]]
+        FUN <- if (restore) f$R else f$rv
+        assignInNamespace(fun.name, FUN, namespace)
+      }
+    }
+  }
+}
+
+
 
 
 # ----------------
-# end of rv-base.R
+# end of rv-base0.R
 # ----------------
 #
 # NAME
@@ -73,26 +93,32 @@ detachrv <- function ()
 }
 
 # ========================================================================
-# rvnsims - get or set the default number of simulations (a global variable)
+# setnsims - get or set the default number of simulations (a global variable)
 # ========================================================================
 
-rvnsims <- function(nsims)
+setnsims <- function(nsims)
 {
   if (!missing(nsims)) {
     if (nsims[1]>0) {
-      options('rvnsims'=ceiling(nsims[1]))
+      oldnsims <- rvpar("n.sims")
+      rvpar(n.sims=ceiling(nsims[1]))
+      return(oldnsims)
    } else
       stop('Invalid number of simulations ',nsims[1])
   }
-  getOption('rvnsims')
+  rvpar("n.sims")
 }
 
+getnsims <- function ()
+{
+  setnsims()
+}
 
 # ========================================================================
-# nsims - get the number of simulations of the components of an rv
+# rvnsims - get the number of simulations of the components of an rv
 # ========================================================================
 
-nsims <- function(x)
+rvnsims <- function(x)
 {
   sapply(x, length)
 }
@@ -100,6 +126,7 @@ nsims <- function(x)
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # AN OBJECT OF TYPE 'rv'
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#
 #  rv(n)
 #  
 
@@ -158,7 +185,7 @@ rv <- function(length=0)
 {
   if (is.numeric(length)) {
     if (length>0) {
-      n.sims <- rvnsims()
+      n.sims <- setnsims()
       x <- lapply(1:length, function (x) rep(NA, n.sims))
     } else {
       x <- list()
@@ -210,7 +237,7 @@ rv <- function(length=0)
   s <- sapply(x, I)
   if (is.list(s)) {
     # some elements had different dimensions!
-      stop("Simulation list was not consistent")
+    stop("Simulation list was not consistent")
   }
   if (!is.null(dim(s))) s <- t(s)
   r <- rvsims(s, permute = permute)
@@ -219,8 +246,7 @@ rv <- function(length=0)
 }
 
 
-
-rvsims <- function(sims, n.sims=rvnsims(), permute=FALSE, save.order=FALSE)
+rvsims <- function(sims, n.sims=setnsims(), permute=FALSE, save.order=FALSE)
 {
   if (is.list(sims)) return(.rvsims.list(sims, permute=permute))
   if (!is.array(sims) && !is.vector(sims)) {
@@ -250,14 +276,13 @@ rvsims <- function(sims, n.sims=rvnsims(), permute=FALSE, save.order=FALSE)
   }
   vec <- rv(n.vars)
   if (n.sims.max>1) {
-    nsims <- rvnsims()
+    nsims <- setnsims()
     if (n.sims<n.sims.max) {
       omit <- (-1):(n.sims-n.sims.max)
       sims <- sims[omit,,drop=FALSE]
     } else if (n.sims>n.sims.max) {
-      warning("n.sims is larger than the available number of simulations")
-      include <- sample(1:n.sims.max,size=n.sims-n.sims.max,replace=TRUE)
-      include <- c(1:n.sims.max, include)
+      # warning("n.sims is larger than the available number of simulations")
+      include <- rep(1:n.sims.max, length.out=n.sims)
       sims <- sims[include,,drop=FALSE]
     }
     if (permute) {
@@ -306,8 +331,9 @@ sims.default <- function(x, ...) # NOEXPORT
   ## re: problems in max.rvsims: cbind(sims(1),sims(x)) does not work
   ## since sims(1) returns a 1x1 matrix but sims(x) may be L x n matrix.
   ## TODO: integrate better!
-  ##
-  as.vector(x)  # drop attributes
+  ## Need to unclass first, to be consistent.
+  ## DEBUG: ? why not just sims(as.rv(x, ...)) ? 
+  as.vector(unclass(x))  # drop attributes
 }
 
 # ========================================================================
@@ -316,16 +342,16 @@ sims.default <- function(x, ...) # NOEXPORT
 
 .sims.as.list <- function (x)
 {
-  # retain dimensions, and always return rvnsims() simulations.
-  d <- dim(x)
-  dn <- dimnames(x)
-  s <- sims(as.rv(x), n.sims=rvnsims())
+  # retain dimensions, and always return setnsims() simulations.
+  if (is.null(x)) return(NULL)
+  s <- sims(as.rv(x), n.sims=getnsims())
   s <- split(s, row(s)) ## faster than applying list to 1=rows.
-  if (!is.null(d)) {
+  if (!is.null(d <- dim(x))) {
+    dn <- dimnames(x)
     s <- lapply(s, function (x) { dim(x) <- d; dimnames(x) <- dn; x})
   }
-  # The default names will be "1", "2", ... etc.; set names to NULL
-  # since this may interfere with mapply( ... ) in "[<-.rv"
+  # The default names will be "1", "2", ... etc.
+  # set names to NULL since this may interfere with mapply( ... ) in "[<-.rv"
   names(s) <- NULL
   s
 }
@@ -347,11 +373,9 @@ sims.default <- function(x, ...) # NOEXPORT
     a <- attr(sim, 'rvsim')
     if (is.na(n.chains)) n.chains <- a$n.chains
     .order <- a$order
-    if (n.chains != .rvsim$n.chains || length(.order) != length(sim)) {
-      stop("sims.rv: mc time series for simulations are unavailable",deparse(substitute(x)))
+    if (length(.order) == length(sim)) {
+      sim <- sim[.order]
     }
-    sim <- sim[.order]
-    dim(sim) <- dim(.order)
     if (length(sim) != n.sims) sim <- rep(sim,length.out=n.sims)
     s[[i]] <- sim
   }
@@ -397,7 +421,7 @@ sims.rv <- function(x, n.sims=NULL, dimensions=FALSE, sim.matrix=FALSE, mc.array
     n.s <- length(m)/prod(dim.x)
     cm <- m
     dimnames(cm) <- NULL
-    m <- array(m, c(n.s,dim.x)) # multi-way array, 1st dimension is the dimension "rows"
+    m <- array(m, c(n.s, dim.x)) # multi-way array, 1st dimension is the dimension "rows"
     if (!is.null(dn <- dimnames(x))) {
       dimnames(m)[1+seq(along=dn)] <- dn ## put dimnames in correct positions
     } 
@@ -407,7 +431,6 @@ sims.rv <- function(x, n.sims=NULL, dimensions=FALSE, sim.matrix=FALSE, mc.array
   } else {
     dimnames(m) <- list(NULL, names(x))
   }
-  
   m
 }
 
@@ -445,6 +468,19 @@ is.rv.default <- function(x)
   FALSE
 }
 
+# is rv numeric?
+
+is.numeric.rv <- function (x)
+{
+  all(rvsimapply(x, is.numeric))
+}
+
+as.numeric.rv <- function (x, ...)
+{
+  simapply(x, as.numeric, ...)
+}
+
+
 # ========================================================================
 # .is.rvsim - is the argumentan rvsim object?
 # ========================================================================
@@ -468,7 +504,7 @@ is.rv.default <- function(x)
 
 is.random <- function(x)
 {
-  sapply(x, .is.rvsim)
+  (rvnsims(x)>1)
 }
 
 # ========================================================================
@@ -574,12 +610,13 @@ as.rv <- function(x)
 
 as.rv.rv <- function(x)
 {
-  x
+  return(x)
 }
 
 as.rv.numeric <- function(x)
 {
-  r <- rvsims(matrix(x,nrow=1))
+  if (is.rv(x)) return(x)
+  r <- rvsims(matrix(as.vector(x), nrow=1))
   cr <- class(r)
   attributes(r) <- attributes(x)
   class(r) <- cr
@@ -598,37 +635,93 @@ as.rv.integer <- function(x)
 
 as.rv.list <- function(x)
 {
-  y <- NULL
-  for (i in 1:length(x))
-    y <- c(y,as.rv(x[[i]]))
-  y
+  unlist.rv(lapply.rv(x, as.rv))
 }
 
 as.rv.matrix <- function(x)
 {
-  dim.x <- dim(x)
-  r <- as.rv.numeric(as.vector(x))
-  dim(r) <- dim.x
-  r
+  as.rv.numeric(x)
 }
 
 as.rv.default <- function(x, ...)
 {
+  if (is.null(x)) return(NULL)
   stop('Cannot coerce object of class "', class(x), '" to rv')
 }
 
+as.rv.xtabs <- function (x) 
+{
+  # NAME
+  #  as.rv.xtabs
+  #
+  as.rv(x[])
+}
+
 # DEBUG:1 ?? The permutation of !is.null(dim(sims)) is not done yet
-# DEBUG:2 (must take permutation of row indices and then permute.)
+# DEBUG:2 (must take permutation of row indices and then permute.
 
 
 # ========================================================================
-# as.logical  -  coerce to logical
+# is.fuzzy  -  test whether components are logical but random
 # ========================================================================
 
-#as.logical.rv <- function(x, ...)
-#{
-#  simapply(x, as.logical)
-#}
+is.fuzzy <- function (x)
+{
+  UseMethod("is.fuzzy")
+}
+
+is.fuzzy.rv <- function (x)
+{
+  # NAME
+  #  is.fuzzy - Is a Vector Component Logical But Random
+  # 
+  component.is.logical <- rvsimapply(as.rv(x), is.logical)
+  component.prop <- rvmean(x)
+  (component.is.logical & component.prop>0 & component.prop<1)
+}
+
+is.fuzzy.default <- function (x)
+{
+  FALSE
+}
+
+# ========================================================================
+# as.logical, etc.
+# ========================================================================
+
+
+
+as.real.rv <- function(x, ...)
+{
+  simapply(x, as.real, ...)
+}
+
+as.double.rv <- function(x, ...)
+{
+  simapply(x, as.double, ...)
+}
+
+as.logical.rv <- function(x, ...)
+{
+  simapply(x, as.logical, ...)
+}
+
+as.integer.rv <- function (x, ...)
+{
+  simapply(x, as.integer, ...)
+}
+
+is.integer.rv <- function (x)
+{
+  ((is.rv(x) && all(rvsimapply(x, is.integer))) || .Primitive("is.integer")(x))
+} 
+.rvRegisterFunctionSwitch(is.integer.rv, "is.integer", 'base', group=2)
+
+is.logical.rv <- function (x)
+{
+  ((is.rv(x) && all(rvsimapply(x, is.logical))) || .Primitive("is.logical")(x))
+} 
+.rvRegisterFunctionSwitch(is.logical.rv, "is.logical", 'base', group=2)
 
 # ========================================================================
 # as.vector.rv  -  coerce to vector
@@ -654,15 +747,7 @@ is.constant <- function(x)
 
 is.constant.rv <- function(x)
 {
-  sapply(x, is.constant)
-}
-
-is.constant.rvsim <- function(x)
-{
-  s <- sims.rvsim(x)
-  if (length(s)==1)
-    return(TRUE)
-  return(var(as.vector(s)) == 0)
+  (rvnsims(x)==1)
 }
 
 is.constant.default <- function(x)
@@ -761,106 +846,129 @@ rvattach <- function (what, name='rvattach', overwrite=TRUE, impute=FALSE, ...)
 #  NOT IMPLEMENTED: $<-.rv
 #
 
+# ========================================================================================
+# rvcompatibility
+# ========================================================================================
+
+rvcompatibility <- function (level=NULL)
+{
+  old.level <- getOption("rvcompatibility")
+  if (!is.null(level)) {
+    if (level==0) {
+      .rvRestoreGroup(group=1, restore=FALSE)
+    } else if (level==1) {
+      .rvRestoreGroup(group=1, restore=TRUE)
+    } else {
+      warning("Unknown level, ignored.")
+      return(old.level)
+    }
+    options(rvcompatibility=level)
+  }
+  return(old.level)
+}
+
+
 # ========================================================================
 # [.rv  -  rv component retrieval by index (NEW)
 # ========================================================================
 #
 
-"[.rv" <- function(x, ..., drop=TRUE)
+
+"[.rv" <- function (x, ..., drop = TRUE) 
 {
-  if (missing(x)) { ### ?
-    if (drop) 
-      return(drop(x))
-     else
-       return(x)
-  }
-  # Some trickery is needed to deal with possible missing values
-  # (e.g. x[1,,] or x[,z])
-  dots <- as.list(substitute(list(...)))[-1]
-  miss <- (sapply(dots, function (x) deparse(x)[1])=="")
-  dots[miss] <- TRUE
-  # Do NOT try to use lapply here, lapply(dots, eval.parent) won't work.
-  for (i in seq(along=dots)) {
-    dots[[i]] <- eval.parent(dots[[i]])
-  }
-  isrv <- sapply(dots, is.rv)
-  if (any(isrv)) {
-    s <- .sims.as.list(x)
-    dots.sims <- lapply(dots, .sims.as.list)
-    list.of.sims <- do.call(mapply, 
-      args=c(FUN=.Primitive("["),
-      list(s),
-      dots.sims,
-      MoreArgs=list(drop=drop),
-      SIMPLIFY=FALSE))
-    v <- .rvsims.list(list.of.sims)
-  } else {
-    # If none of the arguments is an rv, we'll do it faster:
-    call <- substitute("["(unclass(x), ..., drop=drop))
-    v <- eval.parent(call)
-    v[ sapply(v, is.null) ] <- NA
-    class(v) <- class(rv())
-  }
-  v
+    if (missing(x)) {
+        if (drop) 
+            return(drop(x))
+        else return(x)
+    }
+    # Problem: cannot evaluate list(...) if we have missing values
+    # (this happens often, e.g. "x[,1]")
+    #
+    dots <- as.list(substitute(list(...)))[-1]
+    miss <- (sapply(dots, function(x) deparse(x)[1]) == "")
+    # Kludge:
+    if (any(miss)) {
+      dots[miss] <- TRUE
+      for (i in seq(length(dots))) {
+          dots[[i]] <- eval.parent(dots[[i]])
+      }
+   } else {
+     dots <- list(...)
+   }
+   isrv <- sapply(dots, is.rv)
+   if (any(isrv)) {
+      s <- .sims.as.list(x)
+      dots.sims <- lapply(dots, .sims.as.list)
+      list.of.sims <- do.call(mapply,
+        args = c(FUN = .Primitive("["), list(s), dots.sims,
+        list(MoreArgs = list(drop = drop)), SIMPLIFY = FALSE))
+       v <- .rvsims.list(list.of.sims)
+    }
+    else {
+        #call <- substitute(unclass(x)[..., drop = drop])
+        #v <- eval.parent(call)
+        v <- eval.parent(unclass(x)[..., drop = drop])
+        if (length(v) >= 1) {
+            v[sapply(v, is.null)] <- NA
+        }
+        else {
+            v <- list()
+        }
+        class(v) <- class(rv())
+    }
+    v
 }
-
-
-# ========================================================================
-# [ - new replacement method for "[" extraction operator
-# ========================================================================
-
-
-#.rvBracketExtract <- function(x, ...)
-#{
-#  if (anyisrv(...))
-#    call <- substitute("[.rv"(x, ...))
-#  else
-#    call <- substitute(.Primitive("[")(x, ...))
-#  eval.parent(call)
-#}
-#
-#"[" <- .rvBracketExtract # EXPORT "["
-#
-#.rvRegisterFunctionSwitch(.rvBracketExtract, "[", 'base')
 
 
 # ========================================================================
 # [<-.rv  -  rv component assignment by index (NEW)
 # ========================================================================
-#
+# 2007-01-11
 
-"[<-.rv" <- function(x, ..., value=NULL)
+
+
+"[<-.rv" <- function (x, ..., value = NULL) 
 {
-  if (missing(x)) { ### ?
-    if (drop) 
-      return(drop(x))
-     else
-       return(x)
-  }
-  # Some trickery is needed to deal with possible missing values
-  # (e.g. x[1,,] or x[,z])
-  dots <- as.list(substitute(list(...)))[-1]
-  miss <- (sapply(dots, function (x) deparse(x)[1])=="")
-  dots[miss] <- TRUE
-  dots <- lapply(dots, eval.parent)
-  isrv <- sapply(dots, is.rv)
-  if (any(isrv)) {
-    x.sims <- .sims.as.list(x)
-    dots.sims <- lapply(dots, .sims.as.list)
-    value.sims <- .sims.as.list(value)
-    args <- c(FUN=.Primitive("[<-"), list(x.sims), dots.sims, value=list(value.sims),
-      SIMPLIFY=FALSE)
-    list.of.sims <- do.call("mapply", args=args)
-    v <- .rvsims.list(list.of.sims)
-  } else {
-    # If none of the arguments is an rv, we'll do it faster:
-    call <- substitute(.Primitive("[<-")(unclass(x), ..., value=value))
-    v <- eval.parent(call)
-    v[ sapply(v, is.null) ] <- NA
-    class(v) <- class(rv())
-  }
-  v
+    if (missing(x)) {
+        if (drop) 
+            return(drop(x))
+        else return(x)
+    }
+    dots <- as.list(substitute(list(...)))[-1]
+    miss <- (sapply(dots, function(x) deparse(x)[1]) == "")
+    # Kludge:
+    if (any(miss)) {
+      dots[miss] <- TRUE
+      for (i in seq(length(dots))) {
+          ## This *might* not work in all cases, especially when called from within
+          ## sapply or lapply.
+          dots[[i]] <- eval.parent(dots[[i]])
+      }
+   } else {
+     dots <- list(...)
+   }
+    isrv <- sapply(dots, is.rv)
+    if (any(isrv)) {
+        x.sims <- .sims.as.list(x)
+        dots.sims <- lapply(dots, .sims.as.list)
+        value.sims <- .sims.as.list(value)
+        args <- c(FUN = .Primitive("[<-"), list(x.sims), dots.sims, 
+            value = list(value.sims), SIMPLIFY = FALSE)
+        list.of.sims <- do.call("mapply", args = args)
+        v <- .rvsims.list(list.of.sims)
+    }
+    else {
+        v <- eval.parent(.Primitive("[<-")(unclass(x), ..., value = value))
+        v[sapply(v, is.null)] <- NA
+        new.names <- names(v)
+        dim(v) <- dim(x)
+        dimnames(v) <- dimnames(x) 
+        names(v) <- new.names
+        class(v) <- class(rv())
+    }
+    v
 }
+
 
 
 # ========================================================================
@@ -868,38 +976,48 @@ rvattach <- function (what, name='rvattach', overwrite=TRUE, impute=FALSE, ...)
 # ========================================================================
 #
 
-"[<<-.rv" <- function(x, ..., value=NULL)
+"[<<-.rv" <- function (x, ..., value = NULL) 
 {
-  if (missing(x)) { ### ?
-    if (drop) 
-      return(drop(x))
-     else
-       return(x)
-  }
-  # Some trickery is needed to deal with possible missing values
-  # (e.g. x[1,,] or x[,z])
-  dots <- as.list(substitute(list(...)))[-1]
-  miss <- (sapply(dots, function (x) deparse(x)[1])=="")
-  dots[miss] <- TRUE
-  dots <- lapply(dots, eval.parent)
-  isrv <- sapply(dots, is.rv)
-  if (any(isrv)) {
-    x.sims <- .sims.as.list(x)
-    dots.sims <- lapply(dots, .sims.as.list)
-    value.sims <- .sims.as.list(value)
-    args <- c(FUN=.Primitive("[<<-"), list(x.sims), dots.sims, value=list(value.sims),
-      SIMPLIFY=FALSE)
-    list.of.sims <- do.call("mapply", args=args)
-    v <- .rvsims.list(list.of.sims)
-  } else {
-    # If none of the arguments is an rv, we'll do it faster:
-    call <- substitute(.Primitive("[<<-")(unclass(x), ..., value=value))
-    v <- eval.parent(call)
-    v[ sapply(v, is.null) ] <- NA
-    class(v) <- class(rv())
-  }
-  v
+    if (missing(x)) {
+        if (drop) 
+            return(drop(x))
+        else return(x)
+    }
+    dots <- as.list(substitute(list(...)))[-1]
+    miss <- (sapply(dots, function(x) deparse(x)[1]) == "")
+    # Kludge:
+    if (any(miss)) {
+      dots[miss] <- TRUE
+      for (i in seq(length(dots))) {
+          ## This *might* not work in all cases, especially when called from within
+          ## sapply or lapply.
+          dots[[i]] <- eval.parent(dots[[i]])
+      }
+   } else {
+     dots <- list(...)
+   }
+    isrv <- sapply(dots, is.rv)
+    if (any(isrv)) {
+        x.sims <- .sims.as.list(x)
+        dots.sims <- lapply(dots, .sims.as.list)
+        value.sims <- .sims.as.list(value)
+        args <- c(FUN = .Primitive("[<<-"), list(x.sims), dots.sims, 
+            value = list(value.sims), SIMPLIFY = FALSE)
+        list.of.sims <- do.call("mapply", args = args)
+        v <- .rvsims.list(list.of.sims)
+    }
+    else {
+        v <- eval.parent(.Primitive("[<<-")(unclass(x), ..., value = value))
+        v[sapply(v, is.null)] <- NA
+        new.names <- names(v)
+        dim(v) <- dim(x)
+        dimnames(v) <- dimnames(x) 
+        names(v) <- new.names
+        class(v) <- class(rv())
+    }
+    v
 }
+
 
 
 # ========================================================================
@@ -919,9 +1037,9 @@ rvattach <- function (what, name='rvattach', overwrite=TRUE, impute=FALSE, ...)
   eval.parent(call)
 }
 
-"[<-" <- .rvBracketAssignment # EXPORT "[<-"
+#"[<-.vector" <- .rvBracketAssignment # EXPORT "[<-"
 
-.rvRegisterFunctionSwitch(.rvBracketAssignment, "[<-", 'base')
+.rvRegisterFunctionSwitch(.rvBracketAssignment, "[<-", 'base', group=1)
 
 
 
@@ -947,9 +1065,9 @@ rvattach <- function (what, name='rvattach', overwrite=TRUE, impute=FALSE, ...)
   x
 }
 
-"c" <- .rvConcatenate # EXPORT "c"
+####DEBUG#### "c" <- .rvConcatenate # EXPORT "c"
 
-.rvRegisterFunctionSwitch(.rvConcatenate, 'c', 'base')
+.rvRegisterFunctionSwitch(.rvConcatenate, 'c', 'base', group=2)
 
 # ========================================================================
 # cbind  -  column bind for rvs
@@ -1005,10 +1123,11 @@ rbind.rv <- function(..., deparse.level = 1)
 # ========================================================================
 # mean.rv - mean (rowwise)
 # ========================================================================
+# updated 2007-01-11
 
 mean.rv <- function(x, ...)
 {
-  rvsims(rowMeans(sims(x)))
+  rvsims(rowMeans(sims(x), ...))
 }
 
 
@@ -1023,13 +1142,13 @@ mean.rv <- function(x, ...)
   if (!is.rv(a) && !is.rv(b)) return(.Primitive("%*%")(a,b))
   d <- dim(b)
   if (!is.rv(a) && (is.null(d)) || (length(d)==2 && d[2]==1)) {
-    n.sims <- .Internal(max(nsims(a),nsims(b), na.rm=FALSE))
+    n.sims <- .Internal(max(rvnsims(a),rvnsims(b), na.rm=FALSE))
     bsim <- sims(as.rv(b), dimensions=TRUE, n.sims=n.sims)
     # Typical case: constant matrix times a rv vector
     AB <- t(.Primitive("%*%")(a,t(bsim)))
     rvsims(AB)
   } else {
-    simmapply("crossprod", t(as.rv(a)), as.rv(b))
+    mapply.rv("crossprod", x=t(as.rv(a)), y=as.rv(b))
   }
 }
 
@@ -1037,7 +1156,7 @@ mean.rv <- function(x, ...)
 
 "%*%" <- .rvMatrixProduct # EXPORT "%*%"
 
-.rvRegisterFunctionSwitch(.rvMatrixProduct, "%*%", 'base')
+.rvRegisterFunctionSwitch(.rvMatrixProduct, "%*%", 'base', group=3)
 
 # ========================================================================
 # sort  -  generate order statistics
@@ -1059,61 +1178,88 @@ is.vector <- function(x, mode="any")
  .Internal(is.vector(x, mode))
 }
 
-.rvRegisterFunctionSwitch(is.vector, "is.vector", 'base')
+.rvRegisterFunctionSwitch(is.vector, "is.vector", 'base', group=2)
 
 
 # ========================================================================
 # is.atomic.rv  -  rv is an 'atomic' type.
 # ========================================================================
 
-is.atomic.rv <- function(x)
+is.atomic <- function(x)
 {
-  TRUE
+  (is.rv(x) || .Primitive("is.atomic")(x))
 }
+.rvRegisterFunctionSwitch(is.atomic, "is.atomic", 'base', group=2)
+
 
 
 # ========================================================================
 # min  -  minimum
 # ========================================================================
 
-min.rv <- function(..., na.rm=FALSE) ## EXPORT min.rv
+min <- function(..., na.rm=FALSE) ## EXPORT min
 {
-  simapply(cbind.rv(...), min, na.rm=na.rm)
+  if (anyisrv(...)) {
+    simapply(cbind.rv(...), .min, na.rm=na.rm)
+  } else {
+    .min(..., na.rm=na.rm)
+  }
 }
+
+.min <- base:::min
+.rvRegisterFunctionSwitch(min, "min", "base", group=0)
 
 # ========================================================================
 # max  -  maximum
 # ========================================================================
 
-max.rv <- function(..., na.rm=FALSE) ## EXPORT max.rv
+max <- function(..., na.rm=FALSE) ## EXPORT max
 {
-  simapply(cbind.rv(...), max, na.rm=na.rm)
+  if (anyisrv(...)) {
+    simapply(cbind.rv(...), .max, na.rm=na.rm)
+  } else {
+    .max(..., na.rm=na.rm)
+  }
 }
+
+.max <- base:::max
+.rvRegisterFunctionSwitch(max, "max", "base", group=0)
 
 
 # ========================================================================
 # pmin  -  parallel minimum
 # ========================================================================
 
-pmin.rv <- function(..., na.rm=FALSE) ## EXPORT pmin.rv
+pmin <- function(..., na.rm=FALSE) ## EXPORT pmin
 {
-  a <- sims(cbind.rv(...), dimensions=TRUE)
-  rvsims(t(apply(a, 1, function (m) apply(m, 1, min))))
+  if (anyisrv(...)) {
+    a <- sims(cbind.rv(...), dimensions=TRUE)
+    rvsims(t(apply(a, 1, function (m) apply(m, 1, .pmin))))
+  } else {
+    .pmin(..., na.rm=na.rm)
+  }
 }
 
+.pmin <- base:::pmin
+.rvRegisterFunctionSwitch(pmin, "pmin", "base", group=0)
 
 
 # ========================================================================
 # pmax.rv  -  parallel maximum
 # ========================================================================
 
-pmax.rv <- function(..., na.rm=FALSE) ## EXPORT pmax.rv
+pmax <- function(..., na.rm=FALSE) ## EXPORT pmax.rv
 {
-  a <- sims(cbind.rv(...), dimensions=TRUE)
-  rvsims(t(apply(a, 1, function (m) apply(m, 1, max))))
+  if (anyisrv(...)) {
+    a <- sims(cbind.rv(...), dimensions=TRUE)
+    rvsims(t(apply(a, 1, function (m) apply(m, 1, .pmax))))
+  } else {
+    .pmax(..., na.rm=na.rm)
+  }
 }
 
-
+.pmax <- base:::pmax
+.rvRegisterFunctionSwitch(pmax, "pmax", "base", group=0)
 
 # ========================================================================
 # solve.rv - solve linear systems
@@ -1122,9 +1268,9 @@ pmax.rv <- function(..., na.rm=FALSE) ## EXPORT pmax.rv
 solve.rv <- function (a, b, ...)
 {
   if (missing(b)) {
-    simmapply("solve", a, ...)
+    mapply.rv("solve", a=a, ...)
   } else {
-    simmapply("solve", a, b, ...)
+    mapply.rv("solve", a=a, b=b, ...)
   }
 }
 
@@ -1147,7 +1293,8 @@ solve.rv <- function (a, b, ...)
 #  .setDimensionByName
 #  .rowmax
 #  .slice
-
+#  .nodups
+#
 # ========================================================================
 # .show - show a given variable and its value (useful for debugging purposes)
 # ========================================================================
@@ -1286,14 +1433,14 @@ solve.rv <- function (a, b, ...)
 # ========================================================================
 #
 
-.dim.index <- function(x) # NOEXPORT
+.dim.index <- function(x, leftadjust=TRUE) # NOEXPORT
 {
   if (is.null(dim(x)))
     ix <-.permut(length(x))
   else 
     ix <- .permut(dim(x))
   ixt <- paste('[',apply(ix, 1, paste, collapse=','),']',sep='')
-  .leftadjust(ixt)
+  if (leftadjust) .leftadjust(ixt) else ixt
 }
 
 # ========================================================================
@@ -1335,7 +1482,7 @@ solve.rv <- function (a, b, ...)
 
 .slice.rv <- function(..., row) # NOEXPORT
 {
-  v <- sapply(list(...), bracket, row)
+  v <- sapply(list(...), .bracket, row)
   class(v) <- class(rv())
   v
 }
@@ -1366,16 +1513,17 @@ solve.rv <- function (a, b, ...)
 # ========================================================================
 # Returns NA's for missing indices
 
-.bracket.indices <- function(x)
+.bracket.indices <- function(x, default.bracket=FALSE) # already in rv 0.923
 {
   if (length(x)<1 || !is.character(x)) return(NULL)
   no.brackets <- (regexpr("^(.*\\[(.*)\\].*)$", x)<1)
   y <- sub("^(.*\\[(.*)\\].*)$", "\\2", x)
   y <- sub(", *$", ",NA", y)
-  if (any(no.brackets)) y[no.brackets] <- "0"
+  if (any(no.brackets)) y[no.brackets] <- if (default.bracket) "1" else "0"
   y <- strsplit(y, " *, *")
   lapply(y, as.numeric)
 }
+
 
 
 
@@ -1385,18 +1533,24 @@ solve.rv <- function (a, b, ...)
 # x : a list of vectors of indices
 # dim. : dimension or length of the target matrix or vector.
 
-.indices <- function(x, dim.=NULL)
+.indices <- function (x, dim. = NULL) 
 {
-  if (is.null(x)) return(numeric(0))
-  ld <- length(dim.)
-  pos <- sapply(x, function (x) {
-    lx <- length(x)
-    if (lx == 1) return(x)
-    if (lx != ld || any(x>dim.)) return(NA)
-    1+sum(c(x-1,0)*c(1,dim.))
-  })
-  pos
+    if (is.null(x)) 
+        return(numeric(0))
+    ld <- length(dim.)
+    f <- function(x) {
+        lx <- length(x)
+        if (lx == 1) 
+            return(x)
+        if (lx != ld || any(x > dim.)) 
+            return(NA)
+        1 + sum(c(x - 1, 0) * c(1, cumprod(dim.)))
+    }
+    pos <- sapply(x, f)
+    pos
 }
+
+
 
 # ========================================================================
 # .impute.by.name - impute into a vector using the names attribute
@@ -1440,7 +1594,7 @@ solve.rv <- function (a, b, ...)
 {
   # 
   names.x <- names(x)
-  bix <- .bracket.indices(names.x)
+  bix <- .bracket.indices(names.x, default.bracket=TRUE)
   if (is.null(bix)) stop("Names of x MUST be set")
   b <- sapply(bix, prod)
   max.ix <- which(b==max(b))[1]
@@ -1449,7 +1603,9 @@ solve.rv <- function (a, b, ...)
   a <- array(NA, maxdim)
   new.x <- .impute.by.name(a, x)
   names.new.x <- names(new.x)
-  dim(new.x) <- maxdim
+  if (length(maxdim)>1) {
+    dim(new.x) <- maxdim
+  }
   names(new.x) <- names.new.x
   new.x
 }
@@ -1463,6 +1619,7 @@ solve.rv <- function (a, b, ...)
 .make.names <- function(x, name=deparse(substitute(x)))
 {
   if (is.null(x) || length(x)<1) return(x)
+  name <- make.names(name)
   paste(name, .dim.index(x), sep="")
 }
 
@@ -1478,26 +1635,100 @@ solve.rv <- function (a, b, ...)
 }
 
 # ========================================================================
-# longnames - names of the components of a rv, with brackets removed
+# make.fullnames - make eventually available!!
 # ========================================================================
 
-.longnames <- function(x)
+#.make.fullnames <- function(x)
+#{
+#  if (is.null(x) || length(x)<1) return(x)
+#  name <- make.names(name)
+#  paste(name, .dim.index(x), sep="")
+#}
+
+
+
+
+
+
+
+.list2array <- function (x, drop=FALSE)
 {
-  na <- names(x)
-  if (is.null(na)) return(na)
-  sn <- sapply(strsplit(na,'\\['),'[',1) # shortnames
-  spn <- split(na, sn)
-  for (i in seq(along=spn)) {
-    ## .dim.index(spn[[i]])
+  # name:
+  #   list2array - coerce a list to an array, preserving dimnames
+  # description:
+  #   attempt to coerce the list to an array, preserving dimnames
+  # arguments:
+  #   x : (list) list to be coerced into one array
+  # value:
+  #   a vector if not all dimensions of list elements were equal;
+  #   an array of dimension c(dim(x[[1]]),length(x)),
+  #   if all dimensions of the elements were equal.
+  # author:
+  #   Jouni Kerman
+  # history:
+  #   2006-08-28
+  #
+  dm.1 <- length(x)
+  if (dm.1<1) return(unlist(x))
+  da <- lapply(x, function (x) if (is.null(dim(x))) length(x) else dim(x))
+  dm.2 <- da[[1]]
+  dn.1 <- names(x)
+  dn.2 <- dimnames(x[[1]])
+  # 
+  a <- NULL
+  for (i in seq(along=x)) {
+    a <- c(a, x[[i]])
   }
-  ## NOT YET DONE
+  if (!all(sapply(da, function (d) all(d==dm.2)))) {
+    return(a)
+  }
+  names(a) <- NULL
+  dim(a) <- c(dm.2, dm.1)
+  # If the list component does not have dimnames...
+  if (is.null(dn.2)) {
+    # ...and it doesn't have a dimension...
+    if (is.null(dim(x[[1]]))) {
+      # ...then use the names for dimensions...
+      dn.2 <- names(x[[1]])
+    } # ...or else just give up and use NULL for that dimension names.
+    dn.a <- list(dn.2, dn.1)
+  } else {
+    dn.a <- c(dn.2, list(dn.1))
+  }
+  if (!is.null(names(dn.2))) {
+    name.x <- deparse(substitute(x))
+    names(dn.a) <- c(name.x, names(dn.2))
+  }
+  dimnames(a) <- dn.a
+  if (drop) drop(a) else a
+}
+
+
+
+# .nodups
+
+.nodups <- function (x, keep.latest=TRUE)
+{
+  # NAME
+  # .nodups - remove list items with duplicate names (keep latest)
+  # ARGUMENTS
+  #   x : a list
+  if (!keep.latest) stop("keep.latest=FALSE Not yet implemented")
+  if (length(x)<2) return(x)
+  a <- list()
+  x <- rev(x) # use the fact that x[[na]] gets the *first* one
+  for (na in names(x)) {
+    a[[na]] <- x[[na]] # multiple assignments may occur, but that's ok.
+  }
+  a
 }
 
 
 
 
-
 # end rv-util.R
+
+
 
 # rv-alias.R - Convenience functions
 
@@ -1513,7 +1744,7 @@ solve.rv <- function (a, b, ...)
 # rvsd   : componentwise standard deviations
 # E    : Expected value (alias for rvmean)
 # Pr   : Probability (alias for rvmean)
-# rv.sample : componentwise samples
+# rvsample : componentwise samples
 #
 # Name:        
 # Description: 
@@ -1522,86 +1753,114 @@ solve.rv <- function (a, b, ...)
 # History:     2004-06-  : 
 #
 
-rvmean <- function(x, ...)
+rvmean <- function (x, na.rm=FALSE) 
 {
-  m <- colMeans(sims(as.rv(x)))
-  dx <- dim(x)
-  if (!is.null(dx) && prod(dx)==length(m)) {
-    dim(m) <- dx
-  }
-  m
+    m <- colMeans(sims(as.rv(x)), na.rm=na.rm)
+    dx <- dim(x)
+    if (!is.null(dx) && prod(dx) == length(m)) {
+        dim(m) <- dx
+        dimnames(m) <- dimnames(x)
+    }
+    names(m) <- names(x)
+    m
 }
 
-E <- function(x, ...)
+E <- function (x, na.rm=FALSE) 
 {
-  m <- colMeans(sims(as.rv(x)))
-  dx <- dim(x)
-  if (!is.null(dx) && prod(dx)==length(m)) {
-    dim(m) <- dx
-  }
-  m
+    m <- colMeans(sims(as.rv(x)), na.rm=na.rm)
+    dx <- dim(x)
+    if (!is.null(dx) && prod(dx) == length(m)) {
+        dim(m) <- dx
+        dimnames(m) <- dimnames(x)
+    }
+    names(m) <- names(x)
+    m
 }
 
-Pr <- function(x, ...)
+Pr <- function (x, na.rm=FALSE) 
 {
-  s <- sims(as.rv(x))
-  if (typeof(s)!="logical") stop("Argument for Pr must be a logical statement such as 'x>0'")
-  m <- colMeans(s)
-  dx <- dim(x)
-  if (!is.null(dx) && prod(dx)==length(m)) {
-    dim(m) <- dx
-  }
-  m
+    s <- sims(as.rv(x))
+    if (typeof(s) != "logical") 
+        stop("Argument for Pr must be a logical statement such as 'x>0'")
+    m <- colMeans(s, na.rm=na.rm)
+    dx <- dim(x)
+    if (!is.null(dx) && prod(dx) == length(m)) {
+        dim(m) <- dx
+        dimnames(m) <- dimnames(x)
+    }
+    names(m) <- names(x)
+    m
 }
 
-rvvar <- function(x, ...) rvsimapply(x, var, ...)
 
-rvsd <- function(x,...) rvsimapply(x, sd, ...)
-
-rvquantile <- function(x, ...) rvsimapply(x, quantile, ...)
-
-rvmedian <- function(x, ...)  rvsimapply(x, median, ...)
-
-rvmin <- function(x, ...) rvsimapply(x, min, ...)
-
-rvmax <- function(x, ...) rvsimapply(x, max, ...)
-
-rvsample <- function(x, size=1, prob=NULL) {
-  rvsimapply(x, sample, size=size, replace=TRUE, prob=prob)
+rvvar <- function (x, ...)
+{
+    v <- rvsimapply(as.rv(x), var, na.rm=TRUE, ...)
+    v[rvnsims(x)==1] <- 0
+    v
 }
 
-rvrange <- function (x, ...) rvsimapply(x, range)
+
+rvsd <- function(x,...) sqrt(rvvar(x)) #rvsimapply(as.rv(x), sd, ...)
+
+rvquantile <- function(x, ...) rvsimapply(as.rv(x), quantile, ..., na.rm=TRUE)
+
+rvmedian <- function(x, ...)  rvsimapply(as.rv(x), median, ..., na.rm=TRUE)
+
+rvmin <- function(x, ...) rvsimapply(as.rv(x), min, ...)
+
+rvmax <- function(x, ...) rvsimapply(as.rv(x), max, ...)
+
+rvrange <- function (x, ...) rvsimapply(as.rv(x), range, ...)
+
+
+# rvsample is now in rv-misc.R
+
+
+# end rv-alias.R
 
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # APPLYING
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 # ========================================================================
-# .rvlapply  -  apply a function to components of an rv
+# rvlapply  -  apply a function to components of an rv, return a
 # ========================================================================
-# Name:        .rvlapply(x, FUN, ...)
-# Description: the 'rv' version of lapply
-#
 
 .rvlapply <- function(x, FUN, ...)
 {
   attr.x <- attributes(x)
   v <- lapply(x, FUN, ...)
   attributes(v) <- attr.x
-  if (!(class(rv()) %in% class(v))) class(v) <- c(class(rv()),class(v))
   v
+}
+
+# ========================================================================
+# lapply.rv  -  l-apply a function to components of an rv
+# ========================================================================
+# Name:        lapply.rv(x, FUN, ...)
+# Description: the 'rv' version of lapply
+#
+
+lapply.rv <- function(x, FUN, ...)
+{
+  if (is.null(na <- names(x))) na <- paste(seq(along=x))
+  lapply(split(x, na), FUN, ...)
 }
 
 # ========================================================================
 # .rvMathapply  -  apply a function to components of an rv or non-rv
 # ========================================================================
-# Name:        .rvlapply(x, FUN, ...)
+# Name:        .rvMathapply(x, FUN, ...)
 # Description: the 'rv' version of lapply
 #
 
 .rvMathapply <- function(x, FUN, ...)
 {
   v <- lapply(x, FUN, ...)
+  dim(v) <- dim(x)
+  dimnames(v) <- dimnames(x)
+  names(v) <- names(x)
   class(v) <- class(rv())
   v
 }
@@ -1649,6 +1908,7 @@ simapply <- function(x, FUN, ...)
   r <- rvsims(t(m))
   if (!is.null(dim(m0))) {
     dim(r) <- dim(m0)
+    dimnames(r) <- dimnames(m0)
   }
   r
 }
@@ -1668,13 +1928,16 @@ rvsimapply <- function(x, FUN, ...)
   s <- sims(x)
   m <- apply(s, 2, FUN, ...)
   # Should we have instead an extra dimension for the vector that we receive?
-  if (!is.null(dx) && prod(dx)==length(m))
+  if (!is.null(dx) && prod(dx)==length(m)) {
     dim(m) <- dx
+    dimnames(m) <- dimnames(x)
+  }
+  names(m) <- names(x)
   m
 }
 
 # ========================================================================
-# simmapply  -  apply any function to the simulations
+# mapply.rv  -  apply any function to the simulations
 # ========================================================================
 # TODO: make sure that the argument names are preserved!
 # Note. Won't work with functions allowing "blank" arguments
@@ -1682,17 +1945,40 @@ rvsimapply <- function(x, FUN, ...)
 # modified versions of simmapply.
 #
 
-simmapply <- function (FUN, X, ...)
+mapply.rv <- function (FUN, ..., MoreArgs=NULL, USE.NAMES=TRUE, SAMPLESIZE=NULL)
 {
-  s <- .sims.as.list(X)
   a <- list(...)
+  dim.a.names <- dimnames(a)
   a.names <- names(a)
-  a <- lapply(a, .sims.as.list)
+  dimnames(a) <- dim.a.names
   names(a) <- a.names
-  FUN <- match.fun(FUN)
-  f <- function (x, ...) FUN(x, ...)
-  list.of.sims <- do.call(mapply, args=c(FUN=f, list(s), a, SIMPLIFY=FALSE))
-  .rvsims.list(list.of.sims)
+  a <- lapply(a, .sims.as.list)
+  if (!is.null(SAMPLESIZE)) {
+    m <- max(sapply(a, length))
+    s <- (sample(1:m, size=SAMPLESIZE, replace=TRUE)-1)
+    a <- lapply(a, function (x) x[(s %% length(x))+1])
+  }
+  a <- c(FUN = FUN, a, SIMPLIFY = FALSE, USE.NAMES=USE.NAMES)
+  a$MoreArgs <- MoreArgs
+  list.of.sims <- do.call(mapply, args = a)
+  list.of.sims <- lapply(list.of.sims, function (x) if (is.null(x)) NA else x)
+  rvsims(list.of.sims)
+}
+
+
+
+#
+# apply.rv - Apply for Random Matrices
+#
+
+apply.rv <- function (X, MARGIN, FUN, ...)
+{
+  FUNC <- function (x, ...) {
+    class(x) <- class(rv())
+    FUN(x, ...)
+  }
+  a <- apply(X, MARGIN, FUNC, ...)
+  .list2array(a, drop=TRUE)
 }
 
 
@@ -1761,7 +2047,8 @@ Ops.rvsim <- function(e1, e2)
 
 "!.rv" <- function(e1) 
 {
-  .rvlapply(e1, .Generic)
+  ####.rvlapply(e1, .Generic)
+  simapply(e1, .Generic)  # DEBUG ok?
 }
 
 "!.rvsim" <- function(e1) # NOEXPORT
@@ -1797,15 +2084,17 @@ Ops.rvsim <- function(e1, e2)
 #
 
 
-Summary.rv <- function(..., na.rm=FALSE) {
+Summary.rv <- function(..., na.rm=FALSE)
+{
   sims <- sims(c(...)) # an L x n matrix of numbers
-  m <- apply(sims,1,.Generic,na.rm)
+  m <- apply(sims, 1, .Generic, na.rm=na.rm)
   rvsims(m)
 }
 
-range.rv <- function(..., na.rm=FALSE, finite=FALSE) {
+range.rv <- function(..., na.rm=FALSE, finite=FALSE)
+{
   sims <- sims(c(...)) # an L x n matrix of numbers
-  m <- apply(sims,1,'range',na.rm,finite) # gives a 2xL matrix!!!
+  m <- apply(sims, 1, 'range', na.rm=na.rm, finite=finite) # gives a 2xL matrix!!!
   r <- rvsims(t(m)) # Transpose to get an L x 2 matrix.
   names(r) <- c('min','max')
   r
@@ -1813,8 +2102,9 @@ range.rv <- function(..., na.rm=FALSE, finite=FALSE) {
 # rv-distr.R
 #  generators of iid distributions
 # 
-# todo: rmultinom
-#
+# TODO
+#  - truncated distributions
+#  - 
 
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # GENERATION OF RVS
@@ -1863,20 +2153,22 @@ range.rv <- function(..., na.rm=FALSE, finite=FALSE) {
 
 .rvgen <- function(fun, n, ...) # NOEXPORT
 {
-  n <- n[1] ## DEBUG: (Random) dimensions not yet supported!!!
+  if (length(n)>1) warning("length(n)>1? Random dimensions not yet supported")
+  n <- n[1]
   if (!is.character(fun)) fun <- deparse(substitute(fun))
   paramlist <- list(...)
-  n.sims <- rvnsims()
+  n.sims <- getnsims()
   arglist <- lapply(paramlist, .parammat, n, n.sims)
   arglist$n <- max(sapply(arglist,length))
   ow <- options("warn")
   options(warn=-1)
-    m <- do.call(fun, args=arglist) # will complain about NAs, but ignore.
+  m <- do.call(fun, args=arglist) # will complain about NAs, but ignore.
   options(ow) # reset warnings
   sims <- matrix(m, nrow=n.sims)
   sims[is.na(sims)] <- NA # NaNs to NAs.
   rvsims(sims)
 }
+
 
 
 # ========================================================================
@@ -1887,11 +2179,11 @@ range.rv <- function(..., na.rm=FALSE, finite=FALSE) {
 rvconst <- function(n=1,x)
 {
   if (missing(x)) { x=n; n=1 }
-  l.x <- length(x)
-  if (l.x==0)
+  lx <- length(x)
+  if (lx==0)
     return(NULL)
-  v <- rv(l.x)
-  v[1:l.x] <- x # recycle
+  v <- rv(lx)
+  v[1:lx] <- x # recycle
   v
 }
 
@@ -1919,9 +2211,11 @@ rvnorm <- function (n=1, mean=0, sd=1, var=NULL, precision)
 
 # mvrnorm
 
-
 .mvrnorm <- function (n = 1, mu, Sigma, tol = 1e-06, empirical = FALSE) # NOEXPORT
 { 
+  #
+  # from the MASS package
+  #
     p <- length(mu)
     if (!all(dim(Sigma) == c(p, p)))
         stop("incompatible arguments")
@@ -1948,7 +2242,6 @@ rvnorm <- function (n=1, mean=0, sd=1, var=NULL, precision)
     else t(X)
 }
 
-
 # ========================================================================
 # .rvmvnorm  -  Generate multivariate normal random variables.
 # ========================================================================
@@ -1962,45 +2255,61 @@ rvnorm <- function (n=1, mean=0, sd=1, var=NULL, precision)
 #  - what to do with the parameter 'n'? Should repeat, yes, how to implement?
 #
 
-.rvmvnorm <- function(n, mean, Sigma)
+.rvmvnorm <- function (n=1, mean, Sigma) 
 {
-  n.sims <- rvnsims()
-  dim.mean <- dim(mean)
-  if (is.list(Sigma))
-    Sigma <- .expand.as.matrix(Sigma)
-  if (is.null(dim(Sigma)))
-    return(rvnorm(n=n, mean=mean, var=Sigma)) ## Sigma <- diag(Sigma,nrow=length(Sigma))
-  else if (!is.numeric(Sigma))
-    stop('Invalid (non-numeric) covariance matrix Sigma')
-  if (nrow(Sigma) != ncol(Sigma))
-    stop('Invalid (nonsquare) covariance matrix Sigma')
-  if (length(mean)>nrow(Sigma)) {
-    # ???
-    n.Sigmas <- (length(mean) %/% nrow(Sigma)) + (length(mean) %% nrow(Sigma)!=0)
-    Sigma <- .expand.as.matrix(rep(rv(Sigma),n.Sigmas))
+  if (is.null(dim(Sigma))) {
+    Sigma <- diag(Sigma)
+  } else if (!is.numeric(Sigma)) 
+    stop("Invalid (non-numeric) covariance matrix Sigma")
+  else if (nrow(Sigma) != ncol(Sigma)) 
+     stop("Invalid (nonsquare) covariance matrix Sigma")
+  #
+  if (length(mean)==1) {
+    mean <- rep(mean, length.out=nrow(Sigma))
   }
-  mean <- rep(mean, length.out=nrow(Sigma))
-  if (missing(n)) {
-    n <- length(mean)
-  } else if (n!=length(mean)) {
-    ## mean <- rep(mean,length.out=n)
+  if (length(mean) != nrow(Sigma)) {
+    stop("Length of mean vector != nrow of Sigma.")
   }
-  if (length(mean)!=nrow(Sigma)) {
-    stop("DEBUG: length of mean vector != nrow of Sigma. This is not yet implemented.")
-  }
-  X <- .mvrnorm(n=n.sims, mu=mean, Sigma=Sigma)
-  r <- rvsims(X)
+  #
   nm <- names(mean)
-  if ( is.null(nm) && !is.null(dn <- dimnames(sd)) )
-    nm <- dn[[1]]
-  if (!is.null(dim.mean) && length(r)!=prod(dim.mean))
-    warning("Cannot set the dimension ",dim.mean[1],'x',dim.mean[2])
-  else
-    dim(r) <- dim.mean
-  if (is.null(dim(r)))
-    names <- nm
-  else
-    dimnames(r) <- list(nm, NULL)
+  if (is.rv(n)) stop("n cannot be random (to be implemented)")
+  n <- n[1]
+  if (is.rv(Sigma)) {
+    r <- mapply.rv(.mvrnorm, n=n, mu=mean, Sigma=Sigma)
+    if (n==1) r <- drop(r)
+    if (!is.null(dim(r))) {
+      dimnames(r)[[2]] <- nm
+    }
+    return(r)
+  }
+  n.sims <- setnsims()
+  dim.mean <- dim(mean)
+  if (is.list(Sigma)) {
+    Sigma <- .expand.as.matrix(Sigma)
+  }
+  ##if (length(mean) > nrow(Sigma)) {
+  ##  # DEBUG: ??
+  ##  n.Sigmas <- (length(mean)%/%nrow(Sigma))+(length(mean)%%nrow(Sigma)!=0)
+  ##  Sigma <- .expand.as.matrix(rep(rv(Sigma), n.Sigmas))
+  ##}
+  mean <- rep(mean, length.out = nrow(Sigma))
+  mu <- rep(0, length(mean))
+  n.all <- n*n.sims
+  X <- .mvrnorm(n = n.all, mu = mu, Sigma = Sigma)
+  if (n==1) {
+    r <- rvsims(X)
+  } else {
+    dim(X) <- c(n.sims, length(X) %/% n.sims)
+    r <- rvsims(X)
+    dim(r) <- c(length(mean), n)
+  }
+  r <- t(r + mean) # Must be in this order to preserve dimensions
+  if (n==1) r <- drop(r)
+  if (is.null(dim(r))) {
+    if (length(r)==length(nm)) names(r) <- nm
+  } else {
+    dimnames(r) <- list(NULL, nm)
+  }
   r
 }
 
@@ -2014,7 +2323,8 @@ rvnorm <- function (n=1, mean=0, sd=1, var=NULL, precision)
 .rvmvt <- function (n=1, Sigma, df=1)
 {
   x <- sqrt(rvchisq(n=n, df=df)/df)
- # But will this work? x is of length n, but the returned thing is of length n x nrow(Sigma)!
+  # But will this work? x is of length n,
+  #   but the returned thing is of length n * nrow(Sigma)!
   .rvmvnorm(n=n, mean=0, Sigma=Sigma)/x
 }
 
@@ -2116,9 +2426,10 @@ rvunif <- function (n=1, min=0, max=1)
 # rvbern  -  Bernoulli random variables
 # ========================================================================
 
-rvbern <- function (n=1, prob)
+rvbern <- function (n=1, prob, logical=FALSE)
 {
-  .rvgen('rbinom', n=n, size=1, prob=prob)
+  r <- .rvgen('rbinom', n=n, size=1, prob=prob)
+  if (logical) as.logical(r) else r
 }
 
 
@@ -2128,7 +2439,7 @@ rvbern <- function (n=1, prob)
 
 rvbinom <- function (n=1, size, prob)
 {
-  .rvgen('rbinom', n=n, size=size, prob=prob)
+  (.rvgen('rbinom', n=n, size=size, prob=prob))
 }
 
 # ========================================================================
@@ -2140,20 +2451,18 @@ rvmultinom <- function(n=1, size=1, prob)
   if (length(prob)<=1) {
     return(rvbinom(n=n, size=size, prob=prob))
   }
-  p <- prob/sum(prob)
-  cp <- c(0,cumsum(p))
-  x <- rv()
-  for (i in seq(along=p[-1]))  # length of p minus 1
-  {
-    p[i] <- p[i]/(1-cp[i])
-    y <- rvbinom(n=1, size=size, prob=p[i])
-    x <- rv:::c(x, y)
-    size <- size-y
+  if (anyisrv(n, size, prob)) {
+    r <- mapply.rv("rmultinom", n=n, size=size, prob=prob)
+  } else {
+    n.sims <- getnsims()
+    s <- rmultinom(n=n*n.sims, size=size, prob=prob)
+    dim(s) <- c(length(s) %/% n.sims, n.sims)
+    r <- rvsims(t(s))
+    dim(r) <- c(length(prob), n)
+    dimnames(r) <- list(names(prob), NULL)
   }
-  x <- c(x, size)
-  x
+  r
 }
-
 
 # ========================================================================
 # rvbeta  -  beta rvs
@@ -2163,6 +2472,68 @@ rvbeta <- function (n=1, shape1, shape2)
 {
   .rvgen('rbeta', n=n, shape1=shape1, shape2=shape2)
 }
+
+
+# ========================================================================
+# rvcat - categorical rvs
+# ========================================================================
+
+rvcat <- function (n=1, prob, levels=NULL)
+{
+  # NAME
+  #  rvcat - Sample Categorical Random Variables
+  if (anyisrv(n, prob)) {
+    x <- rvmultinom(n=n, size=1, prob=prob)
+    s <- sims(x, dimensions=TRUE)
+    ds <- dim(s)
+    s <- as.logical(s)
+    dim(s) <- ds
+    f <- function (m) row(m)[m]
+    a <- apply(s, 1, f)
+    r <- if (is.null(dim(a))) rvsims(a) else rvsims(t(a))
+  } else {
+    n.sims <- getnsims()
+    s <- rmultinom(n=n*n.sims, size=1, prob=prob)
+    s <- row(s)[as.logical(s)]
+    dim(s) <- c(n.sims, length(s) %/% n.sims)
+    r <- rvsims(s)
+  }
+  rvfactor(r, levels=levels)
+}
+
+# ========================================================================
+# rvmix - mixtures of random variables
+# ========================================================================
+
+rvmix <- function (n=1, prob=NULL, index=NULL, components=list())
+{
+  # NAME
+  #  rvmix - 
+  # EXAMPLE
+  #   rvmix(1, index=rvbern(1,0.05)+1, components=list(rvnorm(1), rvnorm(1, mean=10)))
+  #
+  if (is.null(index)) {
+    if (is.null(prob)) stop("need either probabilities or an index variable")
+    index <- rvcat(n=n, prob=prob)
+  }
+  mix <- components
+  mls <- sapply(mix, length)
+  maxl <- max(mls)
+  if (!all(mls==maxl)) mix <- lapply(mix, function (x) x[1:maxl])
+  mix <- unlist.rv(mix)
+  dim(mix) <- c(maxl, length(mix) %/% maxl)
+  tsmix <- t(sims(mix))
+  f <- function (x) {
+    s <- sims(x)
+    .index <- s + seq(from=0, to=length(s)-1)*nrow(tsmix)
+    mixsims <- tsmix[.index]
+    rvsims(mixsims)
+  }
+  r <- unlist.rv(lapply.rv(index, f))
+  names(r) <- NULL
+  r
+}
+
 
 
 # ========================================================================
@@ -2186,7 +2557,7 @@ rvdirichlet <- function (n = 1, alpha)
 
 rvboot <- function (data)
 {
-  n.sims <- rvnsims()
+  n.sims <- setnsims()
   n <- n.sims*length(data)
   s <- matrix(sample(data, size=n, replace=TRUE), nrow=n.sims)
   r <- rvsims(s)
@@ -2198,18 +2569,47 @@ rvboot <- function (data)
 # rvpermut  -  permutation distribution
 # ========================================================================
 
-rvpermut <- function (data)
+rvpermut <- function (data, prob=NULL)
 {
-  n.sims <- rvnsims()
-  if (length(data)<=1) return(data)
-  s <- t(sapply(1:n.sims, function(i) sample(data)))
+  n.sims <- getnsims()
+  s <- t(sapply(rep(list(data), n.sims), sample, prob=prob))
   r <- rvsims(s)
   dim(r) <- dim(data)
+  names(r) <- names(data)
   r
+}
+
+# ========================================================================
+# 
+# ========================================================================
+
+rvdiscrete <- function (n=1, x, prob=NULL)
+{
+  n.sims <- getnsims()
+  rvsims(matrix(sample(x=x, size=n*n.sims, prob=prob, replace=TRUE), nrow=n.sims))
 }
 
 
 
+
+rvdens <- function(n=1, FUN, range, unitprecision=10, ...)
+{
+  # NAME
+  #   rvdensity - Sample from a given univariate density using a grid approximation
+  # ARGUMENTS
+  #   n : number of independent random vector components to draw
+  #   FUN : density function
+  #   range : range for the grid
+  #   unitprecision : number of points per unit
+  #   ... : other arguments passed to [FUN].
+  #   
+  grid <- seq(from=range[1], to=range[2], by=1/unitprecision)
+  prob <- FUN(grid, ...)
+  n.sims <- setnsims()
+  s <- sample(grid, size=n*n.sims, prob=prob, replace=TRUE)
+  noise <- runif(n*n.sims, -0.5/unitprecision, 0.5/unitprecision)
+  rvsims(matrix(s+noise, nrow=n.sims))
+}
 
 
 
@@ -2270,50 +2670,101 @@ rowapply <- function (X, FUN, ...) #
 # cov  -  short description
 # ========================================================================
 
-##.cov <- getFromNamespace('cov', 'stats')
+cov.default <- getFromNamespace('cov', 'stats') # EXPORT cov.default
 
 cov.rv <- function(x, y=NULL, ...)  ## EXPORT cov.rv
 {
-  if (anyisrv(x,y)) {
-    if (!is.matrix(x)) {
-      if (is.null(y)) 
-        stop("supply both x and y or a matrix-like x")
-        x <- as.vector(x)
+  if (!is.matrix(x)) {
+    if (is.null(y)) {
+      stop("supply both x and y or a matrix-like x")
     }
-    return(simmapply(cov, x, y, ...))
-  } else {
-    cov(x, y, ...)
+    x <- as.vector(x)
   }
+  mapply.rv(cov.default, x=x, y=y, ...)
 }
 
-##.rvRegisterFunctionSwitch(cov, 'cov', 'stats')
+cov <- function(x, ...) {
+  UseMethod("cov")
+}
+
+formals(cov.default) <- c(formals(cov.default), alist(... = ))
+
+.rvRegisterFunctionSwitch(cov, "cov", "stats", group=3)
 
 
-## var(x) : distribution of the sample variance
+# ========================================================================
+# cor  -  short description
+# ========================================================================
+
+cor.default <- getFromNamespace('cor', 'stats') # EXPORT cor.default
+
+cor.rv <- function(x, y=NULL, ...)  ## EXPORT cor.rv
+{
+  if (!is.matrix(x)) {
+    if (is.null(y)) {
+      stop("supply both x and y or a matrix-like x")
+    }
+    x <- as.vector(x)
+  }
+  mapply.rv(cor.default, x=x, y=y, ...)
+}
+
+cor <- function(x, ...) {
+  UseMethod("cor")
+}
+
+formals(cor.default) <- c(formals(cor.default), alist(... = ))
+
+.rvRegisterFunctionSwitch(cor, "cor", "stats", group=3)
+
 
 # ========================================================================
 # function  -  short description
 # ========================================================================
 #
 
-## .var <- getFromNamespace('var', 'stats')
+var.default <- getFromNamespace('var', 'stats') # EXPORT var.default
 
 var.rv <- function(x, ...) ## EXPORT var.rv
 {
-  if (is.rv(x)) return(simapply(x, var, ...))
-  var(x, ...)
+  simapply(x, var.default, ...)
 }
 
-## .rvRegisterFunctionSwitch(var, 'var', 'stats')
+var <- function(x, ...) {
+  UseMethod("var")
+}
+
+formals(var.default) <- c(formals(var.default), alist(... = ))
+
+.rvRegisterFunctionSwitch(var, "var", "stats", group=3)
 
 # ========================================================================
 # sd.rv  -  short description
 # ========================================================================
 
-sd.rv <- function(x, ...) # EXPORT sd.rv
+sd <- function (x, na.rm = FALSE) 
 {
-  sqrt(var.rv(x, ...))
+  if (is.rv(x))
+    return(sd.rv(x, na.rm = na.rm))
+  else if (is.matrix(x)) 
+    apply(x, 2, sd, na.rm = na.rm)
+  else if (is.vector(x)) 
+    sqrt(var(x, na.rm = na.rm))
+  else if (is.data.frame(x)) 
+    sapply(x, sd, na.rm = na.rm)
+  else sqrt(var(as.vector(x), na.rm = na.rm))
 }
+
+sd.rv <- function (x, na.rm = FALSE)
+{
+  if (is.matrix(x)) 
+    apply.rv(x, 2, sd, na.rm = na.rm)
+  else if (is.vector(x)) 
+    sqrt(var.rv(x, na.rm = na.rm))
+  else sqrt(var.rv(as.vector(x), na.rm = na.rm))
+}
+
+.rvRegisterFunctionSwitch(sd, "sd", "stats", group=3)
 
 # ========================================================================
 # rvcov  -  covariance matrix
@@ -2347,18 +2798,10 @@ quantile.rv <- function(x, ...)
 # ========================================================================
 #
 
-##.median <- getFromNamespace('median', 'stats')
-
 median.rv <- function(x, na.rm=FALSE) ## EXPORT median.rv
 {
-  if (is.rv(x)) return(simapply(x, median, na.rm=na.rm))
-  median(x, na.rm=na.rm)
+  simapply(x, median, na.rm=na.rm)
 }
-
-##.rvRegisterFunctionSwitch(median, 'median', 'stats')
-
-
-
 .packageName <- "rv"
 #
 # rv-Bayes.R
@@ -2425,182 +2868,403 @@ postsim.glm <- function(fit)
   rvnorm(mean=beta.hat, var=V.beta)
 }
 
+#
+# rvpar
+#
+
+rvpar <- function (...)
+{
+  args <- list(...)
+  rvpar  <- getOption("rv")
+  Pars <- rvpar$par
+  if (length(args)==0) {
+    return(Pars)
+  }
+  if (is.null(na <- names(args))) {
+    args <- unlist(args)
+    p <- Pars[args]
+    if (length(args)==1) {
+      return(p[[args]])
+    } else {
+      return(p)
+    }
+  }
+  oldpar <- Pars
+  for (a in na) { 
+    if (nchar(a)>=1) {
+      Pars[a] <- args[a]
+    }
+  }
+  rvpar$par <- Pars
+  options(rv=rvpar)
+  oldpar
+}
+
+
+
+
+
+# ========================================================================
+# plot 
+# ========================================================================
+
+plot <- function (x, y, ...) 
+{
+  if (!missing(y) && is.rv(y)) {
+    return(plot.rv(x, y, ...))
+  } else if (is.null(attr(x, "class")) && is.function(x)) {
+        nms <- names(list(...))
+        if (missing(y)) 
+            y <- {
+                if (!"from" %in% nms) 
+                  0
+                else if (!"to" %in% nms) 
+                  1
+                else if (!"xlim" %in% nms) 
+                  NULL
+            }
+        if ("ylab" %in% nms) 
+            graphics:::plot.function(x, y, ...)
+        else graphics:::plot.function(x, y, ylab = paste(deparse(substitute(x)), 
+            "(x)"), ...)
+    }
+    else UseMethod("plot")
+}
+
+.rvRegisterFunctionSwitch(plot, "plot", "graphics", group=0)
+
+plot.rv <- function (x, y=NULL, ...)
+{ 
+  .plot.default.rv(x, y, ...)
+}
+
+# ========================================================================
+# plot.xy.rv  - 
+# ========================================================================
+#
+
+.plot.xy.rv <- function (xy, type, pch = par("pch"), lty = par("lty"), col = par("col"), bg = NA, cex = 1, lwd = par("lwd"), ...)
+{
+  ##if (is.null(xy$rv)) {
+  ##  return(.Internal(plot.xy(xy, type, pch, lty, col, bg, cex, lwd, ...)))
+  ##}
+  args <- c(xy, list(type=type, pch=pch, lty=lty, col=col, bg=bg, cex=cex, lwd=lwd, ...))
+  typego <- list(p="points.rv", "l"="points.rv", "b"="points.rv")
+  if (type=="n") return(invisible(NULL))
+  if (is.null(plotroutine <- typego[[type]])) {
+    stop("Plot type '", type, "' not yet implemented for rv objects!")
+  }
+  do.call(plotroutine, args)
+  invisible(NULL)
+}
+
+# ========================================================================
+# xy.coords.rv - modified version of xy.coords to accommodate rvs
+# ========================================================================
+
+.xy.coords.rv <- function (x, y = NULL, xlab = NULL, ylab = NULL, log = NULL, recycle = FALSE)
+{
+    if (is.null(y)) {
+        ylab <- xlab
+        if (is.language(x)) {
+            if (inherits(x, "formula") && length(x) == 3) {
+                ylab <- deparse(x[[2]])
+                xlab <- deparse(x[[3]])
+                y <- eval(x[[2]], environment(x), parent.frame())
+                x <- eval(x[[3]], environment(x), parent.frame())
+            }
+            else stop("invalid first argument")
+        }
+        else if (is.complex(x)) {
+            y <- Im(x)
+            x <- Re(x)
+            xlab <- paste("Re(", ylab, ")", sep = "")
+            ylab <- paste("Im(", ylab, ")", sep = "")
+        }
+        else if (is.matrix(x) || is.data.frame(x)) {
+            x <- data.matrix(x)
+            if (ncol(x) == 1) {
+                xlab <- "Index"
+                y <- x[, 1]
+                x <- 1:length(y)
+            }
+            else {
+                colnames <- dimnames(x)[[2]]
+                if (is.null(colnames)) {
+                  xlab <- paste(ylab, "[,1]", sep = "")
+                  ylab <- paste(ylab, "[,2]", sep = "")
+                }
+                else {
+                  xlab <- colnames[1]
+                  ylab <- colnames[2]
+                }
+                y <- x[, 2]
+                x <- x[, 1]
+            }
+        }
+        else if (is.list(x) && !is.rv(x)) { #### This is the only change ####
+            xlab <- paste(ylab, "$x", sep = "")
+            ylab <- paste(ylab, "$y", sep = "")
+            y <- x[["y"]]
+            x <- x[["x"]]
+        }
+        else {
+            if (is.factor(x)) 
+                x <- as.numeric(x)
+            xlab <- "Index"
+            y <- x
+            x <- seq(along = x)
+        }
+    }
+    if (inherits(x, "POSIXt")) 
+        x <- as.POSIXct(x)
+    if (length(x) != length(y)) {
+        if (recycle) {
+            if ((nx <- length(x)) < (ny <- length(y))) 
+                x <- rep(x, length.out = ny)
+            else y <- rep(y, length.out = nx)
+        }
+        else stop("'x' and 'y' lengths differ")
+    }
+    if (length(log) && log != "") {
+        log <- strsplit(log, NULL)[[1]]
+        f <- function (x) ((rvmean(x < 0)>0) & !rv.any.na(x))
+        if ("x" %in% log && any(ii <- f(x))) {
+            n <- as.integer(sum(ii))
+            warning(sprintf(ngettext(n, "%d x value <= 0 omitted from logarithmic plot", 
+                "%d x values <= 0 omitted from logarithmic plot"), 
+                n), domain = NA)
+            x[ii] <- NA
+        }
+        if ("y" %in% log && any(ii <- f(y))) {
+            n <- as.integer(sum(ii))
+            warning(sprintf(ngettext(n, "%d y value <= 0 omitted from logarithmic plot", 
+                "%d y values <= 0 omitted from logarithmic plot"), 
+                n), domain = NA)
+            y[ii] <- NA
+        }
+    }
+    return(list(x = as.real(x), y = as.real(y), xlab = xlab, ylab = ylab))
+}
+
+###.rvRegisterFunctionSwitch(xy.coords, "xy.coords", "grDevices")
+
+
+# ========================================================================
+# plot.default.rv - 
+# ========================================================================
+
+
+.plot.default.rv <- function (x, y = NULL, type = "p", xlim = NULL, ylim = NULL, log = "", main = NULL, sub = NULL, xlab = NULL, ylab = NULL, ann = par("ann"), axes = TRUE, frame.plot = axes, panel.first = NULL, panel.last = NULL, asp = NA, out.of.range.marker = rvpar("oorm"), rvlwd = rvpar("rvlwd"),  rvcol=rvpar("rvcol"), rvinterval=rvpar("rvinterval"), rvlex=rvpar("rvlex"), ...) 
+{
+    localAxis <- function(..., col, bg, pch, cex, lty, lwd) Axis(...)
+    localBox <- function(..., col, bg, pch, cex, lty, lwd) box(...)
+    localWindow <- function(..., col, bg, pch, cex, lty, lwd) plot.window(...)
+    localTitle <- function(..., col, bg, pch, cex, lty, lwd) title(...)
+    xlabel <- if (!missing(x)) 
+        deparse(substitute(x))
+    ylabel <- if (!missing(y)) 
+        deparse(substitute(y))
+    xy <- .xy.coords.rv(x, y, xlabel, ylabel, log)
+    xlab <- if (is.null(xlab)) 
+        xy$xlab
+    else xlab
+    ylab <- if (is.null(ylab)) 
+        xy$ylab
+    else ylab
+    xlim <- if (is.null(xlim)) {
+        x.sims <- sims(as.rv(xy$x))
+        range(x.sims[is.finite(x.sims)])
+    } else xlim
+    ylim <- if (is.null(ylim)) {
+        y.sims <- sims(as.rv(xy$y))
+        range(y.sims[is.finite(y.sims)])
+    } else ylim
+    plot.new()
+    localWindow(xlim, ylim, log, asp, ...)
+    panel.first
+    .plot.xy.rv(xy, type, out.of.range.marker = out.of.range.marker, rvlwd = rvlwd,  rvcol=rvcol, rvinterval=rvinterval, rvlex=rvlex, ...)
+    panel.last
+    if (axes) {
+        localAxis(x, side = 1, ...)
+        localAxis(y, side = 2, ...)
+    }
+    if (frame.plot) 
+        localBox(...)
+    if (ann) 
+        localTitle(main = main, sub = sub, xlab = xlab, ylab = ylab, 
+            ...)
+    invisible()
+}
+
+
+###.rvRegisterFunctionSwitch(plot.default, "plot.default", "graphics")
+
 # ========================================================================
 # points.rv  -  plot points and uncertainty intervals
 # ========================================================================
-# Name:        
-# Description: 
-# Parameters:  
-# Required:    none
-# History:     2004-06-  : 
+# 
 
-
-points.rv <- function (x, y = NULL, what=NULL, rvcol=c('grey20','grey40'), ...)
+points.rv <- function (x, y = NULL, type = "p", xlim = NULL, ylim = NULL, pch = 19, out.of.range.marker = rvpar("oorm"), rvlwd = rvpar("rvlwd"), rvcol = rvpar("rvcol"), rvinterval = rvpar("rvinterval"), rvlex = rvpar("rvlex"), ...) 
 {
-  if (missing(y)) {
-    y <- x
-    x <- seq(along=y)
-  }
-  if (is.rv(x))
-  {
-    if (length(x)==1 & length(x)==length(y)) {
-      points(sims(x),sims(y), pch=20, ...)
-    } else {
-      stop("multivariate rv-rv point plot Not yet implemented")
+    xy <- .xy.coords.rv(x, y)
+    x <- as.rv(xy$x)
+    y <- as.rv(xy$y)
+    arg <- list(...)
+    draw.points <- (type == "p" || type == "b")
+    draw.lines <- (type == "l" || type == "b")
+    point.sample <- rvpar("point.sample")
+    if (is.null(point.sample)) 
+        point.sample <- NA
+    line.sample <- rvpar("line.sample")
+    if (is.null(line.sample)) 
+        line.sample <- NA
+    if (is.null(rvlex) || !is.function(rvlex)) {
+        rvlex <- function(lwd) 1.5
     }
-    return(invisible(NULL))
-  }
-  x0 <- x
-  y0 <- rvquantile(y, c(0.025,0.975,0.25,0.75,0.5))
-  col.seg <- rvcol[2]
-  col.dot <- rvcol[1]
-  segments(x0, y0[1,], x0, y0[2,], col=col.seg, lwd=1.5, ...)
-  segments(x0, y0[3,], x0, y0[4,], col=col.dot, lwd=3.0, ...)
-  if (any(y.n.r <- !is.random(y))) {
-    points(x0[y.n.r], E(y[y.n.r]), ...)
-  }
-  #segments(x0, pmin(E(y),y0[5,]), x0, pmax(E(y),y0[5,]), col='black', lwd=3, ...)
-  #segments(x0, y0[5,], x0, E(y), col='black', ...)
-  #points(x0, y0[5,], pch=19, ...)
-  #points(x0, E(y), pch=18,  ...)
-  invisible(NULL)
+    if (is.null(rvcol) || is.na(rvcol)) {
+        rvcol <- "default"
+    }
+    x.rv <- (is.random(x) & !rv.all.na(x))
+    y.rv <- (is.random(y) & !rv.all.na(y))
+    x.point <- (!x.rv)
+    y.point <- (!y.rv)
+    vertical.pair <- (x.point & y.rv)
+    horizontal.pair <- (x.rv & y.point)
+    iv.pair <- (vertical.pair | horizontal.pair)
+    rv.pair <- (x.rv & y.rv)
+    point.pair <- (x.point & y.point)
+    segs <- NULL
+    pts <- NULL
+    cols <- NULL
+    lwds <- NULL
+    qx <- rvintervals(x, rvinterval)
+    qy <- rvintervals(y, rvinterval)
+    rvcol <- rep(rvcol, length.out = length(x))
+    cols <- t(sapply(rvcol, rvcolortheme))
+    dimnames(cols) <- list(NULL, rvinterval)
+    cols <- cbind(default = if (is.null(arg$col)) 
+        "black"
+    else arg$col, cols)
+    rvlwd <- rep(rvlwd, length.out = length(x))
+    lwds <- t(sapply(rvlwd, function(wd) c(0, wd * rvlex(wd), 
+        wd)))
+    dimnames(lwds) <- list(NULL, rvinterval)
+    lwds <- cbind(default = if (is.null(arg$lwd)) 
+        "black"
+    else arg$lwd, lwds)
+    if (any(point.pair)) {
+        x.pts <- E(x[point.pair])
+        y.pts <- E(y[point.pair])
+        pts <- list(x = c(pts$x, x.pts), y = c(pts$y, y.pts), 
+            col = c(pts$col, cols[point.pair, 1]), lwd = c(pts$lwd, 
+                lwds[point.pair, 1]))
+    }
+    if (any(rv.pair)) {
+## THIS CODE IS NOT YET FULLY FUNCTIONAL
+        xy.pts <- rvsample(c(x[rv.pair],y[rv.pair]), jointly=TRUE, size= point.sample)
+        x.pts <- xy.pts[,1]
+        y.pts <- xy.pts[,2]
+        ## DEBUG here '19' is hard-coded!
+        pchs <- rep(19, length.out = length(x.pts))
+        cl <- rep(cols[rv.pair, 1], each = length(x.pts)/sum(rv.pair))
+        pts <- list(x = c(pts$x, x.pts), y = c(pts$y, y.pts), 
+            col = c(pts$col, cl), pch = c(pts$pch, pchs))
+    }
+    for (name in names(qx)) {
+        if (is.na(name)) 
+            next
+        xiv <- qx[[name]]
+        yiv <- qy[[name]]
+        is.seg <- (nrow(xiv) == 2 || nrow(yiv) == 2)
+        if (is.seg) {
+            if (any(iv.pair)) {
+                segs <- list(x0 = c(segs$x0, xiv[1, iv.pair]), 
+                  y0 = c(segs$y0, yiv[1, iv.pair]), x1 = c(segs$x1, 
+                    xiv[2, iv.pair]), y1 = c(segs$y1, yiv[2, 
+                    iv.pair]), col = c(segs$col, cols[iv.pair, 
+                    name]), lwd = c(segs$lwd, lwds[iv.pair, name]))
+            }
+        }
+        else {
+            pchs <- rep(if (is.null(arg$pch)) 
+                19
+            else arg$pch, length.out = length(x))
+            pts <- list(x = c(pts$x, xiv[1, iv.pair]), y = c(pts$y, 
+                yiv[1, iv.pair]), col = c(pts$col, cols[iv.pair, 
+                name]), pch = c(pts$pch, pchs))
+        }
+    }
+    if (draw.points) {
+        if (!is.null(segs)) 
+            do.call("segments", args = .nodups(c(arg, segs)))
+        if (!is.null(pts)) 
+            do.call("points", args = .nodups(c(arg, pts)))
+        if (any(rv.pair)) {
+            do.call("points", args = .nodups(c(arg, pts)))
+        }
+    }
+    if (draw.lines) {
+        lns <- .rvjointdrawxy(x, y, size = line.sample)
+        lns$x <- rbind(lns$x, NA)
+        lns$y <- rbind(lns$y, NA)
+        do.call("lines", args = .nodups(c(arg, lns)))
+    }
+    invisible(NULL)
 }
 
-points.rv <- function (x, y = NULL, what=NULL, rvcol=c('grey20','grey40'), ...)
+
+.rvjointdrawxy <- function (x, y, size=1, reject.na=TRUE)
 {
-  if (missing(y)) {
-    y <- x
-    x <- seq(along=y)
-  }
-  switch.xy <- FALSE
-  if (is.rv(x)) {
-    if (is.rv(y)) {
-      if (length(x)==1 & length(x)==length(y)) {
-        points(sims(x),sims(y), pch=20, ...)
-        return(invisible(NULL))
-      } else {
-        stop("multivariate rv-rv point plot Not yet implemented")
-      }
-    } else {
-      switch.xy <- TRUE
-    }
-  }
-  col.long <- rvcol[2]
-  col.short <- rvcol[1]
-  if (switch.xy) {
-    x0 <- rvquantile(x, c(0.025,0.975,0.25,0.75,0.5))
-    y0 <- y
-    segments(x0[1,], y0, x0[2,], y0, col=col.long, lwd=2.0, ...)
-    segments(x0[3,], y0, x0[4,], y0, col=col.short, lwd=3.0, ...)
-  } else {
-    x0 <- y
-    y0 <- rvquantile(x, c(0.025,0.975,0.25,0.75,0.5))
-    segments(x0, y0[1,], x0, y0[2,], col=col.long, lwd=2.0, ...)
-    segments(x0, y0[3,], x0, y0[4,], col=col.short, lwd=3.0, ...)
-  }
-  if (any(y.n.r <- !is.random(y))) {
-    points(E(x0[y.n.r]), E(y[y.n.r]), ...)
-  }
-  #segments(x0, pmin(E(y),y0[5,]), x0, pmax(E(y),y0[5,]), col='black', lwd=3, ...)
-  #segments(x0, y0[5,], x0, E(y), col='black', ...)
-  #points(x0, y0[5,], pch=19, ...)
-  #points(x0, E(y), pch=18,  ...)
-  invisible(NULL)
+  xy <- c(x, y)
+  s <- rvsample(xy, size=size, jointly=TRUE, reject.na=reject.na)
+  if (is.null(dim(s))) s <- t(s)
+  xs <- t(s[,seq(along=x)])
+  ys <- t(s[,-seq(along=x)])
+  list(x=xs, y=ys)
 }
+
 
 # ========================================================================
 # abline.rv  -  a + bx
 # ========================================================================
+# change this to
+#   mapply.rv("abline", ..., MoreArgs=NULL)
+#
 
-abline.rv <- function(x, size=5, ...)
+.abline.default <- graphics:::abline
+
+abline <- function (a = NULL, b = NULL, h = NULL, v = NULL, ...)
 {
-  s <- rvsample(x, size=size)
-  for (i in 1:size) {
-    abline(s[i,], ...)
+  if (anyisrv(a,b,h,v)) {
+    line.sample <- rvpar("line.sample")
+    if (!is.numeric(line.sample)) stop("rvpar('line.sample') is not a number")
+    args <- list(FUN=.abline.default, a=a, b=b, h=h, v=v)
+    nulls <- sapply(args, is.null)
+    nullArgs <- names(nulls)[nulls]
+    MoreArgs <- list(...)
+    args[nullArgs] <- NULL
+    MoreArgs[nullArgs] <- list(NULL)
+    args$SAMPLESIZE <- line.sample
+    args$MoreArgs <- MoreArgs
+    do.call("mapply.rv", args=args)
+  } else {
+    .abline.default(a=a, b=b, h=h, v=v, ...)
   }
+  invisible()
 }
+
+###.rvRegisterFunctionSwitch(plot.default, "plot.default", "graphics")
+.rvRegisterFunctionSwitch(abline, "abline", "graphics", group=0)
 
 # ========================================================================
 # lines.rv  -  plot some random lines
 # ========================================================================
 # btw, "rvlines" does not make sense - that'd be something like a weird histogram
 
-lines.rv <- function(x, size=5, col=c("grey80"), ...)
+lines.rv <- function(x, y, type="l", ...)
 {
-  s <- rvsample(x, size=size)
-  lc <- col
-  ll <- length(lc)
-  for (i in 1:size) {
-    lines(s[i,], col=lc[1+((i-1) %% ll)], ...)
-  }
-}
-
-
-# ========================================================================
-# plot.rv  -  plot for rvs
-# ========================================================================
-# Not yet done: must modify.
-
-plot.rv <- function(x, y, what=c("95%","50%","mean","median"), ylim=range(sims(y)), xlim=range(sims(x)), rvcol=c("grey20", "grey40"), ...)
-{
-  if (missing(y)) {
-    y <- x
-    x <- seq(along=y)
-  }
-  x. <- xlim
-  y. <- ylim
-  plot(x., y., type="n", ylim=ylim, xlim=xlim, ...)
-  points.rv(x, y, what=what, rvcol=rvcol)
-  invisible(NULL)
-}
-
-
-plot.rv <- function(x, y, what=c("95%","50%","mean","median"), ylim=range(sims(y)), xlim=range(sims(x)), rvcol=c("grey20", "grey40"), ...)
-{
-  if (missing(y)) {
-    y <- x
-    x <- seq(along=y)
-  }
-  x. <- xlim
-  y. <- ylim
-  a <- list(...)
-  a$x <- x.
-  a$y <- y.
-  if (is.null(a$ylim)) a$ylim <- ylim
-  if (is.null(a$xlim)) a$xlim <- xlim
-  a$type <- "n"
-  ## plot(x., y., type="n", ylim=ylim, xlim=xlim, ...)
-  do.call("plot", a)
-  a2 <- list(x=x, y=y, what=what, rvcol=rvcol, pch=a$pch, lty=a$lty, lwd=a$lwd)
-  a2[sapply(a2, is.null)] <- NULL
-  do.call("points.rv", a2)
-  invisible(NULL)
-}
-
-
-# Not yet debugged:
-
-.NEWplot.rv <- function(x, y, what=c("95%ci","50%ci","mean","median"), ylab,
-   ylim=c(min(sims(x)),max(sims(x))), ...)
-{
-  if (!missing(y) && !is.numeric(x))
-    stop("Two-rv scatterplot Not yet implemented")
-  if (missing(y)) {
-    y <- x
-    x <- seq(along=x)
-  }
-  if (missing(ylab))
-    ylab <- ''
-  y.means <- E(y)
-  plot(x, y.means, type="n", ylab=ylab, ylim=ylim, ...)
-  x0 <- x
-  y0 <- rvsimapply(y, quantile, c(0.025,0.975,0.25,0.75,0.5))
-  segments(x0, y0[1,], x0, y0[2,], col='blue', ...)
-  segments(x0, y0[3,], x0, y0[4,], col='cyan', ...)
-  points(x0, y0[5,], pch=19, ...)
-  points(x0, y.means, ...)
-  ## abline(h=mean(E(x)), lty="dotted")
-  invisible(NULL)
+  points.rv(x, y, type="l", ...)
 }
 
 # ========================================================================
@@ -2653,186 +3317,9 @@ rvhist <- function(x, ...)
         a$main <- paste('Histogram of', this.name)
       }
     }
+    if (is.null(a$breaks)) a$breaks <- "fd"
     do.call("hist", a)
   }
-}
-
-
-# ================================================================================
-# rvplot - horizontal r.v. (interval) plot
-# ================================================================================
-
-rvplot <- function (x, labels=NULL, pos=NULL, output.file=NULL, ...)
-{
-  UseMethod('rvplot')
-}
-
-rvplot.rv <- function(x, labels=NULL, ...)
-{
-  mc.array.ok <- !any(is.na(rvnchains(x)))
-  probs <- c(0.025,0.25,0.5,0.75,0.975)
-  debugged <- FALSE
-  if (debugged && mc.array.ok) {
-## Still something fishy here:
-    sim <- sims(x, mc.array=TRUE)
-    dim.sim <- dim(sim)
-    s <- list()
-    for (i in seq(length=dim.sim[2])) {
-      s[[i]] <- t(apply(sim[,i,],2,quantile,probs))
-      # we get an n*5 matrix
-    }
-    d <- dim(s[[1]])
-    summ <- array(unlist(s),dim=c(d[1],dim.sim[2],d[2]))
-  } else {
-    summ <- t(rvquantile(x,probs=probs))
-  }
-  if (is.null(labels)) {
-    if (is.null(labels <- names(x))) {
-      labels <- paste(deparse(substitute(x)), .dim.index(x), sep='')
-    }
-  }
-  rvplot(summ, labels=labels, ...)
-}
-
-
-rvplot.matrix <- function(x, labels, pos=NULL, output.file=NULL, xlim=NULL, vline=0, ...)
-{
-  summ <- x
-
-  old.par <- par(mar=c(1,0,3,1))
-
-  print.to.file <- ! is.null(output.file)
-
-  if (print.to.file) {
-    postscript (output.file, horizontal=TRUE, width=9)
-  }
-
-  no.labels <- missing(labels) | is.null(labels)
-
-  cex.scale <- 0.9
-  thin.style <- 1.5
-  medium.style <- thin.style*2
-  thick.style <- thin.style*3
-
-  dim.sum <- dim(summ)
-  sum.dim <- length(dim.sum)
-
-  n.rows <- dim.sum[1]
-
-  if (sum.dim==2) {
-    nc <- dim.sum[2]
-    lines.per.row <- 1
-  } else if (sum.dim==3) {
-    nc <- dim.sum[3]
-    lines.per.row <- dim.sum[2]
-  }
-
-  if (is.null(pos)) {
-    pos <- seq(length=n.rows)
-  }
-
-  if (no.labels) {
-    labels <- as.character(seq(length=n.rows))
-  }
-
-  pos <- -pos
-  bottom <- min(pos)-1
-
-  if (is.null(xlim)) {
-    rng <- range(summ)
-  } else {
-    rng <- xlim
-  }
-
-  x.min <- rng[1]
-  x.max <- rng[2]
-
-  p.rng <- pretty(rng)
-  width <- x.max-x.min
-
-  left.margin <- 0.25*width
-
-  x.left   <- x.min - left.margin
-  x.right  <- x.max
-
-  y.top    <- 2
-  y.bottom <- bottom-2
-
-  x.plotrange <- c(x.left,x.right)
-  y.plotrange <- c(y.top, y.bottom)
-
-  plot (x.plotrange, y.plotrange,
-    xaxt="n", yaxt="n",
-    type="n", bty="n",
-    ...
-  )
-  ##  xlab="", ylab="",
-
-  y.topline <- y.top
-  y.bottomline <- y.bottom+2
-
-  text (x.left, pos, labels, adj=0, cex=cex.scale*1.1)
-
-  lines (c(vline,vline), c(0,y.bottomline), lwd=thin.style, lty="dotted") # Reference line
-
-  lines (c(x.min, x.max), rep(0,2)) # Top line
-  lines (c(x.min, x.max), rep(y.bottomline,2)) # Bottom line
-
-  show.rng <- p.rng[ p.rng >= x.min & p.rng <= x.max ]
-  tick.height <- 0.25
-  x0 <- show.rng
-  x1 <- x0
-  y0 <- rep(0,times=length(x0))
-  y1 <- rep(-tick.height,times=length(y0))
-  text (x0, 1, show.rng, cex=cex.scale*1.1)
-  text (x0, bottom-1, show.rng, cex=cex.scale*1.1)
-  segments(x0=x0, y0=y0, x1=x1, y1=y1)
-  segments(x0=x0, y0=bottom+y0, x1=x1, y1=bottom-y1)
-
-  #thin.col <- c('red','blue','yellow','orange')
-  #thick.col <- c('green','purple','orange', 'red')
-  #point.col <- c('black','dark red', 'dark red', 'dark red')
-
-  thin.col <- c('grey40','blue','yellow','orange')
-  thick.col <- c('grey20','purple','orange', 'red')
-  point.col <- c('black','dark red', 'dark red', 'dark red')
-  medium.col <- thick.col
-
-  long.line <- if (nc>=4) thin.style else medium.style
-  short.line <- thick.style
-
-  for (i in seq(length=lines.per.row)) {
-    y.pos <- pos + (i-1)/8
-    color <- 1 + (i-1) %% length(thin.col)
-    if (sum.dim==3) {
-      s <- summ[,i,]
-    } else {
-      s <- summ
-    }
-    segments(x0=s[,1], y0=y.pos, 
-      x1=s[,nc], y1=y.pos,
-      lwd=long.line,
-      col=thin.col[color]
-    )
-    if (nc>=3) {
-      segments(x0=s[,2], y0=y.pos, 
-        x1=s[,nc-1], y1=y.pos,
-        lwd=short.line,
-        col=thick.col[color]
-      )
-    }
-    if (nc %% 2 == 1) {
-      midpoint <- 1 + ((nc-1) %/% 2)
-      points (s[,midpoint], y.pos,
-        pch=20,
-        cex=cex.scale*1.25,
-        col=point.col[color]
-      )
-    }
-  }
-  par(old.par)
-  if (print.to.file) dev.off()
-  invisible(NULL)
 }
 
 
@@ -2849,39 +3336,298 @@ rvplot.matrix <- function(x, labels, pos=NULL, output.file=NULL, xlim=NULL, vlin
 #}
 
 
-# ========================================================================
-# plot 
-# ========================================================================
+# ================================================================================
+# rvcolortheme  -  
+# ================================================================================
 
-# .plot <- getFromNamespace("plot", "graphics")
 
-plot <- function (x, y, ...) 
+# Put the following in rv/par$rvcolorthemes
+
+.rvcolorthemes <- list(
+  default=c("grey20", "grey40", "grey60"),
+  gray=c("grey20", "grey40", "grey60"),
+  lightgray=c("grey20", "grey40", "grey60"),
+  darkgray=c("black", "grey20", "grey40")
+)
+
+.makervcolortheme <- function (col)
 {
-    if (!missing(y) && is.rv(y) && !is.rv(x)) return(plot.rv(x, y, ...))
-    if (is.null(attr(x, "class")) && is.function(x)) {
-        nms <- names(list(...))
-        if (missing(y)) 
-            y <- {
-                if (!"from" %in% nms) 
-                  0
-                else if (!"to" %in% nms) 
-                  1
-                else if (!"xlim" %in% nms) 
-                  NULL
-            }
-        if ("ylab" %in% nms) 
-            plot.function(x, y, ...)
-        else plot.function(x, y, ylab = paste(deparse(substitute(x)), 
-            "(x)"), ...)
+  colors.with.numbers <- colors()[regexpr("[a-z]1$", colors())>0]
+  colors.with.numbers <- sub("1$", "", colors.with.numbers)
+  if (!col %in% colors.with.numbers) {
+    if (col %in% colors())
+      return(rep(col,3))
+    else 
+      return(NULL)
+  } 
+  paste(col, c("3", "2", ""), sep="") 
+}
+
+rvcolortheme <- function (theme) # NOEXPORT
+{
+  # NAME
+  #  rvcolortheme - color themes for plotting uncertainty intervals
+  # DETAILS
+  # (please, later export this!)
+  synonym <- list(grey="gray", lightgrey="lightgray", darkgrey="darkgray")
+  theme <- theme[1]
+  if (is.null(theme) || is.na(theme)) {
+    theme <- "default"
+  }
+  (!is.null(co <- .rvcolorthemes[[theme]])) && return(co)
+  (!is.null(stheme <- synonym[[theme]])) && return(.rvcolorthemes[[stheme]])
+  co <- .makervcolortheme(theme)
+  if (is.null(co)) {
+    warning(paste("No rv color theme '",theme,"' found, using default",sep=""))
+    co <- .rvcolorthemes[["default"]]
+  } else {
+    .rvcolorthemes[[theme]] <- co
+  }
+  
+  names(co) <- c("dot", "thick", "thin")
+  co
+}
+
+### MLPLOT ###
+
+
+.mlplot3 <- function (x, ..., main=NULL, add=FALSE) 
+{
+  x.name <- deparse(substitute(x))
+  dx <- dim(x)
+  n <- dx[3]
+  n.col <- ceiling(sqrt(n))
+  n.row <- n %/% n.col
+  if (n.col*n.row<n) n.row <- n.row+1
+  grid <- c(n.row, n.col)
+  #
+  d.n <- dimnames(x)[[3]]
+  if (length(d.n)!=n) {
+    d.n[n] <- NA
+    def.names <- paste(x.name, "[,,", 1:n, "]", sep="")
+    d.n[is.na(d.n)] <- def.names[is.na(d.n)]
+  }
+  par(mfrow=grid, oma=c(0,0,5,0), mar=c(2,1,1,0.5)+0.1)
+  for (k in 1:n) {
+    main.title <- d.n[k]
+    mlplot(x[,,k], ..., main=main.title, add=FALSE)
+  }
+  if (is.null(main)) {
+    main <- x.name
+  }
+  mtext(main, line=1, outer=TRUE)
+  invisible()
+}
+
+.order.rows <- function (x)
+{
+  row.order <- t(apply(x, 1, order))
+  ord <- array(seq(along=x),dim(x))
+  for (j in 1:nrow(ord)) {
+    ord[j,] <- ord[j,row.order[j,]]
+  }
+  ord
+}
+
+mlplot <- function (X, y.center = TRUE, y.shift = 0, y.map = NULL, mar = par("mar"), left.margin = 3, top.axis = TRUE, exp.labels=FALSE, x.ticks = NULL, axes = NULL, xlim = NULL, ylim = NULL, xlab=deparse(substitute(X)), ylab=NULL, las = NULL, add = FALSE, ...) 
+{
+    dx <- dim(X)
+    lx <- length(dx)
+    if (lx > 3) {
+        stop("Too many dimensions: ", lx)
     }
-    else UseMethod("plot")
+    else if (lx == 3) {
+        return(.mlplot3(X, y.center=y.center, y.shift=y.shift, y.map = y.map,
+             mar = mar, left.margin = left.margin, top.axis = top.axis, 
+             exp.labels=exp.labels, x.ticks=x.ticks, axes = axes, 
+             xlim=xlim, ylim = ylim,
+             xlab=xlab, ylab = ylab,
+             las = las,  
+             add = add, ...))
+    }
+    else if (lx == 2) {
+        labels <- dimnames(X)[[1]]
+        if (any(rv.all.na(X))) {
+            f <- function(x) {
+                if (!any(is.na <- rv.all.na(x))) 
+                  return(x)
+                w <- which(is.na)
+                c(x[-w], x[w])
+            }
+            X <- t(apply.rv(X, 1, f))
+        }
+    }
+    else {
+        labels <- names(X)
+        dim(X) <- c(length(X), 1)
+    }
+    y.row.coords <- 1:nrow(X)
+    ylim <- rev(range(y.row.coords) + c(-1, 1))
+    if (is.null(y.map)) {
+        y.map <- function(x) {
+            if (y.center) {
+                f <- function(i, j, n, nc) {
+                  i + (j - 1)/n - 0.5 * (nc - 1)/n
+                }
+            }
+            else {
+                f <- function(i, j, n, nc) {
+                  i + (j - 1)/n
+                }
+            }
+            f(i = row(x), j = col(x), n = max(ncol(x),10)*1.5, nc = ncol(x))
+        }
+    }
+    if (is.function(y.map)) {
+        y <- y.map(X)
+    }
+    else if (is.numeric(y.map)) {
+        y <- y.map
+    }
+    else {
+        stop("Unknown type of y.map")
+    }
+    if (is.numeric(y.shift)) {
+        y <- (y + y.shift)
+    }
+    else {
+        stop("y.shift must be numeric")
+    }
+    if (length(y) != length(X)) {
+        stop("y coordinates are not valid (check y.map!)")
+    }
+    if (is.null(xlim)) {
+        x.sims <- sims(as.rv(X))
+        rng <- range(x.sims[is.finite(x.sims)])
+        if (length(rng) < 2) {
+            rng <- c(-1, 1)
+        }
+        xlim <- rng
+    }
+    if (is.null(x.ticks)) {
+      x.row.coords <- pretty(xlim)
+    } else {
+      x.row.coords <- x.ticks
+    }
+    if (exp.labels) {
+      x.labels <- paste(signif(exp(x.row.coords),2))
+    } else {
+      x.labels <- paste(x.row.coords)
+    }
+    mar <- (mar + c(0, left.margin, 2, 0))
+    oldpar <- par(mar = mar)
+    on.exit(par(oldpar))
+    las <- if (!is.null(las)) las else 1
+    if (add) {
+        points(X, y, xlim = xlim, ylim = ylim, ...)
+    }
+    else {
+        plot(X, y, ..., las = las, xlim = xlim, ylim = ylim, 
+            axes = FALSE, xlab=xlab, ylab = "")
+        if (is.null(axes) || axes) {
+            axis(1, at = x.row.coords, labels=x.labels)
+            if (top.axis) 
+                axis(3, at = x.row.coords, labels=x.labels)
+            if (is.null(labels)) 
+                labels <- paste(y.row.coords)
+            axis(2, at = y.row.coords, labels = labels, tick = FALSE, 
+                line = FALSE, pos = NA, outer = FALSE, font = NA, 
+                las = 1)
+        }
+    }
+    invisible(NULL)
 }
 
 
-.rvRegisterFunctionSwitch(plot, "plot", "graphics")
+
+
+rvintervals <- function (x, rvinterval=rvpar("rvinterval"), ...) # NOEXPORT
+{
+  which.quantiles <- list(
+    "NA" = NA,
+    mean = NA,
+    median = 0.50,
+    "50%" = c(0.25, 0.75),
+    "80%" = c(0.10, 0.90),
+    "95%" = c(0.025, 0.975)
+  )
+  .whichq <- function (iv) {
+    if (is.numeric(iv)) {
+      iv <- paste(100*iv, "%", sep="")
+    } else {
+      (!is.null(q <- which.quantiles[[iv]])) && return(q)
+    }
+    if (is.na(iv)) return(NA)
+    n <- nchar(iv)
+    if (substr(iv,n,n)=="%") {
+      ivn <- as.numeric(substr(iv,1,n-1))
+      c(0.5-ivn/200, 0.5+ivn/200)
+    } else {
+      NA
+    }
+  }
+  .length <- function (iv) {
+    lg <- .whichq(iv)
+    if (length(lg)<=1) 0 else diff(lg)
+  }
+  probs <- as.vector(na.omit(unlist(lapply(rvinterval, .whichq))))
+  if (length(probs)<=1) {
+    # A trick to force probs into a named array
+    # (won't otherwise return names if we have only one quantile, e.g. 0.50)
+    probs <- c(probs, NA)
+  }
+  if (!all(is.na(probs))) {
+    Q <- rvquantile(x, probs=probs, ...)
+  } else {
+    Q <- NULL # DEBUG: will this be ignored if we have only "mean" e.g.? #
+  }
+  compute.what <- list(
+    "NA"   = function () NA,
+    mean   = function () t(as.vector(rvmean(x, na.rm=TRUE))),
+    median = function () Q["50%",,drop=FALSE],
+    "50%"  = function () Q[c("25%","75%"),,drop=FALSE],
+    "80%"  = function () Q[c("10%","90%"),,drop=FALSE],
+    "95%"  = function () Q[c("2.5%","97.5%"),,drop=FALSE]
+  )
+  .lbl <- function (p) { # From 'quantile.default'
+    if (is.null(p) || is.na(p)) return(NA)
+    dig <- max(2, getOption("digits"))
+    paste(formatC(100 * p, format = "fg", wid = 1, digits = dig), "%", sep = "")
+  }
+  .summaries <- function (iv) {
+    if (is.null(f <- compute.what[[iv]])) {
+      a <- na.omit(sapply(.whichq(iv),.lbl))
+      if (all(a %in% dimnames(Q)[[1]])) {
+        return(Q[a,,drop=FALSE])
+      } else {
+        warning("Cannot understand interval '", iv, "'")
+        return(NA)
+      }
+    }
+    a <- f()
+    if (is.null(dim(a))) {
+       if (length(x)==1) {
+          a <- t(a)
+       } else {
+         na <- names(a)
+         dim(a) <- c(1,length(a))
+         dimnames(a) <- list(iv, na)
+       }
+    }
+    return(a)
+  } 
+  lgth <- rev(order(sapply(rvinterval, .length)))
+  s <- lapply(rvinterval, .summaries)
+  names(s) <- rvinterval
+  s[lgth]
+}
+
+
+
 
 
 # rv-graph.R
+
 
 
 # ========================================================================
@@ -2889,13 +3635,13 @@ plot <- function (x, y, ...)
 # ========================================================================
 #  
 
-mcmcarray <- function(x)
+mcmcarray <- function(x) # NOEXPORT : OBSOLETE
 {
   has.chain <- !is.na(rvnchains(x))
   if (!any(has.chain))
     return(NULL)
   a <- list()
-  ord <- rvsim.attr(x,'order')
+  ord <- rvattr(x,'order')
   for (i in seq(along=ord)) {
     order.i <- ord[[i]]
     if (length(order.i)==1 && is.na(order.i)) {
@@ -2914,7 +3660,7 @@ mcmcarray <- function(x)
 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #
 # ========================================================================
-# rvsim.attr  -  return rvsim.attr attribute for each component
+# rvattr  -  return the rvsim attribute for each component
 # ========================================================================
 # returns a list.
 
@@ -2975,17 +3721,157 @@ rvnchains <- function(x)
   unlist(rvattr(x,'n.chains'))
 }
 
-
+ 
 # miscellaneous functions
 
+
+# ========================================================================
+# rvhyper  -  hypergeometric rvs
+# ========================================================================
+
+rvhyper <- function(nn=1, m, n, k) # NOEXPORT -- not yet ready
+{
+  if (anyisrv(nn, m, n, k)) {
+    r <- mapply.rv("rhyper", nn=n, m=m, n=n, k=k)
+  } else {
+    # DEBUG: won't yet work properly as a vectorizing function!
+    n.sims <- getnsims()
+    s <- rhyper(nn=nn*n.sims, m=m, n=n, k=k)
+    nx <- (length(s) %/% n.sims)
+    dim(s) <- c(nx, n.sims)
+    r <- rvsims(t(s))
+  }
+  r
+}
+
+
+
+
+rvreject <- function (x)  # NOEXPORT -- not yet ready
+{
+  reject <- function (x) (!(x & NA))
+  simapply(x, reject)
+}
+
+# ===========================================================================
+
+rvifelse <- function (test, yes, no)  # NOEXPORT -- not yet ready
+{
+  # NAME
+  #   rvifelse - If-Then-Else For Random Vectors
+  # DESCRIPTION
+  #   ifelse for random vectors
+  # DETAILS
+  #   Not (yet) vectorized.
+  #
+  len <- max(length(yes),length(no))
+  if (len==1) {
+    sim <- t(sims(as.rv(c(yes[1],no[1]))))
+    testsim <- as.logical(sims(test[1]))
+    tst <- rbind(testsim, !testsim)
+    rvsims(sim[tst])
+  } else {
+    # DEBUG: make this as efficient as the above code:
+    if (length(yes)!=length(no)) {
+      YN <- rbind.rv(no[1:len],yes[1:len])
+    } else {
+      YN <- rbind.rv(no,yes)
+    }
+    YN[as.logical(test)+1,]
+  }
+}
+
+
+
+
+rvresample <- function (x, jointly=TRUE)  # NOEXPORT -- not yet ready
+{
+  # NAME
+  #   rvresample - get rid of NAs by resampling non-NA simulations
+  # DESCRIPTION
+  #   NAs are treated as 'rejected values' and not 'missing' ones
+  xa <- attributes(as.rv(x))
+  ns <- max(rvnsims(x))
+  xs <- rvsample(as.rv(x), size=ns, jointly=jointly, reject.na=TRUE)
+  x <- rvsims(xs)
+  attributes(x) <- xa
+  x
+}
+
+rvtruncate <- function (x, x.intervals=NULL, middle.interval=NULL, quantile.pairs=NULL, outside=FALSE)  # NOEXPORT -- not yet ready
+{
+  x.attr <- attributes(as.rv(x))
+  x.sims <- sims(as.rv(x))
+  if (!is.null(x.intervals)) {
+    if (is.null(dim(x.intervals))) {
+      iv <- matrix(rep(x.intervals, length(x)), ncol=length(x))
+    }
+  } else if (!is.null(quantile.pairs)) {
+    iv <- rvquantile(x, quantile.pairs)
+  } else if (!is.null(middle.interval)) {
+    iv <- rvintervals(x, middle.interval)[[1]]
+  } else {
+    return(rvsims(x.sims[sample(nrow(x.sims)),]))
+  }
+  if (!is.matrix(iv)) {
+    stop("Interval not valid")
+  }
+  if (ncol(iv)!=length(x)) {
+    stop("Invalid number of columns...") # DEBUG: not very smart error messages
+  }
+  if (nrow(iv) %% 2 != 0) {
+    stop("Invalid number of rows...")
+  }
+  for (i in seq(from=1, to=nrow(iv), by=2)) {
+    x.sims <- t(x.sims) # cols=simulation dimension
+    chosen <- (x.sims >= iv[i,] & x.sims <=iv[i+1,])
+    if (outside) chosen <- (!chosen)
+    x.sims[!chosen] <- NA
+  }
+  x.sims <- t(x.sims)
+  x <- rvsims(x.sims)
+  attributes(x) <- x.attr
+  x
+}
+
+
+
+
+
 # ========================================================================================
-# rvci - confidence/credible interval
+# rv.any.na - does an rv have missing values?
+# ========================================================================================
+
+rv.any.na <- function (x)
+{
+  # NAME
+  #  rv.any.na - Which components have missing values?
+  #
+  (colSums(is.na(sims(as.rv(x))))>0)
+}
+
+
+
+rv.all.na <- function (x)
+{
+  # NAME
+  #  rv.all.na - Which components are completely missing?
+  (colMeans(is.na(sims(as.rv(x))))==1)
+}
+
+# ========================================================================================
+# rvci - uncertainty/credible interval
 # ========================================================================================
 
 rvci <- function(obj, interval=0.95, one.sided=FALSE, left=TRUE)
 {
-  if (one.sided) {
-    q <- if (left) interval else 1-interval
+  # NAME
+  #  rvci - Uncertainty (Credible) Interval
+  # 
+  if (length(interval)>1) {
+    ci <- t(rvquantile(obj, range(interval)))
+  } else if (one.sided) {
+    q <- if (left) interval else (1-interval)
     ci <- t(rvquantile(obj, q))
   } else {
     lower <- (1-interval)/2
@@ -3001,107 +3887,275 @@ rvci <- function(obj, interval=0.95, one.sided=FALSE, left=TRUE)
 
 rvinci <- function(obj, x, interval=0.95, one.sided=FALSE, left=FALSE)
 {
+  # NAME
+  #  rvinci - Is a Given Value in the Credible Interval?
+  # 
   ci <- rvci(obj, interval=interval, one.sided=one.sided, left=left)
   (x>=ci[,1] && x<=ci[,2])
 }
-
-# ========================================================================================
-# doc - show a pdf file from the 
-# ========================================================================================
-
-doc <- function (topic, package = NULL, lib.loc = NULL) 
-{
-    #
-    # This is just a modified version of the function "vignette"
-    # NOTHING fancy here
-    # usage: doc(topic, package)
-    # examples: doc('rv'); doc('R2WinBUGS')
-    #
-    if (is.null(package)) 
-        package <- .packages(all.available = TRUE, lib.loc)
-    paths <- .find.package(package, lib.loc=lib.loc)
-    paths <- paths[tools::file_test("-d", file.path(paths, "doc"))]
-    exts <- "pdf"
-    vignettes <- lapply(paths, function(dir) {
-        tools::list_files_with_exts(file.path(dir, "doc"), exts, full.names=TRUE)
-    })
-    if (!missing(topic)) {
-        topic <- topic[1]
-        vignettes <- as.character(unlist(vignettes))
-        vidx <- (tools::file_path_sans_ext(basename(vignettes)) == 
-            topic)
-        if (any(vidx)) {
-            pdf <- sub("\\.[[:alpha:]]+$", ".pdf", vignettes)
-            pidx <- tools::file_test("-f", pdf)
-            ok <- vidx & pidx
-            if (any(ok)) {
-                idx <- min(which(ok))
-                if (sum(ok) > 1) {
-                  warning(gettextf("vignette '%d' found more than once,\nusing the one found in '%s'", 
-                    topic, dirname(pdf[idx])), call. = FALSE, 
-                    domain = NA)
-                }
-                z <- list(file = vignettes[idx], pdf = pdf[idx])
-            }
-            else {
-                z <- list(file = vignettes[vidx][1], pdf = character(0))
-            }
-            z$topic <- topic
-            class(z) <- "vignette"
-            return(z)
-        }
-        else warning(gettextf("vignette '%s' *not* found", topic), 
-            call. = FALSE, domain = NA)
-    }
-    if (missing(topic)) {
-        topic <- package
-        vDB <- matrix(character(0), nr = 0, nc = 4)
-        colnames(vDB) <- c("Dir", "File", "Title", "PDF")
-        for (db in vignettes[sapply(vignettes, length) > 0]) {
-            dir <- dirname(dirname(db[1]))
-            entries <- NULL
-            if (file.exists(INDEX <- file.path(dir, "Meta", "vignette.rds"))) 
-                entries <- .readRDS(INDEX)
-            if (NROW(entries) > 0) 
-                vDB <- rbind(vDB, cbind(Dir = I(dir), entries[c("File", 
-                  "Title", "PDF")]))
-        }
-        title <- if (NROW(vDB) > 0) {
-            paste(vDB[, "Title"], paste(rep.int("(source", NROW(vDB)), 
-                ifelse(vDB[, "PDF"] != "", ", pdf", ""), ")", 
-                sep = ""))
-        }
-        else character()
-        db <- cbind(Package = basename(vDB[, "Dir"]), LibPath = dirname(vDB[, 
-            "Dir"]), Item = tools::file_path_sans_ext(basename(vDB[, 
-            "File"])), Title = title)
-        y <- list(type = "vignette", title = "Vignettes", header = NULL, 
-            results = db, footer = NULL)
-        class(y) <- "packageIQR"
-        return(y)
-    }
-}
-
 
 # 
 # outer.rv - 
 #
 
-outer.rv <- function (X, Y=NULL, FUN="*", ...) {
+outer.rv <- function (X, Y=NULL, FUN="*", ...)
+{
+  # NAME
+  #   outer.rv - 
+  # 
   if (is.null(Y)) {
-    simmapply("outer", X, X, FUN, ...)
+    mapply.rv("outer", X, X, MoreArgs=list(FUN="*", ...))
   } else {
-    simmpply("outer", X, Y, FUN, ...)
+    mapply.rv("outer", X, Y, MoreArgs=list(FUN="*", ...))
   }
 }
 
 
+rvoverlap <- function(obj, iv, interval=0.95, one.sided=FALSE, left=TRUE) 
+{
+  # NAME
+  #  rvoverlap - Which Random Scalars Fall Within Which Given Interval?
+  # ARGUMENTS
+  #   obj : an rv object
+  #   iv  : given interval
+  #   interval : interval size of obj to test
+  # VALUE
+  #   -Inf : if the c.i. is to the left of the given interval
+  #   +Inf : if the c.i. is to the right of the given interval
+  #   -1   : if the c.i. is partially covered by the interval on the left
+  #   +1   : if the c.i. is partially covered by the interval on the right
+  #   0    : if the c.i. is fully covered by the given range
+  #
+  iv <- range(iv)
+  ci <- rvci(obj, interval=interval, one.sided=one.sided, left=left)
+  x <- rep(0, times=nrow(ci))
+  x[ ci[,2] < iv[1] ] <- (-Inf)
+  x[ ci[,1] <= iv[1] & ci[,2] >= iv[1] ] <- (-1)
+  x[ ci[,1] > iv[2] ] <- (+Inf)
+  x[ ci[,2] >= iv[2] & ci[,1] <= iv[2] ] <- (+1)
+  dim(x) <- dim(obj)
+  dimnames(x) <- dimnames(obj)
+  names(x) <- names(obj)
+  x 
+}
 
-splitbyname <- function (x) {
-  a <- split(x, f=.shortnames(x))
-  a <- lapply(a, .setDimensionByName)
+
+
+
+
+aperm.rv <- function (x, ...)
+{
+  # NAME
+  #   aperm.rv - Transpose a Random Array
+  #   
+  a <- aperm(x, ...)
+  if (!is.rv(x)) return(a)
+  class(a) <- class(x)
   a
 }
+
+
+# =========
+# unlist.rv
+# =========
+
+
+unlist.rv <- function (x, recursive = TRUE, use.names = TRUE) 
+{
+  # NAME
+  #   unlist.rv - Flatten Lists That (May) Contain Random Variables 
+  y <- NULL
+  ix <- seq(along=x)
+  xn <- names(x)
+  .paste <- function (name, x) {
+     nbrs <- .dim.index(x, leftadjust=FALSE)
+     paste(name, nbrs, names(x), sep="")
+  }
+  if (recursive) {
+    for (i in ix) {
+      nx <- xn[i]
+      if (use.names && is.null(nx)) nx <- "."
+      if (!is.rv(x[[i]]) && is.list(x[[i]])) {
+        new.y <- unlist.rv(x[[i]], recursive=TRUE, use.names=use.names)
+      } else {
+        new.y <- x[[i]]
+      }
+      if (is.null(names(new.y))) {
+        new.names <- .paste(nx, new.y)
+      } else {
+        new.names <- paste(nx, ".", names(new.y), sep="")
+      }
+      yn <- names(y)
+      y <- c(y, new.y)
+      names(y) <- c(yn, new.names)
+    }
+  } else {
+    for (i in ix) {
+      nx <- xn[i]
+      new.y <- x[[i]]
+      new.names <- .paste(nx, new.y)
+      yn <- names(y)
+      y <- c(y, new.y)
+      names(y) <- c(yn, new.names)
+    }
+  }
+  y
+}
+
+
+
+rep.rv <- function (x, times, ...)
+{
+  if (!is.rv(x)) return(rep(x, times, ...))
+  a <- rep(unclass(x), times, ...)
+  class(a) <- class(x)
+  a
+}
+
+
+rvminmax <- function (x, na.rm=FALSE, finite=FALSE, defaults=c(-Inf,Inf)) # NOEXPORT
+{
+  .minmax <- function (x, FUN, def) {
+    if (na.rm) x <- x[!is.na(x)]
+    if (finite) x <- x[is.finite(x)]
+    if (length(x)==0) def else FUN(x)
+  }
+  m0 <- rvsimapply(x, .minmax, min, defaults[1])
+  m1 <- rvsimapply(x, .minmax, max, defaults[2])
+  list(min=m0, max=m1)
+}
+
+finiterange <- function (x) ## NOEXPORT
+{
+  x <- x[!is.na(x)]
+  x <- x[is.finite(x)]
+  if (length(x)==0) return(c(NA,NA))
+  range(x)  
+}
+
+rvfiniterange <- function (x) ## NOEXPORT
+{
+  rvsimapply(x, finiterange)
+}
+
+
+apply.rv <- function (X, MARGIN, FUN, ...)
+{
+  # NAME
+  #   apply.rv - Apply Functions Over Random Array Margins
+  FUNC <- function (x, ...) {
+    class(x) <- class(rv())
+    FUN(x, ...)
+  }
+  a <- apply(X, MARGIN, FUNC, ...)
+  .list2array(a, drop=TRUE)
+}
+
+
+imputeIntoTemplate <- function (x, template)
+{
+  # NAME
+  #   imputeIntoTemplate - force a vector into specified shape
+  # ARGUMENTS
+  #   x : (vector or array) 
+  #   template : (logical vector or array)
+  # DESCRIPTION 
+  #   imputes 'x' into the array shape given by 'template',
+  #   which is a logical array of the desired dimension 
+  #   (usually the dimnames are also important!)
+  # DETAILS
+  #   The values in the components of the template vector/array
+  #   determine how the imputation is to be done. 
+  #   A 'TRUE' value indicates a component that is replaced
+  #   by a value in x;
+  #   Value 'FALSE' indicates a component that is NOT imputed,
+  #   but skipped and later imputed an 'NA';
+  #   a component with 'NA' in the template _is imputed_ but
+  #   it is later masked with an 'NA'. 
+  #   Thus only components with the value 'TRUE' will appear non-NA
+  #   in the return value.
+  # 
+  if (!is.logical(template)) {
+    stop("Template must be a logical vector or array")
+  }
+  new.x <- template
+  nas <- template
+  has.nas <- any(is.na(template))
+  if (has.nas) {
+    template[is.na(template)] <- TRUE
+  }
+  new.x[template] <- x
+  if (has.nas) {
+    new.x[is.na(nas)] <- NA
+  }
+  dim(new.x) <- dim(template)
+  dimnames(new.x) <- dimnames(template)
+  new.x[!template] <- NA
+  new.x
+}
+
+
+splitAndImpute <- function (x, templates)
+{
+  a <- splitbyname(x)
+  if (!is.list(templates)) {
+    return(a)
+  }
+  lapply(names(a), function (n) imputeIntoTemplate(a[[n]], template=templates[[n]]))
+}
+
+
+splitbyname <- function (x)
+{
+  a <- split(x, f = .shortnames(x))
+  lapply(a, .setDimensionByName)
+}
+
+
+#
+# 
+#
+
+
+rvsample <- function(x, size=1, jointly=TRUE, reject.na=FALSE)
+{
+  # NAME
+  #   rvsample - Draw Samples from Random Vectors
+  #
+  xs <- sims(x)
+  ns <- nrow(xs)
+  if (is.null(size) || is.na(size)) size <- ns
+  if (jointly) {
+    if (reject.na) {
+      f <- function (x) any(is.na(x))
+      is.na.xs <- apply(xs, 1, f)
+      if (all(is.na.xs)) {
+        s <- sample(ns, size=size, replace=TRUE, prob=is.na.xs)
+      } else {
+        s <- sample(ns, size=size, replace=TRUE, prob=!is.na.xs) 
+      }
+    } else {
+      s <- sample(ns, size=size, replace=TRUE)
+    }
+    s <- xs[s,]
+  } else {
+    s <- apply(xs, 2, function (s) {
+      if (all(nas <- is.na(s))) return(s)
+      sample(s[!nas], size=size, replace=TRUE)
+    })
+  }
+  return(s)
+}
+
+
+# ===========================================================================
+
+
+
+
+####
+
+
 # ========================================================================
 # print.rv  -  print summary of a rv on the console
 # ========================================================================
@@ -3112,16 +4166,31 @@ splitbyname <- function (x) {
 # History:     2004-06-  : 
 #
 
-print.rv <- function(x, ...)
+print.rv <- function(x, digits=NULL, ...)
 {
   s <- summary(x)
+  qc <- attr(s, "quantile.cols")
   if (is.null(s))
     return(print(s))
-  s <- as.data.frame(round(s,2))
-  s <- cbind(s[,1:2],' '='(',s[,3:9],' '=')',s[-(1:9)])
+  if (is.null(digits)) digits <- rvpar("print.digits")
+  s <- as.data.frame(round(s,digits))
+  ds <- dimnames(s)
+  if (!is.null(qc)) {
+    nqc1 <- seq(from=1, to=min(qc)-1)
+    nqc2 <- seq(from=max(qc)+1, to=ncol(s))
+    s <- cbind(s[,nqc1], ' '='(', s[,qc], ' '=')', s[nqc2])
+  }
   if (!is.null(.names <- names(x))) {
-    s <- cbind(.names,s)
-    names(s)[[1]] <- 'name'
+    s <- cbind(name=.names, s)
+  } else if (!is.null(unlist(.dn <- dimnames(x))) && length(dim(x))==2) {
+    # 'is.null(unlist(dimnames))' since we might have e.g. list(NULL, NULL) 
+    sud <- rvpar("summary.dimnames")
+    if (!is.null(sud) && !is.na(sud) && is.logical(sud)) {
+      da <- lapply(.dn, function (na) if (is.null(na)) rep("", nrow(s)) else na)
+      rw <- da[[1]][row(x)]
+      cl <- da[[2]][col(x)]
+      s <- cbind(row=rw, col=cl, " "=":", s)
+    }
   }
   print(s)
 }
@@ -3148,12 +4217,75 @@ print.rvsim <- function(x, ...) # NOEXPORT
 # ========================================================================
 #
 
-dsummary <- function(v) # NOEXPORT
+.rvsummary.integer <- function (x)
 {
-  r <- c(mean(v, na.rm=TRUE),sd(v,na.rm=TRUE),quantile(v,c(0.01,0.025,0.25,0.5,0.75,0.975,0.99),
-    na.rm=TRUE), 100*mean(is.na(v)))
-  names(r) <- c("mean","sd","1%","2.5%","25%","50%","75%","97.5%","99%","NA%")
-  r
+  s <- sims(x)
+  m <- colMeans(s, na.rm=TRUE)
+  ns <- rvnsims(x)
+  sds <- sqrt((colSums(s^2)-ns*(m^2))/(ns-1))
+  sds[ns==1] <- 0
+  qs <- c(0, 0.01,0.025,0.25,0.5,0.75,0.975,0.99, 1)
+  Q <- t(apply(s, 2, quantile, probs=qs, na.rm=TRUE))
+  dimnames(Q)[[2]][1] <- "min"
+  dimnames(Q)[[2]][length(qs)] <- "max"
+  NAS <- apply(s, 2, is.na)
+  if (!is.null(dim(NAS))) NAS <- colMeans(NAS)*100
+  nax <- if (is.null(dim(x))) NULL else names(x)
+  if (all(NAS==0)) {
+    S <- cbind(mean=m, sd=sds, Q, sims=ns)
+    qc <- (2+seq(along=qs))
+  } else {
+    S <- cbind(mean=m, sd=sds, Q, "NA%"=NAS, sims=ns)
+    qc <- (2+seq(along=qs))
+  }
+  #if (!is.null(nax)) dimnames(S)[[1]] <- nax
+  attr(S, "quantile.cols") <- qc
+  return(S)
+}
+
+.rvsummary.continuous <- function (x)
+{
+  s <- sims(x)
+  m <- colMeans(s, na.rm=TRUE)
+  ns <- rvnsims(x)
+  sds <- sqrt((colSums(s^2)-ns*(m^2))/(ns-1))
+  sds[ns==1] <- 0
+  qs <- c(0.01,0.025,0.25,0.5,0.75,0.975,0.99)
+  Q <- t(apply(s, 2, quantile, probs=qs, na.rm=TRUE))
+  NAS <- apply(s, 2, is.na)
+  if (!is.null(dim(NAS))) NAS <- colMeans(NAS)*100
+  nax <- if (is.null(dim(x))) NULL else names(x)
+  if (all(NAS==0)) {
+    S <- cbind(mean=m, sd=sds, Q, sims=ns)
+    qc <- (2+seq(along=qs))
+  } else {
+    S <- cbind(mean=m, sd=sds, Q, "NA%"=NAS, sims=ns)
+    qc <- (2+seq(along=qs))
+  }
+  #if (!is.null(nax)) dimnames(S)[[1]] <- nax
+  
+  attr(S, "quantile.cols") <- qc
+  return(S)
+}
+
+.rvsummary.logical <- function (x)
+{
+  s <- sims(x)
+  m <- colMeans(s, na.rm=TRUE)
+  ns <- rvnsims(x)
+  sds <- sqrt((colSums(s^2)-ns*(m^2))/(ns-1))
+  sds[ns==1] <- 0
+  NAS <- apply(s, 2, is.na)
+  if (!is.null(dim(NAS))) NAS <- colMeans(NAS)*100
+  nax <- if (is.null(dim(x))) NULL else names(x)
+  if (all(NAS==0)) {
+    S <- cbind(mean=m, sd=sds, sims=ns)
+  } else {
+    S <- cbind(mean=m, sd=sds, "NA%"=NAS, sims=ns)
+  }
+  #if (!is.null(nax)) dimnames(S)[[1]] <- nax
+  attr(S, "quantile.cols") <- NULL
+  return(S)
 }
 
 # ========================================================================
@@ -3170,27 +4302,23 @@ summary.rv <- function(object, ...)
   if (x.len < 1) {
     return(NULL)
   }
-  output <- t(rvsimapply(x, dsummary))
-  output <- cbind(output,sims=nsims(x))
-  const <- (nsims(x)==1)
-  if (any(const)) output[const,'sd'] <- 0
-  rnames <- dimnames(output)[[2]]
-  if (all(output[,'NA%']==0)) {
-    output <- output[, rnames!="NA%",drop=FALSE]
+  s <- sims(x)
+  if (is.logical(x)) {
+    output <- .rvsummary.logical(x)
+  } else if (is.integer(x)) {
+    .range <- range(s, na.rm=TRUE)
+    output <- .rvsummary.integer(x)
+  } else {
+    output <- .rvsummary.continuous(x)
   }
-  row.names <- rv:::.dim.index(x)
+  row.names <- .dim.index(x)
   dimnames(output)[[1]] <- row.names
   Rhat <- rvRhat(x)
   if (!is.null(Rhat)) {
     if (!all(is.na(Rhat)))  output <- cbind(output, Rhat, n.eff=rvneff(x))
   }
-  chains <- rvnchains(x)
-  if (!is.null(chains)) {
-    if (!all(is.na(chains))) output <- cbind(output,chains)
-  }
   output
 }
-
 
 
 
@@ -3359,20 +4487,344 @@ as.bugs.rv <- function (x, DIC=FALSE) # What happens when DIC=TRUE?
 # end of rv-bugs.R
 
 
+# rv factors
+
+is.numeric.rvfactor <- function (x)
+{
+  FALSE
+}
+
+is.rvfactor <- function (x)
+{
+  UseMethod("is.rvfactor")
+}
+
+is.rvfactor.rvfactor <- function (x)
+{
+  TRUE
+} 
+
+is.rvfactor.rv <- function (x)
+{
+  all(rvsimapply(x, is.factor))
+} 
+
+is.rvfactor.default <- function (x)
+{
+  FALSE
+} 
+
+as.rvfactor <- function (x, ...)
+{
+  if (is.rvfactor(x)) x else rvfactor(x)
+} 
+
+
+as.rv.rvfactor <- function (x)
+{
+  attr(x, "levels") <- NULL
+  clx <- class(x)
+  clx[clx=="rvfactor"] <- NULL
+  class(x) <- clx
+  x
+}
+
+
+
+rvfactor <- function (x, ...)
+{
+  UseMethod("rvfactor")
+}
+
+rvfactor.default <- function (x, levels=NULL, ...)
+{
+  f <- as.factor(x)
+  a <- sims(as.rv(as.integer(f)))
+  rvf <- rvsims(a)
+  class(rvf) <- c("rvfactor", class(rvf))
+  attr(rvf, "levels") <- if (is.null(levels)) levels(f) else levels
+  rvf
+}
+
+
+rvfactor.rv <- function (x, levels=NULL, ...)
+{
+  a <- sims(x)
+  f <- as.factor(a)
+  levs <- levels(f)
+  rvf <- rvsims(array(as.integer(f), dim(a)))
+  class(rvf) <- c("rvfactor", class(rvf))
+  attr(rvf, "levels") <- if (is.null(levels)) levs else levels
+  rvf
+}
+
+print.rvfactor <- function(x, digits=NULL, ...)
+{
+  s <- summary(x)
+  if (is.null(s))
+    return(print(s))
+  if (is.null(digits)) digits <- rvpar("print.digits")
+  s <- as.data.frame(round(s,digits))
+  ds <- dimnames(s)
+  if (!is.null(.names <- names(x))) {
+    s <- cbind(name=.names, s)
+  } else if (!is.null(.dn <- dimnames(x))) {
+    sud <- rvpar("summary.dimnames")
+    if (!is.null(sud) && !is.na(sud) && is.logical(sud)) {
+      da <- lapply(.dn, function (na) if (is.null(na)) rep("", nrow(s)) else na)
+      rw <- da[[1]][row(x)]
+      cl <- da[[2]][col(x)]
+      s <- cbind(row=rw, col=cl, " "=":", s)
+    }
+  }
+  print(s)
+}
+
+.rvsummary.rvfactor <- function (x, all.levels=FALSE)
+{
+  levels <- levels(x)
+  llev <- length(levels)
+  num.levels <- 1:llev
+  #
+  s <- sims(x)
+  #mns <- colMeans(s, na.rm=TRUE)
+  ns <- rvnsims(x)
+  #sds <- sqrt((colSums(s^2)-ns*(mns^2))/(ns-1))
+  #sds[ns==1] <- 0
+  #
+  maxlev <- if (is.null(maxlev <- rvpar("max.levels"))) { 10 } else maxlev
+  too.many.levels.to.show <- if (all.levels) FALSE else (llev>maxlev)
+  last.lev.no <- llev
+  choose.levels <- if (too.many.levels.to.show) c(1:(maxlev-1), last.lev.no) else num.levels
+  #
+  a <- apply(s, 2, function (x) table(c(x, num.levels))) # ensure that all levels are tried
+  if (is.null(dim(a))) {
+    dim(a) <- c(ncol(s),length(choose.levels))
+  }
+  a <- (a-1) # And now subtract the extra counts from the matrix that was obtained.
+  a <- a[choose.levels,,drop=FALSE]
+  ns <- rvnsims(x)
+  NAS <- apply(s, 2, is.na)
+  if (!is.null(dim(NAS))) NAS <- colSums(NAS)
+  nax <- if (is.null(dim(x))) NULL else names(x)
+  m <- a
+  if (too.many.levels.to.show) {
+    S <- rbind(a[1:(maxlev-1),,drop=FALSE], "*"=0, a[maxlev,])
+    rownames(S) <- c(levels[1:(maxlev-1)], "*", levels[last.lev.no])
+    remaining.col <- maxlev
+  } else {
+    S <- a
+    rownames(S) <- levels
+    remaining.col <- NA
+  }
+  if (any(NAS>0)) S <- rbind("NA%"=NAS*100)
+  remaining <- (ns-colSums(S))
+  if (!is.na(remaining.col)) {
+    S[remaining.col,] <- remaining
+  } else if (any(remaining>0)) {
+    stop("Impossible: levels won't sum up to 0")
+  } 
+  S <- t(S/ns)  # compute proportions in each category and transpose
+  # S <- cbind(mean=mns, sd=sds, S, sims=ns)
+  S <- cbind(S, sims=ns)
+  attr(S, "quantile.cols") <- NULL
+  return(S)
+}
+
+
+summary.rvfactor <- function(object, all.levels=FALSE, ...)
+{
+  x <- object
+  x.len <- length(x)
+  x.dim <- dim(x)
+  if (is.null(x.dim))
+    x.dim <- x.len
+  if (x.len < 1) {
+    return(NULL)
+  }
+  output <- .rvsummary.rvfactor(x, all.levels=all.levels)
+  row.names <- .dim.index(x)
+  dimnames(output)[[1]] <- row.names
+  output
+}
+
+
+
+# MIXED:
+
+is.rvmixed.rv <- function (x)
+{
+  (!is.null(attr(x, "pointmass")))
+} 
+
+is.rvmixed <- function (x)
+{
+  UseMethod("is.rvmixed")
+} 
+
+is.rvmixed.rvmixed <- function (x)
+{
+  TRUE
+}
+
+is.rvmixed.default <- function (x)
+{
+  FALSE
+}
+
+is.numeric.rvmixed <- function (x)
+{
+  TRUE
+}
+
+rvmixed <- function (x, pointmass=NULL)
+{
+  if (is.null(x)) {
+    return(x)
+  }
+  if (is.na(pointmass) || !is.numeric(pointmass)) {
+    stop("Point mass must be numeric")
+  }
+  attr(x, "pointmass") <- pointmass
+  class(x) <- c("rvmixed", class(x))
+  x
+}
+
+print.rvmixed <- function(x, digits=NULL, ...)
+{
+  s <- summary(x)
+  if (is.null(s))
+    return(print(s))
+  if (is.null(digits)) digits <- rvpar("print.digits")
+  s <- as.data.frame(round(s,digits))
+  ds <- dimnames(s)
+  if (!is.null(.names <- names(x))) {
+    s <- cbind(name=.names, s)
+  } else if (!is.null(.dn <- dimnames(x))) {
+    sud <- rvpar("summary.dimnames")
+    if (!is.null(sud) && !is.na(sud) && is.logical(sud)) {
+      da <- lapply(.dn, function (na) if (is.null(na)) rep("", nrow(s)) else na)
+      rw <- da[[1]][row(x)]
+      cl <- da[[2]][col(x)]
+      s <- cbind(row=rw, col=cl, " "=":", s)
+    }
+  }
+  print(s)
+}
+
+as.rv.rvmixed <- function (x)
+{
+  attr(x, "pointmass") <- NULL
+  clx <- class(x)
+  clx[clx=="rvmixed"] <- NULL
+  class(x) <- clx
+  x
+}
+
+.rvsummary.rvmixed <- function (x, all.levels=FALSE)
+{
+  levels <- attr(x, "pointmass")
+  llev <- length(levels)
+  num.levels <- 1:llev
+  maxlev <- if (is.null(maxlev <- rvpar("max.mixed.points"))) { 3 } else maxlev
+  too.many.levels.to.show <- if (all.levels) FALSE else (llev>maxlev)
+  last.lev.no <- llev
+  choose.levels <- if (too.many.levels.to.show) c(1:(maxlev-1), last.lev.no) else num.levels
+  s <- sims(x)
+  a <- sapply(levels[choose.levels], function (lvl) colSums(s==lvl), simplify=TRUE)
+  if (is.null(dim(a))) {
+    dim(a) <- c(ncol(s),length(choose.levels))
+  }
+  if (too.many.levels.to.show) {
+    S <- rbind(a[1:(maxlev-1),,drop=FALSE], "*"=0, a[maxlev,])
+    rownames(S) <- c(levels[1:(maxlev-1)], "*", levels[last.lev.no])
+  } else {
+    S <- a
+    colnames(S) <- levels
+  }
+  S <- (S/nrow(s)) # columns
+  X <- summary.rv(x)
+  qcmax <- max(attr(X, "quantile.cols"))
+  S <- cbind(X[,1:qcmax,drop=FALSE], S, X[,-(1:qcmax),drop=FALSE])
+  attr(S, "quantile.cols") <- attr(X, "quantile.cols")
+  attr(S, "pointmass.cols") <- (qcmax+1:length(choose.levels))
+  return(S)
+}
+
+
+summary.rvmixed <- function(object, all.levels=FALSE, ...)
+{
+  x <- object
+  x.len <- length(x)
+  x.dim <- dim(x)
+  if (is.null(x.dim))
+    x.dim <- x.len
+  if (x.len < 1) {
+    return(NULL)
+  }
+  output <- .rvsummary.rvmixed(x, all.levels=all.levels, ...)
+  pmc <- attr(output, "pointmass.cols")
+  row.names <- .dim.index(x)
+  dimnames(output)[[1]] <- row.names
+  attr(output, "pointmass.cols") <- pmc
+  output
+}
+
+print.rvmixed <- function(x, digits=NULL, ...)
+{
+  #####  return(print.rv(as.rv(x), digits=digits, ...))
+  s <- summary(x)
+  if (is.null(s))
+    return(print(s))
+  pmc <- attr(s, "pointmass.cols")
+  if (is.null(digits)) digits <- rvpar("print.digits")
+  s <- as.data.frame(round(s,digits))
+  ds <- dimnames(s)
+  if (!is.null(pmc)) {
+    s <- cbind(s[,1:(min(pmc)-1),drop=FALSE], " "=":", s[,pmc], s[,-(1:max(pmc)),drop=FALSE])
+  }
+  if (!is.null(.names <- names(x))) {
+    s <- cbind(name=.names, s)
+  } else if (!is.null(.dn <- dimnames(x))) {
+    sud <- rvpar("summary.dimnames")
+    if (!is.null(sud) && !is.na(sud) && is.logical(sud)) {
+      da <- lapply(.dn, function (na) if (is.null(na)) rep("", nrow(s)) else na)
+      rw <- da[[1]][row(x)]
+      cl <- da[[2]][col(x)]
+      s <- cbind(row=rw, col=cl, " "=":", s)
+    }
+  }
+  print(s)
+}
+
+
+
+
 .onLoad <- function(libname,pkgname) # NOEXPORT
 {
-  if (is.null(rvnsims())) rvnsims(1000)
+  if (is.null(setnsims())) setnsims(1000)
   setHook(packageEvent("rv", "detach"), 
     function (...) {
       .rvFunctionSwitch(attach=FALSE, verbose=FALSE)
     }
+  )
+  rvpar(
+    oorm = TRUE,
+    rvlwd = 2.0,
+    rvcol = "default",
+    rvlex = function (lwd) 1.5,
+    rvinterval = c("mean", "50%", "95%"),
+    point.sample = 400,
+    line.sample = 20,
+    summary.dimnames = TRUE,
+    print.digits = 2
   )
   cat("Package rv loaded.\n")
 }
 
 .onAttach <- function(libname,pkgname) # NOEXPORT
 {
-  if (is.null(rvnsims())) rvnsims(200)
+  if (is.null(setnsims())) setnsims(200)
   .rvFunctionSwitch(attach=TRUE, verbose=FALSE)
 }
 

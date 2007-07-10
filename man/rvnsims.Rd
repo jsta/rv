@@ -1,25 +1,37 @@
 \name{rvnsims}
-\title{Set or Get the Default Number of Simulations to Generate for rv Objects}
+\title{Number of simulations stored in each component of an rv object}
 \alias{rvnsims}
 \usage{
-rvnsims(nsims)
+  rvnsims(x)
 }
 \description{
-  Sets or retrieves the default number of simulations.
+  \code{rvnsims} returns the number of simulations 
+  stored in each component of its argument.
 }
 \arguments{
-  \item{nsims}{Number of simulations.}
+  \item{x}{an rv object}
 }
 \details{
-  %...
+  If the argument is a number, \code{rvnsims} returns 1.
+}
+\value{
+  A vector of integers.
 }
 \references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
 }
-
+\author{
+ Jouni Kerman
+ \email{kerman@stat.columbia.edu}
+ \url{http://www.stat.columbia.edu/~kerman}
+}
 \examples{
-  rvnsims(10000)
-  print(rvnsims()) # prints 10000
+  #
+  rvnsims(1.23)             # one
+  x <- rvnorm(1)            # an rv
+  rvnsims(x)                # equal to setnsims()
+  rvnsims(x)==nrow(sims(x)) # TRUE
+  rvnsims(x)==setnsims()    # TRUE
 }
 
+\keyword{classes}
 
-\keyword{classes} %??

@@ -5,14 +5,16 @@
   rvneff(x)
 }
 \description{
-  Retrieves the number of effective draws in each component of the argument
-  (supposed to have been saved by the simulation generating program).
+  Retrieves the number of effective draws in each component of the argument.
 }
 \arguments{
-  \item{x}{an object}
+  \item{x}{an rv object}
 }
 \details{
-  \code{rvneff} 
+  The number of effective draws is supposed to be saved by the simulation generating program (e.g. WinBUGS via R2WinBUGS).
+}
+\value{
+  A numeric object of the same length as the argument \code{x}.
 }
 \references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
 }

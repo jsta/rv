@@ -11,8 +11,8 @@ rvattr(x, attrib) <- value
 }
 \arguments{
   \item{x}{an object}
-  \item{attrib}{}
-  \item{value}{}
+  \item{attrib}{name of the attribute}
+  \item{value}{value to be set}
 }
 \details{
   \code{rvattr} 

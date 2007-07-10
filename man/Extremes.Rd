@@ -1,21 +1,25 @@
 \name{Extremes.rv}
-\alias{max.rv}
-\alias{min.rv}
-\alias{pmax.rv}
-\alias{pmin.rv}
-\title{Maxima and Minima of Random Vectors}
+\alias{max}
+\alias{min}
+\alias{pmax}
+\alias{pmin}
+\title{Maxima and Minima of (Random and Non-Random) Vectors}
 \description{
   Returns the (parallel) maxima and minima of the input values.
 }
 \usage{
-  \method{max}{rv}(\dots, na.rm=FALSE)
-  \method{min}{rv}(\dots, na.rm=FALSE)
+  %\method{max}{rv}(\dots, na.rm=FALSE)
+  %\method{min}{rv}(\dots, na.rm=FALSE)
+  max(\dots, na.rm=FALSE)
+  min(\dots, na.rm=FALSE)
 
-  \method{pmax}{rv}(\dots, na.rm=FALSE)
-  \method{pmin}{rv}(\dots, na.rm=FALSE)
+  %\method{pmax}{rv}(\dots, na.rm=FALSE)
+  %\method{pmin}{rv}(\dots, na.rm=FALSE)
+  pmax(\dots, na.rm=FALSE)
+  pmin(\dots, na.rm=FALSE)
 }
 \arguments{
-  \item{\dots}{numeric arguments.}
+  \item{\dots}{numeric or random (rv) arguments.}
   \item{na.rm}{a logical indicating whether missing values should be
     removed.}
 }
@@ -56,13 +60,13 @@
 \references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
 }
 \seealso{
-  \code{\link{range}} (\emph{both} min and max) and
+  \code{\link{range}} (\emph{both} min and max)
 }
 \examples{
  require(stats)
  x <- rpois(n=5, lambda=2)
- min.rv(x, 1)  #-> one rv
- pmin.rv(x, 1) #->  5  rvs
+ min(x, 1)  #-> one rv
+ pmin(x, 1) #->  5  rvs
 
 x <- sort(rnorm(100));  cH <- 1.35
 \dontrun{pmin(cH, quantile(x))} # no names

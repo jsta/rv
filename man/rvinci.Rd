@@ -9,14 +9,15 @@
   a given interval.
 }
 \arguments{
-  \item{obj}{}
-\item{x}{an object}
-\item{interval}{}
-\item{one.sided}{}
-\item{left}{}
+  \item{obj}{a random variable.}
+\item{x}{a numeric object.}
+\item{interval}{a number between 0 and 1.}
+\item{one.sided}{logical. Is the interval one-sided?}
+\item{left}{logical. Is the one-sided interval on the left?}
 }
 \details{
-  
+  Returns \code{TRUE} if \code{x} (a number) is in the \code{100*interval}\% interval 
+  of the random variable \code{obj}.
 }
 \value{
   A logical vector.

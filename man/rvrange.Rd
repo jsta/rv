@@ -13,7 +13,8 @@
   \item{\dots}{arguments passed to \code{range}}
 }
 \details{
-  \code{rvrange} 
+  \code{rvrange} applies the function \code{range} 
+  to each component of the 'rv' object.
 }
 \value{
   A numeric (constant) array with 2 rows (=min, max) and \code{length(x)} columns.

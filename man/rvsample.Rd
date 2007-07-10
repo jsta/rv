@@ -1,8 +1,8 @@
 \name{rvsample}
-\title{Sample from the Simulation Matrix of a Random Variable}
+\title{Draw a Sample from the Simulation Matrix of a Random Variable}
 \alias{rvsample}
 \usage{
-  rvsample(x, size=1, prob=NULL)
+  rvsample (x, size = 1, jointly = TRUE, reject.na = FALSE) 
 }
 \description{
   Draws a sample of desired size from each component of a given random variable \code{x}.
@@ -10,7 +10,8 @@
 \arguments{
   \item{x}{an object}
   \item{size}{size of the sample}
-  \item{prob}{optional probability vector, usually not needed}
+  \item{jointly}{return joint simulations and not simulations from each component separately}
+  \item{reject.na}{reject each draw that contains an \code{NA}}
 }
 \details{
   Samples (with replacement) from the distribution of the random variable object.

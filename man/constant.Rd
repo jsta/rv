@@ -3,17 +3,13 @@
 \alias{is.constant}
 \alias{is.constant.rv}
 \alias{is.constant.default}
-\alias{is.constant.rvsim}
 \alias{as.constant}
-\alias{as.constant.rvsim}
 \alias{as.constant.rv}
 \usage{
  is.constant(x)
  \method{is.constant}{rv}(x)
  \method{is.constant}{default}(x)
- \method{is.constant}{rvsim}(x)
  as.constant(x)
- \method{as.constant}{rvsim}(x)
  \method{as.constant}{rv}(x)
 }
 \description{
@@ -37,6 +33,7 @@
 }
 \examples{
   is.constant(1)         # TRUE
+  is.constant(as.rv(1))  # TRUE
   is.constant(rvnorm(1)) # FALSE
 }
 

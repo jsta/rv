@@ -25,7 +25,8 @@
  \url{http://www.stat.columbia.edu/~kerman}
 }
 \examples{
-  #
+  x <- rvmatrix(rvnorm(10),2,5)
+  as.vector(x)
 }
 
 \keyword{classes}

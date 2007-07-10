@@ -1,21 +1,20 @@
 \name{rvpermut}
-\title{Generate the Permutation Distribution of a Data Vector or Array}
+\title{Random Vectors with a Permutation Distribution}
+\alias{rvpermut}
 \alias{rvpermut}
 \usage{
-  rvpermut(data)
+  rvpermut(data, prob=NULL)
 }
 \description{
-  Generates a random vector that has the
-  permutation distribution of a given constant vector or array.
+  Generates a random vector with each component having a permutation distribution
+  based on the given (fixed) data vector.
 }
 \arguments{
-  \item{data}{a constant vector or array}
+  \item{data}{a fixed numeric vector}
+  \item{prob}{optional probabilities for the components in \code{data}}
 }
 \details{
-  \code{rvpermut} 
-}
-\value{
-  A random vector or array of the same dimension as \code{data}.
+        
 }
 \references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
 }
@@ -25,7 +24,7 @@
  \url{http://www.stat.columbia.edu/~kerman}
 }
 \examples{
-  #
+  x <- rvpermut(1:10)
 }
 
 \keyword{classes}

@@ -10,7 +10,7 @@
 }
 \arguments{
   \item{x}{an rv object}
-  \item{\dots}{further arguments passed to the hist function}
+  \item{\dots}{further arguments passed to the function \code{hist}}
 }
 \details{
 }

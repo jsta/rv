@@ -1,0 +1,98 @@
+\name{mlplot}
+\title{Horizontal interval plot of components of a random vector}
+\alias{mlplot}
+\usage{
+  mlplot(X, y.center = TRUE, y.shift = 0, y.map = NULL, mar =
+         par("mar"), left.margin = 3, top.axis = TRUE,
+         exp.labels = FALSE, x.ticks = NULL, axes = NULL, xlim
+         = NULL, ylim = NULL, xlab = deparse(substitute(X)), ylab = NULL,
+         las = NULL, add = FALSE, \dots)
+}
+\description{
+  \code{mlplot} plots the scalar components as of the given random array or vector
+  as horizontal intervals.
+  Uncertainty (``credible") intervals are plotted for random components.
+}
+\arguments{
+  \item{X}{a random array or vector}
+  \item{y.center}{center the intervals nicely at each y-coordinate?}
+  \item{y.shift}{add this amount to each y coordinate of an interval}
+  \item{y.map}{optional function to compute the y-coordinates, given \code{X}}
+  \item{mar}{the margins of the plot}
+  \item{left.margin}{offset to add to the left margin of the plot (to add space for the labels)}
+  \item{top.axis}{(logical) plot the top axis?}
+  \item{exp.labels}{(logical) if the original scale is logarithmic, label ticks in original (exp) scale?}
+  \item{x.ticks}{positions for the ticks of the x-axis}
+  \item{axes}{(logical) plot the axes at all?}
+  \item{xlim}{x limits}
+  \item{ylim}{y limits}
+  \item{las}{the style of axis labels, see \code{\link{par}}}
+  \item{add}{(logical) add the intervals to an existing plot?}
+  \item{xlab}{x label}
+  \item{ylab}{not used (instead of labels, the row names are shown)}
+  \item{\dots}{further arguments passed to plot and points}
+}
+\details{
+  \code{mlplot} plots the scalar components of a vector or an array 
+  (2 or 3-dimensional) in a vertical grid where each grid cell encloses one 
+  component of a vector or a row of a matrix.
+
+  Scalars on the same row are plotted tightly together.
+  The positioning of the scalars within a row are controlled by the 
+  arguments \code{y.center}, \code{y.shift}, \code{y.map}.
+  These do not need to be set for the default plot; if two arrays or
+  vectors are plotted over on top of each other (using \code{add=TRUE})
+  then you should probably change \code{y.shift} which controls the
+  vertical position of the array elements. 
+
+  See \code{demo(mlplot)} for a detailed 
+
+  To change the color of the random components of the vector, use
+  \code{rvcol}. Typically this is of the same length as \code{X},
+  giving the color `theme' for each component. 
+
+  If \code{X} is a 3-dimensional array, \code{mlplot} is called repeatedly
+  for each 2-dimensional array \code{X[,,k]} for each \code{k}. 
+
+  \code{X} may also be a fixed numeric object, but in this case
+  the 
+
+  \code{NA}s (or random scalars with 100\% NA) are not plotted.
+
+  \code{mlplot} is still experimental.
+
+}
+\references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
+}
+\author{
+ Jouni Kerman
+ \email{kerman@stat.columbia.edu}
+ \url{http://www.stat.columbia.edu/~kerman}
+}
+\examples{
+  n.rows <- 4; n.cols <- 5; n <- (n.rows*n.cols)
+  # Draw some fixed numbers
+  mu.true <- rnorm(1:n.rows, mean=1:n.rows, sd=1)
+  sigma.true <- 1
+  theta <- rvmatrix(rvnorm(n=n.cols, mean=mu.true, sd=sigma.true), nrow=n.rows)
+  #
+  col.labels <- paste("Time", 1:n.cols, sep=":")
+  row.labels <- paste("Unit", 1:n.rows, sep=":")
+  dimnames(theta) <- list(row.labels, col.labels)
+  #
+  par(mfrow=c(2,2))
+  mlplot(theta, main="theta")
+  abline(v=0, lty="dotted")
+  mlplot(t(theta), main="theta transposed")
+  abline(v=0, lty="dotted")
+  row.sd <- apply.rv(theta, 1, sd)
+  col.sd <- apply.rv(theta, 2, sd)
+  x.max <- max(rvquantile(c(row.sd, col.sd), 0.99))
+  mlplot(row.sd, xlim=c(0, x.max), main="theta: within-row sd for each unit")
+  abline(v=0)
+  mlplot(col.sd, xlim=c(0, x.max), main="theta: between-row sd for each time point")
+  abline(v=0)
+}
+
+\keyword{classes}
+

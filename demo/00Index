@@ -1,0 +1,2 @@
+rvexample1	Example from the paper 'Manipulating and summarizing posterior simulations using random variables' (Kerman and Gelman, 2007) - see the vignette("rv")
+mlplot	Demonstrating the 'multilevel plot function' mlplot(...)

@@ -30,8 +30,7 @@ matrix of simulations of \code{x}.
  \url{http://www.stat.columbia.edu/~kerman}
 }
 \examples{
-  x <- rvnorm(mean=0, sd=1:10)
-  print(rvsd(x))
+  rvsd(rvnorm(mean=0, sd=1:10))
 }
 
 \keyword{classes}

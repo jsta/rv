@@ -15,7 +15,7 @@
   a bugs object.
 }
 \note{
-  Works ONLY with random variable vectors that have
+  Works currently ONLY with random variable vectors that have
   been created from 3-dimensional arrays containing the MCMC chains.
   This may change in the future.
 }

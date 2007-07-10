@@ -12,7 +12,7 @@ rvmin(x, \dots)
 \item{\dots}{further arguments passed to or from other methods}
 }
 \details{
-  \code{rvmin} 
+  \code{rvmin} applies the function \code{min} to each component of the argument \code{x}.
 }
 \value{
   A \emph{numeric} vector of the same dimension as \code{x}.

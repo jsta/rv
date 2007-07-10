@@ -2,18 +2,18 @@
 \title{Detach the rv package}
 \alias{detachrv}
 \usage{
-detachrv()
+  detachrv()
 }
 \description{
   \code{detachrv} detaches the rv package and restores the original
-  functions in base and stats packages.
-  Currently equivalent to \code{detach("package:rv")}.
+  functions in \code{base}, \code{graphics} and \code{stats} packages.
 }
 %\arguments{
 %  
 %}
 \details{
-  \code{detachrv} 
+  Currently equivalent to \code{detach("package:rv")},
+  although you \emph{should} always use \code{detachrv()} 
 }
 \references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
 }
@@ -24,8 +24,8 @@ detachrv()
 }
 \examples{
   \dontrun{
-  library(rv)
-  detachrv()
+   library(rv)
+   detachrv()
   }
 }
 

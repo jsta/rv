@@ -5,7 +5,7 @@
   rvmultinom(n=1, size=1, prob)
 }
 \description{
-  Generates a random vector from a binomial sampling model.  
+  Generates a random vector from a multinomial sampling model.  
 }
 \arguments{
   \item{n}{integer, number of random variables to generate}
@@ -13,13 +13,18 @@
   \item{prob}{vector (of length at least 3) prior probabilities of successes of each trial (may be constant or an rv object)}
 }
 \details{
+  The length of \code{prob} determines the number of bins.
 
   The vector \code{prob} will be normalized to have sum 1.
 
+
   If \code{length(prob)} is two, \code{rvbinom} is called instead.
+
+  NOTE. Case of random \code{n} or \code{size} or \code{prob} --- not yet 
+  optimized for speed.
 }
 \value{
-  A random vector of length \code{length(prob)*n}. 
+  A random array of dimensions \code{length(prob)} times \code{n}.
 }
 \references{ 
 Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations 
@@ -31,7 +36,7 @@ Using Random Variable Objects. Technical report, Columbia University, New York.
  \url{http://www.stat.columbia.edu/~kerman}
 }
 \examples{
-  #
+  y <- rvmultinom(n=3, size=1, prob=c(0.20, 0.30, 0.50))
 }
 
 \keyword{classes}

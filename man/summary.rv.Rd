@@ -1,5 +1,5 @@
 \name{Summary.rv}
-\title{Summary of a Random Vector}
+\title{Summary}
 \alias{Summary.rv}
 \usage{
   \method{Summary}{rv}(\dots, na.rm=FALSE)
@@ -12,7 +12,7 @@
   \item{na.rm}{logical, remove NAs?}
 }
 \details{
-  
+    
 }
 \references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
 }
@@ -22,10 +22,8 @@
  \url{http://www.stat.columbia.edu/~kerman}
 }
 \examples{
-  x <- rvnorm(6)
-  dim(x) <- c(2,3)
-  summary(x)
+
 }
 
-\keyword{classes}
+\keyword{internal}
 

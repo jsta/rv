@@ -4,14 +4,14 @@
 \alias{E}
 \alias{Pr}
 \usage{
-  rvmean(x, \dots)
+  rvmean(x, na.rm=FALSE)
 }
 \description{
   \code{rvmean}
 }
 \arguments{
   \item{x}{an rv object}
-  \item{\dots}{further arguments passed to \code{mean}}
+  \item{na.rm}{a logical value indicating whether 'NA' values should be stripped before the computation proceeds.}
 }
 \details{
 \code{rvmean} computes the means of the simulations 
