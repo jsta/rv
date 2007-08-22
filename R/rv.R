@@ -19,55 +19,36 @@
 
 .RV <- list()
 
-.rvRegisterFunctionSwitch <- function (FUN, fname, namespace, group=3)
+.rvRegisterFunctionSwitch <- function (FUN, fname, namespace, group=NULL)
 {
+  # 'group' is obsolete!
+  #
   origFUN <- getFromNamespace(fname, namespace)
-  .RV[[paste(group)]][[namespace]][[fname]] <<- list(R=origFUN, rv=FUN)
+  ns.name <- paste(namespace, fname, sep=":::")
+  .RV[[ns.name]] <<- list(R=origFUN, rv=FUN)
 }
 
-.rvFunctionSwitch <- function (attach=TRUE, verbose=TRUE)
+
+.rvFunctionSwitch <- function (attach=TRUE, name=NULL, verbose=FALSE)
 {
   detach <- (!attach)
-  for (group in names(.RV)) {
-    .RVgroup <- .RV[[group]]
-    for (namespace in names(.RVgroup)) {
-      funcs <- .RVgroup[[namespace]]
-      for (fun.name in names(funcs)) {
-        f <- funcs[[fun.name]]
-        FUN <- if (attach) f$rv else f$R
-        if (verbose) {
-          cat(paste(namespace, ":::", fun.name, " ", sep=""))
-          if (attach) cat("replaced by a function in package:rv\n")
-          else cat("restored.\n")
-        }
-        assignInNamespace(fun.name, FUN, namespace)
-      }
-    }
-  }
-  if (verbose) {
-    cat("Package rv ")
-    if (attach) cat("attached") else cat("detached")
-    cat(".\n")
+  if (is.null(name)) name <- names(.RV)
+  RF <- .RV[name]
+  full.names <- strsplit(name, ":::")
+  for (i in seq(along=full.names)) {
+    f <- RF[[i]]
+    ns.name <- full.names[[i]]
+    namespace <- ns.name[1]
+    fun.name <- ns.name[2]
+    FUN <- if (attach) f$rv else f$R
+    if (verbose) {
+       cat(name[i], " ")
+       if (attach) cat("replaced by a function in package:rv\n")
+         else cat("restored.\n")
+     }
+    assignInNamespace(fun.name, FUN, namespace)
   }
 }
-
-.rvRestoreGroup <- function (group, restore=TRUE)
-{
-  for (grp in group) {
-    g <- paste(grp)
-    if (!(g %in% names(.RV))) next
-    .RVgroup <- .RV[[g]]
-    for (namespace in names(.RVgroup)) {
-      funcs <- .RVgroup[[namespace]]
-      for (fun.name in names(funcs)) {
-        f <- funcs[[fun.name]]
-        FUN <- if (restore) f$R else f$rv
-        assignInNamespace(fun.name, FUN, namespace)
-      }
-    }
-  }
-}
-
 
 
 
@@ -855,9 +836,9 @@ rvcompatibility <- function (level=NULL)
   old.level <- getOption("rvcompatibility")
   if (!is.null(level)) {
     if (level==0) {
-      .rvRestoreGroup(group=1, restore=FALSE)
+      .rvFunctionSwitch(attach=TRUE)
     } else if (level==1) {
-      .rvRestoreGroup(group=1, restore=TRUE)
+      .rvFunctionSwitch(attach=FALSE, name=c("base:::[<-", "base:::c"))
     } else {
       warning("Unknown level, ignored.")
       return(old.level)
@@ -1057,15 +1038,19 @@ rvcompatibility <- function (level=NULL)
 # Unfortunately c.rv is slow compared to the primitive 'c'.
 # 
 
-.rvConcatenate <- function(..., recursive=FALSE)
-{
-  x <- .Primitive("c")(..., recursive=recursive)
+.rvConcatenate <- function(..., recursive=FALSE) {
+  # x <- .Primitive("c")(..., recursive=recursive)
+  x <- .c(..., recursive=recursive)
   if (is.list(x) && anyisrvsim(x)) # Was there a 'rvsim' in there?
     class(x) <- class(rv())
   x
 }
 
+### c.rv <- .rvConcatenate # EXPORT "c.rv"
+
 ####DEBUG#### "c" <- .rvConcatenate # EXPORT "c"
+
+.c <- getFromNamespace("c", "base")
 
 .rvRegisterFunctionSwitch(.rvConcatenate, 'c', 'base', group=2)
 
@@ -2035,6 +2020,7 @@ Ops.rv <- function(e1, e2=NULL)
     v <- mapply(.Generic, e1, e2, SIMPLIFY=FALSE, USE.NAMES=FALSE)
   }
   attributes(v) <- e.attr
+  if (is.list(v)) class(v) <- class(rv())
   v
 }
 

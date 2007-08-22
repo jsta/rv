@@ -1,0 +1,11 @@
+
+
+0.946
+  Error:
+	Multiply a numeric matrix times a random scalar; the result is not an rv.
+  Affects:
+	Arithmetic operations, esp with numeric matrices and rvs.
+  Fixed:
+	Ops.rv
+  By:
+	JK
