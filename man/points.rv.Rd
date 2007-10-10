@@ -3,8 +3,8 @@
 \alias{points.rv}
 \usage{
 
-\method{points}{rv}(x, y = NULL, type = "p", xlim = NULL, ylim = NULL, pch
-                 = 19, out.of.range.marker = rvpar("oorm"), rvlwd =
+\method{points}{rv}(x, y = NULL, type = "p", xlim = NULL, ylim = NULL, 
+                 out.of.range.marker = rvpar("oorm"), rvlwd =
                  rvpar("rvlwd"), rvcol = rvpar("rvcol"), rvinterval =
                  rvpar("rvinterval"), rvlex = rvpar("rvlex"), ...)
 }
@@ -19,7 +19,7 @@
   \item{rvcol}{colors for the intervals}
   \item{xlim}{x-limits (optional)}
   \item{ylim}{y-limits (optional)}
-  \item{pch}{Character code for plotting distribution means}
+%%% \item{pch}{Character code for plotting distribution means}
   \item{out.of.range.marker}{(logical) mark intervals/points that are drawn out of the limits with an 'x' --- experimental, not yet used}
   \item{rvlwd}{line width of the thin interval}
   \item{rvinterval}{character vector of length 3, indicating intervals (points) to print}

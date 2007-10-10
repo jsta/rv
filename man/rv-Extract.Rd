@@ -6,9 +6,13 @@
 \alias{[<-.rv}
 \alias{[<<-.rv}
 \synopsis{
-x[i, j, \dots, drop = TRUE]
-x[i, j, \dots , drop = TRUE] <- value
-%x[i, j, \dots , drop = TRUE] <<- value
+%x[i, j, \dots, drop = TRUE]
+%x[i, j, \dots , drop = TRUE] <- value
+%x[[i, j, \dots, drop = TRUE]]
+%x[[i, j, \dots , drop = TRUE]] <- value
+\method{[}{rv}(x, \dots , drop = TRUE)
+\method{[<-}{rv}(x, \dots , drop = TRUE)
+\method{[[<-}{rv}(x, \dots , drop = TRUE)
 }
 \description{
   Bracket slice and assignment methods adapted for random vectors and arrays.

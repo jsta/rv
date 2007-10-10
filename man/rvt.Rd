@@ -18,6 +18,9 @@
   This function generates both univariate (independent and identically distributed)
   Student-t random variables and multivariate Student-t distributed vectors
   (with a given scaling matrix).
+
+  For details of the parameters, see the entry on \code{mvt}
+  in the \code{mvtnorm} package.
 }
 \note{
 If any of the arguments are random, 

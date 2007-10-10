@@ -908,6 +908,8 @@ rvcompatibility <- function (level=NULL)
 
 
 
+
+
 "[<-.rv" <- function (x, ..., value = NULL) 
 {
     if (missing(x)) {
@@ -1127,7 +1129,7 @@ mean.rv <- function(x, ...)
   if (!is.rv(a) && !is.rv(b)) return(.Primitive("%*%")(a,b))
   d <- dim(b)
   if (!is.rv(a) && (is.null(d)) || (length(d)==2 && d[2]==1)) {
-    n.sims <- .Internal(max(rvnsims(a),rvnsims(b), na.rm=FALSE))
+    n.sims <- .Primitive("max")(rvnsims(a),rvnsims(b), na.rm=FALSE)
     bsim <- sims(as.rv(b), dimensions=TRUE, n.sims=n.sims)
     # Typical case: constant matrix times a rv vector
     AB <- t(.Primitive("%*%")(a,t(bsim)))
@@ -2318,18 +2320,23 @@ rvnorm <- function (n=1, mean=0, sd=1, var=NULL, precision)
 # rvt  -  t random variables
 # ========================================================================
 # FIXED 2006-04-21: is.missing --> missing
+# FIXED 2007-10-09: if (all(mu!=0)) t <- (t+mu)
 
-rvt <- function (n=1, mu=0, scale=1, df, Sigma)
+rvt <- function (n = 1, mu = 0, scale = 1, df, Sigma) 
 {
-  if (!missing(Sigma)) {
-    t <- .rvmvt(n=n, Sigma=Sigma, df=df)
-  } else {
-    t <- .rvgen('rt', n=n, df=df)
-    if (scale != 1) t <- scale*t
-  }
-  if (mu!=0) t <- mu + t
-  t
+    if (!missing(Sigma)) {
+        t <- .rvmvt(n = n, Sigma = Sigma, df = df)
+    }
+    else {
+        t <- .rvgen("rt", n = n, df = df)
+        if (scale != 1) 
+            t <- (t * scale)
+    }
+    if (all(mu != 0))
+        t <- (t + mu)
+    return(t)
 }
+
 
 # ========================================================================
 # rvcauchy  -  Cauchy random variables
@@ -3091,7 +3098,8 @@ plot.rv <- function (x, y=NULL, ...)
 # ========================================================================
 # 
 
-points.rv <- function (x, y = NULL, type = "p", xlim = NULL, ylim = NULL, pch = 19, out.of.range.marker = rvpar("oorm"), rvlwd = rvpar("rvlwd"), rvcol = rvpar("rvcol"), rvinterval = rvpar("rvinterval"), rvlex = rvpar("rvlex"), ...) 
+
+points.rv <- function (x, y = NULL, type = "p", xlim = NULL, ylim = NULL, out.of.range.marker = rvpar("oorm"), rvlwd = rvpar("rvlwd"), rvcol = rvpar("rvcol"), rvinterval = rvpar("rvinterval"), rvlex = rvpar("rvlex"), ...) 
 {
     xy <- .xy.coords.rv(x, y)
     x <- as.rv(xy$x)
@@ -3148,10 +3156,10 @@ points.rv <- function (x, y = NULL, type = "p", xlim = NULL, ylim = NULL, pch = 
     }
     if (any(rv.pair)) {
 ## THIS CODE IS NOT YET FULLY FUNCTIONAL
-        xy.pts <- rvsample(c(x[rv.pair],y[rv.pair]), jointly=TRUE, size= point.sample)
-        x.pts <- xy.pts[,1]
-        y.pts <- xy.pts[,2]
-        ## DEBUG here '19' is hard-coded!
+        xy.pts <- rvsample(c(x[rv.pair], y[rv.pair]), jointly = TRUE, 
+            size = point.sample)
+        x.pts <- xy.pts[, 1]
+        y.pts <- xy.pts[, 2]
         pchs <- rep(19, length.out = length(x.pts))
         cl <- rep(cols[rv.pair, 1], each = length(x.pts)/sum(rv.pair))
         pts <- list(x = c(pts$x, x.pts), y = c(pts$y, y.pts), 
@@ -3173,9 +3181,8 @@ points.rv <- function (x, y = NULL, type = "p", xlim = NULL, ylim = NULL, pch = 
             }
         }
         else {
-            pchs <- rep(if (is.null(arg$pch)) 
-                19
-            else arg$pch, length.out = length(x))
+            pchs <- rep(if (is.null(arg$pch)) 19 else arg$pch, 
+                length.out = length(x))
             pts <- list(x = c(pts$x, xiv[1, iv.pair]), y = c(pts$y, 
                 yiv[1, iv.pair]), col = c(pts$col, cols[iv.pair, 
                 name]), pch = c(pts$pch, pchs))
@@ -3198,6 +3205,7 @@ points.rv <- function (x, y = NULL, type = "p", xlim = NULL, ylim = NULL, pch = 
     }
     invisible(NULL)
 }
+
 
 
 .rvjointdrawxy <- function (x, y, size=1, reject.na=TRUE)
@@ -3281,32 +3289,35 @@ hist.rv <- function(x, grid=c(4,5), xlim=x.range, main=paste(xname,"simulation")
 # ========================================================================
 #
 
-rvhist <- function(x, ...)
+rvhist <- function (x, ...) 
 {
-  if (!is.null(dim(x)))
-    par(mfcol=dim(x))
-  mfcol <- par('mfcol')
-  n <- prod(mfcol)
-  a <- list(...)
-  make.main <- is.null(a$main)
-  make.xlab <- is.null(a$xlab)
-  lab <- deparse(substitute(x))
-  x.names <- paste(lab, .dimindex(x), sep="")
-  for (i in 1:n) {
-    a$x <- sims(x[i])
-    if (make.main || make.xlab) {
-      this.name <- x.names[i]
-      if (make.xlab) {
-        a$xlab <- this.name
-      }
-      if (make.main) {
-        a$main <- paste('Histogram of', this.name)
-      }
+    if (!is.null(dim(x))) 
+        par(mfcol = dim(x))
+    mfcol <- par("mfcol")
+    n <- prod(mfcol)
+    n <- min(n, length(x))
+    a <- list(...)
+    make.main <- is.null(a$main)
+    make.xlab <- is.null(a$xlab)
+    lab <- deparse(substitute(x))
+    x.names <- paste(lab, .dimindex(x), sep = "")
+    for (i in 1:n) {
+        a$x <- sims(x[i])
+        if (make.main || make.xlab) {
+            this.name <- x.names[i]
+            if (make.xlab) {
+                a$xlab <- this.name
+            }
+            if (make.main) {
+                a$main <- paste("Histogram of", this.name)
+            }
+        }
+        if (is.null(a$breaks)) 
+            a$breaks <- "fd"
+        do.call("hist", a)
     }
-    if (is.null(a$breaks)) a$breaks <- "fd"
-    do.call("hist", a)
-  }
 }
+
 
 
 

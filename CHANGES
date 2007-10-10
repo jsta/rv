@@ -1,5 +1,12 @@
 
 
+0.949
+  
+0.948
+  Error: in demo('rvexample1')
+  Fixed: .rvMatrixProduct
+0.947
+  Fixed: rvt, points.rv
 0.946
   Error:
 	Multiply a numeric matrix times a random scalar; the result is not an rv.

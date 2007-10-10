@@ -13,11 +13,15 @@ rvRhat(x)
 \details{
   The R-hat values are assumed to be saved as attributes.
   If they are not available, \code{NA} will be returned.
+
+  R-hat is computed by programs such as Umacs and R2WinBUGS.
 }
 \value{
   Vector of numbers, \code{NA} if R-hat is not available.
 }
 \references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
+
+Gelman et al. Bayesian Data Analysis, 2nd edition, 2004, CRC Press.
 }
 \author{
  Jouni Kerman
