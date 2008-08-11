@@ -1,14 +1,10 @@
 \name{constant}
 \title{Constant Vectors}
 \alias{is.constant}
-\alias{is.constant.rv}
-\alias{is.constant.default}
 \alias{as.constant}
 \alias{as.constant.rv}
 \usage{
  is.constant(x)
- \method{is.constant}{rv}(x)
- \method{is.constant}{default}(x)
  as.constant(x)
  \method{as.constant}{rv}(x)
 }
@@ -21,22 +17,30 @@
 \details{
   \code{is.constant} returns \code{TRUE}
   for each component of the argument object
-  if the implied variance (sample variance of the simulations) is zero
-  or if there is only one simulation (that is, the variable is ``constant").
+  if there is only one simulation (that is, the variable is ``constant").
+
+  Note: rv objects that merely have variance zero are not therefore necessarily 
+  constants. 
 }
-\references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
+\references{
+Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
+Posterior Simulations Using Random Variable Objects.
+Statistics and Computing 17:3, 235-244.
+
+See also \code{vignette("rv")}.
 }
 \author{
  Jouni Kerman
- \email{kerman@stat.columbia.edu}
- \url{http://www.stat.columbia.edu/~kerman}
+ \email{jouni@kerman.com}
 }
 \examples{
   is.constant(1)         # TRUE
   is.constant(as.rv(1))  # TRUE
-  is.constant(rvnorm(1)) # FALSE
+  setnsims(200)
+  x <- rvbern(prob=0.001)
+  all(sims(x)==0)        # most probably true
+  is.constant(x)         # always FALSE
 }
 
 \keyword{classes}
 
-%%% add as.constant.

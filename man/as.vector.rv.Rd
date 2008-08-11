@@ -17,15 +17,19 @@
   \code{as.vector.rv} removes the dimension attribute and returns the rv object.
   Needed for compatibility with code that uses \code{as.vector}.
 }
-\references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
+\references{
+Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
+Posterior Simulations Using Random Variable Objects.
+Statistics and Computing 17:3, 235-244.
+
+See also \code{vignette("rv")}.
 }
 \author{
  Jouni Kerman
- \email{kerman@stat.columbia.edu}
- \url{http://www.stat.columbia.edu/~kerman}
+ \email{jouni@kerman.com}
 }
 \examples{
-  x <- rvmatrix(rvnorm(10),2,5)
+  x <- rvmatrix(rvnorm(10), 2, 5)
   as.vector(x)
 }
 

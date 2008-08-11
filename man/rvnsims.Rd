@@ -1,36 +1,60 @@
 \name{rvnsims}
 \title{Number of simulations stored in each component of an rv object}
 \alias{rvnsims}
+\alias{rvnsims.rv}
+\alias{rvnsims.rvsummary}
+\alias{setnsims}
+\alias{getnsims}
 \usage{
   rvnsims(x)
+  setnsims(n.sims)
+  getnsims()
 }
 \description{
   \code{rvnsims} returns the number of simulations 
-  stored in each component of its argument.
+  stored in each component of its argument;
+  \code{setnsims} sets the default number of simulations;
+  \code{getnsims} retrieves the default number of simulations.
 }
 \arguments{
-  \item{x}{an rv object}
+  \item{x}{an rv object.}
+  \item{n.sims}{default number of simulations; must be at least 2.}
 }
 \details{
-  If the argument is a number, \code{rvnsims} returns 1.
+  If the argument is a non-rv numeric vector, \code{rvnsims} returns 1
+  (corresponding to a `constant') for each component.
+
+  The minimum number of default simulations is 2.
 }
 \value{
-  A vector of integers.
+  \code{rvnsims}: a vector of integers.
+
+  \code{setnsims}: \emph{previously set} default number of simulations.
+
+  \code{getnsims}: (integer) currently set default number of simulations.
 }
-\references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
+\references{
+Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
+Posterior Simulations Using Random Variable Objects.
+Statistics and Computing 17:3, 235-244.
+
+See also \code{vignette("rv")}.
 }
 \author{
  Jouni Kerman
- \email{kerman@stat.columbia.edu}
- \url{http://www.stat.columbia.edu/~kerman}
+ \email{jouni@kerman.com}
 }
 \examples{
   #
-  rvnsims(1.23)             # one
+  rvnsims(1.23)             # 1
   x <- rvnorm(1)            # an rv
   rvnsims(x)                # equal to setnsims()
   rvnsims(x)==nrow(sims(x)) # TRUE
-  rvnsims(x)==setnsims()    # TRUE
+  rvnsims(x)==getnsims()    # TRUE
+  setnsims(1000)            # set n.sims to 1000
+  n.sims <- setnsims(10000) # s is now 1000
+  print(getnsims())         # prints 10000
+  setnsims(n.sims)          # restore the number of simulations back to 1000
 }
 
 \keyword{classes}

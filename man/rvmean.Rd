@@ -4,14 +4,16 @@
 \alias{E}
 \alias{Pr}
 \usage{
-  rvmean(x, na.rm=FALSE)
+  rvmean(x)
+  E(x)
+  Pr(X)
 }
 \description{
   \code{rvmean}
 }
 \arguments{
   \item{x}{an rv object}
-  \item{na.rm}{a logical value indicating whether 'NA' values should be stripped before the computation proceeds.}
+  \item{X}{a logical rv object}
 }
 \details{
 \code{rvmean} computes the means of the simulations 
@@ -20,8 +22,7 @@ of all individual components of a random vector (rv) object.
 \code{E} is an alias for \code{rvmean}, standing for ``Expectation.''
 
 \code{Pr} is another alias for \code{rvmean}, standing for ``Probability of'';
-suggested to be used 
-when the argument is a logical statement involving random variables
+suggested to be used when the argument is a logical statement involving random variables
 (that is, a description of an event such as \code{x>0} or \code{x>y}).
 Then \code{Pr(x>0)} gives the probability of the event ``x>0".
 The statement \code{x>0} returns a Bernoulli
@@ -32,7 +33,12 @@ event where the indicator is one.
 \value{
   A \emph{numerical} vector with the same dimension as \code{x}.
 }
-\references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
+\references{
+Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
+Posterior Simulations Using Random Variable Objects.
+Statistics and Computing 17:3, 235-244.
+
+See also \code{vignette("rv")}.
 }
 \seealso{
   \code{\link{mean.rv}}: distribution of the arithmetic mean of a vector;
@@ -41,8 +47,7 @@ event where the indicator is one.
 }
 \author{
  Jouni Kerman
- \email{kerman@stat.columbia.edu}
- \url{http://www.stat.columbia.edu/~kerman}
+ \email{jouni@kerman.com}
 }
 \examples{
   x <- rvnorm(mean=(1:10)/5, sd=1)

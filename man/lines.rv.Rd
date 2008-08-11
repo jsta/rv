@@ -22,12 +22,16 @@
 
   See \code{\link{points.rv}} for details of the parameters.
 }
-\references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
+\references{
+Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
+Posterior Simulations Using Random Variable Objects.
+Statistics and Computing 17:3, 235-244.
+
+See also \code{vignette("rv")}.
 }
 \author{
  Jouni Kerman
- \email{kerman@stat.columbia.edu}
- \url{http://www.stat.columbia.edu/~kerman}
+ \email{jouni@kerman.com}
 }
 \examples{ 
   x <- 1:10
@@ -35,9 +39,10 @@
   par(mfrow=c(2,2))
   plot(x, y, type="b", main="Intervals and random lines", rvcol="blue", col="gray")
   plot(x, y, type="l", main="Only random lines", col="gray")
-  plot(as.rv(x), E(y), type="b", main="Means, connected by a constant line",
-     rvcol="blue", col="gray")
-  plot(y, x, type="l", main="Only random lines", col="gray")
+  plot(x, E(y), type="b", main="Means, connected by a constant line", col="gray")
+  plot(x, rvmedian(y), type="b", pch=19, main="Median & middle 95 pc CI band", col="darkgray")
+  lines(rvquantile(y, 0.025), col="gray")
+  lines(rvquantile(y, 1-0.025), col="gray")
 }
 
 \keyword{aplot}

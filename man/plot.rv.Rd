@@ -1,8 +1,10 @@
 \name{plot.rv}
 \title{Plotting Scatterplots of Random Variable Objects}
 \alias{plot.rv}
+\alias{plot.rvsummary}
 \usage{
   \method{plot}{rv}(x, y, \dots)
+  \method{plot}{rvsummary}(x, y, \dots)
 }
 \description{
   Draw a "random scatter plot". 
@@ -24,12 +26,16 @@
   code{(x,y)}.
 
 }
-\references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
+\references{
+Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
+Posterior Simulations Using Random Variable Objects.
+Statistics and Computing 17:3, 235-244.
+
+See also \code{vignette("rv")}.
 }
 \author{
  Jouni Kerman
- \email{kerman@stat.columbia.edu}
- \url{http://www.stat.columbia.edu/~kerman}
+ \email{jouni@kerman.com}
 }
 \seealso{
   \code{\link{mlplot}}

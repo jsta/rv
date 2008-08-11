@@ -5,31 +5,44 @@
   rvpar(\dots)
 }
 \description{
-  Retrieves the number of effective draws in each component of the argument.
+  Sets or retrieves parameters of the \code{rv} package.
 }
 \arguments{
-  \item{\dots}{arguments in tag = value form, or a list of tagged values. The tags must come from the parameters described below.}
+  \item{\dots}{arguments in tag = value form, or a list or character vecetor of tagged values. The available tags are described below.}
 }
 \details{
-  %\item{oorm}{out-of range marker used in \code{mlplot} (experimental - not yet implemented)}
-  \item{rvcol}{color of a random point}
-  \item{rvlex}{...}
+
+  \item{rvcol}{color of a random point (interval), such as `red' or `blue'}
+  \item{rvlex}{middle interval expansion factor}
   \item{rvlwd}{line weight of a random interval}
   \item{print.digits}{number of digits to show in the summaries}
+  \item{rvpoint}{what to output when plotting a random point; default \code{list("95\%", "50\%", "mean")}}
+  \item{point.sample}{number of points to plot when plotting a rv-rv scatterplot. Default \code{400}.}
+  \item{line.sample}{number of lines to draw when plotting a random sample of lines (see \code{abline}). Default \code{20}.}
+  \item{summary.dimnames}{logical; output dimnames in the summary of an \code{rv} object? Default \code{TRUE}.}
+  \item{summary.quantiles.numeric}{vector of quantiles to compute for the summary of a numeric \code{rv} object.}
+  \item{summary.quantiles.integer}{vector of quantiles to compute for the summary of an integer-valued \code{rv} object. By default contains 0 and 1 (for the min and max values).}
 }
 \value{
-    
+  In the case of a single tag query, the requested value.
+
+  In the case of multiple tag query, a list of requested values. 
 }
-\references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
+\references{
+Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
+Posterior Simulations Using Random Variable Objects.
+Statistics and Computing 17:3, 235-244.
+
+See also \code{vignette("rv")}.
 }
 \author{
  Jouni Kerman
- \email{kerman@stat.columbia.edu}
- \url{http://www.stat.columbia.edu/~kerman}
+ \email{jouni@kerman.com}
 }
-%\examples{
-%}
-
+\examples{
+  rvpar()$rvcol
+  rvpar("rvcol")
+}
 \keyword{classes}
 
 %%%

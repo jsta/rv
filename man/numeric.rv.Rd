@@ -4,39 +4,45 @@
 \alias{as.numeric.rv}
 \alias{is.numeric.rv}
 \alias{is.numeric.rvfactor}
-\alias{is.numeric.rvmixed}
+\alias{as.numeric.rvfactor}
 \usage{
   \method{is.numeric}{rv}(x)
   \method{as.numeric}{rv}(x, \dots)
   \method{is.numeric}{rvfactor}(x)
-  \method{is.numeric}{rvmixed}(x)
+  \method{as.numeric}{rvfactor}(x, \dots)
 }
 \description{
-  \code{is.numeric(x)} returns \code{TRUE} if and only if \emph{all} components
-  of an rv object are numeric.
+  Creates or coerces rv objects of type "numeric". 
 }
 \arguments{
-  \item{x}{an rv object}
-  \item{\dots}{Further arguments passed on}
+  \item{x}{an rv object to be coerced or tested.}
+  \item{\dots}{further arguments passed to or from other methods.}
 }
 \details{
   \code{is.numeric(x)} returns \code{TRUE} if and only if \emph{each} component 
-  of \code{x} is numeric-valued (i.e. \code{TRUE}/\code{FALSE}).
+  of \code{x} is numeric-valued.
 
    \code{as.numeric.rv} coerces an rv object into numeric-valued one.
    In effect, the function  \code{as.numeric} is applied to all simulations.
 
-  Random factors are not numeric; mixtures are. 
+  Random factors are not numeric (just as non-random factors aren't).
 }
-\references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
+\references{
+Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
+Posterior Simulations Using Random Variable Objects.
+Statistics and Computing 17:3, 235-244.
+
+See also \code{vignette("rv")}.
+}
+\note{
+
 }
 \seealso{
-  \code{\link{logical.rv}}
+  \code{\link{numeric}}.
 }
 \author{
  Jouni Kerman
- \email{kerman@stat.columbia.edu}
- \url{http://www.stat.columbia.edu/~kerman}
+ \email{jouni@kerman.com}
 }
 \examples{
   x <- as.logical(rvbern(1,0.5)) # Bernoulli rv

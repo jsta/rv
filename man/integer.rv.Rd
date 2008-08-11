@@ -1,42 +1,44 @@
-\name{integer.rv}
-\title{Integer-valued Random Vectors}
-\alias{integer.rv}
-\alias{is.integer.rv}
+\name{as.integer.rv}
+\title{Integer Random vectors}
 \alias{as.integer.rv}
 \usage{
-  \method{is.integer}{rv}(x)
   \method{as.integer}{rv}(x, \dots)
 }
 \description{
-  Tests or coerces (numeric or logical-valued) 
-  random vector objects into integer-valued ones.
+  Coerces a random variable to an integer-valued (discrete) one
 }
 \arguments{
   \item{x}{an rv object}
-  \item{\dots}{other arguments}
+  \item{\dots}{Further arguments passed on}
 }
 \details{
-  \code{is.integer(x)} returns \code{TRUE} if and only if \emph{each} component 
-  of \code{x} is integer-valued.
-
-   \code{as.integer.rv} coerces an rv object into integer-valued one.
    In effect, the function  \code{as.integer} is applied to all simulations.
 }
-\references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
+\references{
+Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
+Posterior Simulations Using Random Variable Objects.
+Statistics and Computing 17:3, 235-244.
+
+See also \code{vignette("rv")}.
 }
 \seealso{
-  \code{\link{logical.rv}}
+  \code{\link{as.logical.rv}}.
+}
+\note{
+  \code{is.integer(x)} returns \code{TRUE} if and only if \emph{each} component 
+  of \code{x} is integer-valued (each simulation vector is of type 'integer').
 }
 \author{
  Jouni Kerman
- \email{kerman@stat.columbia.edu}
- \url{http://www.stat.columbia.edu/~kerman}
+ \email{jouni@kerman.com}
 }
 \examples{
-  x <- rvpois(lambda=1)   # some integer-valued random variable
+  x <- rvpois(lambda=3)   # some integer-valued random variable
+  print(x)
   is.integer(x)           # FALSE, because by default x is 'double'!
   x <- as.integer(x)      # coerce to integer
   is.integer(x)           # TRUE
+  print(x)                # Shows also the 'min' and 'max' columns
 }
 
 \keyword{classes}

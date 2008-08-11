@@ -13,11 +13,15 @@
 \alias{as.rv.matrix}
 \alias{as.rv.default}
 \alias{is.random}
+\alias{as.rvobj}
+\alias{is.rvobj}
 \usage{
 rv(length = 0)
-as.rv(x)
+as.rv(x, \dots)
 is.rv(x)
 is.random(x)
+as.rvobj(x)
+is.rvobj(x)
 }
 \description{
   Creates or tests for objects of type ``\code{rv}".
@@ -25,7 +29,7 @@ is.random(x)
 \arguments{
   \item{length}{desired length.}
   \item{x}{object to be coerced or tested.}
-%  \item{\dots}{further arguments passed to or from other methods.}
+  \item{\dots}{further arguments passed to or from other methods.}
 }
 \details{
   \code{rv} creates a random vector of the specified length. 
@@ -38,33 +42,41 @@ The elements of the vector are all equal to \code{NA}.
   \code{is.random} returns \code{TRUE} or \code{FALSE}
   for each component of the argument vector, depending on whether the component is 
   a random variable object.
+
+  \code{is.rvobj} tests whethe its argument object
+  is either of class \code{rv} or of class \code{rvsummary}.
+
+  \code{as.rvobj} coerces its argument object to \code{rv} unless
+  the object is an rv object (\code{is.rvobj(x)} is \code{TRUE}).
 }
 \value{
-  An rv object of desired length, with the value \code{NA} in the simulations.
+  An rv object of desired length, with the single simulation value \code{NA}.
 
-  An rv of length zero is \code{NULL}, but still of class 'rv'. 
 }
 \note{
   rv objects are internally lists with the class attribute set to ``\code{rv}".
   The number of simulations in rv objects is set by \code{\link{setnsims}}.
-  This is by default set to 1000.
+  This is by default set to 2500.
 }
 \seealso{
   For a short version of the paper, view the vignette by \code{vignette("rv")}.
 }
-\references{Kerman, Jouni and Gelman, Andrew. 
-Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
-\url{http://www.stat.columbia.edu/~kerman/Research/postsim.pdf}
+\references{
+Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
+Posterior Simulations Using Random Variable Objects.
+Statistics and Computing 17:3, 235-244.
+
+See also \code{vignette("rv")}.
 }
 
 \author{
  Jouni Kerman
- \email{kerman@stat.columbia.edu}
- \url{http://www.stat.columbia.edu/~kerman}
+ \email{jouni@kerman.com}
 }
 
 \examples{
   x <- rv(1)
+  
 }
 \keyword{classes}
 

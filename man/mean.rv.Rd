@@ -22,21 +22,28 @@
 
   To find the expectation of a random vector \code{x}
   (that is, the individual means of random components in a vector),
-  use \code{rvmean(x)} (same as \code{E(x)} and \code{Pr(x)}.
+  use \code{rvmean(x)} (same as \code{E(x)} and \code{Pr(x)}).
 }
-\references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
+\references{
+Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
+Posterior Simulations Using Random Variable Objects.
+Statistics and Computing 17:3, 235-244.
+
+See also \code{vignette("rv")}.
 }
 \seealso{
   \code{\link{rvmean}}
 }
 \author{
  Jouni Kerman
- \email{kerman@stat.columbia.edu}
- \url{http://www.stat.columbia.edu/~kerman}
+ \email{jouni@kerman.com}
 }
 
 \examples{
-  #
+  y <- rvnorm(10, mean=0, sd=1)
+  m1 <- mean(y)
+  m2 <- rvnorm(1, mean=0, sd=1/sqrt(10))
+  print(c(m1, m2)) # should have the same distribution
 }
 \keyword{classes}
 

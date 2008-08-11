@@ -1,32 +1,38 @@
 \name{matmult}
-\alias{\%*\%}
 \alias{\%*\%.rv}
 \alias{matmult}
-\title{Matrix Multiplication}
+\title{Random Matrix Multiplication}
 \description{
-  Multiplies two matrices, if they are conformable.
+  Multiplies two random matrices, if they are conformable.
   If one argument is a vector, it will be coerced to either a row or
   column matrix to make the two arguments conformable.
   If both are vectors it will return the inner product.
 }
 \usage{
-a \%*\% b
+  \method{\%*\%}{rv}(x, y)
 }
 \arguments{
-  \item{a, b}{numeric or complex matrices or vectors.}
+  \item{x, y}{numeric or complex matrices or vectors.}
+}
+\details{
+  Optimized internally for the case of random matrix 
+  multiplied by a constant column vector.
 }
 \value{
-  The matrix product.  Use \code{\link{drop}} to get rid of dimensions
+  The (distribution of the) matrix product.
+  Use \code{\link{drop}} to get rid of dimensions
   which have only one level.
 }
 \references{
-  Becker, R. A., Chambers, J. M. and Wilks, A. R. (1988)
-  \emph{The New S Language}.
-  Wadsworth \& Brooks/Cole.
+Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
+Posterior Simulations Using Random Variable Objects.
+Statistics and Computing 17:3, 235-244.
+
+See also \code{vignette("rv")}.
 }
 \seealso{
   \code{\link{matrix}},
-  \code{\link{Arithmetic}},
+  \code{\link{Ops}},
   \code{\link{diag}}.
 }
 \examples{

@@ -33,7 +33,7 @@
   are the default functions of these generic functions.
 
   To access the original help page in the stats package,
-  go to \code{\link{cov2cor}} or
+  go to \code{\link[pkg:stats]{cov2cor}} or
   detach the rv package and then access the help pages in the stat package.
 
   \code{sd} is not generic but it is rewritten to catch the possibility 
@@ -59,7 +59,12 @@
 \value{
   A random vector or array.
 }
-\references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
+\references{
+Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
+Posterior Simulations Using Random Variable Objects.
+Statistics and Computing 17:3, 235-244.
+
+See also \code{vignette("rv")}.
 }
 \seealso{
   \code{\link[pkg:stats]{cov}}, \code{\link[pkg:stats]{cor}}, \code{\link[pkg:stats]{var}}, \code{\link[pkg:stats]{sd}} 
@@ -67,8 +72,7 @@
 }
 \author{
  Jouni Kerman
- \email{kerman@stat.columbia.edu}
- \url{http://www.stat.columbia.edu/~kerman}
+ \email{jouni@kerman.com}
 }
 \examples{
   #

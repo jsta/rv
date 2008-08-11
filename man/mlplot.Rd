@@ -1,8 +1,17 @@
 \name{mlplot}
 \title{Horizontal interval plot of components of a random vector}
 \alias{mlplot}
+\alias{mlplot.default}
+\alias{mlplot.rvsummary}
 \usage{
-  mlplot(X, y.center = TRUE, y.shift = 0, y.map = NULL, mar =
+  mlplot(X, \dots)
+  \method{mlplot}{rvsummary}
+  \method{mlplot}{default}(X, y.center = TRUE, y.shift = 0, y.map = NULL, mar =
+         par("mar"), left.margin = 3, top.axis = TRUE,
+         exp.labels = FALSE, x.ticks = NULL, axes = NULL, xlim
+         = NULL, ylim = NULL, xlab = deparse(substitute(X)), ylab = NULL,
+         las = NULL, add = FALSE, \dots)
+  \method{mlplot}{default}(X, y.center = TRUE, y.shift = 0, y.map = NULL, mar =
          par("mar"), left.margin = 3, top.axis = TRUE,
          exp.labels = FALSE, x.ticks = NULL, axes = NULL, xlim
          = NULL, ylim = NULL, xlab = deparse(substitute(X)), ylab = NULL,
@@ -10,8 +19,7 @@
 }
 \description{
   \code{mlplot} plots the scalar components as of the given random array or vector
-  as horizontal intervals.
-  Uncertainty (``credible") intervals are plotted for random components.
+  as horizontal intervals, grouped by row.
 }
 \arguments{
   \item{X}{a random array or vector}
@@ -34,10 +42,13 @@
 }
 \details{
   \code{mlplot} plots the scalar components of a vector or an array 
-  (2 or 3-dimensional) in a vertical grid where each grid cell encloses one 
-  component of a vector or a row of a matrix.
+  (2 or 3-dimensional) vertically (up to down) so that a 
+  component of a vector or a row of a matrix 
+  is plotted at vertical points 1...nrow(x).
 
-  Scalars on the same row are plotted tightly together.
+  An 'mlplot' of a vector implements a ``forest plot."
+
+  Scalars on the same row are plotted closely together.
   The positioning of the scalars within a row are controlled by the 
   arguments \code{y.center}, \code{y.shift}, \code{y.map}.
   These do not need to be set for the default plot; if two arrays or
@@ -54,22 +65,28 @@
   If \code{X} is a 3-dimensional array, \code{mlplot} is called repeatedly
   for each 2-dimensional array \code{X[,,k]} for each \code{k}. 
 
-  \code{X} may also be a fixed numeric object, but in this case
-  the 
+  \code{X} may also be a fixed numeric object. 
 
   \code{NA}s (or random scalars with 100\% NA) are not plotted.
 
   \code{mlplot} is still experimental.
 
 }
-\references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
+\references{
+Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
+Posterior Simulations Using Random Variable Objects.
+Statistics and Computing 17:3, 235-244.
+
+See also \code{vignette("rv")}.
 }
 \author{
  Jouni Kerman
- \email{kerman@stat.columbia.edu}
- \url{http://www.stat.columbia.edu/~kerman}
+ \email{jouni@kerman.com}
 }
 \examples{
+
+  # You can run this complete example by typing demo("mlplot")
+
   n.rows <- 4; n.cols <- 5; n <- (n.rows*n.cols)
   # Draw some fixed numbers
   mu.true <- rnorm(1:n.rows, mean=1:n.rows, sd=1)

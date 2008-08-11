@@ -5,22 +5,22 @@
   splitbyname(x)
 }
 \description{
-  \code{splitbyname} splits the given vector based on the names
+  \code{splitbyname} is a utility function that 
+  splits the given vector based on the names
   of the components and returns a named list of
   arrays and vectors.
 }
 \arguments{
-  \item{x}{a vector with the name attributes set}
+  \item{x}{a vector or a list with the name attributes set}
 }
 \details{
-  The names are supposed to be of the format 'name[indexes]',
+  The names are supposed to be of the format 'name[index]',
   for example 'alpha[1,1]', 'beta[1]', etc.
 
   A name without brackets is equivalent to a name with '[1]'.
 
-  Dimension will not be set in case of vectors.
+  The dimension attribute will not be set in case of vectors.
 
-  Note. Will not work for rv objects if \code{rvcompatibility()==1}.
 }
 \value{
   A list of arrays and vectors.
@@ -28,12 +28,11 @@
 }
 \author{
  Jouni Kerman
- \email{kerman@stat.columbia.edu}
- \url{http://www.stat.columbia.edu/~kerman}
+ \email{jouni@kerman.com}
 }
 \examples{
-  x <- structure(rvnorm(2), names=c("x[1,1]", "x[3,3]"))
-  splitbyname(x) # yields a list containing a 3*3 random matrix
+  x <- structure(c(1,3), names=c("x[1,1]", "x[3,3]"))
+  splitbyname(x) # yields a list containing a 3x3 matrix
 }
 
 \keyword{manip}

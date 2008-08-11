@@ -1,35 +1,37 @@
 \name{apply.rv}
-\title{Distribution of the Range of a Random Vector}
+\title{Apply Functions over Margins of Random Arrays}
 \alias{apply.rv}
 \usage{
   \method{apply}{rv}(X, MARGIN, FUN, \dots)
 }
 \description{
-  \code{apply.rv}
-  returns a 2-component random vector containing 
-  the distributions of the minimum and the maximum values of all the given arguments.
+  The \code{rv}-compatible version of \code{apply} 
 }
 \arguments{
- \item{X}{}
- \item{MARGIN}{}
- \item{FUN}{}
-  \item{\dots}{further arguments passed to or from other methods}
+ \item{X}{a random array}
+ \item{MARGIN}{subscripts.}
+ \item{FUN}{function.}
+  \item{\dots}{optional arguments to \code{FUN}.}
 }
 \details{
   This is the rv-compatible version of the function \code{\link{apply}}.
+
   Since \code{apply} is not a generic function, 
-  the whole name \code{apply.rv} must be specified when calling the function
-  when \code{X} is an 'rv' object.
+  the whole name \code{apply.rv} must be specified when calling the function.
 }
-\references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
+\references{
+Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
+Posterior Simulations Using Random Variable Objects.
+Statistics and Computing 17:3, 235-244.
+
+See also \code{vignette("rv")}.
 }
 \author{
  Jouni Kerman
- \email{kerman@stat.columbia.edu}
- \url{http://www.stat.columbia.edu/~kerman}
+ \email{jouni@kerman.com}
 }
 \seealso{
-  \code{\link{quantile.rv}}
+  \code{\link{apply}}
 }
 \examples{
   x <- rvmatrix(rvnorm(12), nrow=3, ncol=4)

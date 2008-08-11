@@ -24,19 +24,26 @@
   \item{\dots}{further arguments passed to or from other methods}
 }
 \details{
-  
+  The operator method preserves the names of the longer vector
+  (or those of the first if the lengths match).
 }
-\references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
+\references{
+Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
+Posterior Simulations Using Random Variable Objects.
+Statistics and Computing 17:3, 235-244.
+
+See also \code{vignette("rv")}.
 }
 \author{
  Jouni Kerman
- \email{kerman@stat.columbia.edu}
- \url{http://www.stat.columbia.edu/~kerman}
+ \email{jouni@kerman.com}
 }
 \examples{
   x <- rvnorm(10)
   -x
+  names(x) <- paste("x[", seq_along(x), "]", sep="")
   x + 1:10
+  1:2 + x
   cumsum(x)
   cumprod(exp(x))
 }

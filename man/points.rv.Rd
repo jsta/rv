@@ -4,9 +4,8 @@
 \usage{
 
 \method{points}{rv}(x, y = NULL, type = "p", xlim = NULL, ylim = NULL, 
-                 out.of.range.marker = rvpar("oorm"), rvlwd =
-                 rvpar("rvlwd"), rvcol = rvpar("rvcol"), rvinterval =
-                 rvpar("rvinterval"), rvlex = rvpar("rvlex"), ...)
+                 rvlwd = rvpar("rvlwd"), rvcol = rvpar("rvcol"), 
+                 rvpoint = rvpar("rvpoint"), rvlex = rvpar("rvlex"), ...)
 }
 \description{
   Draw a sequence of points or uncertainty intervals at specified
@@ -20,9 +19,9 @@
   \item{xlim}{x-limits (optional)}
   \item{ylim}{y-limits (optional)}
 %%% \item{pch}{Character code for plotting distribution means}
-  \item{out.of.range.marker}{(logical) mark intervals/points that are drawn out of the limits with an 'x' --- experimental, not yet used}
+%%%  \item{out.of.range.marker}{(logical) mark intervals/points that are drawn out of the limits with an 'x' --- experimental, not yet used}
   \item{rvlwd}{line width of the thin interval}
-  \item{rvinterval}{character vector of length 3, indicating intervals (points) to print}
+  \item{rvpoint}{character vector of length 3, indicating intervals (points) to print}
   \item{rvlex}{factor to multiply \code{rvlwd} with, to get the thicker interval}
   \item{\dots}{further arguments passed to \code{points}}
 }
@@ -38,7 +37,7 @@
   Typically the dot marks the mean or the median; the 
   thin and the thick intervals show a shorter and a longer middle uncertainty interval.
   The appearance of these intervals can be controlled using the parameters
-  \code{rvlwd}, \code{rvinterval}, \code{rvcol}, and \code{rvlex}.
+  \code{rvlwd}, \code{rvpoint}, \code{rvcol}, and \code{rvlex}.
 
 
   \code{rvlwd} sets the line width of the thin interval;
@@ -63,7 +62,7 @@
   (The spellings 'gray' and 'grey' are interchangeable).
   
 
-  The parameter \code{rvinterval} is a character vector of length 3,
+  The parameter \code{rvpoint} is a character vector of length 3,
    with the first component
   indicating what to plot as a dot (possible values: "mean", "median"),
   the second component indicating what to plot as a "thick interval" 
@@ -71,8 +70,8 @@
   the second component indicating what to plot as a "thin interval".
   Default: \code{c("mean", "50\%", "95\%")}. 
   If you wish only to plot the mean and the 95\% interval, use 
-  \code{rvinterval=c("mean", NA, "95\%")} or
-  \code{rvinterval=c("mean", "95\%", NA)}. 
+  \code{rvpoint=c("mean", NA, "95\%")} or
+  \code{rvpoint=c("mean", "95\%", NA)}. 
 
   The color \code{col} is used for plotting fully fixed dots (both x and y coordinates fixed)
   and lines (fixed and \emph{random lines} -- see \code{\link{lines.rv}}).
@@ -82,12 +81,16 @@
  It is possible to have both \code{x} and \code{y} random, 
  but this code is not yet fully functional. 
 }
-\references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
+\references{
+Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
+Posterior Simulations Using Random Variable Objects.
+Statistics and Computing 17:3, 235-244.
+
+See also \code{vignette("rv")}.
 }
 \author{
  Jouni Kerman
- \email{kerman@stat.columbia.edu}
- \url{http://www.stat.columbia.edu/~kerman}
+ \email{jouni@kerman.com}
 }
 \examples{
   x <- 1:10
@@ -100,8 +103,8 @@
   \dontrun{
     # Don't use the rv-only parameters when plotting fixed vectors.
     plot(x, E(y), rvcol="blue", col="gray")
-    # This will work if x is an rv!
-    plot(as.rv(x), E(y), rvcol="blue", col="gray") # will plot only gray dots!
+    # This will work if x is an rv:
+    plot(as.rv(x), E(y), rvcol="blue", col="gray")
   }
 }
 

@@ -2,15 +2,21 @@
 citHeader("To cite rv in publications use:")
 
 citEntry(
-  entry = "techreport",
-  school = "Columbia University",
+  entry = "article",
+  year  = "2007",
+  journal = "Statistics and Computing",
+  volume = 17,
+  number = 3,
+  pages = "235--244",
   title = "Manipulating and Summarizing Posterior Simulations Using Random Variable Objects",
   author = personList(
-    person(first="Jouni", last="Kerman", email="kerman@stat.columbia.edu"),
+    person(first="Jouni", last="Kerman", email="jouni@kerman.com"),
     person(first="Andrew", last="Gelman", email="gelman@stat.columbia.edu")
   ),
-  url  = "http://www.stat.columbia.edu/~kerman/",
-  textVersion = paste("Kerman, J. and Gelman, A. (2005).",
-	  "Manipulating and Summarizing Posterior Simulations Using Random Variable Objects"
+  #url  = "http://www.stat.columbia.edu/~kerman/",
+  textVersion = paste("Kerman, J. and Gelman, A. (2007).",
+	  "Manipulating and Summarizing Posterior Simulations Using Random Variable Objects.",
+          "Statistics and Computing 17:3, 235-244"
 	)
 )
+

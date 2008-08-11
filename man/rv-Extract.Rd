@@ -31,9 +31,12 @@
   The return value is always an object of class 'rv'.
   Type ?Extract for details.
 
-  Note: the index arguments (\code{i}, \code{j}, etc.) may be 
-  themselves random variables, however they will be coerced
-  into \emph{integers}, as one would expect.
+  Note: the index arguments (\code{i}, \code{j}, etc.) 
+  \emph{must} be constants, but this may change in the future.
+
+  %Note: the index arguments (\code{i}, \code{j}, etc.) may be 
+  %themselves random variables, however they will be coerced
+  %into \emph{integers}, as one would expect.
 }
 \value{
  A random variable (an rv object).
@@ -41,7 +44,12 @@
 \seealso{
   See \link{rvcompatibility} for examples.
 }
-\references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
+\references{
+Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
+Posterior Simulations Using Random Variable Objects.
+Statistics and Computing 17:3, 235-244.
+
+See also \code{vignette("rv")}.
 }
 
 \examples{

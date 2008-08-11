@@ -1152,7 +1152,7 @@ function (method) that accesses the simulations
 of the argument objects, and produces the desired results.
 
 Our function 
-{\tt simapply()}
+{\tt rvsimapply()}
 applies a given function to each column of 
 the matrix of simulations of a random vector,
 returning an array of numbers. 
@@ -1162,12 +1162,12 @@ $x_1$, we need obtain the simulations
 $x_1^{(1)},\ldots,x_1^{(L)}$ and compute
 $\sum_{\ell=1}^L x_1^{(\ell)}/L$.
 This is accomplished 
-by {\tt simapply(x[1], mean)}
+by {\tt rvsimapply(x[1], mean)}
 which is equivalent to \\
 {\tt mean(sims(x[1]))}, the arithmetic mean
 of the simulations of the first component of the 
 random vector {\tt x}, $x_1$.
-{\tt simapply(x, mean)} 
+{\tt rvsimapply(x, mean)} 
 applies the {\tt mean()} function
 to the simulation vectors of each component 
 {\tt x[1],...,x[n]}
@@ -1188,7 +1188,7 @@ from the distribution of $\sum_{i=1}^n x_i/n$.
 We can imagine 
 {\tt mean(x)} taking the \emph{rowwise} mean of the
 matrix of simulations {\tt sims(x)} 
-and {\tt simapply(x, mean)} 
+and {\tt rvsimapply(x, mean)} 
 taking the \emph{columnwise} means
 of the individual components.
 The former yields a column vector of length $L$,
@@ -1201,7 +1201,7 @@ if any of the components of {\tt x} is a random variable,
 the result will be the a random variable with
 $L$ random draws from the distribution of
 the random variable $\sum_{i=1}^n (x_i-\bar{x})^2/(n-1)$,
-but {\tt simapply(x, var)}
+but {\tt rvsimapply(x, var)}
 gives the $n$ 
 componentwise variances for the $n$-dimensional vector {\tt x}.
 

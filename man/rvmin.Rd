@@ -1,34 +1,50 @@
-\name{rvmin}
-\title{Minimum Simulated Value of Random Variable}
+\name{Extremes-rv}
+\title{Maxima and Minima of Random Variables}
 \alias{rvmin}
+\alias{rvmax}
+\alias{rvrange}
 \usage{
-rvmin(x, \dots)
+  rvmin(x)
+  rvmax(x)
+  rvrange(x)
 }
 \description{
-  \code{rvmin}
+  Returns the maxima and minima of the components of a random vector.
 }
 \arguments{
-  \item{x}{an object}
-\item{\dots}{further arguments passed to or from other methods}
+  \item{x}{an \code{rv} or \code{rvsummary} object}
 }
 \details{
   \code{rvmin} applies the function \code{min} to each component of the argument \code{x}.
+  Missing values are removed. 
+
+  \code{rvmax} applies the function \code{max} to each component of the argument \code{x}.
+  Missing values are removed. 
+
+  \code{rvrange} applies the function \code{range} to each component of the argument \code{x}.  Missing values are removed. 
 }
 \value{
   A \emph{numeric} vector of the same dimension as \code{x}.
 }
-\references{Kerman, Jouni and Gelman, Andrew. Manipulating and Summarizing Posterior Simulations Using Random Variable Objects. Technical report, Columbia University, New York.
+\references{
+Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
+Posterior Simulations Using Random Variable Objects.
+Statistics and Computing 17:3, 235-244.
+
+See also \code{vignette("rv")}.
 }
 \author{
  Jouni Kerman
- \email{kerman@stat.columbia.edu}
- \url{http://www.stat.columbia.edu/~kerman}
+ \email{jouni@kerman.com}
 }
 \seealso{
-  \code{\link{rvmax}}, \code{\link{rvmedian}}, \code{\link{rvmean}}.
+  \code{\link{rvmedian}}, \code{\link{rvmean}}.
 }
 \examples{
-  #
+  x <- rvpois(10, lambda=3)
+  rvmin(x)
+  rvmax(x)
+  rvrange(x)
 }
 
 \keyword{classes}
