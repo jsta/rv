@@ -25,7 +25,7 @@
    \code{as.numeric.rv} coerces an rv object into numeric-valued one.
    In effect, the function  \code{as.numeric} is applied to all simulations.
 
-  Random factors are not numeric (just as non-random factors aren't).
+   Random factors are not numeric (just as non-random factors aren't).
 }
 \references{
 Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
@@ -34,9 +34,9 @@ Statistics and Computing 17:3, 235-244.
 
 See also \code{vignette("rv")}.
 }
-\note{
-
-}
+%\note{
+%
+%}
 \seealso{
   \code{\link{numeric}}.
 }

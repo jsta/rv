@@ -5,15 +5,16 @@
   \method{Summary}{rv}(\dots, na.rm=FALSE)
 }
 \description{
-  \code{Summary.rv}
+  Methods applied to rv objects 
+  for the generic functions \code{all}, \code{any}, \code{sum}, \code{min}, \code{max}.
 }
 \arguments{
   \item{\dots}{rv object}
   \item{na.rm}{logical, remove NAs?}
 }
-\details{
-    
-}
+%\details{
+%    
+%}
 \references{
 Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
 Posterior Simulations Using Random Variable Objects.

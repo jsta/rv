@@ -22,8 +22,7 @@
 \details{
   \code{sims} returns the matrix of simulations for a given random variable object \code{x}. 
 
-  The first index of the matrix indicates the number of the simulation draw (``simulations are in rows").
-
+  The first index of the matrix indicates the number of the simulation draw (``simulations are in rows'').
 }
 \references{
 Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing

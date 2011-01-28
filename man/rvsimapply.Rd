@@ -9,7 +9,7 @@ rvsimapply(x, FUN, \dots)
 }
 \arguments{
   \item{x}{an object}
-  \item{FUN}{}
+  \item{FUN}{an R function object}
   \item{\dots}{further arguments passed to the function \code{FUN}}
 }
 \details{

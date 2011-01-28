@@ -13,7 +13,7 @@
   of the indicator function of missing data.
   \code{rv.all.na} returns \code{TRUE} if all components
   of the argument vector are completely missing.
-  \code{rv.all.na} returns \code{TRUE} if any component
+  \code{rv.any.na} returns \code{TRUE} if any component
   of the argument vector has missing values.
 }
 \arguments{
@@ -24,7 +24,7 @@
   to each simulation of each component of the argument vector.
 }
 \value{
- \code{is.na.rv} returns a ``Bernoulli" random vector 
+ \code{is.na.rv} returns a ``Bernoulli'' random vector 
   of the same length and dimension as those of \code{x}.
 
  \code{rv.all.na} and \code{rv.any.na} return \code{TRUE} or \code{FALSE} (single value).

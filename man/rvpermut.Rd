@@ -13,9 +13,9 @@
   \item{data}{a fixed numeric vector}
   \item{prob}{optional probabilities for the components in \code{data}}
 }
-\details{
-        
-}
+%\details{
+%        
+%}
 \references{
 Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
 Posterior Simulations Using Random Variable Objects.

@@ -2,7 +2,7 @@
 \title{Generate Random Variables from a Cauchy Sampling Model}
 \alias{rvcauchy}
 \usage{
-rvcauchy(n=1, location=0, scale=1)
+ rvcauchy(n=1, location=0, scale=1)
 }
 \description{
   Random vector generation for the Cauchy distribution.

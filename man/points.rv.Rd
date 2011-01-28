@@ -93,7 +93,7 @@ See also \code{vignette("rv")}.
  \email{jouni@kerman.com}
 }
 \examples{
-  x <- 1:10
+  x <- as.rv(1:10)
   y <- rvnorm(mean=x)
   par(mfrow=c(2,2))
   plot(x, y, main="Fixed x-coordinate")
@@ -103,8 +103,7 @@ See also \code{vignette("rv")}.
   \dontrun{
     # Don't use the rv-only parameters when plotting fixed vectors.
     plot(x, E(y), rvcol="blue", col="gray")
-    # This will work if x is an rv:
-    plot(as.rv(x), E(y), rvcol="blue", col="gray")
+    plot(x, E(y), rvcol="blue", col="gray")
   }
 }
 

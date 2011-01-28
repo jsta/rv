@@ -1,6 +1,6 @@
-\name{matmult}
+\name{matmult.rv}
 \alias{\%*\%.rv}
-\alias{matmult}
+\alias{matmult.rv}
 \title{Random Matrix Multiplication}
 \description{
   Multiplies two random matrices, if they are conformable.

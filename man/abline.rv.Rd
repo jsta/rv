@@ -1,8 +1,8 @@
-\name{abline}
+\name{abline.rv}
 \title{Add (Random) Straight Lines to a Plot}
-\alias{abline}
+\alias{abline.rv}
 \usage{
-abline (a = NULL, b = NULL, h = NULL, v = NULL, \dots)
+  abline.rv (a = NULL, b = NULL, h = NULL, v = NULL, \dots)
 }
 \description{
   \code{abline}, with random arguments,
@@ -10,11 +10,11 @@ abline (a = NULL, b = NULL, h = NULL, v = NULL, \dots)
   of simulations of rv object \code{x}.
 }
 \arguments{
-  \item{a}{...}
-  \item{b}{...}
-  \item{h}{...}
-  \item{v}{..}
-  \item{\dots}{further arguments passed to or from other methods}
+  \item{a}{intercept}
+  \item{b}{slope}
+  \item{h}{y-value(s) horizontal line(s)}
+  \item{v}{x-value(s) horizontal line(s)}
+  \item{\dots}{further arguments passed to \code{\link{abline}}}
 }
 \details{
   This is a version of \code{abline} that accepts random variable objects
@@ -23,7 +23,7 @@ abline (a = NULL, b = NULL, h = NULL, v = NULL, \dots)
   The number of lines is determined by 
   \code{rvpar("line.sample")}, default 20.
 
-  The original help page is here: \code{\link[pkg:graphics]{abline}}.
+  See the original help page in package `graphics.'
  
   EXPERIMENTAL.
  

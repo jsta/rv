@@ -12,9 +12,9 @@ rvunif(n=1, min=0, max=1)
   \item{min}{lower limit of the distribution, (may be random)}
   \item{max}{upper limit of the distribution, (may be random)}
 }
-\details{
-  
-}
+%\details{
+%  
+%}
 \references{
 Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
 Posterior Simulations Using Random Variable Objects.

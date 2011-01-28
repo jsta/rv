@@ -4,6 +4,10 @@
 \alias{summary.rvfactor}
 \alias{summary.rvmixed}
 \alias{summary.rvsummary}
+\alias{summary.rvsummary_numeric}
+\alias{summary.rvsummary_integer}
+\alias{summary.rvsummary_logical}
+\alias{summary.rvsummary_rvfactor}
 \usage{
   \method{summary}{rv}(object, \dots)
   \method{summary}{rvfactor}(object, all.levels=TRUE, \dots)

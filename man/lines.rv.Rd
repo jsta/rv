@@ -34,7 +34,7 @@ See also \code{vignette("rv")}.
  \email{jouni@kerman.com}
 }
 \examples{ 
-  x <- 1:10
+  x <- as.rv(1:10)
   y <- rvnorm(mean=x)
   par(mfrow=c(2,2))
   plot(x, y, type="b", main="Intervals and random lines", rvcol="blue", col="gray")

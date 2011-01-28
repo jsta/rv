@@ -12,8 +12,7 @@
 %  
 %}
 \details{
-  Currently equivalent to \code{detach("package:rv")},
-  although you \emph{should} always use \code{detachrv()} 
+  Currently equivalent to \code{detach("package:rv")}.
 }
 \references{
 Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing

@@ -46,7 +46,7 @@
   component of a vector or a row of a matrix 
   is plotted at vertical points 1...nrow(x).
 
-  An 'mlplot' of a vector implements a ``forest plot."
+  An 'mlplot' of a vector implements a ``forest plot.''
 
   Scalars on the same row are plotted closely together.
   The positioning of the scalars within a row are controlled by the 

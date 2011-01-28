@@ -4,6 +4,10 @@
 \alias{cor}
 \alias{var}
 \alias{sd}
+\alias{cov.rv}
+\alias{cor.rv}
+\alias{var.rv}
+\alias{sd.rv}
 \usage{
   cov(x, \dots)
   cor(x, \dots)
@@ -14,6 +18,8 @@
   \method{var}{rv}(x, \dots)
 
   sd(x, na.rm=FALSE)
+
+  sd.rv(x, na.rm=FALSE)
 
 }
 \description{
@@ -32,16 +38,16 @@
   The original functions in the \code{stats} package 
   are the default functions of these generic functions.
 
-  To access the original help page in the stats package,
-  go to \code{\link[pkg:stats]{cov2cor}} or
-  detach the rv package and then access the help pages in the stat package.
+  %To access the original help page in the stats package,
+  %go to \code{\link[pkg:stats]{cov2cor}} or
+  %detach the rv package and then access the help pages in the stat package.
 
   \code{sd} is not generic but it is rewritten to catch the possibility 
   that the argument is a random variable object.
 
   \code{cov} gives the distribution (that is, a random variable object)
   of the covariance statistic, as computed by the 
-  standard R function \code{\link[pkg:stats]{cov}}. 
+  %standard R function \code{\link[pkg:stats]{cov}}. 
 
   This is implemented simply by applying the numerical 
   \code{cov} function to the rows of the simulation matrices
@@ -66,10 +72,10 @@ Statistics and Computing 17:3, 235-244.
 
 See also \code{vignette("rv")}.
 }
-\seealso{
-  \code{\link[pkg:stats]{cov}}, \code{\link[pkg:stats]{cor}}, \code{\link[pkg:stats]{var}}, \code{\link[pkg:stats]{sd}} 
-  for details.
-}
+%\seealso{
+  %\code{\link[pkg:stats]{cov}}, \code{\link[pkg:stats]{cor}}, \code{\link[pkg:stats]{var}}, \code{\link[pkg:stats]{sd}} 
+  %for details.
+%}
 \author{
  Jouni Kerman
  \email{jouni@kerman.com}

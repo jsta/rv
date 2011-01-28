@@ -1,5 +1,5 @@
 \name{as.rv.bugs}
-\title{Coerce an R2WinBUGS object into Random Variable Objects}
+\title{Coerce a bugs object into Random Variable Objects}
 \alias{as.rv.bugs}
 \alias{as.rvsummary.bugs}
 \usage{
@@ -19,11 +19,13 @@
   \item{list.}{logical; return a list of \code{rv} objects instead of a single \code{rv} object (vector)?}
   \item{\dots}{(ignored)}
 }
-\details{
- 
-}
+%\details{
+%  
+%}
 \value{
-  A named \emph{list} of random vectors or a named random vector.
+  If \code{list.=TRUE}, a named \emph{list} of random vectors or a named
+  random vector, otherwise a random vector.
+  (Usually one would prefer a list.)f
 }
 \references{
 Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing

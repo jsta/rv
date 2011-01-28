@@ -24,7 +24,7 @@ of all individual components of a random vector (rv) object.
 \code{Pr} is another alias for \code{rvmean}, standing for ``Probability of'';
 suggested to be used when the argument is a logical statement involving random variables
 (that is, a description of an event such as \code{x>0} or \code{x>y}).
-Then \code{Pr(x>0)} gives the probability of the event ``x>0".
+Then \code{Pr(x>0)} gives the probability of the event ``x>0''.
 The statement \code{x>0} returns a Bernoulli
 (indicator) random variable object (having 1/0 or TRUE/FALSE values)
 and the expectation of such variable is just the probability of the 

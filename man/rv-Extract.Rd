@@ -1,24 +1,25 @@
 \name{Extract.rv}
 \title{Extract or Replace Parts of a Random Vector}
 \alias{[.rv}
+\alias{[.rvsummary}
 \alias{[<-.rv}
-\alias{[<<-.rv}
 \alias{[<-.rv}
-\alias{[<<-.rv}
+\alias{[<-.rvsummary}
 \synopsis{
 %x[i, j, \dots, drop = TRUE]
 %x[i, j, \dots , drop = TRUE] <- value
 %x[[i, j, \dots, drop = TRUE]]
 %x[[i, j, \dots , drop = TRUE]] <- value
 \method{[}{rv}(x, \dots , drop = TRUE)
+\method{[}{rvsummary}(x, \dots , drop = TRUE)
 \method{[<-}{rv}(x, \dots , drop = TRUE)
-\method{[[<-}{rv}(x, \dots , drop = TRUE)
+\method{[<-}{rvsummary}(x, \dots , drop = TRUE)
+%\method{[[<-}{rv}(x, \dots , drop = TRUE)
 }
 \description{
   Bracket slice and assignment methods adapted for random vectors and arrays.
 }
 \details{
-  %Due to the inflexibility of the S3 method dispatch mechanism, 
   
   \code{x} may also be a regular vector that is automatically coerced
   into an rv object if the compatibility flag has been 

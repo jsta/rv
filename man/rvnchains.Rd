@@ -2,7 +2,7 @@
 \title{Number of Markov Chains Used to Generate Simulations of a Random Vector}
 \alias{rvnchains}
 \usage{
-rvnchains(x)
+ rvnchains(x)
 }
 \description{
   Retrieves the number of mcmc chains in each components of the argument.

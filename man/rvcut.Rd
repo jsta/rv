@@ -13,13 +13,11 @@
   \item{x}{a plain or a random vector which is to be converted to a factor by cutting.}
   \item{\dots}{arguments passed to the function \code{\link{cut}}.}
 }
-\details{
-    
-}
+%\details{
+%    
+%}
 \value{
   A random factor.
-}
-\note{
 }
 \seealso{
   \code{\link{rvfactor}}, \code{\link{cut}}.

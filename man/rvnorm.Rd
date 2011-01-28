@@ -8,12 +8,14 @@
   Generates a random vector from a Gaussian sampling model.
 }
 \arguments{
-  \item{n}{integer: number of variables to generate}
+  \item{n}{integer: number of variables to generate.}
   \item{mean}{mean, may be a rv}
   \item{sd}{standard deviation; scalar or vector (constant or rv, not matrix)}
   \item{var}{variance, can be given instead of sd. Scalar, vector, or matrix.}
   \item{precision}{inverse variance or variance matrix, may be given instead of sd or var}
 }
+%\details{
+%}
 \note{
 If any of the arguments are random, 
 the resulting simulations may have non-normal marginal distributions;
@@ -21,7 +23,9 @@ for example, if an inverse-chi-squared scalar rv \code{var}
 and zero \code{mean} is given, the resulting rv will have a t-distribution.
 }
 \value{
-  A random vector (rv object) of length \code{n}.
+  An rv object of length \code{n} times the length of the mean vector. 
+
+  If \code{mean} is a vector, a vector is returned: \code{n} refers to how many vectors or scalars are replicated. 
 }
 \references{
 Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing

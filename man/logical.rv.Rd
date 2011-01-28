@@ -21,8 +21,8 @@ Statistics and Computing 17:3, 235-244.
 
 See also \code{vignette("rv")}.
 }
-\seealso{
-}
+%\seealso{
+%}
 \note{
   \code{is.logical(x)} returns \code{TRUE} if and only if \emph{each} component 
   of \code{x} is logical-valued (i.e. \code{TRUE}/\code{FALSE}).

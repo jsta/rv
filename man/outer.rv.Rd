@@ -2,7 +2,7 @@
 \title{Outer Product of Random Arrays}
 \alias{outer.rv}
 \usage{
-outer.rv(X, Y=NULL, FUN="*", \dots)
+  outer.rv(X, Y=NULL, FUN="*", \dots)
 }
 \description{
   \code{outer.rv}

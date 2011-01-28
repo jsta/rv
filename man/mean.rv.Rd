@@ -13,9 +13,9 @@
   \item{\dots}{further arguments passed to or from other methods}
 }
 \details{
-  \code{mean.rv} gives the distribution (that is, a random variable object)
+  \code{mean} gives the distribution (that is, a random variable object)
   of the statistic \eqn{\frac{1}{n}\sum_{i=1}^n x_i}{sum x_i/n}
-  (sum(x)/length(x)).
+  (\code{sum(x)/length(x)}).
 
   In particular, \code{mean(x)} of a random vector \code{x} of length one 
   is equal to \code{x} as it would be in the case of numerical x.

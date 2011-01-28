@@ -57,9 +57,9 @@ See also \code{vignette("rv")}.
   names(x) <- paste("theta[", 1+seq_along(x), "]", sep="")
   L <- list(x=x)
   x <- 1:10
-  rattach(L, impute=TRUE) # attaches a list called 'rattach' containing an object 'x'
+  rattach(L, impute=TRUE) # attaches a list called 'L' containing an object 'x'
   print(x)
-  rattach() # Detaches the list 'rattach'
+  detach("L")
   exists("x") # FALSE
   # Trying rvattach:
   rvattach(L$x) # attaches a list 'rvattach' containing an object 'theta'

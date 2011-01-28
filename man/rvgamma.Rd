@@ -1,8 +1,10 @@
 \name{rvgamma}
 \title{Generate Random Variables from a Gamma Sampling Model}
 \alias{rvgamma}
+\alias{rvngamma}
 \usage{
   rvgamma(n=1, shape, rate = 1, scale = 1/rate)
+  rvngamma(n=1, shape, rate = 1, scale = 1/rate)
 }
 \description{
   Generates random variables from a Gamma sampling model.
@@ -14,7 +16,8 @@
   \item{scale}{inverse of rate, may be specified optionally instead of rate}
 }
 \details{
-  \code{rvgamma} 
+  \code{rvngamma(n, shape, rate)} is equivalent to
+  \code{rvgamma(n, 1/3 + shape, rate)}.  
 }
 \value{
   A random vector (rv object).
@@ -31,7 +34,7 @@ See also \code{vignette("rv")}.
  \email{jouni@kerman.com}
 }
 \examples{
-  #
+  round(rvmedian(rvngamma(n=1, shape=1:10, rate=1)), 1) ## close to 1:10
 }
 
 \keyword{classes}

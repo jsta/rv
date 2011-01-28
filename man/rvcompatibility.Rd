@@ -35,21 +35,23 @@
   (for which we have implemented a generic replacement.)
 
   Unfortunately even this \emph{may} not make rv fully compatible. 
-  Thus we need a system to undo a function replacement. 
+  Thus we need a way to undo this fix. 
 
   The only use of this function - currently - is \code{rvcompatibility(1)} 
   which restores all functions in the base backage. Example: `\code{c(...)}'.
   
   Inserting numeric/logical objects into an rv objects still works, 
   but inserting an rv object into a plain numeric/logical vector will not work,
-  for example.
+  for example. What you can do then is to use
+  \code{as.rv} to convert the numeric vector to \code{rv} first. 
 
   NOTE. When the package rv is detached (you can do it simply with \code{detachrv()}),
   all functions that were replaced upon attaching the package are immediately restored.
-  
-  \item{level 0}{Default: In particular, makes sure that assignment of an rv object into a component of numeric object is allowed (returning an rv object)}
+  \describe{
+    \item{level 0}{Default: In particular, makes sure that assignment of an rv object into a component of numeric object is allowed (returning an rv object)}
 
-  \item{level 1}{More compatible with existing programs. In particular, assignment of an rv object into a component of numeric object is not possible}
+    \item{level 1}{More compatible with existing programs. In particular, assignment of an rv object into a component of numeric object is not possible}
+  }
 }
 \value{
   If \code{level} is \code{NULL}, the current compatibility level.

@@ -26,9 +26,9 @@ Statistics and Computing 17:3, 235-244.
 
 See also \code{vignette("rv")}.
 }
-\seealso{
-  
-}
+%\seealso{
+%  
+%}
 \author{
  Jouni Kerman
  \email{jouni@kerman.com}

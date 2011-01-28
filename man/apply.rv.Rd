@@ -2,7 +2,7 @@
 \title{Apply Functions over Margins of Random Arrays}
 \alias{apply.rv}
 \usage{
-  \method{apply}{rv}(X, MARGIN, FUN, \dots)
+  apply.rv(X, MARGIN, FUN, \dots)
 }
 \description{
   The \code{rv}-compatible version of \code{apply} 
@@ -15,9 +15,6 @@
 }
 \details{
   This is the rv-compatible version of the function \code{\link{apply}}.
-
-  Since \code{apply} is not a generic function, 
-  the whole name \code{apply.rv} must be specified when calling the function.
 }
 \references{
 Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing

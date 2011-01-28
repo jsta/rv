@@ -15,9 +15,9 @@
   \item{unitprecision}{how many points per unit length}
   \item{\dots}{other arguments passed on to \code{FUN}}
 }
-\details{
+%\details{
   %The first argument of \code{FUN} must be the ...
-}
+%}
 \value{
   A random vector (an rv object) of length \code{n}.
 }
@@ -38,7 +38,8 @@ See also \code{vignette("rv")}.
  \email{jouni@kerman.com}
 }
 \examples{
-  #
+  x <- rvdens(FUN=stats:::dnorm, range=c(-5, 5), unitprecision=10)
+  y <- rvnorm(1) ## Should be close to x
 }
 
 \keyword{classes}

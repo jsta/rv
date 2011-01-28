@@ -24,7 +24,7 @@ as.rvobj(x)
 is.rvobj(x)
 }
 \description{
-  Creates or tests for objects of type ``\code{rv}".
+  Creates or tests for objects of type ``\code{rv}''.
 }
 \arguments{
   \item{length}{desired length.}

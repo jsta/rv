@@ -39,10 +39,10 @@ See also \code{vignette("rv")}.
  \email{jouni@kerman.com}
 }
 \examples{
-  # x and y have the same distributions:
+  # x and y have the same distributions but not the same simulations:
   setnsims(200)
   y <- rvnorm(1)
-  x <- sims(rnorm(200))
+  x <- rvsims(rnorm(getnsims()))
   # 
 }
 

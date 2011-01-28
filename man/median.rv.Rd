@@ -2,7 +2,7 @@
 \title{Distribution of the Sample Median}
 \alias{median.rv}
 \usage{
-  median.rv(x, na.rm = FALSE)
+  \method{median}{rv}(x, na.rm = FALSE)
 }
 \arguments{
   \item{x}{a randomv vector containing the components

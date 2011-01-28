@@ -1,4 +1,4 @@
-%\VignetteIndexEntry{rv}
+%\VignetteIndexEntry{rv-paper}
 %\VignettePackage{rv}
 % Fully Bayesian Computing
 % Jouni Kerman and Andrew Gelman.
@@ -1285,10 +1285,40 @@ uncertain quantities as random variables.
 
 %\pagebreak
 
-\addcontentsline{toc}{chapter}{Bibliography}
-\bibliography{/Users/jkerman/lib/bib/jouni_bibliography}
+\begin{thebibliography}{5}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
+\bibitem[Gelman et~al.(2003)Gelman, Carlin, Stern, and Rubin]{BDA}
+Andrew Gelman, John~B. Carlin, Hal~S. Stern, and Donald~B. Rubin.
+\newblock \emph{Bayesian Data Analysis}.
+\newblock Chapman \& Hall/CRC, London, 2nd edition, 2003.
 
+\bibitem[Martin and Quinn(2004)]{MarQui04}
+Andrew~D. Martin and Kevin~M. Quinn.
+\newblock \texttt{MCMCpack} 0.5-2.
+\newblock \url{http://mcmcpack.wustl.edu/}, 2004.
+
+\bibitem[Plummer(2004)]{JAGS}
+Martyn Plummer.
+\newblock {JAGS}: {J}ust {A}nother {G}ibbs {S}ampler.
+\newblock \url{http://www-fis.iarc.fr/$\sim$ \!martyn/software/jags/}, 2004.
+
+\bibitem[{R Development Core Team}(2004)]{Rproject}
+{R Development Core Team}.
+\newblock \emph{R: A language and environment for statistical computing}.
+\newblock R Foundation for Statistical Computing, Vienna, Austria, 2004.
+\newblock URL \url{{http://www.R-project.org}}.
+
+\bibitem[Thomas and O'Hara(2004)]{OpenBUGS}
+Andrew Thomas and Robert~B. O'Hara.
+\newblock {OpenBUGS}.
+\newblock \url{http://mathstat.helsinki.fi/openbugs/}, 2004.
+
+\end{thebibliography}
 
 \end{document} 
 %END%

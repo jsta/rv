@@ -2,7 +2,7 @@
 \title{Random Vector with a Point-Mass Distribution}
 \alias{rvconst}
 \usage{
-rvconst(n=1,x)
+  rvconst(n=1, x)
 }
 \description{
   Coerces a given vector of constants into a random vector
@@ -31,7 +31,8 @@ See also \code{vignette("rv")}.
  \email{jouni@kerman.com}
 }
 \examples{
-  #
+  x <- rvconst(x=1:3)
+  c(x, 4)
 }
 
 \keyword{classes}

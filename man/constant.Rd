@@ -3,13 +3,15 @@
 \alias{is.constant}
 \alias{as.constant}
 \alias{as.constant.rv}
+\alias{as.constant.rvsummary}
 \usage{
  is.constant(x)
  as.constant(x)
  \method{as.constant}{rv}(x)
+ \method{as.constant}{rvsummary}(x)
 }
 \description{
-  Tests or coerces objects that are non-random.  
+  Functions to coerce or test for non-random objects.
 }
 \arguments{
   \item{x}{an object, random variable (rv) or not}
@@ -17,10 +19,13 @@
 \details{
   \code{is.constant} returns \code{TRUE}
   for each component of the argument object
-  if there is only one simulation (that is, the variable is ``constant").
+  if there is only one simulation (that is, the variable is ``constant'').
 
   Note: rv objects that merely have variance zero are not therefore necessarily 
-  constants. 
+  ``true'' constants. 
+
+  \code{as.constant} coerces \code{rv} or \code{rvsummary} objects into 
+  constant strings; \code{NA} is returned for component that is not random.
 }
 \references{
 Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
@@ -40,6 +45,10 @@ See also \code{vignette("rv")}.
   x <- rvbern(prob=0.001)
   all(sims(x)==0)        # most probably true
   is.constant(x)         # always FALSE
+  x <- rvnorm(3)
+  x[1] <- 1
+  as.constant(x)         # 1, NA, NA
+  all(is.random(x) & is.na(as.constant(x))) # always TRUE
 }
 
 \keyword{classes}

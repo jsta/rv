@@ -18,7 +18,7 @@
   the distribution for size and the distribution for the probability of success.
 }
 \value{
-
+ An rv object.
 }
 \references{
 Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing

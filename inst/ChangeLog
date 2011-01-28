@@ -1,0 +1,5 @@
+
+2010-03-10
+	* simapply bug fixed. will now accept arguments such as prob=... Thanks to Song S. Qian
+	* rvvapply bugs fixed. rvnorm(n=2, mean=rvnorm(1), sd=1) did not work properly
+	

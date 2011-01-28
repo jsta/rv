@@ -11,7 +11,7 @@
   \item{\dots}{arguments in tag = value form, or a list or character vecetor of tagged values. The available tags are described below.}
 }
 \details{
-
+ \describe{
   \item{rvcol}{color of a random point (interval), such as `red' or `blue'}
   \item{rvlex}{middle interval expansion factor}
   \item{rvlwd}{line weight of a random interval}
@@ -22,6 +22,7 @@
   \item{summary.dimnames}{logical; output dimnames in the summary of an \code{rv} object? Default \code{TRUE}.}
   \item{summary.quantiles.numeric}{vector of quantiles to compute for the summary of a numeric \code{rv} object.}
   \item{summary.quantiles.integer}{vector of quantiles to compute for the summary of an integer-valued \code{rv} object. By default contains 0 and 1 (for the min and max values).}
+ }
 }
 \value{
   In the case of a single tag query, the requested value.

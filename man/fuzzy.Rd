@@ -8,7 +8,7 @@
   \method{is.fuzzy}{rv}(x)
 }
 \description{
-  Tests whether an object is ``fuzzy",
+  Tests whether an object is ``fuzzy'',
   i.e.
   a logical random scalar 
   that has probability strictly between zero and one (not strictly true nor strictly false).
@@ -16,9 +16,9 @@
 \arguments{
   \item{x}{an object, random or constant}
 }
-\details{
-    
-}
+%\details{
+%    
+%}
 \references{
 Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
 Posterior Simulations Using Random Variable Objects.

@@ -16,9 +16,9 @@
 \item{freq}{logical; if \code{FALSE}, plots as probability density, as it should.}
 \item{\dots}{Other arguments passed on to \link{hist}}
 }
-\details{
-  
-}
+%\details{
+%  
+%}
 \references{
 Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
 Posterior Simulations Using Random Variable Objects.

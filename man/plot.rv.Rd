@@ -1,4 +1,4 @@
-\name{plot.rv}
+ \name{plot.rv}
 \title{Plotting Scatterplots of Random Variable Objects}
 \alias{plot.rv}
 \alias{plot.rvsummary}
@@ -7,10 +7,11 @@
   \method{plot}{rvsummary}(x, y, \dots)
 }
 \description{
-  Draw a "random scatter plot". 
+  Draw a "random scatter plot" or random points as horizontal or
+  vertical intervals.
 }
 \arguments{
-  \item{x}{random or fixed vector}
+  \item{x}{an rv object}
   \item{y}{random or fixed vector}
   \item{\dots}{other arguments passed on to \code{plot}}
 }
@@ -24,6 +25,8 @@
   If a component of \code{x} and the corresponding component of \code{y} is random, 
   the resulting `point' is a scatterplot of simulations from the joint distribution of
   code{(x,y)}.
+
+  Compatible with objects of class `rvsummary'.
 
 }
 \references{
@@ -41,10 +44,14 @@ See also \code{vignette("rv")}.
   \code{\link{mlplot}}
 }
 \examples{
-  x <- 1:30
+  x <- as.rv(1:30)
   y <- rvnorm(mean=x, sd=1)
-  \dontrun{plot(x,y)}
-  \dontrun{plot(y,x)}
+  \dontrun{plot(x, y)}
+  \dontrun{plot(y, x)}
+  \dontrun{plot(y)}
+  y <- as.rvsummary(x)
+  \dontrun{plot(x, y)}
+  \dontrun{plot(y, x)}
   \dontrun{plot(y)}
 }
 

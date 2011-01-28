@@ -7,7 +7,7 @@
 \description{
   \code{as.vector.rv} coerces a given \code{rv} object into a vector;
   matrices lose their dimension attributes, but \code{rv} objects
-  stay as \code{rv} objects (since they are considered to be ``vectors").
+  stay as \code{rv} objects (since they are considered to be ``vectors'').
 }
 \arguments{
   \item{x}{an object}

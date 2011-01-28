@@ -13,6 +13,10 @@
   \item{\dots}{further arguments passed to the function \code{hist}}
 }
 \details{
+  Outputs a histogram using the \code{hist} function with the option 
+  \code{freq=FALSE}. This can be overridden
+  by specifying the argument \code{freq} or \code{prob}.
+  See the function \code{hist} for details.
 }
 \references{
 Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
@@ -25,9 +29,9 @@ See also \code{vignette("rv")}.
  Jouni Kerman
  \email{jouni@kerman.com}
 }
-\examples{
-  #
-}
+%\examples{
+%  #
+%}
 
 \keyword{classes}
 

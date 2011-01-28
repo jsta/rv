@@ -3,8 +3,8 @@
 \alias{rvattr}
 \alias{rvattr<-}
 \usage{
-rvattr(x, attrib)
-rvattr(x, attrib) <- value
+rvattr(x, attrib=NULL)
+rvattr(x, attrib=NULL) <- value
 }
 \description{
   \code{rvattr}
@@ -12,10 +12,13 @@ rvattr(x, attrib) <- value
 \arguments{
   \item{x}{an object}
   \item{attrib}{name of the attribute}
-  \item{value}{value to be set}
+  \item{value}{list of values to set}
 }
 \details{
-  \code{rvattr} 
+  The values within the list \code{value} 
+  are matched by their name (e.g. `\code{theta[1]}') if possible;
+  if both \code{x} and \code{value} do not have names,
+  the list is matched by position. 
 }
 \references{
 Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing

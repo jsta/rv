@@ -10,7 +10,7 @@
 }
 \arguments{
   \item{n}{number of random scalars to draw}
-  \item{prob}{probability of ``success"; may be a random vector itself}
+  \item{prob}{probability of ``success''; may be a random vector itself}
   \item{logical}{logical; return a logical random variable instead}
 }
 \details{
@@ -42,9 +42,8 @@ See also \code{vignette("rv")}.
  \email{jouni@kerman.com}
 }
 \examples{
-  rvbern(10, prob=0.5)
-  rvbinom(10, size=1, prob=0.5) # Equivalent
-  print(rvbern(1, 0.5))
+  rvbern(2, prob=0.5)
+  rvbinom(2, size=1, prob=0.5) # Equivalent
   print(rvbern(1, 0.5, logical=TRUE)) # won't show the quantiles
   print(as.logical(rvbern(1, 0.5))) # equivalent
 }

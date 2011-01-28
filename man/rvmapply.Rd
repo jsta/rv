@@ -55,8 +55,8 @@ See also \code{vignette("rv")}.
  Jouni Kerman
  \email{jouni@kerman.com}
 }
-\examples{
-}
+%\examples{
+%}
 
 \keyword{manip}
 

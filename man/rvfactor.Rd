@@ -15,7 +15,7 @@
   \method{print}{rvfactor}(x, all.levels=FALSE, \dots)
 }
 \description{
-  Creates or tests for objects of type ``\code{rvfactor}".
+  Creates or tests for objects of type ``\code{rvfactor}''.
 }
 \arguments{
   \item{x}{object to be coerced or tested.}
@@ -37,11 +37,6 @@
   \code{as.rv.rvfactor}: an \code{rv} object.
 
   \code{as.rvfactor.rv}: an \code{rvfactor} object.
-}
-\note{
-}
-\seealso{
-  
 }
 \references{
 Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing

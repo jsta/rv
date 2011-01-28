@@ -10,11 +10,10 @@
 \details{
   \tabular{ll}{
    Package:   \tab rv \cr
-   Version:   \tab 1.0 \cr
-   Date:      \tab 2008/08/08 \cr
+   Version:   \tab 1.1.0 \cr
+   Date:      \tab 2011/01/28 \cr
    Namespace: \tab rv \cr
-   Enhances:  \tab R2WinBUGS \cr
-   Depends:   \tab R(>= 2.5.1), methods, utils \cr
+   Depends:   \tab R(>= 2.7.0), methods, utils, grDevices, graphics \cr
    License:   \tab GPL-2 \cr
   }
 }
