@@ -1,4 +1,4 @@
 
-2011-01-28:
-	* mlplot does not return error when one single component is attempted to be plot
-	* abline is unchanged; abline.rv is the rv-compatible version
+2012-01-26:
+	* Version 2.0.0
+

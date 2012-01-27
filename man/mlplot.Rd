@@ -85,6 +85,7 @@ See also \code{vignette("rv")}.
 }
 \examples{
 
+\dontrun{
   # You can run this complete example by typing demo("mlplot")
 
   n.rows <- 4; n.cols <- 5; n <- (n.rows*n.cols)
@@ -102,13 +103,14 @@ See also \code{vignette("rv")}.
   abline(v=0, lty="dotted")
   mlplot(t(theta), main="theta transposed")
   abline(v=0, lty="dotted")
-  row.sd <- apply.rv(theta, 1, sd)
-  col.sd <- apply.rv(theta, 2, sd)
+  row.sd <- apply.rv(theta, 1, sd.rv)
+  col.sd <- apply.rv(theta, 2, sd.rv)
   x.max <- max(rvquantile(c(row.sd, col.sd), 0.99))
   mlplot(row.sd, xlim=c(0, x.max), main="theta: within-row sd for each unit")
   abline(v=0)
   mlplot(col.sd, xlim=c(0, x.max), main="theta: between-row sd for each time point")
   abline(v=0)
+}
 }
 
 \keyword{classes}

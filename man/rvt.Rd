@@ -2,7 +2,7 @@
 \title{Generate Random Variables from a Student-t Sampling Model}
 \alias{rvt}
 \usage{
-  rvt(n=1, mu=0, scale=1, df, Sigma)
+  rvt(n=1, mu=0, scale=1, df, ncp, Sigma)
 }
 \description{
   Generates a random variable from a Student-t sampling model.
@@ -11,8 +11,9 @@
   \item{n}{integer, number of scalars to generate}
   \item{mu}{location, may be a rv}
   \item{scale}{scale, may be a rv}
-  \item{Sigma}{(optional) scaling matrix for multivariate generation}
+  \item{ncp}{non-centrality parameter}
   \item{df}{degrees of freedom, may be a rv}
+  \item{Sigma}{(optional) scaling matrix for multivariate generation}
 }
 \details{
   This function generates both univariate (independent and identically distributed)

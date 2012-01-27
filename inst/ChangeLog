@@ -1,5 +1,6 @@
 
-2010-03-10
-	* simapply bug fixed. will now accept arguments such as prob=... Thanks to Song S. Qian
-	* rvvapply bugs fixed. rvnorm(n=2, mean=rvnorm(1), sd=1) did not work properly
+2012-01-25
+	* Version_2.2.0 Removed all code that attempts to change functions in packages "base" and "stats" etc.
+
+
 	

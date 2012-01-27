@@ -1,3 +1,6 @@
+## Imports
+importFrom(stats, median)
+##
 export("[.rv")
 export("[.rvsummary")
 export("[<-.rvsummary")
@@ -15,22 +18,35 @@ export("!.rv")
   S3method(as.list, rv)
 ## as.vector
   S3method(as.vector, rv)
-
+## aperm
 S3method(aperm, rv)
-
+## min, max, pmin, pmax
+S3method(min, rv)
+S3method(max, rv)
+S3method(pmin, rv)
+S3method(max, rv)
+export(min.rv)
+export(max.rv)
+export(pmax.rv)
+export(pmin.rv)
+##
 export(apply.rv)
+## c
+S3method(c, rv)
 export(c.rv)
+export(cc)
+## cbind, rbind
 export(cbind.rv)
 export(rbind.rv)
-
+## constant
 export(is.constant)
 export(as.constant)
 S3method(as.constant,rvsummary)
   S3method(as.constant,rv)
   S3method(as.constant,default)
-
+####
 export(detachrv)
-
+####
 export(is.fuzzy)
   S3method(is.fuzzy,default)
   S3method(is.fuzzy,rv)
@@ -40,11 +56,17 @@ export(is.fuzzy)
   S3method(is.na, rv)
 ## lines
   S3method(lines, rv)
-export("%*%.rv")
+  export(lines.rv)
+## matmult
+  S3method("%*%", rv) ## will not work ##
+  export("%*%.rv")
+  export("%**%")
 ## mean
   S3method(mean, rv)
+## mlplot
 export(mlplot)
 export(mlplot.default)
+## rvnsims
 export(rvnsims)
   S3method(rvnsims, rv)
   S3method(rvnsims, rvsummary)
@@ -55,16 +77,25 @@ export(getnsims)
   S3method(is.numeric, rv)
   S3method(as.numeric, rv)
   S3method(as.numeric, rvfactor)
+## 
 export(outer.rv)
-## points
+##
+  export(points.rv)
   S3method(points, rv)
+##
+export(posterior)
+  S3method(posterior, lm)
+  S3method(posterior, glm)
+##
 export(postsim)
-export(postsim.lm)
-export(postsim.glm)
+##
 export(print.rv)
 export(print.rvfactor)
+##
 export(quantile.rv)
-export(median.rv)
+## median
+S3method(median, rv)
+## is.random
 export(is.random)
 ## range
   S3method(range, rv)
@@ -111,22 +142,17 @@ export(rvcat)
 export(rvcauchy)
 export(rvchisq)
 export(rvci)
-export(rvcompatibility)
 ## plot is a method here.
+  export(plot.rv)
   S3method(plot, rv)
   S3method(plot, rvsummary)
+## abline.rv (not a method!)
 export(abline.rv)
-export(var)
-  S3method(var, default)
-  S3method(var, rv)
 ## sd
-  S3method(sd,rv)
-export(cov)
-  S3method(cov, rv)
-  S3method(cov, default)
-export(cor)
-  S3method(cor, rv)
-  S3method(cor, default)
+export(sd.rv)
+export(cov.rv)
+export(var.rv)
+##
 export(rvconst)
 export(rvcov)
 export(rvcut)
@@ -226,3 +252,10 @@ export(splitbyname)
   S3method(summary, rvsummary_integer)
   S3method(summary, rvsummary_rvfactor)
 export(unlist.rv)
+## rvpredict
+export(rvpredict)
+  S3method(rvpredict, lm)
+####  S3method(rvpredict, glm)
+##
+export(rvtriang)
+export(rvmeanunif)

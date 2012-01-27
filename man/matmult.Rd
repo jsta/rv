@@ -1,5 +1,6 @@
 \name{matmult.rv}
 \alias{\%*\%.rv}
+\alias{\%**\%}
 \alias{matmult.rv}
 \title{Random Matrix Multiplication}
 \description{
@@ -10,6 +11,7 @@
 }
 \usage{
   \method{\%*\%}{rv}(x, y)
+  x \%**\% y
 }
 \arguments{
   \item{x, y}{numeric or complex matrices or vectors.}

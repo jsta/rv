@@ -1,8 +1,12 @@
 \name{c}
-\title{Concatenation of Random Vectors}
+\title{Concatenation of random vectors}
 \alias{c.rv}
+\alias{c.rvsummary}
+\alias{cc}
 \usage{
   \method{c}{rv}(\dots, recursive = FALSE)
+  \method{c}{rvsummary}(\dots, recursive = FALSE)
+  cc(\dots, recursive = FALSE)
 }
 \description{
   Concatentates random vectors.
@@ -12,7 +16,11 @@
   \item{recursive}{logical. If recursive = TRUE, the function recursively descends through lists (and pairlists) combining all their elements into a vector.}
 }
 \details{
-  NOTE: \code{recursive} has not yet been tested.    
+  NOTE: \code{recursive} has not yet been tested.
+
+  \code{cc} is a function that works for both non-rv and other
+  vectors. To make code compatible for both constant vectors and rv
+  objects, one can use \code{cc} instead of \code{c}.
 }
 \references{
 Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
@@ -30,10 +38,12 @@ See also \code{vignette("rv")}.
   y <- rvbern(2, prob=0.5)
   z <- c(x, y)
   print(z)
-  z1 <- c(1, z)
+  z1 <- cc(1, z)
   z2 <- c(as.rv(1), z)
+  z3 <- c(as.rv(1), z)
   print(z1)
   print(z2)
+  print(z3)
 }
 
 \keyword{classes}

@@ -31,8 +31,10 @@ See also \code{vignette("rv")}.
   \code{\link{apply}}
 }
 \examples{
+\dontrun{
   x <- rvmatrix(rvnorm(12), nrow=3, ncol=4)
   print(apply.rv(x, 1, sum))
+}
 }
 
 \keyword{manip}

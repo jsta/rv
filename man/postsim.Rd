@@ -1,14 +1,15 @@
 \name{postsim}
-\title{Generate Posterior Simulations for lm or glm Objects}
+\title{Generate Posterior Simulations for lm or glm Objects (defunct)}
 \alias{postsim}
 \alias{postsim.lm}
 \alias{postsim.glm}
 \usage{
   postsim(fit)
-  \method{postsim}{lm}(fit)
-  \method{postsim}{glm}(fit)
 }
 \description{
+
+  \emph{DEFUNCT.} Use \code{\link{posterior}} instead.
+  
   Generate posterior simulations for a given fitted linear or general linear model,
   assuming the standard "noninformative" priors on the unknowns.
 }
@@ -29,15 +30,6 @@ See also \code{vignette("rv")}.
  Jouni Kerman
  \email{jouni@kerman.com}
 }
-\examples{
-  \dontrun{
-  x <- 1:20
-  y <- rnorm(length(x), mean=x, sd=10)
-  print(summary(fit <- lm(y ~ x)))
-  bayes.estimates <- postsim(fit)
-  }
-}
-
 \keyword{classes}
 
 

@@ -21,9 +21,8 @@
 }
 \details{
   
-  \code{x} may also be a regular vector that is automatically coerced
-  into an rv object if the compatibility flag has been 
-  set to 1 by \code{rvcompatibility(1)} (this is the default).
+  NOTE. \code{x} will NOT be automatically coerced
+  into an rv object.
   
   \code{value} may be an rv object or a regular numeric object.
 
@@ -42,9 +41,9 @@
 \value{
  A random variable (an rv object).
 }
-\seealso{
-  See \link{rvcompatibility} for examples.
-}
+%\seealso{
+%  See \link{rvcompatibility} for examples.
+%}
 \references{
 Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
 Posterior Simulations Using Random Variable Objects.

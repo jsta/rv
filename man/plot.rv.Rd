@@ -18,6 +18,7 @@
 \details{
   If a component \code{x} is fixed and the corresponding component of \code{y} is random, 
   the resulting `point' is a vertical uncertainty ('credible') interval.
+  \emph{NOTE.} You must call \code{plot.rv} explicitly to obtain this behavior.
 
   If a component \code{y} is fixed and the corresponding component of \code{x} is random, 
   the resulting `point' is a horizontal uncertainty ('credible') interval.

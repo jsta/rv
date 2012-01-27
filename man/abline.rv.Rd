@@ -5,9 +5,12 @@
   abline.rv (a = NULL, b = NULL, h = NULL, v = NULL, \dots)
 }
 \description{
-  \code{abline}, with random arguments,
+  \code{abline.rv}, with random arguments (i.e. arguments of which at
+  least one is an \code{rv} object),
   plots a sample of lines corresponding to 
   of simulations of rv object \code{x}.
+  If the arguments are all numeric (none is an \code{rv} object),
+  the function call is passed on to \code{abline}.
 }
 \arguments{
   \item{a}{intercept}
@@ -24,8 +27,6 @@
   \code{rvpar("line.sample")}, default 20.
 
   See the original help page in package `graphics.'
- 
-  EXPERIMENTAL.
  
 }
 \references{

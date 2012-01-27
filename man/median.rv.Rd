@@ -25,8 +25,8 @@ See also \code{vignette("rv")}.
   \code{\link{quantile}} for general quantiles.
 }
 \examples{
-  x <- rvnorm(10) # A random vector.
-  median.rv(x)       # A random scalar.
-  rvmedian(x)     # A numeric vector of length 10.
+  x <- rvnorm(10) ## A random vector of length 10.
+  median(x)       ## A random scalar (vector of length 1).
+  rvmedian(x)     ## A numeric vector of length 10.
 }
 \keyword{classes}
