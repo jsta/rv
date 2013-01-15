@@ -1,7 +1,7 @@
 
 
 rvnbeta <- function (n=1, shape1, shape2) {
-  if (any(shape1<0) || any(shape2<0)) {
+  if (any(shape1<0, na.rm=TRUE) || any(shape2<0, na.rm=TRUE)) {
     stop("Neutral Beta distribution requires positive parameters")
   }
   shape1 <- (shape1 + 1/3)

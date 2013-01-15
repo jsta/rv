@@ -1,6 +1,6 @@
 # ================================================================================
 # rv - simulation-based random variable class in R
-# Version 2.0
-# Updated 2011-12-12
-# (c) 2004-2011 Jouni Kerman <jouni@kerman.com>
+# Version 2.1
+# Updated 2012-10-24
+# (c) 2004-2012 Jouni Kerman <jouni@kerman.com>
 # ================================================================================

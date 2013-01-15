@@ -27,7 +27,7 @@ rvnorm <- function (n=1, mean=0, sd=1, var=NULL, precision) {
     p <- length(mu)
     if (!all(dim(Sigma) == c(p, p)))
         stop("incompatible arguments")
-    eS <- eigen(Sigma, sym = TRUE, EISPACK=TRUE)
+    eS <- eigen(Sigma, symmetric = TRUE)
     if (any(is.na(eS$vectors))) {
       stop("Some eigenvectors of the variance-covariance matrix are missing...")
     }

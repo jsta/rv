@@ -115,7 +115,7 @@ plot.rvsummary <- function (x, y=NULL, ...)
             y[ii] <- NA
         }
     }
-    return(list(x = as.real(x), y = as.real(y), xlab = xlab, ylab = ylab))
+    return(list(x = as.double(x), y = as.double(y), xlab = xlab, ylab = ylab))
 }
 
 

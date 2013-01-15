@@ -6,7 +6,7 @@
 }
 \description{
   The distribution of the mean of uniform random variables
-  with each of them in the interval \code{(-1, 1)}.
+  with each of them in the interval \code{(-1, 1)}, then scaled and shifted.
 }
 \usage{
   rvtriang(n = 1, mode, scale)

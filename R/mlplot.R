@@ -34,7 +34,7 @@ mlplot <- function (X, ...)
   UseMethod("mlplot")
 }
 
-mlplot.default <- function (X, y.center = TRUE, y.shift = 0, y.map = NULL, mar = par("mar"), left.margin = 3, top.axis = TRUE, exp.labels=FALSE, x.ticks = NULL, axes = NULL, xlim = NULL, ylim = NULL, xlab=deparse(substitute(X)), ylab=NULL, las = NULL, add = FALSE, ...) 
+mlplot.default <- function (X, y.center = TRUE, y.shift = 0, y.map = NULL, mar = par("mar"), left.margin = 3, vline=NULL, top.axis = TRUE, exp.labels=FALSE, x.ticks = NULL, axes = NULL, xlim = NULL, ylim = NULL, xlab=deparse(substitute(X)), ylab=NULL, las = NULL, add = FALSE, ...) 
 {
     if (missing(xlab)) {
       xlab <- deparse(substitute(X)) #?
@@ -117,7 +117,9 @@ mlplot.default <- function (X, y.center = TRUE, y.shift = 0, y.map = NULL, mar =
     } else {
       x.row.coords <- x.ticks
     }
-    if (exp.labels) {
+    if (! is.null(names(x.ticks))) {
+      x.labels <- names(x.ticks)
+    } else if (exp.labels) {
       x.labels <- paste(signif(exp(x.row.coords),2))
     } else {
       x.labels <- paste(x.row.coords)
@@ -127,21 +129,33 @@ mlplot.default <- function (X, y.center = TRUE, y.shift = 0, y.map = NULL, mar =
     on.exit(par(oldpar))
     las <- if (!is.null(las)) las else 1
     if (add) {
-        points(X, y, xlim = xlim, ylim = ylim, ...)
-    }
-    else {
-        plot(X, y, ..., las = las, xlim = xlim, ylim = ylim, 
-            axes = FALSE, xlab=xlab, ylab = "")
-        if (is.null(axes) || axes) {
-            axis(1, at = x.row.coords, labels=x.labels)
-            if (top.axis) 
-                axis(3, at = x.row.coords, labels=x.labels)
-            if (is.null(labels)) 
-                labels <- paste(y.row.coords)
-            axis(2, at = y.row.coords, labels = labels, tick = FALSE, 
-                line = FALSE, pos = NA, outer = FALSE, font = NA, 
-                las = 1)
+      points(X, y, xlim = xlim, ylim = ylim, ...)
+    } else {
+      plot(X, y, ..., las = las, xlim = xlim, ylim = ylim, 
+           axes = FALSE, xlab=xlab, ylab = "", type="n")
+      if (is.null(axes) || axes) {
+        axis(1, at = x.row.coords, labels=x.labels)
+        if (top.axis) 
+          axis(3, at = x.row.coords, labels=x.labels)
+        if (is.null(labels)) 
+          labels <- paste(y.row.coords)
+        axis(2, at = y.row.coords, labels = labels, tick = FALSE, 
+             line = FALSE, pos = NA, outer = FALSE, font = NA, 
+             las = 1)
+        if (! is.null(vline)) {
+          if (! is.numeric(vline)) {
+            stop("'vline' must be a numeric vector (or NULL if not used)")
+          }
+          if (is.null(names(vline))) {
+            names(vline) <- rep("dotted", length(vline))
+          }
+          for (i in seq_along(vline)) {
+            lty <- names(vline)[i]
+            abline(v=vline[i], lty=lty, col="gray")
+          }
         }
+      }
+      points(X, y, xlim = xlim, ylim = ylim, ...)
     }
     invisible(NULL)
 }

@@ -4,7 +4,7 @@
 \alias{rvattr<-}
 \usage{
 rvattr(x, attrib=NULL)
-rvattr(x, attrib=NULL) <- value
+rvattr(x, attrib=NULL, by.name=FALSE) <- value
 }
 \description{
   \code{rvattr}
@@ -12,13 +12,16 @@ rvattr(x, attrib=NULL) <- value
 \arguments{
   \item{x}{an object}
   \item{attrib}{name of the attribute}
-  \item{value}{list of values to set}
+  \item{by.name}{logical; attempt matching of attributes by name?}
+  \item{value}{vector of values to set; can be a list or an atomic vector}
 }
 \details{
-  The values within the list \code{value} 
-  are matched by their name (e.g. `\code{theta[1]}') if possible;
-  if both \code{x} and \code{value} do not have names,
-  the list is matched by position. 
+  If \code{by.name=TRUE}, the values within the list \code{value} 
+  are matched by their name (e.g. `\code{theta[1]}') if possible.
+  Matching by \code{NA} or the empty string in a name is not possible.
+  
+  Otherwise, the list is matched by position; in this case, the length
+  of \code{value} must be equal to that of \code{x}.
 }
 \references{
 Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
@@ -32,7 +35,7 @@ See also \code{vignette("rv")}.
  \email{jouni@kerman.com}
 }
 \examples{
-  #
+  ##
 }
 
 \keyword{classes}

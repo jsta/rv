@@ -78,11 +78,6 @@ as.rv.xtabs <- function (x, ...)
 # DEBUG:2 (must take permutation of row indices and then permute.
 
 
-as.real.rv <- function(x, ...)
-{
-  simapply(x, as.real, ...)
-}
-
 as.double.rv <- function(x, ...)
 {
   simapply(x, as.double, ...)

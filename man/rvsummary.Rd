@@ -6,6 +6,7 @@
 \alias{as.rvsummary.rv}
 \alias{as.rvsummary.rvsummary}
 \alias{as.rvsummary.data.frame}
+\alias{as.data.frame.rvsummary}
 \alias{print.rvsummary}
 \alias{print.rvsummary_rvfactor}
 %\alias{dim.rvsummary}
@@ -22,7 +23,9 @@
   \method{as.rvsummary}{rv}(x, quantiles = (0:200/200), \dots)
   \method{as.rvsummary}{rvsummary}(x, \dots)
   \method{as.rvsummary}{data.frame}(x, quantiles = rvpar("summary.quantiles.numeric"), \dots)
+  \method{as.data.frame}{rvsummary}(x, \dots)
   \method{print}{rvsummary_rvfactor}(x, all.levels=FALSE, \dots)
+  \method{print}{rvsummary}(x, digits=3, \dots)
 %  \method{dim}{rvsummary}(x)
 %  \method{dim}{rvsummary}(x) <- value
 %  \method{dimnames}{rvsummary}(x)
@@ -40,6 +43,7 @@
 \arguments{
   \item{x}{object to be coerced or tested}
   \item{quantiles}{quantiles to calculate and store in the object}
+  \item{digits}{integer; how many digits to round the numbers to}
   \item{all.levels}{logical; whether to print all levels or not (see below for details)}
 %  \item{value}{either \code{NULL} or a numeric vector whose product matches the length of the \code{rvsummary} object}
   \item{\dots}{further arguments passed to or from other methods.}
@@ -55,6 +59,9 @@
 
   \code{is.rvsummary} tests whether the object is an \code{rvsummary} object;
   \code{as.rvsummary} coerces a random vector object to a \code{rvsummary} object.
+
+  \code{as.data.frame} is another way to obtain the data frame that is
+  produced by the \code{summary} method.
 
   A data frame that has the format of an \code{rv} summary
   can be coerced into an \code{rvsummary}; if quantiles are not specified within

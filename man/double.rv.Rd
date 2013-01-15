@@ -1,10 +1,8 @@
 \name{as.double.rv}
 \title{Coercing Random Vectors to Real-valued}
 \alias{as.double.rv}
-\alias{as.real.rv}
 \usage{
   \method{as.double}{rv}(x, \dots)
-  \method{as.real}{rv}(x, \dots)
 }
 \description{
   Coerces random vector objects into double-valued ones.
@@ -16,8 +14,6 @@
 \details{
    \code{as.double} coerces an rv object into double-valued one.
    In effect, the function  \code{as.double} is applied to all simulations.
-
-   \code{as.real} is a synonym.
 }
 \references{
 Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing

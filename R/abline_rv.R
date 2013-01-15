@@ -13,7 +13,7 @@ abline.rv <- function (a = NULL, b = NULL, h = NULL, v = NULL, ...) { ## NEW
   if (!is.numeric(line.sample)) {
     stop("rvpar('line.sample') is not a number")
   }
-  args <- list(FUN=graphics:::abline., a=a, b=b, h=h, v=v)
+  args <- list(FUN=graphics:::abline, a=a, b=b, h=h, v=v)
   nulls <- sapply(args, is.null)
   nullArgs <- names(nulls)[nulls]
   MoreArgs <- list(...)

@@ -52,7 +52,7 @@ rvintervals <- function (x, rvpoint=rvpar("rvpoint"), ...) {
   .lbl <- function (p) { # From 'quantile.default'
     if (is.null(p) || is.na(p)) return(NA)
     dig <- max(2, getOption("digits"))
-    paste(formatC(100 * p, format = "fg", wid = 1, digits = dig), "%", sep = "")
+    paste(formatC(100 * p, format = "fg", width = 1, digits = dig), "%", sep = "")
   }
   .summaries <- function (iv) {
     if (is.null(f <- compute.what[[iv]])) {

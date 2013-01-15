@@ -440,7 +440,7 @@
   S <- sims(as.rv(x))
   m <- colMeans(S, na.rm=TRUE)
   ns <- rvnsims(x)
-  v <- apply(S, MARGIN=2, sd, na.rm=TRUE)
+  v <- apply(S, MARGIN=2, var, na.rm=TRUE)
   ####v <- ((colSums(S^2, na.rm=TRUE)-ns*(m^2))/(ns-1))
   v[rvnsims(x)==1] <- 0
   if (any(naS <- is.na(S))) {
@@ -448,7 +448,7 @@
   } else {
     NAS <- rep.int(0, length(x))
   }
-  s <- sqrt(na.omit(v))
+  s <- sqrt(v)## 29.08.2012 v2.2.1: sqrt(na.omit(v))
   attributes(m) <- a
   attributes(s) <- a
   L <- list(mean=m, sd=s, NAS=NAS, n.sims=ns)

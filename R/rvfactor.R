@@ -67,4 +67,14 @@ as.rv.rvfactor <- function (x, ...) {
   return(x)
 }
 
-
+"[.rvfactor" <- function (x, ..., drop = FALSE) {
+  y <- NextMethod("[")
+  attr(y, "levels") <- attr(x, "levels")
+  class(y) <- oldClass(x)
+  lev <- levels(x)
+  if (drop) {
+    exclude <- if (any(is.na(levels(x)))) { NULL } else { NA }
+    y <- factor(y, exclude=exclude)
+  }
+  return(y)
+}

@@ -1,6 +1,24 @@
 
+2013-01-15
+	* Version_2.2.1
+	* Bug fixes:
+	* abline.rv : removed dot from graphics::abline.
+	* .rvmeansd : rvsummary used to show sqrt of the sd of a random variable, now takes sqrt of var
+	* .rvmeansd : sqrt(na.omit(v)) => sqrt(v), as omitting entries causes problems with matrices
+	* rvattr<- : new argument 'by.name', to be explicit; this used to fail if names of x had NAs or duplicates
+	* rvngamma : now works with vectors
+	* rvnbeta  : now works with vectors
+	* .mvrvnorm : full argument names for 'eigen(...)' used
+	* rvintervals : full argument names for 'formatC(...)' used
+	* rvt : full argument names for 'rvvapply(...)' used
+	* .xy_coords_rv : call 'as.double' instead of 'as.real'
+	* ivplot : interval plot, added.
+	* as.data.frame.rvsummary : added. 
+	* as.real.rv : removed. No references to as.real anywhere. 
+	* rvattach: removed. Not a good idea to manipulate .GlobalEnv.
+	* rattach: removed. Not a good idea to manipulate .GlobalEnv.
+
 2012-01-25
 	* Version_2.2.0 Removed all code that attempts to change functions in packages "base" and "stats" etc.
 
 
-	

@@ -7,12 +7,7 @@
   mlplot(X, \dots)
   \method{mlplot}{rvsummary}
   \method{mlplot}{default}(X, y.center = TRUE, y.shift = 0, y.map = NULL, mar =
-         par("mar"), left.margin = 3, top.axis = TRUE,
-         exp.labels = FALSE, x.ticks = NULL, axes = NULL, xlim
-         = NULL, ylim = NULL, xlab = deparse(substitute(X)), ylab = NULL,
-         las = NULL, add = FALSE, \dots)
-  \method{mlplot}{default}(X, y.center = TRUE, y.shift = 0, y.map = NULL, mar =
-         par("mar"), left.margin = 3, top.axis = TRUE,
+         par("mar"), left.margin = 3, vline = NULL, top.axis = TRUE,
          exp.labels = FALSE, x.ticks = NULL, axes = NULL, xlim
          = NULL, ylim = NULL, xlab = deparse(substitute(X)), ylab = NULL,
          las = NULL, add = FALSE, \dots)
@@ -28,6 +23,7 @@
   \item{y.map}{optional function to compute the y-coordinates, given \code{X}}
   \item{mar}{the margins of the plot}
   \item{left.margin}{offset to add to the left margin of the plot (to add space for the labels)}
+  \item{vline}{if numeric, plot vertical lines at these (horizontal) coordinates}
   \item{top.axis}{(logical) plot the top axis?}
   \item{exp.labels}{(logical) if the original scale is logarithmic, label ticks in original (exp) scale?}
   \item{x.ticks}{positions for the ticks of the x-axis}

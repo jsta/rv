@@ -1,4 +1,9 @@
 
-2012-01-26:
-	* Version 2.0.0
+2012-01-27:
+	* rvmeanunif.Rd: description fixed (added 'then scaled and shifted')
+
+2012-01-27:
+	* Version 2.0.0 uploaded to CRAN
+	* Version 2.0.1 changed to default
+	
 

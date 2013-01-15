@@ -1,16 +1,9 @@
 
-
-#
-# DEBUG:::
-#
-
-as.rvsummary <- function (x, ...)
-{
+as.rvsummary <- function (x, ...) {
   UseMethod("as.rvsummary")
 }
 
-is.rvsummary <- function (x)
-{
+is.rvsummary <- function (x) {
   inherits(x, "rvsummary")
 }
 
@@ -39,6 +32,10 @@ as.rvsummary.rv <- function (x, quantiles=(0:200/200), ...)  # NOEXPORT
   }
   return(y)
 }
+
+
+
+
 
 as.rvsummary.rvsummary <- function (x, ...)  # NOEXPORT
 {
@@ -95,7 +92,7 @@ as.rvsummary.rvfactor <- function (x, ...) # NOEXPORT
 {
   levels <- levels(x)
   llev <- length(levels)
-  num.levels <- 1:llev
+  num.levels <- seq_len(llev)
   #
   S <- sims(x)
   a <- apply(S, 2, function (x) table(c(x, num.levels))) # ensure that all levels are tried
@@ -131,36 +128,31 @@ as.rvsummary.rvfactor <- function (x, ...) # NOEXPORT
 as.rvsummary.data.frame <- function (x, quantiles=rvpar("summary.quantiles.numeric"), ...)
 {
   name <- names(x)
+  rnames <- rownames(x)
   q.columns <- (regexpr("^([0-9.]+)%", name)>0)
   q.names <- name[q.columns]
   d.quantiles <- (as.numeric(gsub("^([0-9.]+)%", "\\1", name[q.columns]))/100)
-  ms <- list(
-    mean = x[["mean", exact=TRUE]],
-    sd   = x[["sd", exact=TRUE]],
-    "NAS"= x[["NA%", exact=TRUE]],
-    "n.sims"= x[["sims", exact=TRUE]]
-  )
+  lx <- nrow(x)
+  ms <- list()
+  ms$n.sims <- if ("sims" %in% name) { x[["sims"]] } else { rep(Inf, lx) }
+  ms$NAS    <- if ("NA%" %in% name) { x[["NA%"]] } else { rep(0L, lx) }
+  ms$mean   <- if ("mean" %in% name) { x[["mean"]] } else { rep(NA, lx) }
+  ms$sd     <- if ("sd" %in% name) { x[["sd"]] } else { rep(NA, lx) }
   if (length(d.quantiles)==0) {
     if (length(quantiles)>0) {
       x <- lapply(seq_along(ms$mean), function (i) qnorm(quantiles, mean=ms$mean[i], sd=ms$sd[i]))
     } else {
       x <- as.list(rep.int(NA, nrow(x)))
     }
+    d.quantiles <- quantiles
   } else {
     x <- as.matrix(x[q.columns])
     x <- split(x, row(x))
   }
-  lx <- length(x)
-  if (length(ms$"NAS")==0) {
-    ms$"NAS" <- rep.int(0, lx)
-  }
-  if (length(ms$"n.sims")==0) {
-    ms$"n.sims" <- rep.int(Inf, lx)
-  }
   for (name in names(ms)) {
     rvattr(x, name) <- ms[[name]]
   }
-  structure(x, class=c("rvsummary_numeric", "rvsummary"), quantiles=quantiles, names=rownames(x))
+  structure(x, class=c("rvsummary_numeric", "rvsummary"), quantiles=d.quantiles, names=rnames)
 }
 
 as.double.rvsummary <- function (x, ...)
@@ -176,6 +168,12 @@ print.rvsummary_rvfactor <- function (x, all.levels=FALSE, ...) # METHOD
   print(summary(x, all.levels=all.levels, ...))
 }
 
+as.data.frame.rvsummary <- function (x, ...) {
+  S <- summary(x, ...)
+  rownames(S) <- S[["name"]]
+  S[["name"]] <- NULL
+  return(S)
+}
 
 summary.rvsummary <- function (object, ...)
 {

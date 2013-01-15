@@ -17,7 +17,7 @@
           )
   }
   if (is.null(rvpar("n.sims"))) {
-    setnsims(2500)
+    setnsims(4000)
   }
 }
 

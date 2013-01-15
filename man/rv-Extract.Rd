@@ -1,23 +1,32 @@
 \name{Extract.rv}
 \title{Extract or Replace Parts of a Random Vector}
 \alias{[.rv}
+\alias{[.rvfactor}
 \alias{[.rvsummary}
 \alias{[<-.rv}
 \alias{[<-.rv}
 \alias{[<-.rvsummary}
+\alias{impute<-}
 \synopsis{
 %x[i, j, \dots, drop = TRUE]
 %x[i, j, \dots , drop = TRUE] <- value
 %x[[i, j, \dots, drop = TRUE]]
 %x[[i, j, \dots , drop = TRUE]] <- value
 \method{[}{rv}(x, \dots , drop = TRUE)
+\method{[}{rvfactor}(x, \dots , drop = FALSE)
 \method{[}{rvsummary}(x, \dots , drop = TRUE)
 \method{[<-}{rv}(x, \dots , drop = TRUE)
 \method{[<-}{rvsummary}(x, \dots , drop = TRUE)
+impute(x, \dots) <- value
 %\method{[[<-}{rv}(x, \dots , drop = TRUE)
 }
 \description{
-  Bracket slice and assignment methods adapted for random vectors and arrays.
+  Bracket slice and assignment methods adapted for random vectors and
+arrays.
+  The assignment function \code{impute<-} is compatible with both non-rv
+and rv objects (rv, rvsummary, and rvfactor objects). To write universal
+code that works both atomic and rv objects, use \code{impute(x, ...) <-
+value} instead of \code{x[...] <- value}.
 }
 \details{
   
@@ -37,6 +46,7 @@
   %Note: the index arguments (\code{i}, \code{j}, etc.) may be 
   %themselves random variables, however they will be coerced
   %into \emph{integers}, as one would expect.
+
 }
 \value{
  A random variable (an rv object).
