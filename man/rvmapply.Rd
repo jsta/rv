@@ -3,8 +3,10 @@
 \alias{rvmapply}
 \alias{rvVectorize}
 \usage{
-  rvmapply(FUN, \dots, MoreArgs=NULL, SIMPLIFY = FALSE, USE.NAMES=TRUE, SAMPLESIZE=NULL)
-  rvVectorize(FUN, vectorize.args = arg.names, SIMPLIFY = FALSE, USE.NAMES = TRUE, SAMPLESIZE=NULL) 
+  rvmapply(FUN, \dots, MoreArgs=NULL, SIMPLIFY = FALSE,
+USE.NAMES=TRUE, SAMPLESIZE=NULL)
+  rvVectorize(FUN, vectorize.args = arg.names, SIMPLIFY = FALSE,
+USE.NAMES = TRUE, SAMPLESIZE=NULL) 
 }
 \description{
   \code{rvmapply} is the rv-compatible version of \code{\link{mapply}}.

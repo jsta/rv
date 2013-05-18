@@ -28,7 +28,7 @@ See also \code{vignette("rv")}.
 }
 \examples{
   y <- c(1.0, 1.2, 3, 1.1, 0.8, 0.9) ## Some data
-  x <- rvempirical(4, data=y) # A random vector of length 4 (each component has the same distribution)
+  x <- rvempirical(4, data=y) 
 }
 
 \keyword{classes}

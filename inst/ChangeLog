@@ -1,6 +1,7 @@
 
-2013-01-15
-	* Version_2.2.1
+2013-06-24:
+	* Version 2.3.0
+	*  Interface to 'rstan'
 	* Bug fixes:
 	* abline.rv : removed dot from graphics::abline.
 	* .rvmeansd : rvsummary used to show sqrt of the sd of a random variable, now takes sqrt of var
@@ -18,7 +19,7 @@
 	* rvattach: removed. Not a good idea to manipulate .GlobalEnv.
 	* rattach: removed. Not a good idea to manipulate .GlobalEnv.
 
-2012-01-25
+2012-01-25:
 	* Version_2.2.0 Removed all code that attempts to change functions in packages "base" and "stats" etc.
 
 

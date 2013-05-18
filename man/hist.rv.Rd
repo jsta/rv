@@ -2,7 +2,8 @@
 \title{Histogram of a random vector}
 \alias{hist.rv}
 \usage{
- \method{hist}{rv}(x, grid = c(4, 5), xlim = x.range, main = paste(xname, "simulation"), freq=FALSE, \dots)
+ \method{hist}{rv}(x, grid = c(4, 5), xlim = x.range,
+main = paste(xname, "simulation"), freq=FALSE, \dots)
 }
 \description{
  \code{hist.rv} shows a grid of histograms generated
@@ -10,10 +11,12 @@
 }
 \arguments{
   \item{x}{an object}
-\item{grid}{a vector of two numbers, indicating the size of the grid to plot the histograms}
+  \item{grid}{a vector of two numbers, indicating the size of the grid
+    to plot the histograms}
 \item{xlim}{x limits}
 \item{main}{main title}
-\item{freq}{logical; if \code{FALSE}, plots as probability density, as it should.}
+\item{freq}{logical; if \code{FALSE}, plots as probability density,
+  as it should.}
 \item{\dots}{Other arguments passed on to \link{hist}}
 }
 %\details{

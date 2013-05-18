@@ -104,17 +104,18 @@ export(rep.rv)
 export(rv)
 export(is.rv)
 export(as.rv)
-  S3method(as.rv,rvfactor)
-  S3method(as.rv,numeric)
-  S3method(as.rv,integer)
-  S3method(as.rv,list)
-  S3method(as.rv,xtabs)
-  S3method(as.rv,default)
-export(as.rv)
-  S3method(as.rv,bugs)
-  S3method(as.rv,rv)
-  S3method(as.rv,logical)
-  S3method(as.rv,matrix)
+  S3method(as.rv, rvfactor)
+  S3method(as.rv, numeric)
+  S3method(as.rv, integer)
+  S3method(as.rv, list)
+  S3method(as.rv, xtabs)
+  S3method(as.rv, default)
+  S3method(as.rv, bugs)
+  S3method(as.rv, stanfit)
+  S3method(as.rv, rv)
+  S3method(as.rv, logical)
+  S3method(as.rv, matrix)
+##
 ## as.double
   S3method(as.double, rv)
 ## as.logical
@@ -263,3 +264,8 @@ export(ivplot)
 ## match, %*in*%
 export(rvmatch)
 export("%*in*%")
+##
+##export(par.stan)
+##
+export("impute<-")
+##

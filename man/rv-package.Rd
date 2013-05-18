@@ -10,8 +10,8 @@
 \details{
   \tabular{ll}{
    Package:   \tab rv \cr
-   Version: \tab 2.2.1 \cr
-   Date: \tab 2013-01-15 \cr
+   Version: \tab 2.3.0 \cr
+   Date: \tab 2013-05-18 \cr
    Namespace: \tab rv \cr
    Depends:   \tab R(>= 2.10.0), methods, utils, grDevices, graphics \cr
    License:   \tab GPL-2 \cr
@@ -27,6 +27,6 @@ See also \code{vignette("rv")}.
 \author{
  Jouni Kerman
  \email{jouni@kerman.com}
-  Package built on Tue Jan 15 22:10:18 CET 2013
+  Package built on Sat May 18 22:47:25 CEST 2013
 }
 \keyword{classes}

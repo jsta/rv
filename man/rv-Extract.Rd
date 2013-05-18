@@ -7,18 +7,22 @@
 \alias{[<-.rv}
 \alias{[<-.rvsummary}
 \alias{impute<-}
-\synopsis{
-%x[i, j, \dots, drop = TRUE]
-%x[i, j, \dots , drop = TRUE] <- value
-%x[[i, j, \dots, drop = TRUE]]
-%x[[i, j, \dots , drop = TRUE]] <- value
+\usage{
 \method{[}{rv}(x, \dots , drop = TRUE)
 \method{[}{rvfactor}(x, \dots , drop = FALSE)
 \method{[}{rvsummary}(x, \dots , drop = TRUE)
-\method{[<-}{rv}(x, \dots , drop = TRUE)
-\method{[<-}{rvsummary}(x, \dots , drop = TRUE)
+\method{[}{rv}(x, \dots) <- value
+\method{[}{rvsummary}(x, \dots) <- value
 impute(x, \dots) <- value
-%\method{[[<-}{rv}(x, \dots , drop = TRUE)
+}
+\arguments{
+  \item{x}{object from which to extract element(s) or in which to
+    replace element(s).}
+  \item{\dots}{indices specifying elements to extract or replace.}
+  \item{value}{typically an array-like R object of a similar class as \code{x}.}
+  \item{drop}{For matrices and arrays.  If \code{TRUE} the result is 
+    coerced to  the lowest possible dimension (see the examples).
+    This only works for extracting elements, not for the replacement.}
 }
 \description{
   Bracket slice and assignment methods adapted for random vectors and
@@ -63,7 +67,12 @@ See also \code{vignette("rv")}.
 }
 
 \examples{
-  #
+  x <- rvnorm(1)
+  y <- (1:5)
+  \dontrun{
+     y[2] <- x ## Will not work
+  }
+  impute(y, 2) <- x
 }
 \keyword{classes}
 

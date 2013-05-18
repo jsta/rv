@@ -18,12 +18,12 @@
 }
 
 
-"[<-.rvsummary" <- function (x, i, j, ..., value = NULL)
+"[<-.rvsummary" <- function (x, ..., value = NULL)
 {
   cx <- class(x)
   q <- attr(x, "quantiles")
   value <- as.rvsummary(value, quantiles=q)
-  X <- .Primitive("[<-")(unclass(x), i, j, ..., value=value)
+  X <- .Primitive("[<-")(unclass(x), ..., value=value)
   class(X) <- cx
   return(X)
 }

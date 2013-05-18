@@ -6,13 +6,29 @@
 \markright{\emph{rv} version 2.1.1}
 \pagenumbering{arabic}
 
-%\setlength{\textheight}{20 cm}
-
-%\input{/Users/jkerman/lib/LaTeX/LaTeX-AMS-Commands}
-
+\usepackage{scrtime}
+\usepackage{fancyhdr}
+\addtolength{\headheight}{\baselineskip}
+%\usepackage[left=3.00cm,top=2.01cm,right=1.98cm]{geometry}
+\usepackage{times}
+\renewcommand{\sfdefault}{phv} % Arial
 \usepackage{Sweave}
+%\usepackage[left=3cm,top=2.01cm,right=1.98cm,nohead,nofoot]{geometry}
+\usepackage[usenames]{color} 
+\definecolor{darkred}{rgb}{0.545,0,0} 
+\definecolor{midnightblue}{rgb}{0.098,0.098,0.439} 
+\DefineVerbatimEnvironment{Sinput}{Verbatim}{fontshape=sl,formatcom=\color{darkred}} 
+\DefineVerbatimEnvironment{Soutput}{Verbatim}{fontshape=sl,formatcom=\color{midnightblue}} 
+\DefineVerbatimEnvironment{Scode}{Verbatim}{fontshape=sl,formatcom=\color{blue}} 
+\fvset{listparameters={\setlength{\topsep}{0pt}}}
+\renewenvironment{Schunk}{\vspace{\topsep}}{\vspace{\topsep}} 
 
-\newcommand{\code}[1]{\texttt{#1}}
+\SweaveOpts{echo=TRUE, eps=FALSE, keep.source=TRUE}
+\pagestyle{myheadings}
+\markright{\emph{Container} version 1.0.0}
+\pagenumbering{arabic}
+
+\newcommand{\code}[1]{{\tt\color{blue} #1}}
 
 \newcommand{\Umacs}{{Umacs}}
 \usepackage{amsmath}
@@ -27,7 +43,7 @@
 \bibliographystyle{plainnat}
 
 \title{rv: a simulation-based random variable class\\
-Version 2.1.1}
+Version 2.3.0}
 
 \author{Jouni Kerman}
 
@@ -100,7 +116,7 @@ First, we will set the number of simulations we use.
 We choose 4000 simulations per each scalar component
 of a random vector:
 <<>>=
-rvnsims(4000)
+setnsims(4000)
 @
 We will not usually change this value during our 
 session, unless we want to repeat our analysis with more (or fewer) simulations.
@@ -190,11 +206,18 @@ the two indicator functions we generated.
 
 \paragraph{Imputing into regular vectors.}
 To ``impute" a random vector in a regular
-numeric vector, we need first turn the constant 
+numeric vector, we can either first turn the constant 
 vector into an \code{rv} object:
 <<>>=
 y <- as.rv(1:5)
 y[3:4] <- x[3:4]
+y
+@ 
+or, use the special function \code{impute}
+that can handle regular vectors and \code{rv} objects:
+<<>>=
+y <- (1:5)
+impute(y, 3:4) <- x[3:4]
 y
 @ 
 The non-random components appearing
@@ -202,11 +225,10 @@ as ``constants," or in other words,
 random variables with point-mass distributions
 (and therefore having a zero variance).
 
-Ideally the coercing would happen automatically,
-as \code{rv} vectors can be thought as being extensions
-to ``regular'' vectors, but due to internal limitations
-this is not possible to do in an appropriate and elegant fashion. 
-
+%Ideally the coercing would happen automatically,
+%as \code{rv} vectors can be thought as being extensions
+%to ``regular'' vectors, but due to internal limitations
+%this is not possible to do in an appropriate and elegant fashion. 
 
 \paragraph{Summaries of functions of random vectors.}
 Standard numerical functions can be applied
@@ -356,7 +378,7 @@ mlplot(y.rep) # Summarize graphically.
 Note also that \code{sigma} is also an rv object.
 
 The matrix multiplication statement
-returns a random vector of length 30:
+returns a random vector of length \Sexpr{nrow(M)}:
 <<>>=
 M %**% betas
 @ 
@@ -382,13 +404,14 @@ We can also generate predictions at some other covariate values:
   y.pred <- rvpredict(fit, newdata=X.pred)
 @ 
 
-We can also perturb (add uncertainty to) the covariate x1, then predict again.
+We can also perturb (add uncertainty to) the covariate \code{x1},
+then predict again.
 <<>>=
   X.rep <- X
   X.rep$x1 <- rnorm(n=n, mean=X.rep$x1, sd=sd(X.rep$x1))
   y.pred2 <- rvpredict(fit, newdata=X.rep)
+  y.pred2
 @ 
-
 
 
 \paragraph{Graphical summaries}
@@ -434,7 +457,8 @@ horizontal intervals using \code{mlplot}:
 A histogram of the simulations of a random scalar \code{x[1]},
 can be plotted with \code{rvhist}:
 <<fig=TRUE>>=
-rvhist(rvnorm(mean=0, sd=1)^3, xlim=c(-3, 3), col="red", main="Cubed standard normal")
+rvhist(rvnorm(mean=0, sd=1)^3, xlim=c(-3, 3), 
+  col="red", main="Cubed standard normal")
 @
 
 
@@ -493,8 +517,8 @@ You can verify that
 \code{all(sims(y)==s)}
 returns 
 \Sexpr{all(sims(y)==s)}. % TRUE
-Also note that \code{dim(y)} gives 
-\Sexpr{dim(y)},
+Also note that \code{length(y)} gives 
+\Sexpr{length(y)},
 since \code{y} is ``just a vector."
 
 \paragraph{Coercing vectors and matrices.}
@@ -547,24 +571,23 @@ rather than using the \code{methods} (``S4") package.
 The main reason was speed, the secondary consideration was
 the ease of writing new functions. 
 
-The main class is called ``rv".
+The main class is called \code{rv}.
 Most functions expecting an rv object have
-names starting with ``rv". for example
-\code{rvnorm}, \code{rvmean}, etc.
+names starting with \code{rv}.
+For example, \code{rvnorm}, \code{rvmean}, etc.
 
 The package also features rv-specific methods
 extending the basic numeric vector classes,
 e.g. \code{c.rv}, \code{plot.rv}, etc. 
-However, the method-invoking routine is not perfect in R:
-for example the concatenation function 
-\code{c(...)} will not call \code{c.rv} 
-for example
+However, the method dispatch in R will not
+call the \code{rv} class method if 
+the first object in the argument list is not an
+\code{rv} object;
+for example, \code{c(...)} will not call \code{c.rv} 
 in the following case:
 suppose that \code{x} is an object of class \code{rv}
 and \code{k <- 10}.
-Then \code{c(k, x)} will not call \code{c.rv}
-since the method-dispatch mechanism only looks at the 
-first element. 
+Then \code{c(k, x)} will not call \code{c.rv}.
 To ensure the proper result, wrap the first element
 in \code{as.rv}: 
 \code{c(as.rv(k), x)} will produce a proper random vector.

@@ -1,5 +1,13 @@
 
+2013-05-18:
+	* Version 2.3.0
+	* Extract.Rd updated, offending 'synopsis' sections removed
+
+2013-01-15:
+	* Version 2.2.1
+
 2012-01-27:
+	* Version 2.2.0
 	* rvmeanunif.Rd: description fixed (added 'then scaled and shifted')
 
 2012-01-27:

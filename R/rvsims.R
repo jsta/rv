@@ -69,26 +69,37 @@ resizeSims <- function (s, vector.length, n.sims) # NOEXPORT
 
 rvsims <- function(sims, n.sims=getnsims(), permute=FALSE) {
   if (is.list(sims)) {
+    if (is.object(sims)) {
+      stop(sprintf("rvsims: Cannot apply 'rvsims' on an object of class '%s'", class(sims)[1]))
+    }
     return(.rvsims.list(sims, n.sims=n.sims, permute=permute))
   }
   is_factor <- (is.character(sims) || is.factor(sims))
   if (is.factor(sims)) {
     sims[TRUE] <- as.character(sims)
   }
-  if (! length(dim(sims)) %in% c(0, 2)) {
-    stop("rvsims: Argument must be a vector or matrix or a list")
-  }
   if (length(sims) < 1) {
     return(rv(0))
   }
-  if (is.null(d.s <- dim(sims))) {
+  d.s <- dim(sims)
+  if (length(d.s) >= 3L) {
+    n.sims <- d.s[1]
+    dim.rest <- d.s[-1]
+    n.rest <- prod(dim.rest)
+    dim(sims) <- c(n.sims, n.rest)
+    d.s <- dim(sims)
+  } else {
+    dim.rest <- integer(0)
+  }
+  if (! length(d.s) %in% 0:2) {
+    stop("rvsims: Argument must be a vector or an array or a list")
+  }
+  if (is.null(d.s <- dim(sims)) || length(d.s) == 1L) {
     d.s <- dim(sims) <- c(length(sims), 1)
   }
   n.sims.max <- d.s[1]
   if (length(d.s)==2) { # A regular matrix of simulations
     .names <- dimnames(sims)[[2]]
-  } else {
-    stop("Simulation array has >2 dimensions. Don't know how to deal with that.")
   }
   if (n.sims.max > 1) {
     if  (nrow(sims)!=n.sims) {
@@ -102,6 +113,9 @@ rvsims <- function(sims, n.sims=getnsims(), permute=FALSE) {
   vec <- split(sims, col(sims))
   names(vec) <- .names
   class(vec) <- class(rv())
+  if (length(dim.rest) > 0) {
+    dim(vec) <- dim.rest
+  }
   if (is_factor) {
     as.rvfactor(vec)
   } else {

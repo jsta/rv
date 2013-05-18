@@ -15,10 +15,15 @@ and returns a random vector (an object of type 'rv')
 \item{permute}{logical, indicate if scramble the simulations}
 }
 \details{
-A vector is interpreted to contain simulations for one single random variable.
+If \code{sims} is a plain numeric vector, this is interpreted to be
+equivalent to a one-dimensional array, containing simulations for one
+single random variable.  
 
-If \code{sims} is two-dimensional, the columns are supposed to
-contain simulations for several random variables.
+If the array \code{sims} is one-dimensional, this is interpreted to
+be equivalent to a two-dimensional array with 1 column.
+
+If \code{sims} is two-dimensional, the \emph{columns} are supposed to
+contain simulations for one or more several random variables.
 
 If \code{sims} is a list, the numeric vectors are recursively combined to
 a list of random vectors: each component of the list is supposed to be
@@ -39,11 +44,21 @@ See also \code{vignette("rv")}.
  \email{jouni@kerman.com}
 }
 \examples{
-  # x and y have the same distributions but not the same simulations:
-  setnsims(200)
+  ## x and y have the same distributions but not the same simulations:
+  n.sims <- 200L
+  setnsims(n.sims)
   y <- rvnorm(1)
-  x <- rvsims(rnorm(getnsims()))
-  # 
+  x1 <- rvsims(rnorm(n.sims))
+  ##
+  s <- sims(x1)
+  z <- array(s) ## One-dimensional array
+  x2 <- rvsims(z) ## Same as 
+  ##
+  identical(x1, x2) ## TRUE
+  ##
+  s <- t(array(rnorm(n.sims * 2, mean=c(0, 10)), dim=c(2, n.sims)))
+  x3 <- rvsims(s)
+  identical(2L, length(x3)) ## TRUE
 }
 
 \keyword{classes}
