@@ -5,9 +5,9 @@ rvt <- function (n = 1, mu = 0, scale = 1, df, ncp, Sigma) { ## CHECK
     t <- .rvmvt(n = n, Sigma = Sigma, df = df)
   } else {
     if (missing(ncp)) {
-      t <- rvvapply(stats:::rt, n. = n, df = df)
+      t <- rvvapply(rt, n. = n, df = df)
     } else {
-      t <- rvvapply(stats:::rt, n. = n, df = df, ncp=ncp)
+      t <- rvvapply(rt, n. = n, df = df, ncp=ncp)
     }
     if (scale != 1) 
       t <- (t * scale)

@@ -12,9 +12,9 @@ cov.rv <- function(x, y=NULL, ...)  ## EXPORT cov.rv
     x <- as.vector(x)
   }
   if (is.rvobj(x) || is.rvobj(y)) {
-    rvmapply(stats:::cov, x=x, y=y, ...)
+    rvmapply(cov, x=x, y=y, ...)
   } else {
-    stats:::cov(x=x, y=y, ...)
+    cov(x=x, y=y, ...)
   }
 }
 

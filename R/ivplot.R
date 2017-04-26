@@ -35,11 +35,7 @@
     )
   } else if (device=="X11") {
     filename <- ""
-    X11(
-      height = hw[1],
-      width  = hw[2],
-      pointsize = 12
-    )
+    dev.new()
   } else {
     stop("no such device:", device)
   }

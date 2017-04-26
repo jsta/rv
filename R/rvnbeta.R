@@ -6,6 +6,6 @@ rvnbeta <- function (n=1, shape1, shape2) {
   }
   shape1 <- (shape1 + 1/3)
   shape2 <- (shape2 + 1/3)
-  rvvapply(stats:::rbeta, n.=n, shape1=shape1, shape2=shape2)
+  rvvapply(rbeta, n.=n, shape1=shape1, shape2=shape2)
 }
 

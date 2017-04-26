@@ -10,7 +10,7 @@ simapply <- function(x, FUN, ...) {
   L <- .sims.as.list(x)
   Args <- .Primitive("c")(list(FUN=FUN, SIMPLIFY=FALSE, USE.NAMES=FALSE), list(L))
   Args$MoreArgs <- list(...)
-  S <- do.call(base:::mapply, Args)
+  S <- do.call(mapply, Args)
   r <- rvsims(S) 
   if (isTRUE(all.equal(dim(r), dim(x)))) {
     dimnames(r) <- dimnames(x)

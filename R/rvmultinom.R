@@ -5,7 +5,7 @@ rvmultinom <- function(n=1, size=1, prob) {
     return(rvbinom(n=n, size=size, prob=prob))
   }
   if (anyisrv(n, size, prob)) {
-    r <- rvmapply(stats:::rmultinom, n=n, size=size, prob=prob)
+    r <- rvmapply(rmultinom, n=n, size=size, prob=prob)
   } else {
     n.sims <- getnsims()
     s <- rmultinom(n=n*n.sims, size=size, prob=prob)

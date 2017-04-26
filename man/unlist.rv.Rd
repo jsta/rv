@@ -1,11 +1,13 @@
-\name{unlist.rv}
+\name{unlistrv}
 \title{Flatten Lists Containing rv Objects}
-\alias{unlist.rv}
+\alias{unlistrv}
 \usage{
-  \method{unlist}{rv}(x, recursive = TRUE, use.names = TRUE)
+  unlistrv(x, recursive = TRUE, use.names = TRUE)
 }
 \description{
-  Given a list structure \code{x}, \code{unlist} simplifies it to produce a vector which contains all the atomic components (\emph{containing rv objects}) which occur in \code{x}.
+  Given a list structure \code{x}, \code{unlist} simplifies it to
+  produce a vector which contains all the atomic components
+  (\emph{containing rv objects}) which occur in \code{x}.
 }
 \arguments{
  \item{x}{An R object, typically a list or vector (containing rv objects)}
@@ -16,7 +18,7 @@
   This is the rv-compatible version of the function \code{\link{unlist}}.
 
   Since \code{unlist} is not a generic function, 
-  the whole name \code{unlist.rv} must be specified when calling the function
+  the whole name \code{unlistrv} must be specified when calling the function
   when \code{x} is an 'rv' object.
 }
 \references{
@@ -35,7 +37,7 @@ See also \code{vignette("rv")}.
 }
 \examples{
   x <- list(a=rvnorm(2), b=rvnorm(3))
-  print(unlist.rv(x))
+  print(unlistrv(x))
 }
 
 \keyword{manip}

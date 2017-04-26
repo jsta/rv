@@ -1,7 +1,6 @@
 
-unlist.rv <- function (x, recursive = TRUE, use.names = TRUE) {
-  ## NAME
-  ##   unlist.rv - Flatten Lists That (May) Contain Random Variables 
+unlistrv <- function (x, recursive = TRUE, use.names = TRUE) {
+  # Flatten Lists That (May) Contain Random Variables 
   y <- NULL
   ix <- seq(along=x)
   xn <- names(x)
@@ -14,7 +13,7 @@ unlist.rv <- function (x, recursive = TRUE, use.names = TRUE) {
       nx <- xn[i]
       if (use.names && is.null(nx)) nx <- "."
       if (!is.rv(x[[i]]) && is.list(x[[i]])) {
-        new.y <- unlist.rv(x[[i]], recursive=TRUE, use.names=use.names)
+        new.y <- unlistrv(x[[i]], recursive=TRUE, use.names=use.names)
       } else {
         new.y <- x[[i]]
       }

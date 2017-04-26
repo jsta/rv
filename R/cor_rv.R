@@ -10,9 +10,9 @@ cor.rv <- function(x, y=NULL, ...)  {
     x <- as.vector(x)
   }
   if (is.rvobj(x) || is.rvobj(y)) {
-    rvmapply(stats:::cor, x=x, y=y, ...)
+    rvmapply(cor, x=x, y=y, ...)
   } else {
-    stats:::cor(x=x, y=y, ...)
+    cor(x=x, y=y, ...)
   }
 }
 
