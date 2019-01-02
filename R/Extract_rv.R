@@ -1,4 +1,4 @@
-
+#' @export
 "[.rv" <- function (x, ..., drop = TRUE)
 {
   cx <- class(x)
@@ -7,6 +7,7 @@
   return(X)
 }
 
+#' @export
 "[.rvsummary" <- function (x, ..., drop = TRUE)
 {
   q <- attr(x, "quantiles")
@@ -17,7 +18,7 @@
   return(x)
 }
 
-
+#' @export
 "[<-.rvsummary" <- function (x, ..., value = NULL)
 {
   cx <- class(x)
@@ -28,6 +29,7 @@
   return(X)
 }
 
+#' @export
 "[<-.rv" <- function (x, ..., value = NULL)
 {
   cx <- class(x)
@@ -37,6 +39,8 @@
   return(X)
 }
 
+#' @noRd
+#' @export
 "impute<-" <- function(x, ..., value) {
   if (! is.rvobj(x) && ! is.rvobj(value)) {
     x[...] <- value
@@ -51,8 +55,3 @@
   }
   return(x)
 }
-
-
-
-
-

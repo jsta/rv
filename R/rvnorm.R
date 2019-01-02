@@ -51,7 +51,7 @@ rvnorm <- function (n = 1, mean = 0, sd = 1, var = NULL, precision) {
     }
     sd <- sqrt(var)
   }
-  rvvapply(stats::rnorm, n.=n, mean=mean, sd=sd)
+  rvvapply(stats::rnorm, n. = n, mean = mean, sd = sd)
 }
 
 #' @importFrom stats rnorm

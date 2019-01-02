@@ -43,6 +43,8 @@ rvmeanunif <- function (n=1, mode=0, scale=1, df) {
   return(mode + scale * x)
 }
 
+#' @export
+#' @inheritParams rvmeanunif
 rvtriang <- function (n=1, mode=0, scale=1) {
   rvmeanunif(n=n, mode=mode, scale=scale, df=2)
 }

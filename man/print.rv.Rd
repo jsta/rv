@@ -21,7 +21,7 @@ Invokes first the summary method of the object, then prints the result.
 }
 \examples{
 
-  print(rvnorm(mean=rvnorm(1)))
+  print(rvnorm(mean = rvnorm(1)))
 
 }
 \references{

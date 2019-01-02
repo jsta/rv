@@ -23,14 +23,12 @@
 #' @keywords classes
 #' @examples
 #' 
-#'   print(rvnorm(mean=rvnorm(1)))
+#'   print(rvnorm(mean = rvnorm(1)))
 #' 
-print.rv <- function(x, digits=rvpar("print.digits"), ...) {
+#' @method print rv
+print.rv <- function(x, digits = rvpar("print.digits"), ...) {
   if (length(x)==0) {
     return(cat("rv(0)\n"))
   }
   print(summary(x, ...), digits=digits, ...)
 }
-
-
-

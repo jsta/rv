@@ -44,8 +44,10 @@ rvmatch <- function (x, table, nomatch=NA_integer_, incomparables=NULL) {
 }
 
 #' @noRd
+#' @export
 #' @param y random vector, regular atomic vector, or \code{NULL}: the
 #' values to be matched against.
+#' @inheritParams rvmatch
 "%*in*%" <- function (x, y) {
   if (! is.rv(x) && ! is.rv(y)) {
     return(.Primitive("%in%")(x, y))

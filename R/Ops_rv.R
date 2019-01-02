@@ -6,7 +6,7 @@
 #' @param e1 object
 #' @param e2 object
 #' @method Ops rv
-Ops.rv <- function(e1, e2=NULL)
+Ops.rv <- function(e1, e2 = NULL)
 {
   e1.attr <- attributes(e1)
   e2.attr <- attributes(e2)
@@ -24,6 +24,7 @@ Ops.rv <- function(e1, e2=NULL)
   return(v)
 }
 
+#' @method ! rv
 "!.rv" <- function(e1) 
 {
   v <- simapply(e1, .Generic)
