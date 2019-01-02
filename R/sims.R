@@ -1,5 +1,34 @@
-
-
+#' Retrieve the Simulations of Random Vectors
+#' 
+#' Returns the simulation matrix for the random variable object \code{x}.
+#' 
+#' \code{sims} returns the matrix of simulations for a given random variable
+#' object \code{x}.
+#' 
+#' The first index of the matrix indicates the number of the simulation draw
+#' (``simulations are in rows'').
+#' 
+#' @aliases sims sims.rv sims.rvsummary sims.default
+#' @param x a random variable object
+#' @param n.sims (optional) number of simulations
+#' @param dimensions logical, try to preserve the dimensions of \code{x}
+#' @param \dots arguments passed on
+#' @author Jouni Kerman \email{jouni@@kerman.com}
+#' @references Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
+#' Posterior Simulations Using Random Variable Objects. Statistics and
+#' Computing 17:3, 235-244.
+#' 
+#' See also \code{vignette("rv")}.
+#' @keywords classes
+#' @examples
+#' 
+#'   setnsims(n.sims=2500)
+#'   x <- rvnorm(24)
+#'   dim(x) <- c(2,3,4)
+#'   dim(sims(x))                  # 2500x24
+#'   dim(sims(x, dimensions=TRUE)) # 2500x2x3x4
+#' 
+#' @export sims
 sims <- function(x, ...) {
   UseMethod("sims")
 }

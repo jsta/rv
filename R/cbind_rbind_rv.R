@@ -9,6 +9,33 @@
 #   In cbind(v, unclass(x[[i]]), deparse.level = deparse.level) :
 #     number of rows of result is not a multiple of vector length (arg 2)
 
+
+
+#' Combine random vectors by columns or rows
+#' 
+#' Combines random vectors by columns (\code{cbind.rv}) or rows
+#' (\code{rbind.rv}).
+#' 
+#' See \link{cbind} and \link{rbind} for details.
+#' 
+#' @aliases cbind.rv rbind.rv
+#' @param \dots vectors or matrices, can be rv objects
+#' @param deparse.level (passed on to cbind)
+#' @author Jouni Kerman \email{jouni@@kerman.com}
+#' @references Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
+#' Posterior Simulations Using Random Variable Objects. Statistics and
+#' Computing 17:3, 235-244.
+#' 
+#' See also \code{vignette("rv")}.
+#' @keywords classes
+#' @examples
+#' 
+#'   x <- rvnorm(10)
+#'   y <- rvnorm(10)
+#'   cbind.rv(x, y)
+#'   rbind.rv(x, y)
+#' 
+#' @export cbind.rv
 cbind.rv <- function(..., deparse.level = 1)
 {
   if (deparse.level != 1) 

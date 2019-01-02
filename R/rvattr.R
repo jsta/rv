@@ -3,6 +3,36 @@
 # ========================================================================
 # returns a list.
 
+
+
+#' Attributes of Random Variables
+#' 
+#' \code{rvattr}
+#' 
+#' If \code{by.name=TRUE}, the values within the list \code{value} are matched
+#' by their name (e.g. `\code{theta[1]}') if possible.  Matching by \code{NA}
+#' or the empty string in a name is not possible.
+#' 
+#' Otherwise, the list is matched by position; in this case, the length of
+#' \code{value} must be equal to that of \code{x}.
+#' 
+#' @aliases rvattr rvattr<-
+#' @param x an object
+#' @param attrib name of the attribute
+#' @param by.name logical; attempt matching of attributes by name?
+#' @param value vector of values to set; can be a list or an atomic vector
+#' @author Jouni Kerman \email{jouni@@kerman.com}
+#' @references Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
+#' Posterior Simulations Using Random Variable Objects. Statistics and
+#' Computing 17:3, 235-244.
+#' 
+#' See also \code{vignette("rv")}.
+#' @keywords classes
+#' @examples
+#' 
+#'   ##
+#' 
+#' @export rvattr
 rvattr <- function(x, attrib=NULL)
 {
   a <- lapply(unclass(x), "attr", "rvsim")

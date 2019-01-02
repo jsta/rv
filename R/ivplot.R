@@ -79,6 +79,47 @@
 }
 
 
+
+
+#' Interval plot
+#' 
+#' Create a plot based on a data frame providing endpoints of intervals,
+#' colors, line weights etc.
+#' 
+#' ...
+#' 
+#' @param X A data frame providing data for creating one interval per row. See
+#' details below.
+#' @param name Name of file to produce
+#' @param file.name Name of file to produce
+#' @param split Name of column by which to divide the plot into groups.
+#' @param Intervals A list defining what intervals or dots to output per each
+#' row.
+#' @param xlim Numeric vector of length 2. Limits for the horizontal axis.
+#' @param left.margin Scalar. Size of left margin. If labels take too much
+#' space, increase this (default is 3)
+#' @param x.ticks Numeric vector.
+#' @param exp.labels Logical. Use log scale? Then print numeric values at
+#' x-ticks in the original (exponentiated) scale
+#' @param xlab Character.
+#' @param title Character; title.
+#' @param top.axis Logical. Print top axis?
+#' @param use_color Logical. Use color in plot or black?
+#' @param vline Scalar. Plot vertical line (will be plotted before intervals
+#' are
+#' @param device Character. To which device to output?
+#' @param size Numeric vector of length 2.  Size of plot: vertical and
+#' horizontal sizes in inches.
+#' @param font.family Character. Font family (sans (Helvetica), serif (Times),
+#' mono (Courier), ...)
+#' @param cex.label number, a factor to shrink the 'cex' of the labels, between
+#' 0 and 1
+#' @param \dots Other arguments passed to \code{plot}
+#' @return The file name that was output; as a side effect a plot (a pdf file
+#' if \code{device="pdf"}.)
+#' @author J Kerman
+#' @keywords hplot
+#' @export ivplot
 ivplot <- function (X, name="", file.name="", split=NULL, Intervals=NULL, xlim, left.margin=3, x.ticks=NULL, exp.labels=FALSE, xlab="", title="", top.axis=FALSE, use_color=TRUE, vline=NULL, device="X11", size=c(297,210)/25.4/2, font.family="Courier", cex.label=NULL, ...)
 {
 # X : data frame or a list of data frames

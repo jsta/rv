@@ -3,6 +3,27 @@
 # ========================================================================
 #
 
+
+
+#' Histogram of Distributions of Components of a Random Vector
+#' 
+#' \code{rvhist} shows a grid of histograms of simulations of the components of
+#' a random vector.
+#' 
+#' Outputs a histogram using the \code{hist} function with the option
+#' \code{freq=FALSE}. This can be overridden by specifying the argument
+#' \code{freq} or \code{prob}.  See the function \code{hist} for details.
+#' 
+#' @param x an rv object
+#' @param \dots further arguments passed to the function \code{hist}
+#' @author Jouni Kerman \email{jouni@@kerman.com}
+#' @references Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
+#' Posterior Simulations Using Random Variable Objects. Statistics and
+#' Computing 17:3, 235-244.
+#' 
+#' See also \code{vignette("rv")}.
+#' @keywords classes
+#' @export rvhist
 rvhist <- function (x, ...)  {
     if (!is.null(dim(x))) 
         par(mfcol = dim(x))

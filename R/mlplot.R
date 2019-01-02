@@ -1,4 +1,3 @@
-
 ### MLPLOT ###
 
 .mlplot3 <- function (x, ..., main=NULL, add=FALSE) 
@@ -29,6 +28,101 @@
   invisible()
 }
 
+
+
+#' Horizontal interval plot of components of a random vector
+#' 
+#' \code{mlplot} plots the scalar components as of the given random array or
+#' vector as horizontal intervals, grouped by row.
+#' 
+#' \code{mlplot} plots the scalar components of a vector or an array (2 or
+#' 3-dimensional) vertically (up to down) so that a component of a vector or a
+#' row of a matrix is plotted at vertical points 1...nrow(x).
+#' 
+#' An 'mlplot' of a vector implements a ``forest plot.''
+#' 
+#' Scalars on the same row are plotted closely together.  The positioning of
+#' the scalars within a row are controlled by the arguments \code{y.center},
+#' \code{y.shift}, \code{y.map}.  These do not need to be set for the default
+#' plot; if two arrays or vectors are plotted over on top of each other (using
+#' \code{add=TRUE}) then you should probably change \code{y.shift} which
+#' controls the vertical position of the array elements.
+#' 
+#' See \code{demo(mlplot)} for a detailed
+#' 
+#' To change the color of the random components of the vector, use
+#' \code{rvcol}. Typically this is of the same length as \code{X}, giving the
+#' color `theme' for each component.
+#' 
+#' If \code{X} is a 3-dimensional array, \code{mlplot} is called repeatedly for
+#' each 2-dimensional array \code{X[,,k]} for each \code{k}.
+#' 
+#' \code{X} may also be a fixed numeric object.
+#' 
+#' \code{NA}s (or random scalars with 100\% NA) are not plotted.
+#' 
+#' \code{mlplot} is still experimental.
+#' 
+#' @aliases mlplot mlplot.default mlplot.rvsummary
+#' @param X a random array or vector
+#' @param y.center center the intervals nicely at each y-coordinate?
+#' @param y.shift add this amount to each y coordinate of an interval
+#' @param y.map optional function to compute the y-coordinates, given \code{X}
+#' @param mar the margins of the plot
+#' @param left.margin offset to add to the left margin of the plot (to add
+#' space for the labels)
+#' @param vline if numeric, plot vertical lines at these (horizontal)
+#' coordinates
+#' @param top.axis (logical) plot the top axis?
+#' @param exp.labels (logical) if the original scale is logarithmic, label
+#' ticks in original (exp) scale?
+#' @param x.ticks positions for the ticks of the x-axis
+#' @param axes (logical) plot the axes at all?
+#' @param xlim x limits
+#' @param ylim y limits
+#' @param las the style of axis labels, see \code{\link{par}}
+#' @param add (logical) add the intervals to an existing plot?
+#' @param xlab x label
+#' @param ylab not used (instead of labels, the row names are shown)
+#' @param \dots further arguments passed to plot and points
+#' @author Jouni Kerman \email{jouni@@kerman.com}
+#' @references Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
+#' Posterior Simulations Using Random Variable Objects. Statistics and
+#' Computing 17:3, 235-244.
+#' 
+#' See also \code{vignette("rv")}.
+#' @keywords classes
+#' @examples
+#' 
+#' 
+#' \dontrun{
+#'   # You can run this complete example by typing demo("mlplot")
+#' 
+#'   n.rows <- 4; n.cols <- 5; n <- (n.rows*n.cols)
+#'   # Draw some fixed numbers
+#'   mu.true <- rnorm(1:n.rows, mean=1:n.rows, sd=1)
+#'   sigma.true <- 1
+#'   theta <- rvmatrix(rvnorm(n=n.cols, mean=mu.true, sd=sigma.true), nrow=n.rows)
+#'   #
+#'   col.labels <- paste("Time", 1:n.cols, sep=":")
+#'   row.labels <- paste("Unit", 1:n.rows, sep=":")
+#'   dimnames(theta) <- list(row.labels, col.labels)
+#'   #
+#'   par(mfrow=c(2,2))
+#'   mlplot(theta, main="theta")
+#'   abline(v=0, lty="dotted")
+#'   mlplot(t(theta), main="theta transposed")
+#'   abline(v=0, lty="dotted")
+#'   row.sd <- apply.rv(theta, 1, sd.rv)
+#'   col.sd <- apply.rv(theta, 2, sd.rv)
+#'   x.max <- max(rvquantile(c(row.sd, col.sd), 0.99))
+#'   mlplot(row.sd, xlim=c(0, x.max), main="theta: within-row sd for each unit")
+#'   abline(v=0)
+#'   mlplot(col.sd, xlim=c(0, x.max), main="theta: between-row sd for each time point")
+#'   abline(v=0)
+#' }
+#' 
+#' @export mlplot
 mlplot <- function (X, ...)
 {
   UseMethod("mlplot")

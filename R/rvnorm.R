@@ -1,8 +1,42 @@
-
 # ========================================================================
 # rvnorm  -  Generate variates from a normal sampling model
 # ========================================================================
 
+
+
+#' Generate Random Variables from a Gaussian (Normal) Sampling Model
+#' 
+#' Generates a random vector from a Gaussian sampling model.
+#' 
+#' 
+#' @param n integer: number of variables to generate.
+#' @param mean mean, may be a rv
+#' @param sd standard deviation; scalar or vector (constant or rv, not matrix)
+#' @param var variance, can be given instead of sd. Scalar, vector, or matrix.
+#' @param precision inverse variance or variance matrix, may be given instead
+#' of sd or var
+#' @return An rv object of length \code{n} times the length of the mean vector.
+#' 
+#' If \code{mean} is a vector, a vector is returned: \code{n} refers to how
+#' many vectors or scalars are replicated.
+#' @note If any of the arguments are random, the resulting simulations may have
+#' non-normal marginal distributions; for example, if an inverse-chi-squared
+#' scalar rv \code{var} and zero \code{mean} is given, the resulting rv will
+#' have a t-distribution.
+#' @author Jouni Kerman \email{jouni@@kerman.com}
+#' @references Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
+#' Posterior Simulations Using Random Variable Objects. Statistics and
+#' Computing 17:3, 235-244.
+#' 
+#' See also \code{vignette("rv")}.
+#' @keywords classes
+#' @examples
+#' 
+#'   x <- rvnorm(mean=1:10, sd=1:10) # A vector of length 10.
+#'   Sigma <- diag(1:10)
+#'   y <- rvnorm(mean=1:10, var=Sigma)
+#' 
+#' @export rvnorm
 rvnorm <- function (n=1, mean=0, sd=1, var=NULL, precision) {
   if (!missing(precision)) {
     if (!is.null(dim(precision))) {

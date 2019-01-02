@@ -1,4 +1,3 @@
-
 rvmatrix <- function (data = NA, nrow = 1, ncol = 1, byrow = FALSE, dimnames = NULL) {
   data <- as.vector(data)
   if (missing(nrow)) 
@@ -13,6 +12,54 @@ rvmatrix <- function (data = NA, nrow = 1, ncol = 1, byrow = FALSE, dimnames = N
   return(X)
 }
 
+
+
+#' Matrices and Arrays of Random Vectors
+#' 
+#' Arrange a given random vector into a matrix or array form.
+#' 
+#' These are 'rv' compatible versions of the functions \code{\link{matrix}} and
+#' \code{\link{array}}.
+#' 
+#' The function \code{rvmatrix} generates the random variable matrix via an
+#' \code{rvarray} call.
+#' 
+#' The \code{rvarray} function calls first \code{array} to set the dimensions
+#' of the argument \code{data} and then coerces the resulting array object to
+#' an 'rv' object.
+#' 
+#' @aliases rvmatrix rvarray is.matrix.rv as.matrix.rv
+#' @param data an optional data vector.
+#' @param nrow the desired number of rows.
+#' @param ncol the desired number of columns.
+#' @param byrow logical. If \code{FALSE} (the default) the matrix is filled by
+#' columns, otherwise the matrix is filled by rows.
+#' @param dimnames A dimnames attribute for the matrix: a list of length 2
+#' giving the row and column names respectively.
+#' @param dim the dim attribute for the array to be created, that is a vector
+#' of length one or more giving the maximal indices in each dimension.
+#' @param \dots arguments passed to other methods
+#' @param x an R object.
+#' @author Jouni Kerman \email{jouni@@kerman.com}
+#' @seealso To plot random matrices, see \code{\link{mlplot}}.
+#' @references Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
+#' Posterior Simulations Using Random Variable Objects. Statistics and
+#' Computing 17:3, 235-244.
+#' 
+#' See also \code{vignette("rv")}.
+#' @keywords classes
+#' @examples
+#' 
+#'   n.rows <- 3; n.cols <- 4; n <- (n.rows*n.cols)
+#'   mu.true <- rnorm(1:n.rows, mean=1:n.rows, sd=1)
+#'   theta <- rvmatrix(rvnorm(n=n.cols, mean=mu.true, sd=0.5), nrow=n.rows)
+#'   col.labels <- paste("Time", 1:n.cols, sep=":")
+#'   row.labels <- paste("Unit", 1:n.rows, sep=":")
+#'   dimnames(theta) <- list(row.labels, col.labels)
+#'   print(theta)
+#'   print(E(theta))  
+#' 
+#' @export rvarray
 rvarray <- function (data = NA, dim = length(data), dimnames = NULL) {
   as.rv(array(data = data, dim = dim, dimnames = dimnames))
 }

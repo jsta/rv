@@ -1,5 +1,42 @@
-
-
+#' Categorical Random Variables (Random Factors)
+#' 
+#' Creates or tests for objects of type ``\code{rvfactor}''.
+#' 
+#' Internally random factors are integer-valued just like regular factors in R.
+#' 
+#' The number of levels to print when \code{all.levels==FALSE} can be set by
+#' \code{rvpar(max.levels=...)}. By default this is set to 10.
+#' 
+#' @aliases rvfactor rvfactor.rv is.rvfactor as.rvfactor as.rv.rvfactor
+#' print.rvfactor
+#' @param x object to be coerced or tested.
+#' @param levels factor levels (labels for the levels)
+#' @param all.levels logical; whether to print all levels or not (see below for
+#' details)
+#' @param \dots other arguments
+#' @return \code{rvfactor}: an \code{rvfactor} object.
+#' 
+#' \code{is.rvfactor}: \code{TRUE} or \code{FALSE}.
+#' 
+#' \code{as.rv.rvfactor}: an \code{rv} object.
+#' 
+#' \code{as.rvfactor.rv}: an \code{rvfactor} object.
+#' @author Jouni Kerman \email{jouni@@kerman.com}
+#' @references Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
+#' Posterior Simulations Using Random Variable Objects. Statistics and
+#' Computing 17:3, 235-244.
+#' 
+#' See also \code{vignette("rv")}.
+#' @keywords classes
+#' @examples
+#' 
+#'   # Probabilities of each integer of trunc(Z) where Z ~ N(0,1) ?
+#'   x <- rvnorm(1)
+#'   rvfactor(trunc(x))
+#'   rvfactor(x>0)
+#'   rvfactor(rvpois(1, lambda=0.5))
+#' 
+#' @export rvfactor
 rvfactor <- function (x, ...) {
   UseMethod("rvfactor")
 }
