@@ -46,6 +46,8 @@ is.integer.rv <- function (x) {
   return(is.rv(x) && all(rvsimapply(x, is.integer)))
 }
 
+#' @export
+#' @method is.logical rv
 is.logical.rv <- function (x) {
   return(is.rv(x) && all(rvsimapply(x, is.logical)))
 } 

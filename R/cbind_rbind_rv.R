@@ -28,14 +28,11 @@
 #' 
 #' See also \code{vignette("rv")}.
 #' @keywords classes
-#' @examples
-#' 
+#' @examples 
 #'   x <- rvnorm(10)
 #'   y <- rvnorm(10)
-#'   cbind.rv(x, y)
-#'   rbind.rv(x, y)
-#' 
-#' @method cbind rv
+#'   cbind(x, y)
+#'   rbind(x, y) 
 #' @export
 cbind.rv <- function(..., deparse.level = 1)
 {

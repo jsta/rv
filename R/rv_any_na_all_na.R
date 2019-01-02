@@ -1,6 +1,6 @@
 
 
-
+#' @export
 rv.any.na <- function (x) {
   # NAME
   #  rv.any.na - Which components have missing values?
@@ -13,7 +13,7 @@ rv.any.na <- function (x) {
 }
 
 
-
+#' @export
 rv.all.na <- function (x)
 {
   # NAME

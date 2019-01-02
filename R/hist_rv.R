@@ -33,7 +33,7 @@
 #'   \dontshow{require(rv)}
 #'   x <- rvnorm(30)
 #'   hist(x)
-#' 
+#' @export
 hist.rv <- function(x, grid=c(4,5), xlim=x.range, main=paste(xname,"simulation"), freq=FALSE, ...) {
   par(mfrow=grid)
   #  l <- length(x)

@@ -5,6 +5,7 @@ as.rv <- function(x, ...) {
 }
 
 #' @method as.rv rv
+#' @export
 as.rv.rv <- function(x, ...)
 {
   return(x)

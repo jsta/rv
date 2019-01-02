@@ -20,12 +20,10 @@ Combines random vectors by columns (\code{cbind.rv}) or rows
 See \link{cbind} and \link{rbind} for details.
 }
 \examples{
-
   x <- rvnorm(10)
   y <- rvnorm(10)
-  cbind.rv(x, y)
-  rbind.rv(x, y)
-
+  cbind(x, y)
+  rbind(x, y) 
 }
 \references{
 Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
