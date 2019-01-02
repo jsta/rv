@@ -1,3 +1,9 @@
+
+#' @rdname rvarray
+#' @param nrow the desired number of rows.
+#' @param ncol the desired number of columns.
+#' @param byrow logical. If \code{FALSE} (the default) the matrix is filled by
+#' columns, otherwise the matrix is filled by rows.
 rvmatrix <- function (data = NA, nrow = 1, ncol = 1, byrow = FALSE, dimnames = NULL) {
   data <- as.vector(data)
   if (missing(nrow)) 
@@ -30,16 +36,11 @@ rvmatrix <- function (data = NA, nrow = 1, ncol = 1, byrow = FALSE, dimnames = N
 #' 
 #' @aliases rvmatrix rvarray is.matrix.rv as.matrix.rv
 #' @param data an optional data vector.
-#' @param nrow the desired number of rows.
-#' @param ncol the desired number of columns.
-#' @param byrow logical. If \code{FALSE} (the default) the matrix is filled by
-#' columns, otherwise the matrix is filled by rows.
 #' @param dimnames A dimnames attribute for the matrix: a list of length 2
 #' giving the row and column names respectively.
 #' @param dim the dim attribute for the array to be created, that is a vector
 #' of length one or more giving the maximal indices in each dimension.
 #' @param \dots arguments passed to other methods
-#' @param x an R object.
 #' @author Jouni Kerman \email{jouni@@kerman.com}
 #' @seealso To plot random matrices, see \code{\link{mlplot}}.
 #' @references Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
@@ -64,6 +65,9 @@ rvarray <- function (data = NA, dim = length(data), dimnames = NULL) {
   as.rv(array(data = data, dim = dim, dimnames = dimnames))
 }
 
+#' @noRd
+#' @method is.matrix rv
+#' @param x an R object.
 is.matrix.rv <- function (x) {
   dx <- dim(x)
   return((!is.null(dx)) && length(dx)==2)

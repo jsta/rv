@@ -19,6 +19,8 @@
 \title{Random Vectors}
 \usage{
 rv(length = 0)
+
+is.rv(x)
 }
 \arguments{
 \item{length}{desired length.}

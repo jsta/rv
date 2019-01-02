@@ -37,7 +37,7 @@
 #'   y <- rvnorm(mean=1:10, var=Sigma)
 #' 
 #' @export rvnorm
-rvnorm <- function (n=1, mean=0, sd=1, var=NULL, precision) {
+rvnorm <- function (n = 1, mean = 0, sd = 1, var = NULL, precision) {
   if (!missing(precision)) {
     if (!is.null(dim(precision))) {
       var <- solve(precision) # matrix inverse

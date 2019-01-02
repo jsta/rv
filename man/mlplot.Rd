@@ -7,6 +7,12 @@
 \title{Horizontal interval plot of components of a random vector}
 \usage{
 mlplot(X, ...)
+
+\method{mlplot}{default}(X, y.center = TRUE, y.shift = 0,
+  y.map = NULL, mar = par("mar"), left.margin = 3, vline = NULL,
+  top.axis = TRUE, exp.labels = FALSE, x.ticks = NULL, axes = NULL,
+  xlim = NULL, ylim = NULL, xlab = deparse(substitute(X)),
+  ylab = NULL, las = NULL, add = FALSE, ...)
 }
 \arguments{
 \item{X}{a random array or vector}
@@ -40,13 +46,13 @@ ticks in original (exp) scale?}
 
 \item{ylim}{y limits}
 
-\item{las}{the style of axis labels, see \code{\link{par}}}
-
-\item{add}{(logical) add the intervals to an existing plot?}
-
 \item{xlab}{x label}
 
 \item{ylab}{not used (instead of labels, the row names are shown)}
+
+\item{las}{the style of axis labels, see \code{\link{par}}}
+
+\item{add}{(logical) add the intervals to an existing plot?}
 }
 \description{
 \code{mlplot} plots the scalar components as of the given random array or

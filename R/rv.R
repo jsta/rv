@@ -29,7 +29,6 @@
 #' as.rv.integer as.rv.logical as.rv.list as.rv.matrix as.rv.default is.random
 #' as.rvobj is.rvobj
 #' @param length desired length.
-#' @param x object to be coerced or tested.
 #' @param \dots further arguments passed to or from other methods.
 #' @return An rv object of desired length, with the single simulation value
 #' \code{NA}.
@@ -61,6 +60,8 @@ rv <- function(length=0) {
   return(x)
 }
 
+#' @rdname rv
+#' @param x object to be coerced or tested.
 is.rv <- function(x)
 {
   inherits(x, "rv")

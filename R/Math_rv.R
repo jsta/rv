@@ -13,8 +13,6 @@
 #' @aliases Math.rv Ops.rv !.rv Math.rvsim Ops.rvsim cumsum.rv cumprod.rv
 #' cummin.rv cummax.rv
 #' @param x object
-#' @param e1 object
-#' @param e2 object
 #' @param \dots further arguments passed to or from other methods
 #' @author Jouni Kerman \email{jouni@@kerman.com}
 #' @references Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing

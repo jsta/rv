@@ -321,9 +321,13 @@ NULL
 
 
 
-#' Maxima and Minima of Random Variables
+
+#' #' Maxima and Minima of Random Variables
 #' 
-#' Returns the maxima and minima of the components of a random vector.
+#' @noRd
+#' @name Extremes-rv
+#' 
+#' @description Returns the maxima and minima of the components of a random vector.
 #' 
 #' \code{rvmin} applies the function \code{min} to each component of the
 #' argument \code{x}.  Missing values are removed.
@@ -342,7 +346,7 @@ NULL
 #' of several random vectors or constants, yielding thus a random vector of the
 #' same length.
 #' 
-#' @aliases rvmin rvmax rvrange min.rv max.rv pmin.rv pmax.rv
+#' @aliases min.rv max.rv pmin.rv pmax.rv
 #' @param x an \code{rv} or \code{rvsummary} object
 #' @param na.rm remove missing values?
 #' @param \dots one or more \code{rv} objects or numeric objects

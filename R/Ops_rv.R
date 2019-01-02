@@ -2,7 +2,9 @@
 # rv-Ops.R - standard math functions for the rv class
 # TODO
 #  
-
+#' @rdname Math.rv
+#' @param e1 object
+#' @param e2 object
 #' @method Ops rv
 Ops.rv <- function(e1, e2=NULL)
 {

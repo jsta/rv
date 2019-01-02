@@ -65,25 +65,6 @@
 #' 
 #' @aliases mlplot mlplot.default mlplot.rvsummary
 #' @param X a random array or vector
-#' @param y.center center the intervals nicely at each y-coordinate?
-#' @param y.shift add this amount to each y coordinate of an interval
-#' @param y.map optional function to compute the y-coordinates, given \code{X}
-#' @param mar the margins of the plot
-#' @param left.margin offset to add to the left margin of the plot (to add
-#' space for the labels)
-#' @param vline if numeric, plot vertical lines at these (horizontal)
-#' coordinates
-#' @param top.axis (logical) plot the top axis?
-#' @param exp.labels (logical) if the original scale is logarithmic, label
-#' ticks in original (exp) scale?
-#' @param x.ticks positions for the ticks of the x-axis
-#' @param axes (logical) plot the axes at all?
-#' @param xlim x limits
-#' @param ylim y limits
-#' @param las the style of axis labels, see \code{\link{par}}
-#' @param add (logical) add the intervals to an existing plot?
-#' @param xlab x label
-#' @param ylab not used (instead of labels, the row names are shown)
 #' @param \dots further arguments passed to plot and points
 #' @author Jouni Kerman \email{jouni@@kerman.com}
 #' @references Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
@@ -128,6 +109,26 @@ mlplot <- function (X, ...)
   UseMethod("mlplot")
 }
 
+#' @rdname mlplot
+#' @param y.center center the intervals nicely at each y-coordinate?
+#' @param y.shift add this amount to each y coordinate of an interval
+#' @param y.map optional function to compute the y-coordinates, given \code{X}
+#' @param mar the margins of the plot
+#' @param left.margin offset to add to the left margin of the plot (to add
+#' space for the labels)
+#' @param vline if numeric, plot vertical lines at these (horizontal)
+#' coordinates
+#' @param top.axis (logical) plot the top axis?
+#' @param exp.labels (logical) if the original scale is logarithmic, label
+#' ticks in original (exp) scale?
+#' @param x.ticks positions for the ticks of the x-axis
+#' @param axes (logical) plot the axes at all?
+#' @param xlim x limits
+#' @param ylim y limits
+#' @param las the style of axis labels, see \code{\link{par}}
+#' @param add (logical) add the intervals to an existing plot?
+#' @param xlab x label
+#' @param ylab not used (instead of labels, the row names are shown)
 #' @importFrom graphics plot points
 mlplot.default <- function (X, y.center = TRUE, y.shift = 0, y.map = NULL, mar = par("mar"), left.margin = 3, vline=NULL, top.axis = TRUE, exp.labels=FALSE, x.ticks = NULL, axes = NULL, xlim = NULL, ylim = NULL, xlab=deparse(substitute(X)), ylab=NULL, las = NULL, add = FALSE, ...) 
 {

@@ -10,8 +10,6 @@
 #' @aliases rvfactor rvfactor.rv is.rvfactor as.rvfactor as.rv.rvfactor
 #' print.rvfactor
 #' @param x object to be coerced or tested.
-#' @param all.levels logical; whether to print all levels or not (see below for
-#' details)
 #' @param \dots other arguments
 #' @return \code{rvfactor}: an \code{rvfactor} object.
 #' 
