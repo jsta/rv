@@ -26,11 +26,6 @@ returned then in random vector form.
 
 See \code{\link{sort}} for further details of the function \code{sort}.
 }
-\examples{
-
-  #
-
-}
 \references{
 Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
 Posterior Simulations Using Random Variable Objects. Statistics and

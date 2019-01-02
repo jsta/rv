@@ -24,11 +24,6 @@ system}
 
 For details of the function, see \code{\link{solve}}.
 }
-\examples{
-
-  #
-
-}
 \references{
 Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
 Posterior Simulations Using Random Variable Objects. Statistics and

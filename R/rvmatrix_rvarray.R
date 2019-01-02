@@ -4,6 +4,7 @@
 #' @param ncol the desired number of columns.
 #' @param byrow logical. If \code{FALSE} (the default) the matrix is filled by
 #' columns, otherwise the matrix is filled by rows.
+#' @export
 rvmatrix <- function (data = NA, nrow = 1, ncol = 1, byrow = FALSE, dimnames = NULL) {
   data <- as.vector(data)
   if (missing(nrow)) 

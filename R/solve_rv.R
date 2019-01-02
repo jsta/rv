@@ -20,10 +20,7 @@
 #' 
 #' See also \code{vignette("rv")}.
 #' @keywords classes
-#' @examples
-#' 
-#'   #
-#' 
+#' @export
 solve.rv <- function (a, b, ...) {
   rvmapply(base::solve, a=a, b=b, ...)
 }

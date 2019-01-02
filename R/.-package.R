@@ -236,65 +236,6 @@ NULL
 #' 
 NULL
 
-
-
-
-
-#' Extract or Replace Parts of a Random Vector
-#' 
-#' Bracket slice and assignment methods adapted for random vectors and arrays.
-#' The assignment function \code{impute<-} is compatible with both non-rv and
-#' rv objects (rv, rvsummary, and rvfactor objects). To write universal code
-#' that works both atomic and rv objects, use \code{impute(x, ...) <- value}
-#' instead of \code{x[...] <- value}.
-#' 
-#' 
-#' NOTE. \code{x} will NOT be automatically coerced into an rv object.
-#' 
-#' \code{value} may be an rv object or a regular numeric object.
-#' 
-#' Extracting rv objects works the same way as extracting components of a
-#' numerical vector or array.  The return value is always an object of class
-#' 'rv'.  Type ?Extract for details.
-#' 
-#' Note: the index arguments (\code{i}, \code{j}, etc.)  \emph{must} be
-#' constants, but this may change in the future.
-#' 
-#' %Note: the index arguments (\code{i}, \code{j}, etc.) may be %themselves
-#' random variables, however they will be coerced %into \emph{integers}, as one
-#' would expect.
-#' 
-#' @aliases [.rv [.rvfactor [.rvsummary [<-.rv [<-.rv [<-.rvsummary impute<-
-#' @param x object from which to extract element(s) or in which to replace
-#' element(s).
-#' @param \dots indices specifying elements to extract or replace.
-#' @param value typically an array-like R object of a similar class as
-#' \code{x}.
-#' @param drop For matrices and arrays.  If \code{TRUE} the result is coerced
-#' to the lowest possible dimension (see the examples).  This only works for
-#' extracting elements, not for the replacement.
-#' @return A random variable (an rv object).
-#' @references Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
-#' Posterior Simulations Using Random Variable Objects. Statistics and
-#' Computing 17:3, 235-244.
-#' 
-#' See also \code{vignette("rv")}.
-#' @keywords classes
-#' @examples
-#' 
-#'   x <- rvnorm(1)
-#'   y <- (1:5)
-#'   \dontrun{
-#'      y[2] <- x ## Will not work
-#'   }
-#'   impute(y, 2) <- x
-#' 
-NULL
-
-
-
-
-
 #' Simulation-based Random Variable Objects
 #' 
 #' `\code{rv}' implements a simulation-based random variable object class.
@@ -316,61 +257,6 @@ NULL
 #' See also \code{vignette("rv")}.
 #' @keywords classes
 NULL
-
-
-
-
-
-
-#' #' Maxima and Minima of Random Variables
-#' 
-#' @noRd
-#' @name Extremes-rv
-#' 
-#' @description Returns the maxima and minima of the components of a random vector.
-#' 
-#' \code{rvmin} applies the function \code{min} to each component of the
-#' argument \code{x}.  Missing values are removed.
-#' 
-#' \code{rvmax} applies the function \code{max} to each component of the
-#' argument \code{x}.  Missing values are removed.
-#' 
-#' \code{rvrange} applies the function \code{range} to each component of the
-#' argument \code{x}.  Missing values are removed.
-#' 
-#' \code{min.rv} returns the minimum of the random \emph{vector}, returning
-#' thus one random variable. Similarly \code{max.rv} returns the maximum of a
-#' vector.
-#' 
-#' \code{pmin.rv} and \code{pmax.rv} returns the componentwise minima or maxima
-#' of several random vectors or constants, yielding thus a random vector of the
-#' same length.
-#' 
-#' @aliases min.rv max.rv pmin.rv pmax.rv
-#' @param x an \code{rv} or \code{rvsummary} object
-#' @param na.rm remove missing values?
-#' @param \dots one or more \code{rv} objects or numeric objects
-#' @return A \emph{numeric} vector of the same dimension as \code{x}.
-#' @author Jouni Kerman \email{jouni@@kerman.com}
-#' @seealso \code{\link{rvmedian}}, \code{\link{rvmean}}.
-#' @references Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
-#' Posterior Simulations Using Random Variable Objects. Statistics and
-#' Computing 17:3, 235-244.
-#' 
-#' See also \code{vignette("rv")}.
-#' @keywords classes
-#' @examples
-#' 
-#'   x <- rvpois(10, lambda=3)
-#'   rvmin(x)
-#'   rvmax(x)
-#'   rvrange(x)
-#' 
-NULL
-
-
-
-
 
 #' Random Vector Summaries
 #' 

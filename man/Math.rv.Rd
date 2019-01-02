@@ -34,6 +34,7 @@ The operator method preserves the names of the longer vector (or those of
 the first if the lengths match).
 }
 \examples{
+\dontrun{
 
   x <- rvnorm(10)
   -x
@@ -42,6 +43,7 @@ the first if the lengths match).
   1:2 + x
   cumsum(x)
   cumprod(exp(x))
+}
 
 }
 \references{

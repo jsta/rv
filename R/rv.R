@@ -95,6 +95,7 @@ is.rv <- function(x)
 #'   print(x)
 #'   print(as.double(x))
 #' 
+#' @export
 as.double.rv <- function(x, ...)
 {
   simapply(x, as.double, ...)
@@ -128,12 +129,11 @@ as.double.rv <- function(x, ...)
 #'   is.logical(x)           # TRUE
 #'   print(x)                # Shows the expectations and not the quantiles
 #' 
+#' @export
 as.logical.rv <- function(x, ...)
 {
   simapply(x, as.logical, ...)
 }
-
-
 
 #' Integer Random vectors
 #' 
@@ -163,6 +163,7 @@ as.logical.rv <- function(x, ...)
 #'   is.integer(x)           # TRUE
 #'   print(x)                # Shows also the 'min' and 'max' columns
 #' 
+#' @export
 as.integer.rv <- function (x, ...)
 {
   simapply(x, as.integer, ...)

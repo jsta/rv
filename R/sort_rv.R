@@ -21,11 +21,7 @@
 #' 
 #' See also \code{vignette("rv")}.
 #' @keywords manip
-#' @examples
-#' 
-#'   #
-#' 
+#' @export
 sort.rv <- function (x, ...) {
   simapply(x, base::sort, ...)
 }
-

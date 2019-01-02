@@ -21,7 +21,7 @@
 #' 
 #' See also \code{vignette("rv")}.
 #' @keywords classes
-#' @examples
+#' @examples \dontrun{
 #' 
 #'   x <- rvnorm(10)
 #'   -x
@@ -30,6 +30,7 @@
 #'   1:2 + x
 #'   cumsum(x)
 #'   cumprod(exp(x))
+#'}
 #' 
 #' @method Math rv
 Math.rv <- function(x, ...) {

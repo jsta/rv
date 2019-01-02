@@ -7,6 +7,7 @@ is.rvsummary <- function (x) {
   inherits(x, "rvsummary")
 }
 
+#' @export
 print.rvsummary <- function (x, digits=3, ...) # METHOD
 {
   s <- summary(x)
@@ -157,6 +158,7 @@ as.rvsummary.data.frame <- function (x, quantiles=rvpar("summary.quantiles.numer
   structure(x, class=c("rvsummary_numeric", "rvsummary"), quantiles=d.quantiles, names=rnames)
 }
 
+#' @export
 as.double.rvsummary <- function (x, ...)
 {
   if (is.null(attr(x, "quantiles"))) {
@@ -165,6 +167,7 @@ as.double.rvsummary <- function (x, ...)
   return(x)
 }
 
+#' @export
 print.rvsummary_rvfactor <- function (x, all.levels=FALSE, ...) # METHOD
 {
   print(summary(x, all.levels=all.levels, ...))

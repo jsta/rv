@@ -43,7 +43,8 @@ rvmatch <- function (x, table, nomatch=NA_integer_, incomparables=NULL) {
   rvmapply(base::match, x=x, table=table, nomatch=nomatch, MoreArgs=list(incomparables=incomparables))
 }
 
-#' @noRd
+#' Test if in set
+#' 
 #' @export
 #' @param y random vector, regular atomic vector, or \code{NULL}: the
 #' values to be matched against.
