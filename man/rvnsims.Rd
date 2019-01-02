@@ -12,8 +12,6 @@ rvnsims(x)
 }
 \arguments{
 \item{x}{an rv object.}
-
-\item{n.sims}{default number of simulations; must be at least 2.}
 }
 \value{
 \code{rvnsims}: a vector of integers.

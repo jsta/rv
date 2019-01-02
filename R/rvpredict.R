@@ -17,12 +17,6 @@
 #' 
 #' @aliases rvpredict rvpredict.lm
 #' @param object An object representing a statistical model fit.
-#' @param newdata A data frame with new covariates to be used in the
-#' predictions. The column names of the data frame must match those in the
-#' model matrix (although order may be arbitrary).  If omitted, the model
-#' matrix is used instead; the resulting predictions are then the
-#' \emph{replications} of the data. \emph{Note:} this can be an \code{rv}
-#' object to incorporate extra uncertainty into predictions.
 #' @param \dots Arguments passed to and from other methods.
 #' @return For the \code{lm} method, a vector as long as there are rows in the
 #' data frame \code{newdata}.
@@ -89,6 +83,14 @@ rvpredict <- function (object, ...) {
   list(X=X, offset=offset)
 }
 
+#' @rdname rvpredict
+#' @param newdata A data frame with new covariates to be used in the
+#' predictions. The column names of the data frame must match those in the
+#' model matrix (although order may be arbitrary).  If omitted, the model
+#' matrix is used instead; the resulting predictions are then the
+#' \emph{replications} of the data. \emph{Note:} this can be an \code{rv}
+#' object to incorporate extra uncertainty into predictions.
+#' @method rvpredict lm
 rvpredict.lm <- function (object, newdata, ...) {
   L <- .X.and.offset(object, newdata)
   X <- L$X

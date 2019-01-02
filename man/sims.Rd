@@ -8,15 +8,19 @@
 \title{Retrieve the Simulations of Random Vectors}
 \usage{
 sims(x, ...)
+
+\method{sims}{rvsummary}(x, dimensions = FALSE, ...)
+
+\method{sims}{rv}(x, dimensions = FALSE, n.sims = getnsims(), ...)
 }
 \arguments{
 \item{x}{a random variable object}
 
 \item{\dots}{arguments passed on}
 
-\item{n.sims}{(optional) number of simulations}
-
 \item{dimensions}{logical, try to preserve the dimensions of \code{x}}
+
+\item{n.sims}{(optional) number of simulations}
 }
 \description{
 Returns the simulation matrix for the random variable object \code{x}.

@@ -10,8 +10,6 @@
 #' 
 #' @aliases sims sims.rv sims.rvsummary sims.default
 #' @param x a random variable object
-#' @param n.sims (optional) number of simulations
-#' @param dimensions logical, try to preserve the dimensions of \code{x}
 #' @param \dots arguments passed on
 #' @author Jouni Kerman \email{jouni@@kerman.com}
 #' @references Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
@@ -33,6 +31,9 @@ sims <- function(x, ...) {
   UseMethod("sims")
 }
 
+#' @rdname sims
+#' @param dimensions logical, try to preserve the dimensions of \code{x}
+#' @method sims rvsummary
 sims.rvsummary <- function(x, dimensions=FALSE,  ...) {
   ## NOEXPORT
   S <- matrix(unlist(x, use.names=FALSE), nrow=length(x[[1]]))
@@ -56,6 +57,7 @@ sims.rvsummary <- function(x, dimensions=FALSE,  ...) {
   return(S)
 }
 
+#' @method sims default
 sims.default <- function(x, ...) {
   ## NOEXPORT
   ##
@@ -86,7 +88,9 @@ sims.default <- function(x, ...) {
  ###, as.list=FALSE)
 
 
-
+#' @rdname sims
+#' @param n.sims (optional) number of simulations
+#' @method sims rv
 sims.rv <- function(x, dimensions=FALSE, n.sims=getnsims(), ...) {
   ## NOEXPORT
   if (length(x)<1) {

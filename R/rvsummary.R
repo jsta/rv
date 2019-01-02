@@ -284,7 +284,7 @@ summary.rvsummary_integer <- function (object, ...)
 }
 
 
-
+#' @method summary rvsummary_rvfactor
 summary.rvsummary_rvfactor <- function (object, all.levels=TRUE, ...) 
 {
   x <- object

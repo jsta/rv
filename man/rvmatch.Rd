@@ -10,7 +10,7 @@ rvmatch(x, table, nomatch = NA_integer_, incomparables = NULL)
 \item{x}{random vector, regular atomic vector, or \code{NULL}: the values to
 be matched.}
 
-\item{table, y}{random vector, regular atomic vector, or \code{NULL}: the
+\item{table}{random vector, regular atomic vector, or \code{NULL}: the
 values to be matched against.}
 
 \item{nomatch}{the value to be returned in the case when no match is found.

@@ -11,7 +11,6 @@
 #' 
 #' @aliases rvnsims rvnsims.rv rvnsims.rvsummary setnsims getnsims
 #' @param x an rv object.
-#' @param n.sims default number of simulations; must be at least 2.
 #' @return \code{rvnsims}: a vector of integers.
 #' 
 #' \code{setnsims}: \emph{previously set} default number of simulations.
@@ -57,6 +56,9 @@ rvnsims.default <- function (x) {
   rep.int(1, length(x))
 }
 
+
+#' @noRd
+#' @param n.sims default number of simulations; must be at least 2.
 #' @export
 setnsims <- function (n.sims) {
   ## setnsims - get or set the default number of simulations (a global variable)

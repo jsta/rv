@@ -21,7 +21,7 @@
 #'   sum(x)
 #'   min(x)
 #'   max(x)
-#' 
+#' @method Summary rv
 Summary.rv <- function(..., na.rm=FALSE)
 {
   S <- sims(c(...)) # an L x n matrix of numbers

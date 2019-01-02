@@ -23,7 +23,6 @@ Methods applied to rv objects for the generic functions \code{all},
   sum(x)
   min(x)
   max(x)
-
 }
 \references{
 Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing

@@ -23,9 +23,6 @@ objects unless the function already accepts them)}
 
 \item{SAMPLESIZE}{if specified, takes a (joint) sample of the simulations
 and processes only them.}
-
-\item{vectorize.args}{a character vector of arguments which should be
-vectorized. Defaults to all arguments to FUN.}
 }
 \value{
 Depends on \code{FUN}; a random vector or array if \code{FUN} is

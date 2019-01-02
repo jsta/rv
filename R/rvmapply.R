@@ -35,8 +35,6 @@
 #' @param SIMPLIFY logical; see \code{\link{mapply}} for details
 #' @param SAMPLESIZE if specified, takes a (joint) sample of the simulations
 #' and processes only them.
-#' @param vectorize.args a character vector of arguments which should be
-#' vectorized. Defaults to all arguments to FUN.
 #' @param \dots further arguments to \code{FUN}, possibly random vectors or
 #' array.
 #' @return Depends on \code{FUN}; a random vector or array if \code{FUN} is

@@ -6,6 +6,8 @@
 \title{Generate predictions from models}
 \usage{
 rvpredict(object, ...)
+
+\method{rvpredict}{lm}(object, newdata, ...)
 }
 \arguments{
 \item{object}{An object representing a statistical model fit.}

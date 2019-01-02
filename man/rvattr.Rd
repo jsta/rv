@@ -6,6 +6,8 @@
 \title{Attributes of Random Variables}
 \usage{
 rvattr(x, attrib = NULL)
+
+rvattr(x, attrib = NULL, by.name = FALSE) <- value
 }
 \arguments{
 \item{x}{an object}

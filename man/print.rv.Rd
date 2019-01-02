@@ -32,7 +32,7 @@ Computing 17:3, 235-244.
 See also \code{vignette("rv")}.
 }
 \seealso{
-\code{\link{summary.rv}}, \code{\link{rvfactor}}
+\code{\link{rvfactor}}
 }
 \author{
 Jouni Kerman \email{jouni@kerman.com}

@@ -14,7 +14,7 @@
 #' @param digits minimal number of significant digits
 #' @param \dots further arguments passed to or from other methods
 #' @author Jouni Kerman \email{jouni@@kerman.com}
-#' @seealso \code{\link{summary.rv}}, \code{\link{rvfactor}}
+#' @seealso \code{\link{rvfactor}}
 #' @references Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
 #' Posterior Simulations Using Random Variable Objects. Statistics and
 #' Computing 17:3, 235-244.

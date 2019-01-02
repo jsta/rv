@@ -28,10 +28,13 @@
 #'   summary(as.rvsummary(x))
 #'   summary(rvfactor(trunc(x)))
 #' 
+#' @method summary rv
+#' @noRd
 summary.rv <- function (object, ...) {
   summary(as.rvsummary(object), ...)
 }
 
+#' @method summary rvfactor
 summary.rvfactor <- function (object, all.levels=TRUE, ...) {
   summary(as.rvsummary(object), all.levels=all.levels, ...)
 }

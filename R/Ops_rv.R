@@ -3,6 +3,7 @@
 # TODO
 #  
 
+#' @method Ops rv
 Ops.rv <- function(e1, e2=NULL)
 {
   e1.attr <- attributes(e1)

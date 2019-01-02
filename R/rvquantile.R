@@ -9,8 +9,6 @@
 #' 
 #' @aliases rvquantile rvquantile.rv rvquantile.rvsummary rvmedian
 #' @param x an object
-#' @param probs numeric vector of probabilities with values in \emph{[0,1]}
-#' @param ignoreInf ignore infinite values
 #' @param \dots further arguments passed to \code{quantile}
 #' @return A \emph{numeric} vector of quantiles.
 #' @author Jouni Kerman \email{jouni@@kerman.com}
@@ -33,6 +31,10 @@ rvquantile <- function(x, ...)
   UseMethod("rvquantile")
 }
 
+#' @rdname rvquantile
+#' @param probs numeric vector of probabilities with values in \emph{[0,1]}
+#' @param ignoreInf ignore infinite values
+#' @method rvquantile rv
 rvquantile.rv <- function(x, probs=c(0.025, 0.10, 0.25, 0.50, 0.75, 0.90, 0.975), ignoreInf=FALSE, ...)
 {
   if (ignoreInf) {
@@ -43,6 +45,7 @@ rvquantile.rv <- function(x, probs=c(0.025, 0.10, 0.25, 0.50, 0.75, 0.90, 0.975)
   }
 }
 
+#' @method rvquantile rvsummary
 rvquantile.rvsummary <- function(x, probs=c(0.025, 0.10, 0.25, 0.50, 0.75, 0.90, 0.975), ...)
 {
   Q <- t(sims(x))

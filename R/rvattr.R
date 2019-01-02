@@ -19,8 +19,6 @@
 #' @aliases rvattr rvattr<-
 #' @param x an object
 #' @param attrib name of the attribute
-#' @param by.name logical; attempt matching of attributes by name?
-#' @param value vector of values to set; can be a list or an atomic vector
 #' @author Jouni Kerman \email{jouni@@kerman.com}
 #' @references Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
 #' Posterior Simulations Using Random Variable Objects. Statistics and
@@ -50,7 +48,9 @@ rvattr <- function(x, attrib=NULL)
 #
 
 
-
+#' @rdname rvattr
+#' @param by.name logical; attempt matching of attributes by name?
+#' @param value vector of values to set; can be a list or an atomic vector
 "rvattr<-" <- function(x, attrib=NULL, by.name=FALSE, value) {
   "Set attributes of each component of a random vector"
   ## Note: 'value' can be a list or a vector - components are extracted by [[...]]

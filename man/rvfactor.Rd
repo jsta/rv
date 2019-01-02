@@ -7,9 +7,12 @@
 \alias{as.rvfactor}
 \alias{as.rv.rvfactor}
 \alias{print.rvfactor}
+\alias{rvfactor.default}
 \title{Categorical Random Variables (Random Factors)}
 \usage{
 rvfactor(x, ...)
+
+\method{rvfactor}{default}(x, levels = NULL, ...)
 }
 \arguments{
 \item{x}{object to be coerced or tested.}

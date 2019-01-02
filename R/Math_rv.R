@@ -33,6 +33,7 @@
 #'   cumsum(x)
 #'   cumprod(exp(x))
 #' 
+#' @method Math rv
 Math.rv <- function(x, ...) {
   # Componentwise operation
   X <- x # Preserve class and other attributes
@@ -44,22 +45,25 @@ Math.rv <- function(x, ...) {
 }
 
 # cumsum, cumprod, cummax, cummin
-
+#' @method cumsum rv
 cumsum.rv <- function (x)
 {
   simapply(x, cumsum)
 }
 
+#' @method cumprod rv
 cumprod.rv <- function (x)
 {
   simapply(x, cumprod)
 }
 
+#' @method cummin rv
 cummin.rv <- function (x)
 {
   simapply(x, cummin)
 }
 
+#' @method cummax rv
 cummax.rv <- function (x)
 {
   simapply(x, cummax)

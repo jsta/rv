@@ -12,7 +12,7 @@
 #' @aliases rvmatch 
 #' @param x random vector, regular atomic vector, or \code{NULL}: the values to
 #' be matched.
-#' @param table,y random vector, regular atomic vector, or \code{NULL}: the
+#' @param table random vector, regular atomic vector, or \code{NULL}: the
 #' values to be matched against.
 #' @param nomatch the value to be returned in the case when no match is found.
 #' Note that the value is coerced to \code{integer}.
@@ -43,6 +43,9 @@ rvmatch <- function (x, table, nomatch=NA_integer_, incomparables=NULL) {
   rvmapply(base::match, x=x, table=table, nomatch=nomatch, MoreArgs=list(incomparables=incomparables))
 }
 
+#' @noRd
+#' @param y random vector, regular atomic vector, or \code{NULL}: the
+#' values to be matched against.
 "%*in*%" <- function (x, y) {
   if (! is.rv(x) && ! is.rv(y)) {
     return(.Primitive("%in%")(x, y))

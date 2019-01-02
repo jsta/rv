@@ -6,12 +6,10 @@
 \alias{Pr}
 \title{Expectation of a Random Variable}
 \usage{
-rvmean(x, ...)
+rvmean(x)
 }
 \arguments{
 \item{x}{an rv object}
-
-\item{X}{a logical rv object}
 }
 \value{
 A \emph{numerical} vector with the same dimension as \code{x}.

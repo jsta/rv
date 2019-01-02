@@ -18,7 +18,6 @@
 #' 
 #' @aliases rvmean E Pr
 #' @param x an rv object
-#' @param X a logical rv object
 #' @return A \emph{numerical} vector with the same dimension as \code{x}.
 #' @author Jouni Kerman \email{jouni@@kerman.com}
 #' @seealso \code{\link{mean.rv}}: distribution of the arithmetic mean of a
@@ -38,7 +37,7 @@
 #'   Pr(x>1)    # probabilities that each component is >1.
 #' 
 #' @export
-rvmean <- function (x, ...) {
+rvmean <- function (x) {
   UseMethod("rvmean", x)
 }
 
@@ -65,6 +64,8 @@ E <- function (x) {
   rvmean(x)
 }
 
+#' @noRd
+#' @param X a logical rv object
 Pr <- function (X) {
   if (! is.logical.rv(X)) {
       stop("Argument for Pr must be a logical statement such as 'x>0'")

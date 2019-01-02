@@ -10,7 +10,6 @@
 #' @aliases rvfactor rvfactor.rv is.rvfactor as.rvfactor as.rv.rvfactor
 #' print.rvfactor
 #' @param x object to be coerced or tested.
-#' @param levels factor levels (labels for the levels)
 #' @param all.levels logical; whether to print all levels or not (see below for
 #' details)
 #' @param \dots other arguments
@@ -41,6 +40,9 @@ rvfactor <- function (x, ...) {
   UseMethod("rvfactor")
 }
 
+#' @rdname rvfactor
+#' @param levels factor levels (labels for the levels)
+#' @method rvfactor default
 rvfactor.default <- function (x, levels=NULL, ...) {
   f <- as.factor(x)
   a <- sims(as.rv(as.integer(f)))
@@ -54,7 +56,7 @@ rvfactor.default <- function (x, levels=NULL, ...) {
   return(rvf)
 }
 
-
+#' @method rvfactor rv
 rvfactor.rv <- function (x, levels=NULL, ...) {
   a <- sims(x)
   f <- as.factor(a)
@@ -77,6 +79,7 @@ is.rvfactor <- function (x) {
   UseMethod("is.rvfactor")
 }
 
+#' @method is.rvfactor rvfactor
 is.rvfactor.rvfactor <- function (x) {
   TRUE
 } 

@@ -1,5 +1,7 @@
 
-
+#' @noRd
+#' @param vectorize.args a character vector of arguments which should be
+#' vectorized. Defaults to all arguments to FUN.
 rvVectorize <- function (FUN, vectorize.args = arg.names, SIMPLIFY = FALSE, USE.NAMES = TRUE, SAMPLESIZE=NULL) {
   arg.names <- as.list(formals(FUN))
   arg.names[["..."]] <- NULL
