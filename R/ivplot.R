@@ -15,6 +15,7 @@
   }
 }
 
+#' @importFrom grDevices dev.new
 .prepDevice <- function (name, device="X11", hwx=1.5, size=c(210,297)/25.4/2, font.family="Courier")
 {
   hw <- (size*hwx)
@@ -120,6 +121,8 @@
 #' @author J Kerman
 #' @keywords hplot
 #' @export ivplot
+#' @importFrom grDevices dev.off pdf
+#' @importFrom graphics abline axis mtext
 ivplot <- function (X, name="", file.name="", split=NULL, Intervals=NULL, xlim, left.margin=3, x.ticks=NULL, exp.labels=FALSE, xlab="", title="", top.axis=FALSE, use_color=TRUE, vline=NULL, device="X11", size=c(297,210)/25.4/2, font.family="Courier", cex.label=NULL, ...)
 {
 # X : data frame or a list of data frames

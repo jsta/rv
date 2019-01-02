@@ -85,7 +85,7 @@
 #'     plot(x, E(y), rvcol="blue", col="gray")
 #'   }
 #' 
-#' @export points.rv
+#' @method points rv
 points.rv <- function (x, y = NULL, type = "p", xlim = NULL, ylim = NULL, rvlwd = rvpar("rvlwd"), rvcol = rvpar("rvcol"), rvpoint = rvpar("rvpoint"), rvlex = rvpar("rvlex"), ...) {
   if (! (is.rvobj(x) || is.rvobj(y))) {
     return(points(x, y, type=type, xlim=xlim, ylim=ylim, ...))

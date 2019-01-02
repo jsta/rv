@@ -4,7 +4,7 @@ Version: 2.3.2
 Author: Jouni Kerman <jouni@kerman.com>
 Maintainer: Jouni Kerman <jouni@kerman.com>
 Description: Implements simulation-based random variable class and a suite of methods.
-Depends: R(>= 2.15.1), stats, utils, grDevices, graphics, parallel
+Depends: R(>= 2.15.1), stats, utils, grDevices, graphics
 License: GPL-2
 Encoding: UTF-8
 RoxygenNote: 6.1.1

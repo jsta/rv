@@ -27,6 +27,7 @@
 #'   y <- rvmeanunif(df=2) ## same distribution as that of x
 #' 
 #' @export rvmeanunif
+#' @importFrom stats runif
 rvmeanunif <- function (n=1, mode=0, scale=1, df) {
   if (n == 1) {
     u <- rvunif(n=df, min=-1, max=1)

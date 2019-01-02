@@ -433,7 +433,7 @@
   return(X)
 }
 
-
+#' @importFrom stats var
 .rvmeansd <- function (x, names.=c("mean", "sd", "NAS", "n.sims")) ## for convenience
 {
   a <- list(dimnames=dimnames(x), dim=dim(x), names=names(x))

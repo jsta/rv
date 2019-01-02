@@ -2,7 +2,7 @@
 # cov  -  short description
 # ========================================================================
 
-
+#' @importFrom stats cov
 cov.rv <- function(x, y=NULL, ...)  ## EXPORT cov.rv
 {
   if (!is.matrix(x)) {

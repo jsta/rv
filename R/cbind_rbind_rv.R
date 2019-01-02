@@ -35,7 +35,7 @@
 #'   cbind.rv(x, y)
 #'   rbind.rv(x, y)
 #' 
-#' @export cbind.rv
+#' @method cbind rv
 cbind.rv <- function(..., deparse.level = 1)
 {
   if (deparse.level != 1) 

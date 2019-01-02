@@ -54,6 +54,7 @@ rvnorm <- function (n=1, mean=0, sd=1, var=NULL, precision) {
   rvvapply(stats::rnorm, n.=n, mean=mean, sd=sd)
 }
 
+#' @importFrom stats rnorm
 .mvrnorm <- function (n = 1, mu, Sigma, tol = 1e-06, empirical = FALSE) { 
   #
   # from the MASS package

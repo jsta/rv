@@ -42,7 +42,7 @@
 #'   \dontrun{plot(y, x)}
 #'   \dontrun{plot(y)}
 #' 
-#' @export plot.rv
+#' @method plot rv
 plot.rv <- function (x, y=NULL, ...)
 { 
   .plot.default.rv(x, y, ...)
@@ -162,7 +162,7 @@ plot.rvsummary <- function (x, y=NULL, ...)
     return(list(x = as.double(x), y = as.double(y), xlab = xlab, ylab = ylab))
 }
 
-
+#' @importFrom graphics plot.window Axis box title plot.new
 .plot.default.rv <- function (x, y = NULL, type = "p", xlim = NULL, ylim = NULL, log = "", main = NULL, sub = NULL, xlab = NULL, ylab = NULL, ann = par("ann"), axes = TRUE, frame.plot = axes, panel.first = NULL, panel.last = NULL, asp = NA, rvlwd = rvpar("rvlwd"),  rvcol=rvpar("rvcol"), rvpoint=rvpar("rvpoint"), rvlex=rvpar("rvlex"), ...) 
 {
     localAxis <- function(..., col, bg, pch, cex, lty, lwd) Axis(...)

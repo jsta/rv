@@ -32,6 +32,7 @@
 #'   print(c(x,y))
 #' 
 #' @export rvt
+#' @importFrom stats rt
 rvt <- function (n = 1, mu = 0, scale = 1, df, ncp, Sigma) { ## CHECK
   if (! missing(Sigma)) {
     t <- .rvmvt(n = n, Sigma = Sigma, df = df)

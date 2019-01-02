@@ -42,6 +42,7 @@ as.rvsummary.rvsummary <- function (x, ...)  # NOEXPORT
   return(x)
 }
 
+#' @importFrom stats quantile
 as.rvsummary.rvnumeric <- function (x, quantiles=(0:200/200), ...) # NOEXPORT
 {
   ms <- .rvmeansd(x, names.=c("mean", "sd", "NAS", "n.sims"))
@@ -125,6 +126,7 @@ as.rvsummary.rvfactor <- function (x, ...) # NOEXPORT
   structure(x, class=c("rvsummary_rvfactor", "rvsummary"))
 }
 
+#' @importFrom stats qnorm
 as.rvsummary.data.frame <- function (x, quantiles=rvpar("summary.quantiles.numeric"), ...)
 {
   name <- names(x)

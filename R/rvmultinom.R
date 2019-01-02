@@ -29,6 +29,7 @@
 #'   y <- rvmultinom(n=3, size=1, prob=c(0.20, 0.30, 0.50))
 #' 
 #' @export rvmultinom
+#' @importFrom stats rmultinom 
 rvmultinom <- function(n=1, size=1, prob) {
   if (length(prob)<=1) {
     return(rvbinom(n=n, size=size, prob=prob))

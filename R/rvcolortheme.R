@@ -9,6 +9,7 @@
   darkgray=c("black", "grey20", "grey40")
 )
 
+#' @importFrom grDevices colors
 .makervcolortheme <- function (col)
 {
   colors.with.numbers <- colors()[regexpr("[a-z]1$", colors())>0]

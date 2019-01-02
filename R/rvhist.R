@@ -24,6 +24,7 @@
 #' See also \code{vignette("rv")}.
 #' @keywords classes
 #' @export rvhist
+#' @importFrom graphics par
 rvhist <- function (x, ...)  {
     if (!is.null(dim(x))) 
         par(mfcol = dim(x))

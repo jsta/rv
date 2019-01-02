@@ -21,6 +21,7 @@
 #'   y <- rvpois(lambda=lbd) # Not a Poisson rv, although each simulation is a draw from Poisson.
 #' 
 #' @export rvpois
+#' @importFrom stats rpois
 rvpois <- function (n=1, lambda) {
   rvvapply(rpois, n.=n, lambda=lambda)
 }

@@ -31,6 +31,7 @@
 #'   print(as.logical(rvbern(1, 0.5))) # equivalent
 #' 
 #' @export rvbern
+#' @importFrom stats rbinom
 rvbern <- function (n=1, prob, logical=FALSE) {
   r <- rvvapply(rbinom, n.=n, size=1, prob=prob)
   if (logical) {

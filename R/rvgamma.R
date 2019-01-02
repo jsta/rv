@@ -23,6 +23,7 @@
 #'   round(rvmedian(rvngamma(n=1, shape=1:10, rate=1)), 1) ## close to 1:10
 #' 
 #' @export rvgamma
+#' @importFrom stats rgamma
 rvgamma <- function (n=1, shape, rate = 1, scale = 1/rate)  {
   rvvapply(rgamma, n.=n, shape=shape, scale=scale)
 }

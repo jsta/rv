@@ -18,6 +18,7 @@
 #'   y <- rvexp(1, rate=rvexp(1)) # What marginal distribution does y have now?
 #' 
 #' @export rvexp
+#' @importFrom stats rexp
 rvexp <- function (n=1, rate=1) {
   rvvapply(rexp, n.=n, rate=rate)
 }

@@ -21,6 +21,7 @@
 #'   #
 #' 
 #' @export rvchisq
+#' @importFrom stats rchisq
 rvchisq <- function (n=1, df, ncp = 0) {
   if (missing(ncp)) {
     rvvapply(rchisq, n.=n, df=df)

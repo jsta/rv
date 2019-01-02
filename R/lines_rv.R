@@ -40,7 +40,8 @@
 #'   lines(rvquantile(y, 0.025), col="gray")
 #'   lines(rvquantile(y, 1-0.025), col="gray")
 #' 
-#' @export lines.rv
+#' @method lines rv
+#' @importFrom graphics lines
 lines.rv <- function(x, y, type="l", ...) {
   if (is.rvobj(x) || is.rvobj(y)) {
     points.rv(x, y, type="l", ...)

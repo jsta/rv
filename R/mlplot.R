@@ -128,6 +128,7 @@ mlplot <- function (X, ...)
   UseMethod("mlplot")
 }
 
+#' @importFrom graphics plot points
 mlplot.default <- function (X, y.center = TRUE, y.shift = 0, y.map = NULL, mar = par("mar"), left.margin = 3, vline=NULL, top.axis = TRUE, exp.labels=FALSE, x.ticks = NULL, axes = NULL, xlim = NULL, ylim = NULL, xlab=deparse(substitute(X)), ylab=NULL, las = NULL, add = FALSE, ...) 
 {
     if (missing(xlab)) {

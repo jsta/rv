@@ -2,6 +2,7 @@
 # cor  -  correlation function
 # ========================================================================
 
+#' @importFrom stats cor
 cor.rv <- function(x, y=NULL, ...)  {
   if (!is.matrix(x)) {
     if (is.null(y)) {

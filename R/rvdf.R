@@ -15,6 +15,7 @@ rvdf <- function (..., row.names = NULL, check.rows = FALSE,
   return(X)  
 }
 
+#' @importFrom utils head tail
 print.rvdf <- function (x, ..., digits=NULL, quote=FALSE, right=TRUE, row.names=TRUE) {
   constants <- sapply(x, is.constant)
   df <- as.data.frame(lapply(x, rvmedian))

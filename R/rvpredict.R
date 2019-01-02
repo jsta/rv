@@ -56,10 +56,12 @@
 #'   y.pred2 <- rvpredict(obj, newdata=X.pred2)
 #' 
 #' @export rvpredict
+#' @importFrom stats delete.response
 rvpredict <- function (object, ...) {
   UseMethod("rvpredict")
 }
 
+#' @importFrom stats model.matrix na.fail terms
 .X.and.offset <- function (object, newdata) {
   offset <- object$offset
   tt <- terms(object)
@@ -105,6 +107,7 @@ rvpredict.lm <- function (object, newdata, ...) {
   return(y.pred)
 }
 
+#' @importFrom stats model.frame
 rvmodel.frame <- function (formula, data=NULL, ...) {
   if (is.null(data)) {
     return(model.frame(formula, data=data, ...))

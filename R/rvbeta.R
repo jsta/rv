@@ -26,6 +26,7 @@
 #'    rvnbeta(1, shape1=y, shape2=n-y)
 #' 
 #' @export rvbeta
+#' @importFrom stats rbeta
 rvbeta <- function (n=1, shape1, shape2) {
   rvvapply(rbeta, n.=n, shape1=shape1, shape2=shape2)
 }

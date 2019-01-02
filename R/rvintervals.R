@@ -1,5 +1,5 @@
 
-
+#' @importFrom stats na.omit
 rvintervals <- function (x, rvpoint=rvpar("rvpoint"), ...) {
   which.quantiles <- list(
     "NA" = NA,

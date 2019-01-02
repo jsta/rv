@@ -18,6 +18,9 @@
 #' @param freq logical; if \code{FALSE}, plots as probability density, as it
 #' should.
 #' @param \dots Other arguments passed on to \link{hist}
+#' 
+#' @importFrom graphics hist
+#' 
 #' @author Jouni Kerman \email{jouni@@kerman.com}
 #' @references Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
 #' Posterior Simulations Using Random Variable Objects. Statistics and
