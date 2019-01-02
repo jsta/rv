@@ -12,6 +12,7 @@ as.rv.rv <- function(x, ...)
 }
 
 #' @method as.rv numeric
+#' @export
 as.rv.numeric <- function(x, ...)
 {
   if (is.rv(x)) {
@@ -25,30 +26,35 @@ as.rv.numeric <- function(x, ...)
 }
 
 #' @method as.rv logical
+#' @export
 as.rv.logical <- function(x, ...)
 {
   as.rv.numeric(x)
 }
 
 #' @method as.rv integer
+#' @export
 as.rv.integer <- function(x, ...)
 {
   as.rv.numeric(x)
 }
 
 #' @method as.rv list
+#' @export
 as.rv.list <- function(x, ...)
 {
   stop("Cannot coerce an arbitrary list to an rv object")
 }
 
 #' @method as.rv matrix
+#' @export
 as.rv.matrix <- function(x, ...)
 {
   as.rv.numeric(x)
 }
 
 #' @method as.rv default
+#' @export
 as.rv.default <- function(x, ...)
 {
   if (is.null(x)) return(NULL)
@@ -56,6 +62,7 @@ as.rv.default <- function(x, ...)
 }
 
 #' @method as.rv xtabs
+#' @export
 as.rv.xtabs <- function (x, ...) 
 {
   # NAME

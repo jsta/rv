@@ -28,7 +28,7 @@
 #' 
 #' See also \code{vignette("rv")}.
 #' @keywords aplot
-#' @examples
+#' @examples \dontrun{
 #'  
 #'   x <- as.rv(1:10)
 #'   y <- rvnorm(mean=x)
@@ -39,8 +39,10 @@
 #'   plot(x, rvmedian(y), type="b", pch=19, main="Median & middle 95 pc CI band", col="darkgray")
 #'   lines(rvquantile(y, 0.025), col="gray")
 #'   lines(rvquantile(y, 1-0.025), col="gray")
+#'   }
 #' 
 #' @method lines rv
+#' @export
 #' @importFrom graphics lines
 lines.rv <- function(x, y, type="l", ...) {
   if (is.rvobj(x) || is.rvobj(y)) {

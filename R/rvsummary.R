@@ -1,8 +1,10 @@
 
+#' @export
 as.rvsummary <- function (x, ...) {
   UseMethod("as.rvsummary")
 }
 
+#' @export
 is.rvsummary <- function (x) {
   inherits(x, "rvsummary")
 }
@@ -17,11 +19,15 @@ print.rvsummary <- function (x, digits=3, ...) # METHOD
   print(s)
 }
 
+#' @export
+#' @method as.rvsummary default
 as.rvsummary.default <- function (x, ...)  # NOEXPORT
 {
   as.rvsummary(as.rv(x), ...)
 }
 
+#' @export
+#' @method as.rvsummary rv
 as.rvsummary.rv <- function (x, quantiles=(0:200/200), ...)  # NOEXPORT
 {
   y <- if (is.logical(x)) {
@@ -34,15 +40,15 @@ as.rvsummary.rv <- function (x, quantiles=(0:200/200), ...)  # NOEXPORT
   return(y)
 }
 
-
-
-
-
+#' @export
+#' @method as.rvsummary rvsummary
 as.rvsummary.rvsummary <- function (x, ...)  # NOEXPORT
 {
   return(x)
 }
 
+#' @export
+#' @method as.rvsummary rvnumeric
 #' @importFrom stats quantile
 as.rvsummary.rvnumeric <- function (x, quantiles=(0:200/200), ...) # NOEXPORT
 {
@@ -59,6 +65,8 @@ as.rvsummary.rvnumeric <- function (x, quantiles=(0:200/200), ...) # NOEXPORT
   structure(x, class=c("rvsummary_numeric", "rvsummary"), quantiles=quantiles)
 }
 
+#' @export
+#' @method as.rvsummary rvinteger
 as.rvsummary.rvinteger <- function (x, quantiles=(0:200/200), ...) # NOEXPORT
 {
   ms <- .rvmeansd(x, names.=c("mean", "sd", "NAS", "n.sims"))
@@ -74,8 +82,8 @@ as.rvsummary.rvinteger <- function (x, quantiles=(0:200/200), ...) # NOEXPORT
   structure(x, class=c("rvsummary_integer", "rvsummary"), quantiles=quantiles)
 }
 
-
-
+#' @export
+#' @method as.rvsummary rvlogical
 as.rvsummary.rvlogical <- function (x, ...) # NOEXPORT
 {
   ms <- .rvmeansd(x, names.=c("mean", "sd", "NAS", "n.sims"))
@@ -90,6 +98,8 @@ as.rvsummary.rvlogical <- function (x, ...) # NOEXPORT
   structure(x, class=c("rvsummary_logical", "rvsummary"))
 }
 
+#' @export
+#' @method as.rvsummary rvfactor
 as.rvsummary.rvfactor <- function (x, ...) # NOEXPORT
 {
   levels <- levels(x)
@@ -127,6 +137,8 @@ as.rvsummary.rvfactor <- function (x, ...) # NOEXPORT
   structure(x, class=c("rvsummary_rvfactor", "rvsummary"))
 }
 
+#' @export
+#' @method as.rvsummary data.frame
 #' @importFrom stats qnorm
 as.rvsummary.data.frame <- function (x, quantiles=rvpar("summary.quantiles.numeric"), ...)
 {
@@ -159,6 +171,7 @@ as.rvsummary.data.frame <- function (x, quantiles=rvpar("summary.quantiles.numer
 }
 
 #' @export
+#' @method as.double rvsummary
 as.double.rvsummary <- function (x, ...)
 {
   if (is.null(attr(x, "quantiles"))) {

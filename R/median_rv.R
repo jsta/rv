@@ -29,6 +29,9 @@
 #'   median(x)       ## A random scalar (vector of length 1).
 #'   rvmedian(x)     ## A numeric vector of length 10.
 #' 
+#' @export
+#' @importFrom stats median
+#' @method median rv
 median.rv <- function(x, na.rm=FALSE, ...) {
   simapply(x, stats::median, na.rm=na.rm, ...)
 }

@@ -27,6 +27,7 @@ The size of the sample (number of segments drawn) is determined by
 See \code{\link{points.rv}} for details of the parameters.
 }
 \examples{
+\dontrun{
  
   x <- as.rv(1:10)
   y <- rvnorm(mean=x)
@@ -37,6 +38,7 @@ See \code{\link{points.rv}} for details of the parameters.
   plot(x, rvmedian(y), type="b", pch=19, main="Median & middle 95 pc CI band", col="darkgray")
   lines(rvquantile(y, 0.025), col="gray")
   lines(rvquantile(y, 1-0.025), col="gray")
+  }
 
 }
 \references{
