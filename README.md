@@ -3,12 +3,12 @@
 
 # rv
 
-The goal of rv is to …
+The goal of rv is to provide tools for simulation-based random variables
 
 ## Installation
 
-You can install the released version of rv from
-[CRAN](https://CRAN.R-project.org) with:
+You can install the development version of `rv` from
+[Github](https://github.com/jsta/rv) with:
 
 ``` r
 devtools::install_github("jsta/rv")
