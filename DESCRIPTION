@@ -1,8 +1,13 @@
 Package: rv
 Title: Simulation-Based Random Variable Objects
-Version: 2.3.2
-Author: Jouni Kerman <jouni@kerman.com>
-Maintainer: Jouni Kerman <jouni@kerman.com>
+Version: 2.3.3
+Authors@R: c(
+  person("Jouni", "Kerman", role = c("aut"), email = "jouni@kerman.com"),
+  person("Joseph", "Stachelek", role = c("ctb", "cre"), email = "stachel2@msu.edu")
+  )
+Maintainer: Joseph Stachelek <stachel2@msu.edu>
+URL: https://github.com/jsta/rv
+BugReports: https://github.com/jsta/rv/issues
 Description: Implements simulation-based random variable class and a suite of methods.
 Depends: R(>= 2.15.1), stats, utils, grDevices, graphics
 License: GPL-2
