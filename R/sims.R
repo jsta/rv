@@ -34,6 +34,7 @@ sims <- function(x, ...) {
 #' @rdname sims
 #' @param dimensions logical, try to preserve the dimensions of \code{x}
 #' @method sims rvsummary
+#' @export
 sims.rvsummary <- function(x, dimensions=FALSE,  ...) {
   ## NOEXPORT
   S <- matrix(unlist(x, use.names=FALSE), nrow=length(x[[1]]))
@@ -58,6 +59,7 @@ sims.rvsummary <- function(x, dimensions=FALSE,  ...) {
 }
 
 #' @method sims default
+#' @export
 sims.default <- function(x, ...) {
   ## NOEXPORT
   ##
@@ -90,7 +92,9 @@ sims.default <- function(x, ...) {
 
 #' @rdname sims
 #' @param n.sims (optional) number of simulations
+#' 
 #' @method sims rv
+#' @export
 sims.rv <- function(x, dimensions=FALSE, n.sims=getnsims(), ...) {
   ## NOEXPORT
   if (length(x)<1) {

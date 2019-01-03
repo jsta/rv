@@ -1,5 +1,7 @@
 
 
+#' @export
+#' @method c rv
 c.rv <- function(..., recursive=FALSE)
 {
   ## a kludge to disable dispatching rv
@@ -16,6 +18,7 @@ c.rvsummary <- function(..., recursive=FALSE)
   return(x)
 }
 
+#' @export
 cc <- function(..., recursive=FALSE) {
   args <- lapply(as.list(match.call())[-1], eval, envir=parent.frame())
   cls <- sapply(args, class)

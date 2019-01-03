@@ -54,6 +54,8 @@ posterior <- function(obj, ...) {
 ## posterior.lm
 ## ========================================================================
 
+#' @method posterior lm
+#' @export
 posterior.lm <- function (obj, ...) {
   ## Modified version of 'sim' (from Andrew Gelman's library (gelman@stat.columbia.edu))
   ##
@@ -73,6 +75,8 @@ posterior.lm <- function (obj, ...) {
 # posterior.glm
 # ========================================================================
 
+#' @method posterior glm
+#' @export
 posterior.glm <- function(obj, ...) {
   ## Modified version of 'sim' (from Andrew Gelman's library (gelman@stat.columbia.edu))
   ##

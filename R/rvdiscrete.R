@@ -18,7 +18,7 @@
 #' 
 #' See also \code{vignette("rv")}.
 #' @keywords classes
-#' @examples
+#' @examples \dontrun{
 #' 
 #'   # 8 people draw a number each from 1..10 with replacement.
 #'   # What is the probability that the highest number of the eight is "10"?
@@ -28,6 +28,7 @@
 #'   # has at least "3"?
 #'   s <- sort(u) # order distribution
 #'   Pr(s[3]>=3)
+#'   }
 #' 
 #' @export rvdiscrete
 rvdiscrete <- function (n=1, x, prob=NULL) {

@@ -34,6 +34,7 @@ summary.rv <- function (object, ...) {
 }
 
 #' @method summary rvfactor
+#' @export
 summary.rvfactor <- function (object, all.levels=TRUE, ...) {
   summary(as.rvsummary(object), all.levels=all.levels, ...)
 }

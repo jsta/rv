@@ -26,6 +26,7 @@
 #'   print(rvnorm(mean = rvnorm(1)))
 #' 
 #' @method print rv
+#' @export
 print.rv <- function(x, digits = rvpar("print.digits"), ...) {
   if (length(x)==0) {
     return(cat("rv(0)\n"))

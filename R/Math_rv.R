@@ -45,24 +45,28 @@ Math.rv <- function(x, ...) {
 
 # cumsum, cumprod, cummax, cummin
 #' @method cumsum rv
+#' @export
 cumsum.rv <- function (x)
 {
   simapply(x, cumsum)
 }
 
 #' @method cumprod rv
+#' @export
 cumprod.rv <- function (x)
 {
   simapply(x, cumprod)
 }
 
 #' @method cummin rv
+#' @export
 cummin.rv <- function (x)
 {
   simapply(x, cummin)
 }
 
 #' @method cummax rv
+#' @export
 cummax.rv <- function (x)
 {
   simapply(x, cummax)

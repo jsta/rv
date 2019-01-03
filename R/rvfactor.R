@@ -25,13 +25,14 @@
 #' 
 #' See also \code{vignette("rv")}.
 #' @keywords classes
-#' @examples
+#' @examples \dontrun{
 #' 
 #'   # Probabilities of each integer of trunc(Z) where Z ~ N(0,1) ?
 #'   x <- rvnorm(1)
 #'   rvfactor(trunc(x))
 #'   rvfactor(x>0)
 #'   rvfactor(rvpois(1, lambda=0.5))
+#'   }
 #' 
 #' @export rvfactor
 rvfactor <- function (x, ...) {
@@ -41,6 +42,7 @@ rvfactor <- function (x, ...) {
 #' @rdname rvfactor
 #' @param levels factor levels (labels for the levels)
 #' @method rvfactor default
+#' @export
 rvfactor.default <- function (x, levels=NULL, ...) {
   f <- as.factor(x)
   a <- sims(as.rv(as.integer(f)))
@@ -55,6 +57,7 @@ rvfactor.default <- function (x, levels=NULL, ...) {
 }
 
 #' @method rvfactor rv
+#' @export
 rvfactor.rv <- function (x, levels=NULL, ...) {
   a <- sims(x)
   f <- as.factor(a)
@@ -69,33 +72,44 @@ rvfactor.rv <- function (x, levels=NULL, ...) {
   return(rvf)
 }
 
+#' @export
+#' @method is.numeric rvfactor
 is.numeric.rvfactor <- function (x) {
   FALSE
 }
 
+#' @export
 is.rvfactor <- function (x) {
   UseMethod("is.rvfactor")
 }
 
 #' @method is.rvfactor rvfactor
+#' @export
 is.rvfactor.rvfactor <- function (x) {
   TRUE
 } 
 
+#' @method is.rvfactor rv
+#' @export
 is.rvfactor.rv <- function (x) {
   all(rvsimapply(x, is.factor))
 } 
 
+#' @method is.rvfactor default
+#' @export
 is.rvfactor.default <- function (x) {
   FALSE
 } 
 
+#' @export
 as.rvfactor <- function (x, ...)
 {
   if (is.rvfactor(x)) x else rvfactor(x)
 } 
 
 
+#' @method as.rv rvfactor
+#' @export
 as.rv.rvfactor <- function (x, ...) {
   return(x)
   attr(x, "levels") <- NULL
@@ -105,6 +119,7 @@ as.rv.rvfactor <- function (x, ...) {
   return(x)
 }
 
+#' @export
 "[.rvfactor" <- function (x, ..., drop = FALSE) {
   y <- NextMethod("[")
   attr(y, "levels") <- attr(x, "levels")

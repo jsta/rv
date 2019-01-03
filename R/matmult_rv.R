@@ -4,10 +4,13 @@
 # DEBUG: how to make this work with outer()?
 #
 
+#' @method "%*%" rv
+#' @export
 "%*%.rv" <- function(x, y) { ## CHECK: TTRY if is.constant(x) => normal
   return("%**%"(x, y))
 }
 
+#' @export
 "%**%" <- function(x, y) { ## CHECK: TTRY if is.constant(x) => normal
   if (! is.rv(x) && ! is.rv(y)) {
     return(.Primitive("%*%")(x, y))
@@ -23,7 +26,3 @@
     rvmapply(base::crossprod, x=t(as.rv(x)), y=as.rv(y))
   }
 }
-
-
-
-

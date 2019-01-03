@@ -19,6 +19,8 @@
 #'   x <- rvnorm(10)
 #'   L <- as.list(x)
 #' 
+#' @export
+#' @method as.list rv
 as.list.rv <- function (x, ...) { ## 
   L <- vector(mode="list", length=length(x))
   for (i in seq_along(x)) {

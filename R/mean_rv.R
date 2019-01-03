@@ -31,6 +31,8 @@
 #'   m2 <- rvnorm(1, mean=0, sd=1/sqrt(10))
 #'   print(c(m1, m2)) # should have the same distribution
 #' 
+#' @export
+#' @method mean rv
 mean.rv <- function(x, ...) {
   rvsims(rowMeans(sims(x), ...))
 }

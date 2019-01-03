@@ -1,8 +1,9 @@
 
-
 #' @rdname rvfactor
 #' @param all.levels logical; whether to print all levels or not (see below for
 #' details)
+#' @method print rvfactor
+#' @export
 print.rvfactor <- function(x, all.levels=FALSE, ...) {
   s <- summary(x, all.levels=all.levels)
   ds <- dimnames(s)
@@ -19,4 +20,3 @@ print.rvfactor <- function(x, all.levels=FALSE, ...) {
   }
   print(s)
 }
-

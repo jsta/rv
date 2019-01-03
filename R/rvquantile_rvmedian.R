@@ -1,10 +1,12 @@
 
-
+#' @export
 rvquantile <- function(x, ...)
 {
   UseMethod("rvquantile")
 }
 
+#' @export
+#' @method rvquantile rv
 rvquantile.rv <- function(x, probs=c(0.025, 0.10, 0.25, 0.50, 0.75, 0.90, 0.975), ignoreInf=FALSE, ...)
 {
   if (ignoreInf) {
@@ -15,6 +17,8 @@ rvquantile.rv <- function(x, probs=c(0.025, 0.10, 0.25, 0.50, 0.75, 0.90, 0.975)
   }
 }
 
+#' @export
+#' @method rvquantile rvsummary
 rvquantile.rvsummary <- function(x, probs=c(0.025, 0.10, 0.25, 0.50, 0.75, 0.90, 0.975), ...)
 {
   Q <- t(sims(x))

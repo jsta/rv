@@ -61,8 +61,7 @@ rv objects are internally lists with the class attribute set to
 }
 \examples{
 
-  x <- rv(1)
-  
+  x <- rv(1)   
 
 }
 \references{

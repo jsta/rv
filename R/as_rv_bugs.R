@@ -1,3 +1,6 @@
+
+#' @export
+#' @method as.rvsummary bugs
 as.rvsummary.bugs <- function (x, list.=TRUE, ...) {
   if (list.) {
     lapply(as.rv(x, list.=TRUE), as.rvsummary, ...)
@@ -32,6 +35,9 @@ as.rvsummary.bugs <- function (x, list.=TRUE, ...) {
 #' 
 #' See also \code{vignette("rv")}.
 #' @keywords classes
+#' 
+#' @export
+#' @method as.rv bugs
 as.rv.bugs <- function (x, list.=TRUE, ...) {
   # as.rv.bugs - transform a R2WinBUGS object into a random variable object
   # n.chains,

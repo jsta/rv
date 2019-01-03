@@ -2,6 +2,7 @@
 #' Coerce an object to an rvsummary
 #' 
 #' @param x an rv object
+#' @param \dots arguments passed to base::summary
 #' @export
 as.rvsummary <- function (x, ...) {
   UseMethod("as.rvsummary")
@@ -17,6 +18,7 @@ is.rvsummary <- function (x) {
 
 #' @export
 #' @inheritParams base::round
+#' @method print rvsummary
 print.rvsummary <- function (x, digits=3, ...) # METHOD
 {
   s <- summary(x)
@@ -188,11 +190,14 @@ as.double.rvsummary <- function (x, ...)
 }
 
 #' @export
+#' @method print rvsummary_rvfactor
 print.rvsummary_rvfactor <- function (x, all.levels=FALSE, ...) # METHOD
 {
   print(summary(x, all.levels=all.levels, ...))
 }
 
+#' @export
+#' @method as.data.frame rvsummary
 as.data.frame.rvsummary <- function (x, ...) {
   S <- summary(x, ...)
   rownames(S) <- S[["name"]]
@@ -200,6 +205,8 @@ as.data.frame.rvsummary <- function (x, ...) {
   return(S)
 }
 
+#' @export
+#' @method summary rvsummary
 summary.rvsummary <- function (object, ...)
 {
   # supposed to be called AFTER other methods (e.g. summary.rvsummary_rvnumeric)
@@ -255,6 +262,8 @@ summary.rvsummary <- function (object, ...)
   return(Summary)
 }
 
+#' @export
+#' @method summary rvsummary_numeric
 summary.rvsummary_numeric <- function (object, ...)
 {
   x <- object
@@ -274,6 +283,8 @@ summary.rvsummary_numeric <- function (object, ...)
   NextMethod()
 }
 
+#' @export
+#' @method summary rvsummary_logical
 summary.rvsummary_logical <- function (object, ...)
 {
   x <- object
@@ -283,6 +294,8 @@ summary.rvsummary_logical <- function (object, ...)
   NextMethod()
 }
 
+#' @export
+#' @method summary rvsummary_integer
 summary.rvsummary_integer <- function (object, ...)
 {
   x <- object
@@ -308,6 +321,7 @@ summary.rvsummary_integer <- function (object, ...)
 
 
 #' @method summary rvsummary_rvfactor
+#' @export
 summary.rvsummary_rvfactor <- function (object, all.levels=TRUE, ...) 
 {
   x <- object

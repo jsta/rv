@@ -11,6 +11,9 @@
 #' @author J Kerman
 #' @references Stan: \url{http://mc-stan.org/}
 #' @keywords manip
+#' 
+#' @export
+#' @method as.rv stanfit
 as.rv.stanfit <- function (x, list.=TRUE, ...) {
   f <- get("extract", mode="function")
   L <- lapply(f(x), rvsims)

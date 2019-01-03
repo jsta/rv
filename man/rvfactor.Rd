@@ -45,12 +45,14 @@ The number of levels to print when \code{all.levels==FALSE} can be set by
 \code{rvpar(max.levels=...)}. By default this is set to 10.
 }
 \examples{
+\dontrun{
 
   # Probabilities of each integer of trunc(Z) where Z ~ N(0,1) ?
   x <- rvnorm(1)
   rvfactor(trunc(x))
   rvfactor(x>0)
   rvfactor(rvpois(1, lambda=0.5))
+  }
 
 }
 \references{

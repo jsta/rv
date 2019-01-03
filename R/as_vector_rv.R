@@ -21,6 +21,8 @@
 #'   x <- rvmatrix(rvnorm(10), 2, 5)
 #'   as.vector(x)
 #' 
+#' @export
+#' @method as.vector rv
 as.vector.rv <- function(x, mode="any") {
   a <- attributes(x) 
   x <- lapply(unclass(x), as.vector, mode=mode)

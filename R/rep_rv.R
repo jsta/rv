@@ -23,6 +23,8 @@
 #' 
 #'   print(rep(rvnorm(1), times=4))
 #' 
+#' @export
+#' @method rep rv
 rep.rv <- function (x, times, ...) {
   if (! is.rv(x)) return(rep(x, times, ...))
   if (missing(times)) {

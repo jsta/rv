@@ -46,11 +46,10 @@
 #' @keywords classes
 #' @examples
 #' 
-#'   x <- rv(1)
-#'   
+#'   x <- rv(1)   
 #' 
 #' @export rv
-rv <- function(length=0) {
+rv <- function(length = 0) {
   if (is.numeric(length)) {
     x <- as.list(rep.int(NA, length))
   } else {
@@ -97,6 +96,7 @@ is.rv <- function(x)
 #'   print(as.double(x))
 #' 
 #' @export
+#' @method as.double rv
 as.double.rv <- function(x, ...)
 {
   simapply(x, as.double, ...)
@@ -131,6 +131,7 @@ as.double.rv <- function(x, ...)
 #'   print(x)                # Shows the expectations and not the quantiles
 #' 
 #' @export
+#' @method as.logical rv
 as.logical.rv <- function(x, ...)
 {
   simapply(x, as.logical, ...)
@@ -165,6 +166,7 @@ as.logical.rv <- function(x, ...)
 #'   print(x)                # Shows also the 'min' and 'max' columns
 #' 
 #' @export
+#' @method as.integer rv
 as.integer.rv <- function (x, ...)
 {
   simapply(x, as.integer, ...)

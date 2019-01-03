@@ -23,7 +23,9 @@
 #'   x <- rvnorm(mean=1:10, sd=1)
 #'   print(range(x))
 #'   print(quantile(x, c(0,1)))
-#' 
+#'
+#' @export
+#' @method range rv 
 range.rv <- function(..., na.rm=FALSE, finite=FALSE) {
   sims <- sims(c(...)) # an L x n matrix of numbers
   m <- apply(sims, 1, 'range', na.rm=na.rm, finite=finite) # gives a 2xL matrix!!!

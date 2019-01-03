@@ -41,14 +41,20 @@ rvnsims <- function (x) {
   UseMethod("rvnsims")
 }
 
+#' @method rvnsims rv
+#' @export
 rvnsims.rv <- function (x) {
   sapply(unclass(x), length)
 }
 
+#' @method rvnsims rvsummary
+#' @export
 rvnsims.rvsummary <- function (x) {
   unlist(rvattr(x, "n.sims"), use.names=TRUE)
 }
 
+#' @method rvnsims default
+#' @export
 rvnsims.default <- function (x) {
   if (!(is.atomic(x) || is.recursive(x))) {
     stop("rvnsims: no applicable method for class '", class(x), "'")

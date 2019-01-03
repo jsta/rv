@@ -34,6 +34,7 @@
 #'   rv.all.na(x) # FALSE
 #'}
 #' @export
+#' @method is.na rv
 is.na.rv <- function(x) {
   simapply(x, is.na)
 }

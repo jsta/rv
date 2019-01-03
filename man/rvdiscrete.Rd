@@ -24,6 +24,7 @@ values \code{x} and corresponding probabilities \code{prob}.  If \code{prob}
 is not given, all values are considered equally distributed.
 }
 \examples{
+\dontrun{
 
   # 8 people draw a number each from 1..10 with replacement.
   # What is the probability that the highest number of the eight is "10"?
@@ -33,6 +34,7 @@ is not given, all values are considered equally distributed.
   # has at least "3"?
   s <- sort(u) # order distribution
   Pr(s[3]>=3)
+  }
 
 }
 \references{

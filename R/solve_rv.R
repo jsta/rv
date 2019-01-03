@@ -21,6 +21,7 @@
 #' See also \code{vignette("rv")}.
 #' @keywords classes
 #' @export
+#' @method solve rv
 solve.rv <- function (a, b, ...) {
   rvmapply(base::solve, a=a, b=b, ...)
 }

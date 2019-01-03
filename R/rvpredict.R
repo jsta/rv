@@ -90,7 +90,9 @@ rvpredict <- function (object, ...) {
 #' matrix is used instead; the resulting predictions are then the
 #' \emph{replications} of the data. \emph{Note:} this can be an \code{rv}
 #' object to incorporate extra uncertainty into predictions.
+#' 
 #' @method rvpredict lm
+#' @export
 rvpredict.lm <- function (object, newdata, ...) {
   L <- .X.and.offset(object, newdata)
   X <- L$X

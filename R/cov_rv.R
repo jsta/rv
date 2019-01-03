@@ -3,6 +3,7 @@
 # ========================================================================
 
 #' @importFrom stats cov
+#' @export
 cov.rv <- function(x, y=NULL, ...)  ## EXPORT cov.rv
 {
   if (!is.matrix(x)) {

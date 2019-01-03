@@ -22,6 +22,7 @@
 #' See also \code{vignette("rv")}.
 #' @keywords manip
 #' @export
+#' @method sort rv
 sort.rv <- function (x, ...) {
   simapply(x, base::sort, ...)
 }

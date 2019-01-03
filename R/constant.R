@@ -3,17 +3,22 @@
 # Value:  a logical vector (not rv), TRUE if a component is constant w.p. 1
 #
 
+#' @export
 is.constant <- function(x) {
   # Note: this corresponds to "constant with probability 1", while
   # rvvar(x)==0 would correspond to "constant almost surely"
   return(rvnsims(x)==1)
 }
 
+#' @noRd
+#' @export
 as.constant <- function(x)
 {
   UseMethod('as.constant')
 }
 
+#' @method as.constant rv
+#' @export
 as.constant.rv <- function (x)
 {
   z <- rvmean(x)
@@ -32,6 +37,8 @@ as.constant.rvsummary <- function(x)
   structure(unlist(x), names=names(x))  
 }
 
+#' @method as.constant default
+#' @export
 as.constant.default <- function (x)
 {
   return(x)
