@@ -22,9 +22,11 @@ The Dirichlet distribution is a generalization of the Beta distribution.
 (If alpha is of length two, \code{rvdirichlet} draws from the Beta model.)
 }
 \examples{
+\dontrun{
 
   a <- rvdirichlet(1, alpha=c(6, 3, 1)) # 
-  sum(a) # one with probability 1
+  sum(a) # one with probability 1   
+  }
 
 }
 \references{

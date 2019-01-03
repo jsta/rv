@@ -40,6 +40,7 @@ rvvar <- function (x)
 }
 
 #' @method rvvar rv
+#' @export
 rvvar.rv <- function (x) # NOEXPORT
 {
   S <- sims(x)
@@ -54,37 +55,42 @@ rvvar.rv <- function (x) # NOEXPORT
 }
 
 #' @method rvvar rvsummary
+#' @export
 rvvar.rvsummary <- function (x) # NOEXPORT
 {
   return(unlist(rvattr(x, "sd"), use.names=TRUE)^2)
 }
 
 #' @method rvvar default
+#' @export
 rvvar.default <- function (x) # NOEXPORT
 {
   rep.int(0, length(x))
 }
 
+#' @export
 rvsd <- function (x)
 {
   UseMethod("rvsd")
 }
 
 #' @method rvsd rv
+#' @export
 rvsd.rv <- function (x) # NOEXPORT
 {
   sqrt(rvvar(x))
 }
 
+#' @method rvsd rvsummary
+#' @export
 rvsd.rvsummary <- function (x) # NOEXPORT
 {
   unlist(rvattr(x, "sd"), use.names=TRUE)
 }
 
+#' @method rvsd default
+#' @export
 rvsd.default <- function (x) # NOEXPORT
 {
   rep.int(0, length(x))
 }
-
-
-

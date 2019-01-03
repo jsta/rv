@@ -41,6 +41,8 @@ rvmean <- function (x) {
   UseMethod("rvmean", x)
 }
 
+#' @method rvmean rv
+#' @export
 rvmean.rv <- function (x) {
   m <- colMeans(sims(x), na.rm=TRUE)
   names(m) <- names(x)
@@ -49,10 +51,14 @@ rvmean.rv <- function (x) {
   return(m)
 }
 
+#' @method rvmean rvsummary
+#' @export
 rvmean.rvsummary <- function (x) {
   unlist(rvattr(x, "mean"), use.names=TRUE)
 }
 
+#' @method rvmean default
+#' @export
 rvmean.default <- function (x) {
   if (!is.numeric(x)) {
     x[] <- as.numeric(x)
@@ -60,11 +66,13 @@ rvmean.default <- function (x) {
   return(x)
 }
 
+#' @export
 E <- function (x) {
   rvmean(x)
 }
 
 #' @noRd
+#' @export
 #' @param X a logical rv object
 Pr <- function (X) {
   if (! is.logical.rv(X)) {

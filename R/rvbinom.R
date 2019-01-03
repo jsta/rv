@@ -18,13 +18,14 @@
 #' 
 #' See also \code{vignette("rv")}.
 #' @keywords classes
-#' @examples
+#' @examples \dontrun{
 #' 
-#'   s <- 1+rvpois(1,lambda=3)        # A prior distribution on the 'size' parameter.
+#'   s <- 1 + rvpois(1, lambda=3)        # A prior distribution on the 'size' parameter.
 #'   rvbinom(1, size=s, prob=0.5)     # The 'size' is random.
 #'   p <- rvbinom(1, 10, prob=0.5)/10 # Prior probability of success.
 #'   rvbinom(1, size=10, prob=p)      # Now the probability is random.
 #'   rvbinom(1, size=s, prob=p)       # Both the size and the probability are random.
+#'   }
 #' 
 #' @export rvbinom
 rvbinom <- function (n=1, size, prob) {

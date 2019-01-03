@@ -43,6 +43,7 @@
 #'   \dontrun{plot(y)}
 #' 
 #' @method plot rv
+#' @export
 plot.rv <- function (x, y=NULL, ...)
 { 
   .plot.default.rv(x, y, ...)

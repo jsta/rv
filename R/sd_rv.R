@@ -3,6 +3,10 @@
 ## ========================================================================
 ##
 
+#' Get the standard deviation of an rv object
+#' 
+#' @export
+#' @inheritParams stats::sd
 sd.rv <- function (x, na.rm = FALSE) {
   if (! is.rvobj(x)) {
     return(stats::sd(x, na.rm=na.rm))

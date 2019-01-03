@@ -62,6 +62,7 @@ rv <- function(length=0) {
 
 #' @rdname rv
 #' @param x object to be coerced or tested.
+#' @export
 is.rv <- function(x)
 {
   inherits(x, "rv")

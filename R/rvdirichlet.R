@@ -15,10 +15,11 @@
 #' 
 #' See also \code{vignette("rv")}.
 #' @keywords classes
-#' @examples
+#' @examples \dontrun{
 #' 
 #'   a <- rvdirichlet(1, alpha=c(6, 3, 1)) # 
-#'   sum(a) # one with probability 1
+#'   sum(a) # one with probability 1   
+#'   }
 #' 
 #' @export rvdirichlet
 rvdirichlet <- function (n = 1, alpha)  {
@@ -29,4 +30,3 @@ rvdirichlet <- function (n = 1, alpha)  {
   }
   return(x)
 }
-

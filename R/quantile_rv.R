@@ -30,6 +30,8 @@
 #'   x <- rvnorm(30)
 #'   quantile(x)
 #' 
+#' @method quantile rv
+#' @export
 quantile.rv <- function(x, ...) {
   simapply(x, quantile, ...)
 }

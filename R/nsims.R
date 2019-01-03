@@ -72,6 +72,7 @@ setnsims <- function (n.sims) {
   return(oldn.sims)
 }
 
+#' @export
 getnsims <- function () {
   n.sims <- rvpar("n.sims")
   if (!is.integer(n.sims) || n.sims<2) {

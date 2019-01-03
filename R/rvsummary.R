@@ -1,15 +1,22 @@
 
+#' Coerce an object to an rvsummary
+#' 
+#' @param x an rv object
 #' @export
 as.rvsummary <- function (x, ...) {
   UseMethod("as.rvsummary")
 }
 
+#' Check if an object is an rvsummary
+#' 
+#' @inheritParams as.rvsummary
 #' @export
 is.rvsummary <- function (x) {
   inherits(x, "rvsummary")
 }
 
 #' @export
+#' @inheritParams base::round
 print.rvsummary <- function (x, digits=3, ...) # METHOD
 {
   s <- summary(x)

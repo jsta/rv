@@ -23,6 +23,8 @@
 #'   x <- rvarray(rvnorm(24), dim=c(2,3,4))
 #'   print(aperm(x))
 #' 
+#' @export
+#' @method aperm rv
 aperm.rv <- function (a, perm, ...) {
   # NAME
   #   aperm.rv - Transpose a Random Array

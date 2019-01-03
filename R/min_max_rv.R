@@ -1,5 +1,7 @@
 
 
+#' @method min rv
+#' @export
 min.rv <- function(..., na.rm=FALSE) {
   if (anyisrv(...)) {
     simapply(cbind.rv(...), base::min, na.rm=na.rm)
@@ -8,6 +10,8 @@ min.rv <- function(..., na.rm=FALSE) {
   }
 }
 
+#' @method max rv
+#' @export
 max.rv <- function(..., na.rm=FALSE) {
   if (anyisrv(...)) {
     simapply(cbind.rv(...), base::max, na.rm=na.rm)
@@ -16,6 +20,8 @@ max.rv <- function(..., na.rm=FALSE) {
   }
 }
 
+#' @method pmin rv
+#' @export
 pmin.rv <- function(..., na.rm=FALSE) {
   if (anyisrv(...)) {
     a <- sims(cbind.rv(...), dimensions=TRUE)
@@ -25,6 +31,8 @@ pmin.rv <- function(..., na.rm=FALSE) {
   }
 }
 
+#' @method pmax rv
+#' @export
 pmax.rv <- function(..., na.rm=FALSE) {
   if (anyisrv(...)) {
     a <- sims(cbind.rv(...), dimensions=TRUE)
@@ -46,8 +54,6 @@ is.integer.rv <- function (x) {
   return(is.rv(x) && all(rvsimapply(x, is.integer)))
 }
 
-#' @export
-#' @method is.logical rv
 is.logical.rv <- function (x) {
   return(is.rv(x) && all(rvsimapply(x, is.logical)))
 } 

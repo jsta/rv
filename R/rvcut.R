@@ -25,6 +25,8 @@ rvcut <- function (x, ...) {
   UseMethod("rvcut")
 }
 
+#' @method rvcut default
+#' @export
 rvcut.default <- function (x, ...) {
   f <- cut(x, ...)
   levs <- levels(f)
@@ -34,6 +36,8 @@ rvcut.default <- function (x, ...) {
   return(rvf)
 }
 
+#' @method rvcut rv
+#' @export
 rvcut.rv <- function (x, ...) {
   a <- sims(x)
   f <- cut(a, ...)
