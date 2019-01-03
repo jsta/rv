@@ -12,7 +12,6 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 ```
-# rv
 
 [![Travis build status](https://travis-ci.org/jsta/rv.svg?branch=master)](https://travis-ci.org/jsta/rv)
 
