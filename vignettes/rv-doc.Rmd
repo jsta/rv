@@ -59,6 +59,8 @@ knitr::opts_chunk$set(
 )
 ```
 
+*Edited by Joseph Stachelek: `r format(Sys.time(), '%d %B, %Y')`*
+
 \newcommand{\rep}{\mathrm{rep}}
 \newcommand{\D}{\mathrm{d}}
 \newcommand{\inds}[1]{\mathrm{1}_{#1}}
