@@ -28,9 +28,10 @@ random vector argument.
 }
 \examples{
 
-  \dontshow{require(rv)}
+  \dontrun{
   x <- rvnorm(30)
   hist(x)
+  }
 }
 \references{
 Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing

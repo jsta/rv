@@ -30,9 +30,10 @@
 #' @keywords classes
 #' @examples
 #' 
-#'   \dontshow{require(rv)}
+#'   \dontrun{
 #'   x <- rvnorm(30)
 #'   hist(x)
+#'   }
 #' @export
 #' @method hist rv
 hist.rv <- function(x, grid=c(4,5), xlim=x.range, main=paste(xname,"simulation"), freq=FALSE, ...) {
