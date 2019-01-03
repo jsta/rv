@@ -26,6 +26,7 @@ Ops.rv <- function(e1, e2 = NULL)
 }
 
 #' @method ! rv
+#' @export
 "!.rv" <- function(e1) 
 {
   v <- simapply(e1, .Generic)

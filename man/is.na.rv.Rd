@@ -34,7 +34,6 @@ simulation of each component of the argument vector.
   y <- !(x==0 & NA) # TRUE if x!=0
   x <- y*x
   is.na(x)     # 69\%: Pr(-1<Z<1)
-  is.logical.rv(is.na(x)) # TRUE
   is.logical(is.na(x)) # TRUE
   rv.any.na(x) # TRUE
   rv.all.na(x) # FALSE
