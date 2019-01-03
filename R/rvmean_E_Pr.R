@@ -29,13 +29,12 @@
 #' 
 #' See also \code{vignette("rv")}.
 #' @keywords classes
-#' @examples \dontrun{
+#' @examples
 #' 
 #'   x <- rvnorm(mean=(1:10)/5, sd=1)
 #'   rvmean(x)  # means of the 10 components
 #'   E(x)       # same as rvmean(x)
 #'   Pr(x>1)    # probabilities that each component is >1.
-#'   }
 #' 
 #' @export
 rvmean <- function (x) {

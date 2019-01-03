@@ -6,6 +6,7 @@
 #' @param e1 object
 #' @param e2 object
 #' @method Ops rv
+#' @export
 Ops.rv <- function(e1, e2 = NULL)
 {
   e1.attr <- attributes(e1)

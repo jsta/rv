@@ -24,13 +24,12 @@
 #' 
 #' See also \code{vignette("rv")}.
 #' @keywords classes
-#' @examples \dontrun{
+#' @examples
 #' 
 #'   df <- 3
 #'   x <- rvt(n=1, df=df)
 #'   y <- rvnorm(1)/sqrt(rvchisq(1, df=df)/df) # Same distribution as above
-#'   print(c(x,y))
-#'   }
+#'   print(c(x,y))#'   
 #' 
 #' @export rvt
 #' @importFrom stats rt

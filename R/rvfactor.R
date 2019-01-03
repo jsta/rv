@@ -25,14 +25,13 @@
 #' 
 #' See also \code{vignette("rv")}.
 #' @keywords classes
-#' @examples \dontrun{
+#' @examples
 #' 
 #'   # Probabilities of each integer of trunc(Z) where Z ~ N(0,1) ?
 #'   x <- rvnorm(1)
 #'   rvfactor(trunc(x))
 #'   rvfactor(x>0)
 #'   rvfactor(rvpois(1, lambda=0.5))
-#'   }
 #' 
 #' @export rvfactor
 rvfactor <- function (x, ...) {

@@ -52,7 +52,7 @@
 NULL
 
 
-#' @export
+#' @export 
 "[.rv" <- function (x, ..., drop = TRUE)
 {
   cx <- class(x)
@@ -61,7 +61,7 @@ NULL
   return(X)
 }
 
-#' @export
+#' @export 
 "[.rvsummary" <- function (x, ..., drop = TRUE)
 {
   q <- attr(x, "quantiles")
@@ -72,7 +72,7 @@ NULL
   return(x)
 }
 
-#' @export
+#' @export 
 "[<-.rvsummary" <- function (x, ..., value = NULL)
 {
   cx <- class(x)

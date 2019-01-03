@@ -23,7 +23,7 @@
 #' 
 #' See also \code{vignette("rv")}.
 #' @keywords classes
-#' @examples \dontrun{#' 
+#' @examples 
 #'   x <- trunc(rvnorm(1))
 #'   y <- !(x==0 & NA) # TRUE if x!=0
 #'   x <- y*x
@@ -32,7 +32,7 @@
 #'   is.logical(is.na(x)) # TRUE
 #'   rv.any.na(x) # TRUE
 #'   rv.all.na(x) # FALSE
-#'}
+#'   
 #' @export
 #' @method is.na rv
 is.na.rv <- function(x) {

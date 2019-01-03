@@ -1,7 +1,5 @@
 # rv-Math.R - standard math functions for the rv class
 
-
-
 #' Mathematical functions and Operators for rv Objects
 #' 
 #' Mathematical functions and operators adapted to work with random variable
@@ -21,8 +19,7 @@
 #' 
 #' See also \code{vignette("rv")}.
 #' @keywords classes
-#' @examples \dontrun{
-#' 
+#' @examples  
 #'   x <- rvnorm(10)
 #'   -x
 #'   names(x) <- paste("x[", seq_along(x), "]", sep="")
@@ -30,10 +27,10 @@
 #'   1:2 + x
 #'   cumsum(x)
 #'   cumprod(exp(x))
-#'}
 #' 
 #' @method Math rv
-Math.rv <- function(x, ...) {
+#' @export
+Math.rv <- function(x, ...){
   # Componentwise operation
   X <- x # Preserve class and other attributes
   for (i in seq_along(x)) {
@@ -46,29 +43,25 @@ Math.rv <- function(x, ...) {
 # cumsum, cumprod, cummax, cummin
 #' @method cumsum rv
 #' @export
-cumsum.rv <- function (x)
-{
+cumsum.rv <- function (x){
   simapply(x, cumsum)
 }
 
 #' @method cumprod rv
 #' @export
-cumprod.rv <- function (x)
-{
+cumprod.rv <- function (x){
   simapply(x, cumprod)
 }
 
 #' @method cummin rv
 #' @export
-cummin.rv <- function (x)
-{
+cummin.rv <- function (x){
   simapply(x, cummin)
 }
 
 #' @method cummax rv
 #' @export
-cummax.rv <- function (x)
-{
+cummax.rv <- function (x){
   simapply(x, cummax)
 }
 

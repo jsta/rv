@@ -13,10 +13,8 @@
 #' 
 #' See also \code{vignette("rv")}.
 #' @keywords classes
-#' @examples \dontrun{
-#' 
+#' @examples #' 
 #'   y <- rvunif(1, min=rvunif(1)-1, rvunif(1)+1) # What marginal distribution does y have now?
-#'   }
 #' 
 #' @export rvunif
 rvunif <- function (n=1, min=0, max=1) {
