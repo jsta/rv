@@ -3,6 +3,9 @@
 # Value:  a logical vector (not rv), TRUE if a component is constant w.p. 1
 #
 
+#' Is an rv object constant?
+#' 
+#' @param x an rv object
 #' @export
 is.constant <- function(x) {
   # Note: this corresponds to "constant with probability 1", while
@@ -10,7 +13,9 @@ is.constant <- function(x) {
   return(rvnsims(x)==1)
 }
 
-#' @noRd
+#' Make an rv object have a constant value
+#' 
+#' @param x an rv object
 #' @export
 as.constant <- function(x)
 {

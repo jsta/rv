@@ -18,7 +18,7 @@
 #' @keywords classes
 #' @examples
 #' 
-#'   #
+#'  rvchisq(1, df = 3)
 #' 
 #' @export rvchisq
 #' @importFrom stats rchisq

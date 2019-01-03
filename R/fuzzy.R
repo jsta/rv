@@ -1,4 +1,7 @@
 
+#' Is a Vector Component Logical But Random
+#' 
+#' @param x an rv object
 #' @export
 is.fuzzy <- function (x) {
   UseMethod("is.fuzzy")

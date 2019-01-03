@@ -21,14 +21,16 @@
 #' 
 #' See also \code{vignette("rv")}.
 #' @keywords internal
-#' @examples
+#' @examples \dontrun{
 #' 
 #'   x <- rvarray(rvnorm(6), c(2,3))
 #'   summary(x)
 #'   summary(as.rvsummary(x))
 #'   summary(rvfactor(trunc(x)))
+#'   }
 #' 
 #' @method summary rv
+#' @export
 summary.rv <- function (object, ...) {
   summary(as.rvsummary(object), ...)
 }

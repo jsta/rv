@@ -71,8 +71,6 @@ is.rv <- function(x)
 # DEBUG:2 (must take permutation of row indices and then permute.
 
 
-
-
 #' Coercing Random Vectors to Real-valued
 #' 
 #' Coerces random vector objects into double-valued ones.

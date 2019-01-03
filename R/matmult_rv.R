@@ -10,6 +10,9 @@
   return("%**%"(x, y))
 }
 
+#' Constant matrix times a rv vector
+#' 
+#' @inheritParams base::`%*%`
 #' @export
 "%**%" <- function(x, y) { ## CHECK: TTRY if is.constant(x) => normal
   if (! is.rv(x) && ! is.rv(y)) {

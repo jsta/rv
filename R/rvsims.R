@@ -121,12 +121,12 @@ resizeSims <- function (s, vector.length, n.sims) # NOEXPORT
 #'   identical(2L, length(x3)) ## TRUE
 #' 
 #' @export rvsims
-rvsims <- function(sims, n.sims=getnsims(), permute=FALSE) {
+rvsims <- function(sims, n.sims = getnsims(), permute = FALSE) {
   if (is.list(sims)) {
     if (is.object(sims)) {
       stop(sprintf("rvsims: Cannot apply 'rvsims' on an object of class '%s'", class(sims)[1]))
     }
-    return(.rvsims.list(sims, n.sims=n.sims, permute=permute))
+    return(.rvsims.list(sims, n.sims = n.sims, permute = permute))
   }
   is_factor <- (is.character(sims) || is.factor(sims))
   if (is.factor(sims)) {
@@ -137,11 +137,11 @@ rvsims <- function(sims, n.sims=getnsims(), permute=FALSE) {
   }
   d.s <- dim(sims)
   if (length(d.s) >= 3L) {
-    n.sims <- d.s[1]
-    dim.rest <- d.s[-1]
-    n.rest <- prod(dim.rest)
+    n.sims    <- d.s[1]
+    dim.rest  <- d.s[-1]
+    n.rest    <- prod(dim.rest)
     dim(sims) <- c(n.sims, n.rest)
-    d.s <- dim(sims)
+    d.s       <- dim(sims)
   } else {
     dim.rest <- integer(0)
   }

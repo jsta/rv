@@ -31,11 +31,13 @@ the \code{summary.rvsummary} method, which creates a nicely formatted data
 frame of the object.
 }
 \examples{
+\dontrun{
 
   x <- rvarray(rvnorm(6), c(2,3))
   summary(x)
   summary(as.rvsummary(x))
   summary(rvfactor(trunc(x)))
+  }
 
 }
 \references{

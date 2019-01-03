@@ -17,8 +17,10 @@ rvunif(n = 1, min = 0, max = 1)
 Generates random variables from a Uniform sampling model.
 }
 \examples{
+\dontrun{
 
   y <- rvunif(1, min=rvunif(1)-1, rvunif(1)+1) # What marginal distribution does y have now?
+  }
 
 }
 \references{

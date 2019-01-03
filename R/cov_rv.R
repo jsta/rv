@@ -2,7 +2,11 @@
 # cov  -  short description
 # ========================================================================
 
+#' Calculate the covariance of an rv object
+#' 
 #' @importFrom stats cov
+#' @inheritParams stats::cov
+#' @param \dots arguments passed to stats::cov
 #' @export
 cov.rv <- function(x, y=NULL, ...)  ## EXPORT cov.rv
 {
@@ -18,6 +22,3 @@ cov.rv <- function(x, y=NULL, ...)  ## EXPORT cov.rv
     cov(x=x, y=y, ...)
   }
 }
-
-
-

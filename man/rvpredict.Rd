@@ -62,9 +62,9 @@ additional uncertainty in the covariates.
   X.pred <- data.frame(x1=mean(X$x1), x2=mean(X$x2))
   y.pred <- rvpredict(obj, newdata=X.pred)
   ## Plot predictions
-  plot.rv(D$x1, y.rep)
-  points(D$x1, D$y, col="red")
-  ## `Perturb' (add uncertainty to) covariate x1
+  plot(y.rep, D$x1)
+  points(D$y, D$x1, col="red")
+  ## 'Perturb' (add uncertainty to) covariate x1
   X.pred2 <- X
   X.pred2$x1 <- rnorm(n=n, mean=X.pred2$x1, sd=sd(X.pred2$x1))
   y.pred2 <- rvpredict(obj, newdata=X.pred2)

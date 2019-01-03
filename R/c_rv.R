@@ -18,6 +18,9 @@ c.rvsummary <- function(..., recursive=FALSE)
   return(x)
 }
 
+#' Combine values in an rv object
+#' 
+#' @inheritParams base::c
 #' @export
 cc <- function(..., recursive=FALSE) {
   args <- lapply(as.list(match.call())[-1], eval, envir=parent.frame())

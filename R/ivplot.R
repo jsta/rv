@@ -71,7 +71,7 @@
 {
   if (length(x)==1) return(x)
   x <- sort(x)
-#print(x);browser()
+
   d <- (xlim[2]-xlim[1])*f
   x[is.infinite(x)] <- xlim[is.infinite(x)]
   if (x[2]<xlim[1]) x[2] <- (xlim[1]+d)
@@ -120,6 +120,7 @@
 #' if \code{device="pdf"}.)
 #' @author J Kerman
 #' @keywords hplot
+#' 
 #' @export ivplot
 #' @importFrom grDevices dev.off pdf
 #' @importFrom graphics abline axis mtext

@@ -34,6 +34,8 @@ rvquantile <- function(x, ...)
 #' @rdname rvquantile
 #' @param probs numeric vector of probabilities with values in \emph{[0,1]}
 #' @param ignoreInf ignore infinite values
+#' 
+#' @export
 #' @method rvquantile rv
 rvquantile.rv <- function(x, probs=c(0.025, 0.10, 0.25, 0.50, 0.75, 0.90, 0.975), ignoreInf=FALSE, ...)
 {
@@ -46,6 +48,7 @@ rvquantile.rv <- function(x, probs=c(0.025, 0.10, 0.25, 0.50, 0.75, 0.90, 0.975)
 }
 
 #' @method rvquantile rvsummary
+#' @export
 rvquantile.rvsummary <- function(x, probs=c(0.025, 0.10, 0.25, 0.50, 0.75, 0.90, 0.975), ...)
 {
   Q <- t(sims(x))
@@ -65,4 +68,3 @@ rvquantile.rvsummary <- function(x, probs=c(0.025, 0.10, 0.25, 0.50, 0.75, 0.90,
   }
   return(M)
 }
-

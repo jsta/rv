@@ -25,7 +25,7 @@ non-Poisson marginal distributions.
 }
 \examples{
 
-  #
+ rvchisq(1, df = 3)
 
 }
 \references{

@@ -61,7 +61,7 @@ posterior.lm <- function (obj, ...) {
   ##
   summ <- summary(obj)
   sigma.hat <- summ$sigma
-  beta.hat <- summ$coef[,1]
+  beta.hat <- summ$coefficients[,1]
   V.beta <- summ$cov.unscaled
   k <- summ$df[1]
   n <- k + summ$df[2]
@@ -81,8 +81,8 @@ posterior.glm <- function(obj, ...) {
   ## Modified version of 'sim' (from Andrew Gelman's library (gelman@stat.columbia.edu))
   ##
   summ <- summary (obj, correlation=TRUE)
-  beta.hat <- summ$coef[,1]
-  sd.beta <- summ$coef[,2]
+  beta.hat <- summ$coefficients[,1]
+  sd.beta <- summ$coefficients[,2]
   corr.beta <- summ$corr
   k <- summ$df[1]
   n <- k + summ$df[2]

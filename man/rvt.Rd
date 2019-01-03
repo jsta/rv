@@ -35,11 +35,13 @@ If any of the arguments are random, the resulting simulations may have
 non-t marginal distributions.
 }
 \examples{
+\dontrun{
 
   df <- 3
   x <- rvt(n=1, df=df)
   y <- rvnorm(1)/sqrt(rvchisq(1, df=df)/df) # Same distribution as above
   print(c(x,y))
+  }
 
 }
 \references{

@@ -42,13 +42,15 @@
 #'   \dontrun{plot(y, x)}
 #'   \dontrun{plot(y)}
 #' 
-#' @method plot rv
 #' @export
+#' @method plot rv
 plot.rv <- function (x, y=NULL, ...)
 { 
   .plot.default.rv(x, y, ...)
 }
 
+#' @method plot rvsummary
+#' @export
 plot.rvsummary <- function (x, y=NULL, ...)
 { 
   .plot.default.rv(x, y, ...)
@@ -61,6 +63,7 @@ plot.rvsummary <- function (x, y=NULL, ...)
 
 .plot.xy.rv <- function (xy, type, pch = par("pch"), lty = par("lty"), col = par("col"), bg = NA, cex = 1, lwd = par("lwd"), ...)
 {
+  
   ##if (is.null(xy$rv)) {
   ##  return(.Internal(plot.xy(xy, type, pch, lty, col, bg, cex, lwd, ...)))
   ##}
@@ -166,10 +169,11 @@ plot.rvsummary <- function (x, y=NULL, ...)
 #' @importFrom graphics plot.window Axis box title plot.new
 .plot.default.rv <- function (x, y = NULL, type = "p", xlim = NULL, ylim = NULL, log = "", main = NULL, sub = NULL, xlab = NULL, ylab = NULL, ann = par("ann"), axes = TRUE, frame.plot = axes, panel.first = NULL, panel.last = NULL, asp = NA, rvlwd = rvpar("rvlwd"),  rvcol=rvpar("rvcol"), rvpoint=rvpar("rvpoint"), rvlex=rvpar("rvlex"), ...) 
 {
-    localAxis <- function(..., col, bg, pch, cex, lty, lwd) Axis(...)
-    localBox <- function(..., col, bg, pch, cex, lty, lwd) box(...)
+
+    localAxis   <- function(..., col, bg, pch, cex, lty, lwd) Axis(...)
+    localBox    <- function(..., col, bg, pch, cex, lty, lwd) box(...)
     localWindow <- function(..., col, bg, pch, cex, lty, lwd) plot.window(...)
-    localTitle <- function(..., col, bg, pch, cex, lty, lwd) title(...)
+    localTitle  <- function(..., col, bg, pch, cex, lty, lwd) title(...)
     xlabel <- if (!missing(x)) 
         deparse(substitute(x))
     ylabel <- if (!missing(y)) 
