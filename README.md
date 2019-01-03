@@ -1,7 +1,9 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-[![Travis build
+[![CRAN
+status](https://www.r-pkg.org/badges/version/rv)](https://cran.r-project.org/package=rv)[![Travis
+build
 status](https://travis-ci.org/jsta/rv.svg?branch=master)](https://travis-ci.org/jsta/rv)
 
 The goal of rv is to provide tools for simulation-based random variables
