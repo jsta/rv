@@ -6,7 +6,7 @@
 #' object \code{x}.
 #' 
 #' The first index of the matrix indicates the number of the simulation draw
-#' (``simulations are in rows'').
+#' ("simulations are in rows").
 #' 
 #' @aliases sims sims.rv sims.rvsummary sims.default
 #' @param x a random variable object

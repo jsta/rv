@@ -18,7 +18,7 @@
 #' summary of an integer-valued \code{rv} object. By default contains 0 and 1
 #' (for the min and max values).} }
 #' 
-#' @param \dots arguments in tag = value form, or a list or character vecetor
+#' @param \dots arguments in tag = value form, or a list or character vector
 #' of tagged values. The available tags are described below.
 #' @return In the case of a single tag query, the requested value.
 #' 

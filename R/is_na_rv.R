@@ -11,7 +11,7 @@
 #' 
 #' @aliases is.na.rv rv.all.na rv.any.na
 #' @param x an rv object
-#' @return \code{is.na.rv} returns a ``Bernoulli'' random vector of the same
+#' @return \code{is.na.rv} returns a "Bernoulli" random vector of the same
 #' length and dimension as those of \code{x}.
 #' 
 #' \code{rv.all.na} and \code{rv.any.na} return \code{TRUE} or \code{FALSE}

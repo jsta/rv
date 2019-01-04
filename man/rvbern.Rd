@@ -9,7 +9,7 @@ rvbern(n = 1, prob, logical = FALSE)
 \arguments{
 \item{n}{number of random scalars to draw}
 
-\item{prob}{probability of ``success''; may be a random vector itself}
+\item{prob}{probability of "success"; may be a random vector itself}
 
 \item{logical}{logical; return a logical random variable instead}
 }

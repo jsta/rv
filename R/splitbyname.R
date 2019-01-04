@@ -4,10 +4,10 @@
 #' on the names of the components and returns a named list of arrays and
 #' vectors.
 #' 
-#' The names are supposed to be of the format 'name[index]', for example
-#' 'alpha[1,1]', 'beta[1]', etc.
+#' The names are supposed to be of the format `name[index]`, for example
+#' `alpha[1,1]`, `beta[1]`, etc.
 #' 
-#' A name without brackets is equivalent to a name with '[1]'.
+#' A name without brackets is equivalent to a name with `[1]`.
 #' 
 #' The dimension attribute will not be set in case of vectors.
 #' 

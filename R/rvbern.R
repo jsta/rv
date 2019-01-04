@@ -11,7 +11,7 @@
 #' variable.)
 #' 
 #' @param n number of random scalars to draw
-#' @param prob probability of ``success''; may be a random vector itself
+#' @param prob probability of "success"; may be a random vector itself
 #' @param logical logical; return a logical random variable instead
 #' @return A random vector (an rv object) of length \code{n}.
 #' @note The resulting vector will not be independent and identically

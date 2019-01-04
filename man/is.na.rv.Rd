@@ -12,7 +12,7 @@
 \item{x}{an rv object}
 }
 \value{
-\code{is.na.rv} returns a ``Bernoulli'' random vector of the same
+\code{is.na.rv} returns a "Bernoulli" random vector of the same
 length and dimension as those of \code{x}.
 
 \code{rv.all.na} and \code{rv.any.na} return \code{TRUE} or \code{FALSE}

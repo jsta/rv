@@ -7,7 +7,7 @@
 rvpar(...)
 }
 \arguments{
-\item{\dots}{arguments in tag = value form, or a list or character vecetor
+\item{\dots}{arguments in tag = value form, or a list or character vector
 of tagged values. The available tags are described below.}
 }
 \value{

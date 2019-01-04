@@ -2,7 +2,7 @@
 #' 
 #' \code{as.vector.rv} coerces a given \code{rv} object into a vector; matrices
 #' lose their dimension attributes, but \code{rv} objects stay as \code{rv}
-#' objects (since they are considered to be ``vectors'').
+#' objects (since they are considered to be "vectors").
 #' 
 #' \code{as.vector.rv} removes the dimension attribute and returns the rv
 #' object.  Needed for compatibility with code that uses \code{as.vector}.

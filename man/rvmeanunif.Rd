@@ -14,7 +14,7 @@ rvmeanunif(n = 1, mode = 0, scale = 1, df)
 
 \item{scale}{Scale (half-width) of the distribution around the mode}
 
-\item{df}{``degrees of freedom'': number of independent components to
+\item{df}{"degrees of freedom": number of independent components to
 average}
 }
 \value{

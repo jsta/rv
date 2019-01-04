@@ -6,7 +6,7 @@
 
 #' Random Vectors
 #' 
-#' Creates or tests for objects of type ``\code{rv}''.
+#' Creates or tests for objects of type "\code{rv}".
 #' 
 #' \code{rv} creates a random vector of the specified length.  The elements of
 #' the vector are all equal to \code{NA}.
@@ -19,7 +19,7 @@
 #' the argument vector, depending on whether the component is a random variable
 #' object.
 #' 
-#' \code{is.rvobj} tests whethe its argument object is either of class
+#' \code{is.rvobj} tests whether its argument object is either of class
 #' \code{rv} or of class \code{rvsummary}.
 #' 
 #' \code{as.rvobj} coerces its argument object to \code{rv} unless the object

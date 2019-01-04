@@ -3,6 +3,7 @@
 # ========================================================================
 
 #' @importFrom stats cor
+#' @rdname distrib_rv
 cor.rv <- function(x, y=NULL, ...)  {
   if (!is.matrix(x)) {
     if (is.null(y)) {
@@ -16,7 +17,3 @@ cor.rv <- function(x, y=NULL, ...)  {
     cor(x=x, y=y, ...)
   }
 }
-
-
-
-

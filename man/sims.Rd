@@ -30,7 +30,7 @@ Returns the simulation matrix for the random variable object \code{x}.
 object \code{x}.
 
 The first index of the matrix indicates the number of the simulation draw
-(``simulations are in rows'').
+("simulations are in rows").
 }
 \examples{
 

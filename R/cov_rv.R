@@ -5,6 +5,7 @@
 #' Calculate the covariance of an rv object
 #' 
 #' @importFrom stats cov
+#' @rdname distrib_rv
 #' @inheritParams stats::cov
 #' @param \dots arguments passed to stats::cov
 #' @export

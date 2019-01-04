@@ -36,7 +36,7 @@ details)}
 \code{as.rvfactor.rv}: an \code{rvfactor} object.
 }
 \description{
-Creates or tests for objects of type ``\code{rvfactor}''.
+Creates or tests for objects of type "\code{rvfactor}".
 }
 \details{
 Internally random factors are integer-valued just like regular factors in R.

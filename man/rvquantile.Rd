@@ -17,7 +17,7 @@ rvquantile(x, ...)
 
 \item{\dots}{further arguments passed to \code{quantile}}
 
-\item{probs}{numeric vector of probabilities with values in \emph{[0,1]}}
+\item{probs}{numeric vector of probabilities with values in \code{[0,1]}}
 
 \item{ignoreInf}{ignore infinite values}
 }

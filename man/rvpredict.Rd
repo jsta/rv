@@ -31,13 +31,13 @@ given covariates.
 }
 \details{
 The \code{lm} method generates predictions of the outcome variable.  The
-posterior coefficient estimates (the ``intercept'' and the ``betas'') are
-estimated Bayesianly by \code{posterior(object)}; the coefficients are
-multiplied by \code{newdata} (if omitted, the model covariate matrix is used
-instead) to obtain the predicted model mean; lastly, the outcomes are
-predicted from the Normal sampling model, taking into account the sampling
-variability along with the uncertainty in the estimation of the standard
-deviation (`sigma').
+posterior coefficient estimates (the "intercept" and the "betas") are
+estimated in a Bayesian framework by \code{posterior(object)}; the
+coefficients are multiplied by \code{newdata} (if omitted, the model
+covariate matrix is used instead) to obtain the predicted model mean;
+lastly, the outcomes are predicted from the Normal sampling model, taking
+into account the sampling variability along with the uncertainty in the
+estimation of the standard deviation (`sigma').
 
 The covariate matrix \code{newdata} can be an \code{rv}, representing
 additional uncertainty in the covariates.

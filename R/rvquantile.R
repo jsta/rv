@@ -32,7 +32,7 @@ rvquantile <- function(x, ...)
 }
 
 #' @rdname rvquantile
-#' @param probs numeric vector of probabilities with values in \emph{[0,1]}
+#' @param probs numeric vector of probabilities with values in `[0,1]`
 #' @param ignoreInf ignore infinite values
 #' 
 #' @export

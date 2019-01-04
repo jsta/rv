@@ -2,17 +2,54 @@
 % Please edit documentation in R/c_rv.R
 \name{cc}
 \alias{cc}
+\alias{c.rv}
+\alias{c.rvsummary}
 \title{Combine values in an rv object}
 \usage{
 cc(..., recursive = FALSE)
+
+\method{c}{rv}(..., recursive = FALSE)
 }
 \arguments{
-\item{...}{objects to be concatenated.}
+\item{\dots}{objects to be concatenated. Can be a mixture of constants and
+rv objects.}
 
-\item{recursive}{logical.  If \code{recursive = TRUE}, the function
-    recursively descends through lists (and pairlists) combining all
-    their elements into a vector.}
+\item{recursive}{logical. If recursive = TRUE, the function recursively
+descends through lists (and pairlists) combining all their elements into a
+vector.}
 }
 \description{
-Combine values in an rv object
+Concatentates random vectors.
 }
+\details{
+NOTE: \code{recursive} has not yet been tested.
+
+\code{cc} is a function that works for both non-rv and other vectors. To
+make code compatible for both constant vectors and rv objects, one can use
+\code{cc} instead of \code{c}.
+}
+\examples{
+
+  x <- rvnorm(2)
+  y <- rvbern(2, prob=0.5)
+  z <- c(x, y)
+  print(z)
+  z1 <- cc(1, z)
+  z2 <- c(as.rv(1), z)
+  z3 <- c(as.rv(1), z)
+  print(z1)
+  print(z2)
+  print(z3)
+
+}
+\references{
+Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
+Posterior Simulations Using Random Variable Objects. Statistics and
+Computing 17:3, 235-244.
+
+See also \code{vignette("rv")}.
+}
+\author{
+Jouni Kerman \email{jouni@kerman.com}
+}
+\keyword{classes}

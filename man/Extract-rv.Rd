@@ -32,7 +32,6 @@ rv objects (rv, rvsummary, and rvfactor objects). To write universal code
 that works both atomic and rv objects, use \code{impute(x, ...) <- value}
 instead of \code{x[...] <- value}.
 
-
 NOTE. \code{x} will NOT be automatically coerced into an rv object.
 
 \code{value} may be an rv object or a regular numeric object.

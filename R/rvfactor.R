@@ -1,6 +1,6 @@
 #' Categorical Random Variables (Random Factors)
 #' 
-#' Creates or tests for objects of type ``\code{rvfactor}''.
+#' Creates or tests for objects of type "\code{rvfactor}".
 #' 
 #' Internally random factors are integer-valued just like regular factors in R.
 #' 

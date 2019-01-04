@@ -16,7 +16,7 @@
 #' @param n Length of the vector to output
 #' @param mode Mode (center) of the distribution
 #' @param scale Scale (half-width) of the distribution around the mode
-#' @param df ``degrees of freedom'': number of independent components to
+#' @param df "degrees of freedom": number of independent components to
 #' average
 #' @return A random vector of length \code{n}.
 #' @author J Kerman
