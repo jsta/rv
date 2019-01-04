@@ -4,9 +4,9 @@
   * Vignette converted to Rmd
 
 # Version 2.3.2
-	* NAMESPACE: added import statements.
-	* Code: removed references with ::: notation.
-	* median.rv: added missing ... argument.
+  * NAMESPACE added import statements.
+  * Code removed references with ::: notation.
+  * median.rv added missing ... argument.
 
 # Version 2.3.0
 	* Extract.Rd updated, offending 'synopsis' sections removed
