@@ -8,7 +8,10 @@ Authors@R: c(
 Maintainer: Joseph Stachelek <stachel2@msu.edu>
 URL: https://github.com/jsta/rv
 BugReports: https://github.com/jsta/rv/issues
-Description: Implements simulation-based random variable class and a suite of methods.
+Description: Implements a simulation-based random variable class and a suite of
+  methods for extracting parts of random vectors, calculating extremes of random
+  vectors, and generating random vectors under a variety of distributions 
+  following Kerman and Gelman (2007) <doi:10.1007/s11222-007-9020-4>. 
 Depends: R(>= 2.15.1), stats, utils, grDevices, graphics
 License: GPL-2
 Encoding: UTF-8
