@@ -1,5 +1,5 @@
 ## Resubmission
-rv was recently archived and removed from CRAN. I have been in contact with the original maintainer Jouni Kerman who has agreed to make me the new maintainer. They are willing to respond to email inquiries on this point.
+rv was recently archived and removed from CRAN. I have been in contact with the original maintainer Jouni Kerman who has agreed to make me the new maintainer. They are willing to respond to email inquiries on this point. This is the second attempt at resubmission. In response to the initial attempt more details have been added to the DESCRIPTION file.
 
 ## Test environments
 * ubuntu 14.04 (on travis-ci), R 3.5.2
