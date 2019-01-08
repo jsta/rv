@@ -16,10 +16,18 @@ variables.
 
 ## Installation
 
-You can install the development version of `rv` from
-[Github](https://github.com/jsta/rv) with:
+## Installation
+
+### Stable version from CRAN
 
 ``` r
+install.packages("rv")
+```
+
+### or development version from GitHub
+
+``` r
+install.packages('devtools')  # package devtools needed
 devtools::install_github("jsta/rv")
 ```
 
