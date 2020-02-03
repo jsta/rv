@@ -1,12 +1,10 @@
-## Resubmission
-rv was recently archived and removed from CRAN. I have been in contact with the original maintainer Jouni Kerman who has agreed to make me the new maintainer. They are willing to respond to email inquiries on this point. This is the second attempt at resubmission. In response to the initial attempt more details have been added to the DESCRIPTION file.
+## Submission
+The purpose of this package update is to resolve the CRAN check warnings about dots in documentation objects.
 
 ## Test environments
-* ubuntu 14.04 (on travis-ci), R 3.5.2
+* ubuntu 16.04 (on travis-ci), R 3.6.2
 * win-builder (devel and release)
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
-
-* This is a new release.
+0 errors | 0 warnings | 0 notes
