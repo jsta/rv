@@ -26,8 +26,6 @@ is.rv(x)
 \item{length}{desired length.}
 
 \item{x}{object to be coerced or tested.}
-
-\item{\dots}{further arguments passed to or from other methods.}
 }
 \value{
 An rv object of desired length, with the single simulation value

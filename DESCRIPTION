@@ -1,6 +1,6 @@
 Package: rv
 Title: Simulation-Based Random Variable Objects
-Version: 2.3.3
+Version: 2.3.4
 Authors@R: c(
   person("Jouni", "Kerman", role = c("aut"), email = "jouni@kerman.com"),
   person("Joseph", "Stachelek", role = c("ctb", "cre"), email = "stachel2@msu.edu")

@@ -41,7 +41,6 @@ rvmatrix <- function (data = NA, nrow = 1, ncol = 1, byrow = FALSE, dimnames = N
 #' giving the row and column names respectively.
 #' @param dim the dim attribute for the array to be created, that is a vector
 #' of length one or more giving the maximal indices in each dimension.
-#' @param \dots arguments passed to other methods
 #' @author Jouni Kerman \email{jouni@@kerman.com}
 #' @seealso To plot random matrices, see \code{\link{mlplot}}.
 #' @references Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing

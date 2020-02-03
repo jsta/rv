@@ -26,8 +26,6 @@ giving the row and column names respectively.}
 
 \item{dim}{the dim attribute for the array to be created, that is a vector
 of length one or more giving the maximal indices in each dimension.}
-
-\item{\dots}{arguments passed to other methods}
 }
 \description{
 Arrange a given random vector into a matrix or array form.
