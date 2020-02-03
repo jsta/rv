@@ -22,7 +22,7 @@ vectors.
 The names are supposed to be of the format \code{name[index]}, for example
 \code{alpha[1,1]}, \code{beta[1]}, etc.
 
-A name without brackets is equivalent to a name with \code{[1]}.
+A name without brackets is equivalent to a name with \verb{[1]}.
 
 The dimension attribute will not be set in case of vectors.
 }

@@ -7,8 +7,7 @@
 \alias{as.matrix.rv}
 \title{Matrices and Arrays of Random Vectors}
 \usage{
-rvmatrix(data = NA, nrow = 1, ncol = 1, byrow = FALSE,
-  dimnames = NULL)
+rvmatrix(data = NA, nrow = 1, ncol = 1, byrow = FALSE, dimnames = NULL)
 
 rvarray(data = NA, dim = length(data), dimnames = NULL)
 }

@@ -4,11 +4,27 @@
 \alias{ivplot}
 \title{Interval plot}
 \usage{
-ivplot(X, name = "", file.name = "", split = NULL,
-  Intervals = NULL, xlim, left.margin = 3, x.ticks = NULL,
-  exp.labels = FALSE, xlab = "", title = "", top.axis = FALSE,
-  use_color = TRUE, vline = NULL, device = "X11", size = c(297,
-  210)/25.4/2, font.family = "Courier", cex.label = NULL, ...)
+ivplot(
+  X,
+  name = "",
+  file.name = "",
+  split = NULL,
+  Intervals = NULL,
+  xlim,
+  left.margin = 3,
+  x.ticks = NULL,
+  exp.labels = FALSE,
+  xlab = "",
+  title = "",
+  top.axis = FALSE,
+  use_color = TRUE,
+  vline = NULL,
+  device = "X11",
+  size = c(297, 210)/25.4/2,
+  font.family = "Courier",
+  cex.label = NULL,
+  ...
+)
 }
 \arguments{
 \item{X}{A data frame providing data for creating one interval per row. See

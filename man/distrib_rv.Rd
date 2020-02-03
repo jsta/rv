@@ -24,13 +24,9 @@ var.rv(x, ...)
 compatible dimensions to x. The default is equivalent to y = x (but more
 efficient).}
 
-\item{\dots}{arguments passed to stats::cov}
+\item{\dots}{arguments passed to stats::var}
 
 \item{na.rm}{logical. Should missing values be removed?}
-
-\item{\dots}{further arguments passed to the corresponding numeric functions}
-
-\item{\dots}{arguments passed to stats::var}
 }
 \value{
 A random vector or array.
@@ -51,7 +47,7 @@ The functions \code{cov.rv} is implemented by applying the corresponding
 numerical function to the rows of the simulation matrices of \code{x} and
 \code{y} and forming a new \code{rv} object from the resulting vector of
 simulations.  Alternatively \code{x} may be a random matrix (and \code{y}
-\code{NULL}).  %Then the numerical function \code{cov}.
+\code{NULL}).  \%Then the numerical function \code{cov}.
 
 \code{cor.rv} works similarly, but returns the distribution of the
 correlation statistic (i.e. function).

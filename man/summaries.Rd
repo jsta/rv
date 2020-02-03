@@ -18,8 +18,7 @@ as.rvsummary(x, ...)
 
 is.rvsummary(x)
 
-\method{as.rvsummary}{data.frame}(x,
-  quantiles = rvpar("summary.quantiles.numeric"), ...)
+\method{as.rvsummary}{data.frame}(x, quantiles = rvpar("summary.quantiles.numeric"), ...)
 
 \method{print}{rvsummary_rvfactor}(x, all.levels = FALSE, ...)
 }

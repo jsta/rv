@@ -5,8 +5,14 @@
 \alias{rvVectorize}
 \title{Apply a function to multiple random vector arguments}
 \usage{
-rvmapply(FUN, ..., MoreArgs = NULL, SIMPLIFY = FALSE,
-  USE.NAMES = TRUE, SAMPLESIZE = NULL)
+rvmapply(
+  FUN,
+  ...,
+  MoreArgs = NULL,
+  SIMPLIFY = FALSE,
+  USE.NAMES = TRUE,
+  SAMPLESIZE = NULL
+)
 }
 \arguments{
 \item{FUN}{the function to apply to the simulations of \code{X}.}

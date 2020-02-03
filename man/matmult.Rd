@@ -6,7 +6,7 @@
 \alias{\%**\%}
 \title{Random Matrix Multiplication}
 \usage{
-"\%*\%.rv"(x, y)
+`\%*\%.rv`(x, y)
 
 x \%**\% y
 }

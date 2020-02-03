@@ -8,11 +8,26 @@
 \usage{
 mlplot(X, ...)
 
-\method{mlplot}{default}(X, y.center = TRUE, y.shift = 0,
-  y.map = NULL, mar = par("mar"), left.margin = 3, vline = NULL,
-  top.axis = TRUE, exp.labels = FALSE, x.ticks = NULL, axes = NULL,
-  xlim = NULL, ylim = NULL, xlab = deparse(substitute(X)),
-  ylab = NULL, las = NULL, add = FALSE, ...)
+\method{mlplot}{default}(
+  X,
+  y.center = TRUE,
+  y.shift = 0,
+  y.map = NULL,
+  mar = par("mar"),
+  left.margin = 3,
+  vline = NULL,
+  top.axis = TRUE,
+  exp.labels = FALSE,
+  x.ticks = NULL,
+  axes = NULL,
+  xlim = NULL,
+  ylim = NULL,
+  xlab = deparse(substitute(X)),
+  ylab = NULL,
+  las = NULL,
+  add = FALSE,
+  ...
+)
 }
 \arguments{
 \item{X}{a random array or vector}
@@ -83,7 +98,7 @@ each 2-dimensional array \code{X[,,k]} for each \code{k}.
 
 \code{X} may also be a fixed numeric object.
 
-\code{NA}s (or random scalars with 100\% NA) are not plotted.
+\code{NA}s (or random scalars with 100\\% NA) are not plotted.
 
 \code{mlplot} is still experimental.
 }

@@ -4,8 +4,14 @@
 \alias{hist.rv}
 \title{Histogram of a random vector}
 \usage{
-\method{hist}{rv}(x, grid = c(4, 5), xlim = x.range,
-  main = paste(xname, "simulation"), freq = FALSE, ...)
+\method{hist}{rv}(
+  x,
+  grid = c(4, 5),
+  xlim = x.range,
+  main = paste(xname, "simulation"),
+  freq = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{an object}

@@ -9,15 +9,19 @@
 \usage{
 rvquantile(x, ...)
 
-\method{rvquantile}{rv}(x, probs = c(0.025, 0.1, 0.25, 0.5, 0.75, 0.9,
-  0.975), ignoreInf = FALSE, ...)
+\method{rvquantile}{rv}(
+  x,
+  probs = c(0.025, 0.1, 0.25, 0.5, 0.75, 0.9, 0.975),
+  ignoreInf = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{an object}
 
 \item{\dots}{further arguments passed to \code{quantile}}
 
-\item{probs}{numeric vector of probabilities with values in \code{[0,1]}}
+\item{probs}{numeric vector of probabilities with values in \verb{[0,1]}}
 
 \item{ignoreInf}{ignore infinite values}
 }

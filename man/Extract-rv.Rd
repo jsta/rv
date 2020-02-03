@@ -43,8 +43,8 @@ numerical vector or array.  The return value is always an object of class
 Note: the index arguments (\code{i}, \code{j}, etc.)  \emph{must} be
 constants, but this may change in the future.
 
-%Note: the index arguments (\code{i}, \code{j}, etc.) may be %themselves
-random variables, however they will be coerced %into \emph{integers}, as one
+\%Note: the index arguments (\code{i}, \code{j}, etc.) may be \%themselves
+random variables, however they will be coerced \%into \emph{integers}, as one
 would expect.
 }
 \examples{

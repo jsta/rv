@@ -4,9 +4,18 @@
 \alias{points.rv}
 \title{Add Points and Intervals to a Plot}
 \usage{
-\method{points}{rv}(x, y = NULL, type = "p", xlim = NULL,
-  ylim = NULL, rvlwd = rvpar("rvlwd"), rvcol = rvpar("rvcol"),
-  rvpoint = rvpar("rvpoint"), rvlex = rvpar("rvlex"), ...)
+\method{points}{rv}(
+  x,
+  y = NULL,
+  type = "p",
+  xlim = NULL,
+  ylim = NULL,
+  rvlwd = rvpar("rvlwd"),
+  rvcol = rvpar("rvcol"),
+  rvpoint = rvpar("rvpoint"),
+  rvlex = rvpar("rvlex"),
+  ...
+)
 }
 \arguments{
 \item{x}{x-coordinates}
@@ -69,10 +78,10 @@ Special color themes: the default \code{rvcol} color scheme is called
 The parameter \code{rvpoint} is a character vector of length 3, with the
 first component indicating what to plot as a dot (possible values: "mean",
 "median"), the second component indicating what to plot as a "thick
-interval" (possible values: "n\%" such as "50\%" or "80\%"), and the second
+interval" (possible values: "n\\%" such as "50\\%" or "80\\%"), and the second
 component indicating what to plot as a "thin interval".  Default:
 \code{c("mean", "50\%", "95\%")}.  If you wish only to plot the mean and the
-95\% interval, use \code{rvpoint=c("mean", NA, "95\%")} or
+95\\% interval, use \code{rvpoint=c("mean", NA, "95\%")} or
 \code{rvpoint=c("mean", "95\%", NA)}.
 
 The color \code{col} is used for plotting fully fixed dots (both x and y
