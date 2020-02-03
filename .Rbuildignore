@@ -8,3 +8,6 @@
 ^\.Rproj\.user$
 demo
 scratch
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
