@@ -16,8 +16,6 @@ variables.
 
 ## Installation
 
-## Installation
-
 ### Stable version from CRAN
 
 ``` r

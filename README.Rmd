@@ -22,8 +22,6 @@ The `rv` package provides tools for working with simulation-based random variabl
 
 ## Installation
 
-## Installation
-
 ### Stable version from CRAN
 
 ``` r
