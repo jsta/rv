@@ -1,32 +1,16 @@
-# OS: Linux + macOS ------------------------------------------------------------
-# tic documentation: https://docs.ropensci.org/tic/dev/
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
+
+language: R
+sudo: false
+cache: packages
 
 matrix:
+  fast_finish: true
   include:
-    - os: linux
-      r: release
-      env:
-      - BUILD_PKGDOWN=true
-
-# meta -------------------------------------------------------------------------
-language: r
-cache:
-  - packages
-  - $HOME/.ccache
-latex: false
-
-# environment variables --------------------------------------------------------
-
-env:
-  global:
-    - MAKEFLAGS="-j 2"
-
-# Stages -----------------------------------------------------------------------
-
-before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
-deploy:
-  provider: script
-  script: Rscript -e 'pkgdown::deploy_site_github()'
-  cleanup: true
-
-# Custom user code -------------------------------------------------------------
+  - r: release
+    before_cache:
+    - Rscript -e 'remotes::install_cran("pkgdown")'
+    deploy:
+      provider: script
+      script: Rscript -e 'pkgdown::deploy_site_github(verbose = TRUE)'
+      skip_cleanup: true
