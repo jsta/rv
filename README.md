@@ -8,8 +8,8 @@ status](https://www.r-pkg.org/badges/version/rv)](https://cran.r-project.org/pac
 [![Project Status: Active - The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-![rv Downloads](https://cranlogs.r-pkg.org/badges/rv) [![Travis build
-status](https://travis-ci.org/jsta/rv.svg?branch=master)](https://travis-ci.org/jsta/rv)
+![rv Downloads](https://cranlogs.r-pkg.org/badges/rv) [![R build
+status](https://github.com/jsta/rv/workflows/R-CMD-check/badge.svg)](https://github.com/jsta/rv/actions)
 
 The `rv` package provides tools for working with simulation-based random
 variables.
