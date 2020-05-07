@@ -8,21 +8,29 @@
 
 <title>Distribution of a Quantile of a Random Vector — quantile.rv • rv</title>
 
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,11 +38,11 @@
 
 
 
-<meta property="og:title" content="Distribution of a Quantile of a Random Vector — quantile.rv" />
 
+<meta property="og:title" content="Distribution of a Quantile of a Random Vector — quantile.rv" />
 <meta property="og:description" content="quantile.rv returns the distribution of the quantile of a random
 vector (as a random variable)." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -48,9 +56,10 @@ vector (as a random variable)." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -64,7 +73,7 @@ vector (as a random variable)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rv</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.4</span>
       </span>
     </div>
 
@@ -72,7 +81,7 @@ vector (as a random variable)." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -95,11 +104,10 @@ vector (as a random variable)." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/jsta/rv">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/jsta/rv/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -110,6 +118,7 @@ vector (as a random variable)." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -121,15 +130,13 @@ vector (as a random variable)." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>quantile.rv</code> returns the distribution of the quantile of a random
 vector (as a random variable).</p>
-    
     </div>
 
     <pre class="usage"><span class='co'># S3 method for rv</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/quantile'>quantile</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
-    
+<span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -138,59 +145,45 @@ vector (as a random variable).</p>
       <td><p>an object</p></td>
     </tr>
     <tr>
-      <th>&#8230;</th>
+      <th>...</th>
       <td><p>further arguments passed to or from other methods</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A random vector (rv object) with components giving the distribution
 of the desired quantiles.</p>
-    
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p><code>quantile.rv</code> does not return the simulated quantiles of the
 quantiles of the argument <code>x</code>.  This is done by
 <code><a href='rvquantile.html'>rvquantile</a></code>.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
 Posterior Simulations Using Random Variable Objects. Statistics and
 Computing 17:3, 235-244.</p>
 <p>See also <code>vignette("rv")</code>.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
   <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='rvnorm.html'>rvnorm</a></span>(<span class='fl'>30</span>)
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/quantile'>quantile</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;     name   mean   sd    1%  2.5%   25%    50%   75% 97.5%   99% sims
-#&gt; [1]   0% -2.010 0.51 -3.43 -3.06 -2.33 -1.934 -1.64 -1.16 -1.13  200
-#&gt; [2]  25% -0.612 0.23 -1.06 -1.01 -0.75 -0.596 -0.46 -0.17 -0.12  200
-#&gt; [3]  50%  0.024 0.22 -0.47 -0.40 -0.12  0.012  0.20  0.46  0.51  200
-#&gt; [4]  75%  0.672 0.23  0.22  0.25  0.52  0.683  0.82  1.11  1.15  200
-#&gt; [5] 100%  2.066 0.45  1.24  1.30  1.75  2.021  2.35  3.10  3.28  200</div><div class='input'>
+  <span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span>(<span class='no'>x</span>)</div><div class='output co'>#&gt;     name   mean   sd    1%  2.5%   25%    50%   75% 97.5%   99% sims
+#&gt; [1]   0% -2.000 0.49 -3.11 -3.05 -2.31 -1.938 -1.67 -1.17 -1.13  200
+#&gt; [2]  25% -0.622 0.22 -1.18 -1.04 -0.77 -0.602 -0.48 -0.22 -0.19  200
+#&gt; [3]  50%  0.024 0.22 -0.47 -0.41 -0.13  0.022  0.19  0.42  0.53  200
+#&gt; [4]  75%  0.675 0.24  0.18  0.21  0.52  0.665  0.83  1.13  1.28  200
+#&gt; [5] 100%  2.061 0.45  1.21  1.29  1.75  2.020  2.34  3.10  3.28  200</div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#note">Note</a></li>
-
-      <li><a href="#references">References</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Jouni Kerman <a href='mailto:jouni@kerman.com'>jouni@kerman.com</a></p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -198,13 +191,16 @@ Computing 17:3, 235-244.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

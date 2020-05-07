@@ -8,21 +8,29 @@
 
 <title>Generate Random Vectors from a Beta Sampling Model — rvbeta • rv</title>
 
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,10 +38,10 @@
 
 
 
-<meta property="og:title" content="Generate Random Vectors from a Beta Sampling Model — rvbeta" />
 
+<meta property="og:title" content="Generate Random Vectors from a Beta Sampling Model — rvbeta" />
 <meta property="og:description" content="rvbeta generates a random vector from the beta sampling model;" />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -47,9 +55,10 @@
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -63,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rv</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.4</span>
       </span>
     </div>
 
@@ -71,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -94,11 +103,10 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/jsta/rv">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/jsta/rv/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -109,6 +117,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -120,13 +129,11 @@
     </div>
 
     <div class="ref-description">
-    
     <p><code>rvbeta</code> generates a random vector from the beta sampling model;</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>rvbeta</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>shape1</span>, <span class='no'>shape2</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -143,68 +150,57 @@
       <td><p>positive number or rv, 2nd shape parameter</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>rvnbeta(n, a, b)</code> ("neutral" Beta distribution) is equivalent to
 <code>rvbeta(n, 1/3+a, 1/3+b)</code>.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
 Posterior Simulations Using Random Variable Objects. Statistics and
 Computing 17:3, 235-244.</p>
 <p>See also <code>vignette("rv")</code>.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
    <span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>12</span>         <span class='co'># sample size</span>
    <span class='no'>y</span> <span class='kw'>&lt;-</span> (<span class='fl'>0</span>:(<span class='no'>n</span>-<span class='fl'>1</span>))  <span class='co'># observations</span>
    <span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>/<span class='fl'>3</span>   <span class='co'># the neutral beta prior</span>
-   <span class='fu'>rvbeta</span>(<span class='fl'>1</span>, <span class='kw'>shape1</span><span class='kw'>=</span><span class='no'>a</span>+<span class='no'>y</span>, <span class='kw'>shape2</span><span class='kw'>=</span><span class='no'>b</span>+<span class='no'>n</span>-<span class='no'>y</span>)</div><div class='output co'>#&gt;       mean    sd      1%    2.5%    25%    50%   75% 97.5%  99% sims
-#&gt;  [1] 0.027 0.044 1.1e-06 1.6e-06 0.0012 0.0077 0.037  0.14 0.24  200
-#&gt;  [2] 0.101 0.081 2.7e-03 8.3e-03 0.0404 0.0790 0.141  0.29 0.39  200
-#&gt;  [3] 0.183 0.092 1.8e-02 4.3e-02 0.1212 0.1737 0.233  0.40 0.46  200
-#&gt;  [4] 0.256 0.118 4.5e-02 6.2e-02 0.1730 0.2373 0.325  0.51 0.58  200
-#&gt;  [5] 0.353 0.127 1.0e-01 1.4e-01 0.2525 0.3497 0.434  0.61 0.62  200
-#&gt;  [6] 0.419 0.132 1.7e-01 2.1e-01 0.3213 0.4143 0.506  0.70 0.73  200
-#&gt;  [7] 0.505 0.139 2.1e-01 2.4e-01 0.4014 0.5025 0.599  0.79 0.80  200
-#&gt;  [8] 0.576 0.145 2.2e-01 2.8e-01 0.4671 0.5890 0.682  0.85 0.87  200
-#&gt;  [9] 0.665 0.137 3.6e-01 3.9e-01 0.5692 0.6915 0.764  0.88 0.90  200
-#&gt; [10] 0.733 0.114 4.6e-01 4.9e-01 0.6565 0.7315 0.818  0.93 0.95  200
-#&gt; [11] 0.805 0.124 4.7e-01 4.9e-01 0.7409 0.8272 0.903  0.97 0.97  200
-#&gt; [12] 0.895 0.084 6.5e-01 6.8e-01 0.8501 0.9114 0.963  0.99 1.00  200</div><div class='input'>   <span class='fu'>rvnbeta</span>(<span class='fl'>1</span>, <span class='kw'>shape1</span><span class='kw'>=</span><span class='no'>y</span>, <span class='kw'>shape2</span><span class='kw'>=</span><span class='no'>n</span>-<span class='no'>y</span>)</div><div class='output co'>#&gt;       mean    sd      1%    2.5%     25%    50%   75% 97.5%  99% sims
-#&gt;  [1] 0.024 0.039 2.5e-08 4.2e-07 0.00065 0.0064 0.029  0.16 0.18  200
-#&gt;  [2] 0.096 0.074 3.8e-03 6.2e-03 0.03792 0.0765 0.131  0.26 0.27  200
-#&gt;  [3] 0.172 0.100 2.1e-02 2.6e-02 0.10308 0.1482 0.233  0.40 0.46  200
-#&gt;  [4] 0.273 0.126 5.0e-02 6.5e-02 0.18405 0.2493 0.360  0.53 0.61  200
-#&gt;  [5] 0.349 0.132 1.2e-01 1.4e-01 0.24441 0.3239 0.445  0.60 0.67  200
-#&gt;  [6] 0.420 0.131 1.4e-01 1.6e-01 0.32510 0.4188 0.515  0.67 0.74  200
-#&gt;  [7] 0.486 0.132 2.2e-01 2.5e-01 0.39078 0.4827 0.575  0.72 0.77  200
-#&gt;  [8] 0.578 0.144 2.9e-01 3.0e-01 0.47713 0.5809 0.685  0.83 0.89  200
-#&gt;  [9] 0.654 0.131 3.1e-01 3.8e-01 0.56734 0.6666 0.761  0.86 0.89  200
-#&gt; [10] 0.738 0.119 4.5e-01 4.8e-01 0.66104 0.7533 0.823  0.93 0.94  200
-#&gt; [11] 0.812 0.098 5.4e-01 5.8e-01 0.75694 0.8260 0.878  0.97 0.98  200
-#&gt; [12] 0.896 0.085 6.2e-01 6.4e-01 0.85739 0.9151 0.957  0.99 1.00  200</div><div class='input'>
+   <span class='fu'>rvbeta</span>(<span class='fl'>1</span>, <span class='kw'>shape1</span><span class='kw'>=</span><span class='no'>a</span>+<span class='no'>y</span>, <span class='kw'>shape2</span><span class='kw'>=</span><span class='no'>b</span>+<span class='no'>n</span>-<span class='no'>y</span>)</div><div class='output co'>#&gt;       mean    sd      1%    2.5%     25%    50%   75% 97.5%  99% sims
+#&gt;  [1] 0.024 0.039 1.1e-06 1.6e-06 0.00079 0.0066 0.032  0.12 0.17  200
+#&gt;  [2] 0.099 0.082 2.7e-03 6.8e-03 0.03783 0.0756 0.141  0.29 0.39  200
+#&gt;  [3] 0.187 0.097 1.8e-02 4.3e-02 0.12507 0.1737 0.228  0.42 0.47  200
+#&gt;  [4] 0.260 0.120 4.5e-02 6.2e-02 0.17444 0.2413 0.328  0.51 0.58  200
+#&gt;  [5] 0.357 0.127 1.0e-01 1.4e-01 0.25819 0.3528 0.440  0.60 0.61  200
+#&gt;  [6] 0.417 0.135 1.7e-01 2.0e-01 0.32003 0.4082 0.506  0.71 0.74  200
+#&gt;  [7] 0.499 0.142 2.0e-01 2.4e-01 0.39319 0.4974 0.596  0.77 0.80  200
+#&gt;  [8] 0.569 0.149 2.2e-01 2.8e-01 0.46173 0.5844 0.678  0.84 0.87  200
+#&gt;  [9] 0.671 0.132 3.6e-01 4.1e-01 0.57357 0.6929 0.766  0.88 0.91  200
+#&gt; [10] 0.734 0.112 4.6e-01 4.8e-01 0.66513 0.7298 0.819  0.93 0.95  200
+#&gt; [11] 0.811 0.116 4.9e-01 5.4e-01 0.74668 0.8299 0.902  0.97 0.97  200
+#&gt; [12] 0.892 0.086 6.5e-01 6.8e-01 0.84850 0.9094 0.962  0.99 1.00  200</div><div class='input'>   <span class='fu'>rvnbeta</span>(<span class='fl'>1</span>, <span class='kw'>shape1</span><span class='kw'>=</span><span class='no'>y</span>, <span class='kw'>shape2</span><span class='kw'>=</span><span class='no'>n</span>-<span class='no'>y</span>)</div><div class='output co'>#&gt;       mean    sd      1%    2.5%     25%    50%   75% 97.5%  99% sims
+#&gt;  [1] 0.025 0.039 2.5e-08 4.2e-07 0.00091 0.0074 0.035  0.16 0.18  200
+#&gt;  [2] 0.096 0.073 3.8e-03 6.2e-03 0.03917 0.0780 0.133  0.26 0.27  200
+#&gt;  [3] 0.171 0.099 2.1e-02 2.6e-02 0.10117 0.1482 0.235  0.39 0.46  200
+#&gt;  [4] 0.267 0.124 5.0e-02 6.5e-02 0.17357 0.2465 0.350  0.53 0.60  200
+#&gt;  [5] 0.343 0.132 1.2e-01 1.4e-01 0.23668 0.3180 0.441  0.60 0.67  200
+#&gt;  [6] 0.417 0.130 1.4e-01 1.6e-01 0.32295 0.4169 0.511  0.67 0.71  200
+#&gt;  [7] 0.488 0.129 2.3e-01 2.4e-01 0.39518 0.4913 0.583  0.72 0.74  200
+#&gt;  [8] 0.576 0.143 2.8e-01 3.0e-01 0.47713 0.5788 0.685  0.82 0.89  200
+#&gt;  [9] 0.647 0.133 3.1e-01 3.5e-01 0.55550 0.6566 0.753  0.86 0.89  200
+#&gt; [10] 0.740 0.119 4.5e-01 5.0e-01 0.65916 0.7551 0.826  0.93 0.95  200
+#&gt; [11] 0.808 0.102 5.4e-01 5.7e-01 0.74899 0.8226 0.878  0.97 0.98  200
+#&gt; [12] 0.898 0.083 6.2e-01 6.4e-01 0.86225 0.9171 0.957  0.99 1.00  200</div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#references">References</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Jouni Kerman <a href='mailto:jouni@kerman.com'>jouni@kerman.com</a></p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -212,13 +208,16 @@ Computing 17:3, 235-244.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

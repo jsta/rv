@@ -8,21 +8,29 @@
 
 <title>Categorical Random Variables (Random Factors) — print.rvfactor • rv</title>
 
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,10 +38,10 @@
 
 
 
-<meta property="og:title" content="Categorical Random Variables (Random Factors) — print.rvfactor" />
 
+<meta property="og:title" content="Categorical Random Variables (Random Factors) — print.rvfactor" />
 <meta property="og:description" content="Creates or tests for objects of type &quot;rvfactor&quot;." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -47,9 +55,10 @@
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -63,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rv</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.4</span>
       </span>
     </div>
 
@@ -71,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -94,11 +103,10 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/jsta/rv">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/jsta/rv/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -109,6 +117,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -120,19 +129,17 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Creates or tests for objects of type "<code>rvfactor</code>".</p>
-    
     </div>
 
     <pre class="usage"><span class='co'># S3 method for rvfactor</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>x</span>, <span class='kw'>all.levels</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='kw'>all.levels</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
 
 <span class='fu'>rvfactor</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for default</span>
 <span class='fu'>rvfactor</span>(<span class='no'>x</span>, <span class='kw'>levels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -146,7 +153,7 @@
 details)</p></td>
     </tr>
     <tr>
-      <th>&#8230;</th>
+      <th>...</th>
       <td><p>other arguments</p></td>
     </tr>
     <tr>
@@ -154,56 +161,42 @@ details)</p></td>
       <td><p>factor levels (labels for the levels)</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>rvfactor</code>: an <code>rvfactor</code> object.</p>
 <p><code>is.rvfactor</code>: <code>TRUE</code> or <code>FALSE</code>.</p>
 <p><code>as.rv.rvfactor</code>: an <code>rv</code> object.</p>
 <p><code>as.rvfactor.rv</code>: an <code>rvfactor</code> object.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Internally random factors are integer-valued just like regular factors in R.</p>
 <p>The number of levels to print when <code>all.levels==FALSE</code> can be set by
 <code><a href='rvpar.html'>rvpar(max.levels=...)</a></code>. By default this is set to 10.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
 Posterior Simulations Using Random Variable Objects. Statistics and
 Computing 17:3, 235-244.</p>
 <p>See also <code>vignette("rv")</code>.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
   <span class='co'># Probabilities of each integer of trunc(Z) where Z ~ N(0,1) ?</span>
   <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='rvnorm.html'>rvnorm</a></span>(<span class='fl'>1</span>)
-  <span class='fu'>rvfactor</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Round'>trunc</a></span>(<span class='no'>x</span>))</div><div class='output co'>#&gt;        -2   -1    0    1    2     3 sims
-#&gt; [1] 0.035 0.18 0.58 0.15 0.05 0.005  200</div><div class='input'>  <span class='fu'>rvfactor</span>(<span class='no'>x</span><span class='kw'>&gt;</span><span class='fl'>0</span>)</div><div class='output co'>#&gt;     FALSE  TRUE sims
-#&gt; [1] 0.495 0.505  200</div><div class='input'>  <span class='fu'>rvfactor</span>(<span class='fu'><a href='rvpois.html'>rvpois</a></span>(<span class='fl'>1</span>, <span class='kw'>lambda</span><span class='kw'>=</span><span class='fl'>0.5</span>))</div><div class='output co'>#&gt;        0    1     2     3 sims
-#&gt; [1] 0.61 0.34 0.045 0.005  200</div><div class='input'>
+  <span class='fu'>rvfactor</span>(<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>trunc</a></span>(<span class='no'>x</span>))</div><div class='output co'>#&gt;        -3   -2    -1     0     1     2     3 sims
+#&gt; [1] 0.005 0.02 0.135 0.695 0.125 0.015 0.005  200</div><div class='input'>  <span class='fu'>rvfactor</span>(<span class='no'>x</span><span class='kw'>&gt;</span><span class='fl'>0</span>)</div><div class='output co'>#&gt;     FALSE TRUE sims
+#&gt; [1]  0.45 0.55  200</div><div class='input'>  <span class='fu'>rvfactor</span>(<span class='fu'><a href='rvpois.html'>rvpois</a></span>(<span class='fl'>1</span>, <span class='kw'>lambda</span><span class='kw'>=</span><span class='fl'>0.5</span>))</div><div class='output co'>#&gt;        0    1    2     3     4 sims
+#&gt; [1] 0.64 0.27 0.07 0.015 0.005  200</div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#references">References</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Jouni Kerman <a href='mailto:jouni@kerman.com'>jouni@kerman.com</a></p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -211,13 +204,16 @@ Computing 17:3, 235-244.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

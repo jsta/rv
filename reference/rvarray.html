@@ -8,21 +8,29 @@
 
 <title>Matrices and Arrays of Random Vectors — rvmatrix • rv</title>
 
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,10 +38,10 @@
 
 
 
-<meta property="og:title" content="Matrices and Arrays of Random Vectors — rvmatrix" />
 
+<meta property="og:title" content="Matrices and Arrays of Random Vectors — rvmatrix" />
 <meta property="og:description" content="Arrange a given random vector into a matrix or array form." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -47,9 +55,10 @@
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -63,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rv</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.4</span>
       </span>
     </div>
 
@@ -71,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -94,11 +103,10 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/jsta/rv">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/jsta/rv/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -109,6 +117,7 @@
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -120,16 +129,13 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Arrange a given random vector into a matrix or array form.</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>rvmatrix</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>byrow</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>rvmatrix</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>byrow</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
-<span class='fu'>rvarray</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>data</span>), <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
-    
+<span class='fu'>rvarray</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>dim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>data</span>), <span class='kw'>dimnames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -160,78 +166,60 @@ giving the row and column names respectively.</p></td>
       <td><p>the dim attribute for the array to be created, that is a vector
 of length one or more giving the maximal indices in each dimension.</p></td>
     </tr>
-    <tr>
-      <th>&#8230;</th>
-      <td><p>arguments passed to other methods</p></td>
-    </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>These are 'rv' compatible versions of the functions <code><a href='https://www.rdocumentation.org/packages/base/topics/matrix'>matrix</a></code> and
-<code><a href='https://www.rdocumentation.org/packages/base/topics/array'>array</a></code>.</p>
+    <p>These are 'rv' compatible versions of the functions <code><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></code> and
+<code><a href='https://rdrr.io/r/base/array.html'>array</a></code>.</p>
 <p>The function <code>rvmatrix</code> generates the random variable matrix via an
 <code>rvarray</code> call.</p>
 <p>The <code>rvarray</code> function calls first <code>array</code> to set the dimensions
 of the argument <code>data</code> and then coerces the resulting array object to
 an 'rv' object.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
 Posterior Simulations Using Random Variable Objects. Statistics and
 Computing 17:3, 235-244.</p>
 <p>See also <code>vignette("rv")</code>.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>To plot random matrices, see <code><a href='mlplot.html'>mlplot</a></code>.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
   <span class='no'>n.rows</span> <span class='kw'>&lt;-</span> <span class='fl'>3</span>; <span class='no'>n.cols</span> <span class='kw'>&lt;-</span> <span class='fl'>4</span>; <span class='no'>n</span> <span class='kw'>&lt;-</span> (<span class='no'>n.rows</span>*<span class='no'>n.cols</span>)
-  <span class='no'>mu.true</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>1</span>:<span class='no'>n.rows</span>, <span class='kw'>mean</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='no'>n.rows</span>, <span class='kw'>sd</span><span class='kw'>=</span><span class='fl'>1</span>)
+  <span class='no'>mu.true</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>1</span>:<span class='no'>n.rows</span>, <span class='kw'>mean</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='no'>n.rows</span>, <span class='kw'>sd</span><span class='kw'>=</span><span class='fl'>1</span>)
   <span class='no'>theta</span> <span class='kw'>&lt;-</span> <span class='fu'>rvmatrix</span>(<span class='fu'><a href='rvnorm.html'>rvnorm</a></span>(<span class='kw'>n</span><span class='kw'>=</span><span class='no'>n.cols</span>, <span class='kw'>mean</span><span class='kw'>=</span><span class='no'>mu.true</span>, <span class='kw'>sd</span><span class='kw'>=</span><span class='fl'>0.5</span>), <span class='kw'>nrow</span><span class='kw'>=</span><span class='no'>n.rows</span>)
-  <span class='no'>col.labels</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste</a></span>(<span class='st'>"Time"</span>, <span class='fl'>1</span>:<span class='no'>n.cols</span>, <span class='kw'>sep</span><span class='kw'>=</span><span class='st'>":"</span>)
-  <span class='no'>row.labels</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste</a></span>(<span class='st'>"Unit"</span>, <span class='fl'>1</span>:<span class='no'>n.rows</span>, <span class='kw'>sep</span><span class='kw'>=</span><span class='st'>":"</span>)
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/dimnames'>dimnames</a></span>(<span class='no'>theta</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='no'>row.labels</span>, <span class='no'>col.labels</span>)
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>theta</span>)</div><div class='output co'>#&gt;          row    col   mean   sd   1% 2.5%  25% 50% 75% 97.5% 99% sims
-#&gt; [1,1] Unit:1 Time:1 :  1.3 0.50 0.19 0.41 1.00 1.3 1.6   2.3 2.6  200
-#&gt; [2,1] Unit:2 Time:1 :  1.8 0.56 0.69 0.79 1.46 1.8 2.2   2.9 3.0  200
-#&gt; [3,1] Unit:3 Time:1 :  2.8 0.49 1.75 1.93 2.48 2.9 3.2   3.8 3.9  200
-#&gt; [1,2] Unit:1 Time:2 :  1.4 0.53 0.34 0.38 1.03 1.3 1.7   2.4 2.6  200
-#&gt; [2,2] Unit:2 Time:2 :  1.8 0.48 0.66 0.88 1.47 1.8 2.1   2.7 2.8  200
-#&gt; [3,2] Unit:3 Time:2 :  2.9 0.54 1.58 1.89 2.49 2.9 3.3   3.9 4.0  200
-#&gt; [1,3] Unit:1 Time:3 :  1.4 0.47 0.44 0.53 0.96 1.3 1.6   2.3 2.4  200
-#&gt; [2,3] Unit:2 Time:3 :  1.7 0.50 0.75 0.79 1.37 1.7 2.1   2.7 2.8  200
-#&gt; [3,3] Unit:3 Time:3 :  2.9 0.51 1.79 1.89 2.56 2.9 3.3   4.0 4.1  200
-#&gt; [1,4] Unit:1 Time:4 :  1.4 0.51 0.20 0.33 1.02 1.4 1.7   2.3 2.4  200
-#&gt; [2,4] Unit:2 Time:4 :  1.8 0.52 0.56 0.81 1.47 1.8 2.1   2.7 3.0  200
-#&gt; [3,4] Unit:3 Time:4 :  2.9 0.52 1.59 1.91 2.50 2.9 3.2   3.9 3.9  200</div><div class='input'>  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'><a href='rvmean.html'>E</a></span>(<span class='no'>theta</span>))</div><div class='output co'>#&gt;          Time:1   Time:2   Time:3   Time:4
-#&gt; Unit:1 1.327134 1.372999 1.350508 1.355914
-#&gt; Unit:2 1.810740 1.773406 1.712644 1.778697
-#&gt; Unit:3 2.838278 2.876188 2.917176 2.888863</div><div class='input'>
+  <span class='no'>col.labels</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='st'>"Time"</span>, <span class='fl'>1</span>:<span class='no'>n.cols</span>, <span class='kw'>sep</span><span class='kw'>=</span><span class='st'>":"</span>)
+  <span class='no'>row.labels</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='st'>"Unit"</span>, <span class='fl'>1</span>:<span class='no'>n.rows</span>, <span class='kw'>sep</span><span class='kw'>=</span><span class='st'>":"</span>)
+  <span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span>(<span class='no'>theta</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>row.labels</span>, <span class='no'>col.labels</span>)
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>theta</span>)</div><div class='output co'>#&gt;          row    col   mean   sd   1% 2.5% 25% 50% 75% 97.5% 99% sims
+#&gt; [1,1] Unit:1 Time:1 :  2.5 0.50 1.61 1.64 2.2 2.5 2.9   3.5 3.6  200
+#&gt; [2,1] Unit:2 Time:1 :  1.4 0.54 0.17 0.36 1.0 1.4 1.8   2.4 2.7  200
+#&gt; [3,1] Unit:3 Time:1 :  2.7 0.52 1.61 1.69 2.4 2.7 3.1   3.7 3.9  200
+#&gt; [1,2] Unit:1 Time:2 :  2.6 0.54 1.26 1.59 2.2 2.6 3.0   3.7 3.7  200
+#&gt; [2,2] Unit:2 Time:2 :  1.5 0.53 0.45 0.56 1.1 1.5 1.8   2.5 2.7  200
+#&gt; [3,2] Unit:3 Time:2 :  2.6 0.48 1.55 1.65 2.3 2.6 2.9   3.5 3.7  200
+#&gt; [1,3] Unit:1 Time:3 :  2.6 0.49 1.40 1.56 2.2 2.6 2.9   3.5 3.6  200
+#&gt; [2,3] Unit:2 Time:3 :  1.5 0.47 0.32 0.61 1.1 1.5 1.8   2.4 2.5  200
+#&gt; [3,3] Unit:3 Time:3 :  2.6 0.50 1.49 1.66 2.3 2.6 3.0   3.6 3.7  200
+#&gt; [1,4] Unit:1 Time:4 :  2.6 0.50 1.27 1.62 2.2 2.5 2.9   3.5 3.6  200
+#&gt; [2,4] Unit:2 Time:4 :  1.5 0.51 0.28 0.45 1.1 1.5 1.8   2.4 2.6  200
+#&gt; [3,4] Unit:3 Time:4 :  2.7 0.54 1.51 1.68 2.4 2.7 3.0   3.8 4.1  200</div><div class='input'>  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'><a href='rvmean.html'>E</a></span>(<span class='no'>theta</span>))</div><div class='output co'>#&gt;          Time:1   Time:2   Time:3   Time:4
+#&gt; Unit:1 2.543412 2.610978 2.554479 2.556123
+#&gt; Unit:2 1.433099 1.488647 1.465976 1.475878
+#&gt; Unit:3 2.723042 2.582438 2.623121 2.695514</div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#references">References</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Jouni Kerman <a href='mailto:jouni@kerman.com'>jouni@kerman.com</a></p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -239,13 +227,16 @@ Computing 17:3, 235-244.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

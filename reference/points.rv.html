@@ -8,21 +8,29 @@
 
 <title>Add Points and Intervals to a Plot — points.rv • rv</title>
 
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -30,11 +38,11 @@
 
 
 
-<meta property="og:title" content="Add Points and Intervals to a Plot — points.rv" />
 
+<meta property="og:title" content="Add Points and Intervals to a Plot — points.rv" />
 <meta property="og:description" content="Draw a sequence of points or uncertainty intervals at specified (fixed)
 x-coordinates." />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -48,9 +56,10 @@ x-coordinates." />
 <![endif]-->
 
 
+
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -64,7 +73,7 @@ x-coordinates." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">rv</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.4</span>
       </span>
     </div>
 
@@ -72,7 +81,7 @@ x-coordinates." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -95,11 +104,10 @@ x-coordinates." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/jsta/rv">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/jsta/rv/">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -110,6 +118,7 @@ x-coordinates." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -121,17 +130,24 @@ x-coordinates." />
     </div>
 
     <div class="ref-description">
-    
     <p>Draw a sequence of points or uncertainty intervals at specified (fixed)
 x-coordinates.</p>
-    
     </div>
 
     <pre class="usage"><span class='co'># S3 method for rv</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/points'>points</a></span>(<span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"p"</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rvlwd</span> <span class='kw'>=</span> <span class='fu'><a href='rvpar.html'>rvpar</a></span>(<span class='st'>"rvlwd"</span>), <span class='kw'>rvcol</span> <span class='kw'>=</span> <span class='fu'><a href='rvpar.html'>rvpar</a></span>(<span class='st'>"rvcol"</span>),
-  <span class='kw'>rvpoint</span> <span class='kw'>=</span> <span class='fu'><a href='rvpar.html'>rvpar</a></span>(<span class='st'>"rvpoint"</span>), <span class='kw'>rvlex</span> <span class='kw'>=</span> <span class='fu'><a href='rvpar.html'>rvpar</a></span>(<span class='st'>"rvlex"</span>), <span class='no'>...</span>)</pre>
-    
+<span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span>(
+  <span class='no'>x</span>,
+  <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"p"</span>,
+  <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>rvlwd</span> <span class='kw'>=</span> <span class='fu'><a href='rvpar.html'>rvpar</a></span>(<span class='st'>"rvlwd"</span>),
+  <span class='kw'>rvcol</span> <span class='kw'>=</span> <span class='fu'><a href='rvpar.html'>rvpar</a></span>(<span class='st'>"rvcol"</span>),
+  <span class='kw'>rvpoint</span> <span class='kw'>=</span> <span class='fu'><a href='rvpar.html'>rvpar</a></span>(<span class='st'>"rvpoint"</span>),
+  <span class='kw'>rvlex</span> <span class='kw'>=</span> <span class='fu'><a href='rvpar.html'>rvpar</a></span>(<span class='st'>"rvlex"</span>),
+  <span class='no'>...</span>
+)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -174,11 +190,11 @@ to print</p></td>
 interval</p></td>
     </tr>
     <tr>
-      <th>&#8230;</th>
+      <th>...</th>
       <td><p>further arguments passed to <code>points</code></p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Each point with a fixed coordinate and a random coordinate is plotted as
@@ -202,17 +218,17 @@ color, the thick line is colored using a darker hue (numbered '2', e.g.
 <code>"red2"</code>) and the dot is colored using the darkest hue (numbered '3',
 e.g. <code>"red3"</code>).  That is, for example. if <code>rvcol='red'</code>, the color
 scheme generated for the dot, the thick line, and the thin line,
-respectively, are <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c('red3', 'red2', 'red')</a></code>.</p>
+respectively, are <code><a href='https://rdrr.io/r/base/c.html'>c('red3', 'red2', 'red')</a></code>.</p>
 <p>Special color themes: the default <code>rvcol</code> color scheme is called
-<code>"default"</code> and yields the color scheme <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c("grey20", "grey40", "grey60")</a></code>.  Other special color themes: <code>"grey"</code>, <code>"lightgrey"</code>,
+<code>"default"</code> and yields the color scheme <code><a href='https://rdrr.io/r/base/c.html'>c("grey20", "grey40", "grey60")</a></code>.  Other special color themes: <code>"grey"</code>, <code>"lightgrey"</code>,
 <code>"darkgrey"</code>.  (The spellings 'gray' and 'grey' are interchangeable).</p>
 <p>The parameter <code>rvpoint</code> is a character vector of length 3, with the
 first component indicating what to plot as a dot (possible values: "mean",
 "median"), the second component indicating what to plot as a "thick
-interval" (possible values: "n%" such as "50%" or "80%"), and the second
+interval" (possible values: "n\<!-- %" such as "50\\%" or "80\\%"), and the second -->
 component indicating what to plot as a "thin interval".  Default:
-<code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c("mean", "50%", "95%")</a></code>.  If you wish only to plot the mean and the
-95% interval, use <code>rvpoint=c("mean", NA, "95%")</code> or
+<code><a href='https://rdrr.io/r/base/c.html'>c("mean", "50%", "95%")</a></code>.  If you wish only to plot the mean and the
+95\<!-- % interval, use \code{rvpoint=c("mean", NA, "95\%")} or -->
 <code>rvpoint=c("mean", "95%", NA)</code>.</p>
 <p>The color <code>col</code> is used for plotting fully fixed dots (both x and y
 coordinates fixed) and lines (fixed and <em>random lines</em> -- see
@@ -220,47 +236,34 @@ coordinates fixed) and lines (fixed and <em>random lines</em> -- see
 <p>NOTE. This parameterization is yet experimental, and may change.</p>
 <p>It is possible to have both <code>x</code> and <code>y</code> random, but this code is
 not yet fully functional.</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
 Posterior Simulations Using Random Variable Objects. Statistics and
 Computing 17:3, 235-244.</p>
 <p>See also <code>vignette("rv")</code>.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
   <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='rv.html'>as.rv</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>)
   <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='rvnorm.html'>rvnorm</a></span>(<span class='kw'>mean</span><span class='kw'>=</span><span class='no'>x</span>)
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/par'>par</a></span>(<span class='kw'>mfrow</span><span class='kw'>=</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>2</span>))
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Fixed x-coordinate"</span>)
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>y</span>, <span class='no'>x</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Fixed y-coordinate"</span>)
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>4</span>, <span class='kw'>rvcol</span><span class='kw'>=</span><span class='st'>"red"</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Color and line width changed"</span>)
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Intervals and random lines"</span>, <span class='kw'>rvcol</span><span class='kw'>=</span><span class='st'>"blue"</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"gray"</span>)</div><div class='img'><img src='points.rv-1.png' alt='' width='700' height='433' /></div><div class='input'>  </div><span class='co'># NOT RUN {</span>
+  <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>2</span>))
+  <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Fixed x-coordinate"</span>)
+  <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>y</span>, <span class='no'>x</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Fixed y-coordinate"</span>)
+  <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>4</span>, <span class='kw'>rvcol</span><span class='kw'>=</span><span class='st'>"red"</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Color and line width changed"</span>)
+  <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Intervals and random lines"</span>, <span class='kw'>rvcol</span><span class='kw'>=</span><span class='st'>"blue"</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"gray"</span>)</div><div class='img'><img src='points.rv-1.png' alt='' width='700' height='433' /></div><div class='input'>  <span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
     <span class='co'># Don't use the rv-only parameters when plotting fixed vectors.</span>
-    <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>x</span>, <span class='fu'><a href='rvmean.html'>E</a></span>(<span class='no'>y</span>), <span class='kw'>rvcol</span><span class='kw'>=</span><span class='st'>"blue"</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"gray"</span>)
-    <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>x</span>, <span class='fu'><a href='rvmean.html'>E</a></span>(<span class='no'>y</span>), <span class='kw'>rvcol</span><span class='kw'>=</span><span class='st'>"blue"</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"gray"</span>)
-
-<span class='co'># }</span><div class='input'>
-</div></pre>
+    <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='fu'><a href='rvmean.html'>E</a></span>(<span class='no'>y</span>), <span class='kw'>rvcol</span><span class='kw'>=</span><span class='st'>"blue"</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"gray"</span>)
+    <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='fu'><a href='rvmean.html'>E</a></span>(<span class='no'>y</span>), <span class='kw'>rvcol</span><span class='kw'>=</span><span class='st'>"blue"</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"gray"</span>)
+  }</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#references">References</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
-    <h2>Author</h2>
-    <p>Jouni Kerman <a href='mailto:jouni@kerman.com'>jouni@kerman.com</a></p>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -268,13 +271,16 @@ Computing 17:3, 235-244.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 
