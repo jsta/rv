@@ -3,9 +3,9 @@ Title: Simulation-Based Random Variable Objects
 Version: 2.3.4
 Authors@R: c(
   person("Jouni", "Kerman", role = c("aut"), email = "jouni@kerman.com"),
-  person("Joseph", "Stachelek", role = c("ctb", "cre"), email = "stachel2@msu.edu")
+  person("Jemma", "Stachelek", role = c("ctb", "cre"), email = "stachel2@msu.edu")
   )
-Maintainer: Joseph Stachelek <stachel2@msu.edu>
+Maintainer: Jemma Stachelek <stachel2@msu.edu>
 URL: https://github.com/jsta/rv
 BugReports: https://github.com/jsta/rv/issues
 Description: Implements a simulation-based random variable class and a suite of
