@@ -45,6 +45,8 @@
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -56,9 +58,15 @@
 
 
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -79,12 +87,6 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -106,7 +108,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jsta/rv/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -132,13 +134,13 @@
     <p>Creates or tests for objects of type "<code>rvfactor</code>".</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for rvfactor</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='kw'>all.levels</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='co'># S3 method for rvfactor</span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, all.levels <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>rvfactor</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'>rvfactor</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>rvfactor</span>(<span class='no'>x</span>, <span class='kw'>levels</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>rvfactor</span><span class='op'>(</span><span class='va'>x</span>, levels <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -172,23 +174,32 @@ details)</p></td>
 
     <p>Internally random factors are integer-valued just like regular factors in R.</p>
 <p>The number of levels to print when <code>all.levels==FALSE</code> can be set by
-<code><a href='rvpar.html'>rvpar(max.levels=...)</a></code>. By default this is set to 10.</p>
+<code>rvpar(max.levels=...)</code>. By default this is set to 10.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Kerman, J. and Gelman, A. (2007). Manipulating and Summarizing
 Posterior Simulations Using Random Variable Objects. Statistics and
 Computing 17:3, 235-244.</p>
 <p>See also <code>vignette("rv")</code>.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Jouni Kerman <a href='mailto:jouni@kerman.com'>jouni@kerman.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-  <span class='co'># Probabilities of each integer of trunc(Z) where Z ~ N(0,1) ?</span>
-  <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='rvnorm.html'>rvnorm</a></span>(<span class='fl'>1</span>)
-  <span class='fu'>rvfactor</span>(<span class='fu'><a href='https://rdrr.io/r/base/Round.html'>trunc</a></span>(<span class='no'>x</span>))</div><div class='output co'>#&gt;        -3   -2    -1     0     1     2     3 sims
-#&gt; [1] 0.005 0.02 0.135 0.695 0.125 0.015 0.005  200</div><div class='input'>  <span class='fu'>rvfactor</span>(<span class='no'>x</span><span class='kw'>&gt;</span><span class='fl'>0</span>)</div><div class='output co'>#&gt;     FALSE TRUE sims
-#&gt; [1]  0.45 0.55  200</div><div class='input'>  <span class='fu'>rvfactor</span>(<span class='fu'><a href='rvpois.html'>rvpois</a></span>(<span class='fl'>1</span>, <span class='kw'>lambda</span><span class='kw'>=</span><span class='fl'>0.5</span>))</div><div class='output co'>#&gt;        0    1    2     3     4 sims
-#&gt; [1] 0.64 0.27 0.07 0.015 0.005  200</div><div class='input'>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'></span>
+<span class='r-in'>  <span class='co'># Probabilities of each integer of trunc(Z) where Z ~ N(0,1) ?</span></span>
+<span class='r-in'>  <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='rvnorm.html'>rvnorm</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'>rvfactor</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Round.html'>trunc</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        -3   -2    -1     0     1     2     3 sims</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.005 0.02 0.135 0.695 0.125 0.015 0.005  200</span>
+<span class='r-in'>  <span class='fu'>rvfactor</span><span class='op'>(</span><span class='va'>x</span><span class='op'>&gt;</span><span class='fl'>0</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>     FALSE TRUE sims</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1]  0.45 0.55  200</span>
+<span class='r-in'>  <span class='fu'>rvfactor</span><span class='op'>(</span><span class='fu'><a href='rvpois.html'>rvpois</a></span><span class='op'>(</span><span class='fl'>1</span>, lambda<span class='op'>=</span><span class='fl'>0.5</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        0    1    2     3     4 sims</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 0.64 0.27 0.07 0.015 0.005  200</span>
+<span class='r-in'></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -200,11 +211,11 @@ Computing 17:3, 235-244.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Jouni Kerman, Joseph Stachelek.</p>
+  <p><p>Developed by Jouni Kerman, Jemma Stachelek.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
       </footer>
@@ -212,6 +223,8 @@ Computing 17:3, 235-244.</p>
 
   
 
+
+  
 
   </body>
 </html>

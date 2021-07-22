@@ -45,6 +45,8 @@
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -56,9 +58,15 @@
 
 
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -79,12 +87,6 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -106,7 +108,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jsta/rv/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -132,7 +134,7 @@
     <p>Sets or retrieves parameters of the <code>rv</code> package.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rvpar</span>(<span class='no'>...</span>)</pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>rvpar</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -156,7 +158,7 @@ of tagged values. The available tags are described below.</p></td>
 'blue'</p></dd> <dt>rvlex</dt><dd><p>middle interval expansion factor</p></dd> <dt>rvlwd</dt><dd><p>line
 weight of a random interval</p></dd> <dt>print.digits</dt><dd><p>number of digits to show in
 the summaries</p></dd> <dt>rvpoint</dt><dd><p>what to output when plotting a random point;
-default <code><a href='https://rdrr.io/r/base/list.html'>list("95%", "50%", "mean")</a></code></p></dd> <dt>point.sample</dt><dd><p>number of
+default <code>list("95%", "50%", "mean")</code></p></dd> <dt>point.sample</dt><dd><p>number of
 points to plot when plotting a rv-rv scatterplot. Default <code>400</code>.</p></dd>
 <dt>line.sample</dt><dd><p>number of lines to draw when plotting a random sample of
 lines (see <code>abline</code>). Default <code>20</code>.</p></dd>
@@ -175,11 +177,18 @@ summary of an integer-valued <code>rv</code> object. By default contains 0 and 1
 Posterior Simulations Using Random Variable Objects. Statistics and
 Computing 17:3, 235-244.</p>
 <p>See also <code>vignette("rv")</code>.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Jouni Kerman <a href='mailto:jouni@kerman.com'>jouni@kerman.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-  <span class='fu'>rvpar</span>()$<span class='no'>rvcol</span></div><div class='output co'>#&gt; [1] "default"</div><div class='input'>  <span class='fu'>rvpar</span>(<span class='st'>"rvcol"</span>)</div><div class='output co'>#&gt; [1] "default"</div><div class='input'>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'></span>
+<span class='r-in'>  <span class='fu'>rvpar</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='va'>rvcol</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "default"</span>
+<span class='r-in'>  <span class='fu'>rvpar</span><span class='op'>(</span><span class='st'>"rvcol"</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] "default"</span>
+<span class='r-in'></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -191,11 +200,11 @@ Computing 17:3, 235-244.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Jouni Kerman, Joseph Stachelek.</p>
+  <p><p>Developed by Jouni Kerman, Jemma Stachelek.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
       </footer>
@@ -203,6 +212,8 @@ Computing 17:3, 235-244.</p>
 
   
 
+
+  
 
   </body>
 </html>

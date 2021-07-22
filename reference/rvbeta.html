@@ -45,6 +45,8 @@
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -56,9 +58,15 @@
 
 
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -79,12 +87,6 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -106,7 +108,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jsta/rv/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -132,7 +134,7 @@
     <p><code>rvbeta</code> generates a random vector from the beta sampling model;</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rvbeta</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='no'>shape1</span>, <span class='no'>shape2</span>)</pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>rvbeta</span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>shape1</span>, <span class='va'>shape2</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -161,38 +163,45 @@
 Posterior Simulations Using Random Variable Objects. Statistics and
 Computing 17:3, 235-244.</p>
 <p>See also <code>vignette("rv")</code>.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Jouni Kerman <a href='mailto:jouni@kerman.com'>jouni@kerman.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-   <span class='no'>n</span> <span class='kw'>&lt;-</span> <span class='fl'>12</span>         <span class='co'># sample size</span>
-   <span class='no'>y</span> <span class='kw'>&lt;-</span> (<span class='fl'>0</span>:(<span class='no'>n</span>-<span class='fl'>1</span>))  <span class='co'># observations</span>
-   <span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>/<span class='fl'>3</span>   <span class='co'># the neutral beta prior</span>
-   <span class='fu'>rvbeta</span>(<span class='fl'>1</span>, <span class='kw'>shape1</span><span class='kw'>=</span><span class='no'>a</span>+<span class='no'>y</span>, <span class='kw'>shape2</span><span class='kw'>=</span><span class='no'>b</span>+<span class='no'>n</span>-<span class='no'>y</span>)</div><div class='output co'>#&gt;       mean    sd      1%    2.5%     25%    50%   75% 97.5%  99% sims
-#&gt;  [1] 0.024 0.039 1.1e-06 1.6e-06 0.00079 0.0066 0.032  0.12 0.17  200
-#&gt;  [2] 0.099 0.082 2.7e-03 6.8e-03 0.03783 0.0756 0.141  0.29 0.39  200
-#&gt;  [3] 0.187 0.097 1.8e-02 4.3e-02 0.12507 0.1737 0.228  0.42 0.47  200
-#&gt;  [4] 0.260 0.120 4.5e-02 6.2e-02 0.17444 0.2413 0.328  0.51 0.58  200
-#&gt;  [5] 0.357 0.127 1.0e-01 1.4e-01 0.25819 0.3528 0.440  0.60 0.61  200
-#&gt;  [6] 0.417 0.135 1.7e-01 2.0e-01 0.32003 0.4082 0.506  0.71 0.74  200
-#&gt;  [7] 0.499 0.142 2.0e-01 2.4e-01 0.39319 0.4974 0.596  0.77 0.80  200
-#&gt;  [8] 0.569 0.149 2.2e-01 2.8e-01 0.46173 0.5844 0.678  0.84 0.87  200
-#&gt;  [9] 0.671 0.132 3.6e-01 4.1e-01 0.57357 0.6929 0.766  0.88 0.91  200
-#&gt; [10] 0.734 0.112 4.6e-01 4.8e-01 0.66513 0.7298 0.819  0.93 0.95  200
-#&gt; [11] 0.811 0.116 4.9e-01 5.4e-01 0.74668 0.8299 0.902  0.97 0.97  200
-#&gt; [12] 0.892 0.086 6.5e-01 6.8e-01 0.84850 0.9094 0.962  0.99 1.00  200</div><div class='input'>   <span class='fu'>rvnbeta</span>(<span class='fl'>1</span>, <span class='kw'>shape1</span><span class='kw'>=</span><span class='no'>y</span>, <span class='kw'>shape2</span><span class='kw'>=</span><span class='no'>n</span>-<span class='no'>y</span>)</div><div class='output co'>#&gt;       mean    sd      1%    2.5%     25%    50%   75% 97.5%  99% sims
-#&gt;  [1] 0.025 0.039 2.5e-08 4.2e-07 0.00091 0.0074 0.035  0.16 0.18  200
-#&gt;  [2] 0.096 0.073 3.8e-03 6.2e-03 0.03917 0.0780 0.133  0.26 0.27  200
-#&gt;  [3] 0.171 0.099 2.1e-02 2.6e-02 0.10117 0.1482 0.235  0.39 0.46  200
-#&gt;  [4] 0.267 0.124 5.0e-02 6.5e-02 0.17357 0.2465 0.350  0.53 0.60  200
-#&gt;  [5] 0.343 0.132 1.2e-01 1.4e-01 0.23668 0.3180 0.441  0.60 0.67  200
-#&gt;  [6] 0.417 0.130 1.4e-01 1.6e-01 0.32295 0.4169 0.511  0.67 0.71  200
-#&gt;  [7] 0.488 0.129 2.3e-01 2.4e-01 0.39518 0.4913 0.583  0.72 0.74  200
-#&gt;  [8] 0.576 0.143 2.8e-01 3.0e-01 0.47713 0.5788 0.685  0.82 0.89  200
-#&gt;  [9] 0.647 0.133 3.1e-01 3.5e-01 0.55550 0.6566 0.753  0.86 0.89  200
-#&gt; [10] 0.740 0.119 4.5e-01 5.0e-01 0.65916 0.7551 0.826  0.93 0.95  200
-#&gt; [11] 0.808 0.102 5.4e-01 5.7e-01 0.74899 0.8226 0.878  0.97 0.98  200
-#&gt; [12] 0.898 0.083 6.2e-01 6.4e-01 0.86225 0.9171 0.957  0.99 1.00  200</div><div class='input'>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'></span>
+<span class='r-in'>   <span class='va'>n</span> <span class='op'>&lt;-</span> <span class='fl'>12</span>         <span class='co'># sample size</span></span>
+<span class='r-in'>   <span class='va'>y</span> <span class='op'>&lt;-</span> <span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='op'>(</span><span class='va'>n</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>  <span class='co'># observations</span></span>
+<span class='r-in'>   <span class='va'>a</span> <span class='op'>&lt;-</span> <span class='va'>b</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>/</span><span class='fl'>3</span>   <span class='co'># the neutral beta prior</span></span>
+<span class='r-in'>   <span class='fu'>rvbeta</span><span class='op'>(</span><span class='fl'>1</span>, shape1<span class='op'>=</span><span class='va'>a</span><span class='op'>+</span><span class='va'>y</span>, shape2<span class='op'>=</span><span class='va'>b</span><span class='op'>+</span><span class='va'>n</span><span class='op'>-</span><span class='va'>y</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       mean    sd      1%    2.5%     25%    50%   75% 97.5%  99% sims</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] 0.024 0.039 1.1e-06 1.6e-06 0.00079 0.0066 0.032  0.12 0.17  200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2] 0.099 0.082 2.7e-03 6.8e-03 0.03783 0.0756 0.141  0.29 0.39  200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3] 0.187 0.097 1.8e-02 4.3e-02 0.12507 0.1737 0.228  0.42 0.47  200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4] 0.260 0.120 4.5e-02 6.2e-02 0.17444 0.2413 0.328  0.51 0.58  200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5] 0.357 0.127 1.0e-01 1.4e-01 0.25819 0.3528 0.440  0.60 0.61  200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6] 0.417 0.135 1.7e-01 2.0e-01 0.32003 0.4082 0.506  0.71 0.74  200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7] 0.499 0.142 2.0e-01 2.4e-01 0.39319 0.4974 0.596  0.77 0.80  200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8] 0.569 0.149 2.2e-01 2.8e-01 0.46173 0.5844 0.678  0.84 0.87  200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9] 0.671 0.132 3.6e-01 4.1e-01 0.57357 0.6929 0.766  0.88 0.91  200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10] 0.734 0.112 4.6e-01 4.8e-01 0.66513 0.7298 0.819  0.93 0.95  200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11] 0.811 0.116 4.9e-01 5.4e-01 0.74668 0.8299 0.902  0.97 0.97  200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [12] 0.892 0.086 6.5e-01 6.8e-01 0.84850 0.9094 0.962  0.99 1.00  200</span>
+<span class='r-in'>   <span class='fu'>rvnbeta</span><span class='op'>(</span><span class='fl'>1</span>, shape1<span class='op'>=</span><span class='va'>y</span>, shape2<span class='op'>=</span><span class='va'>n</span><span class='op'>-</span><span class='va'>y</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       mean    sd      1%    2.5%     25%    50%   75% 97.5%  99% sims</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] 0.025 0.039 2.5e-08 4.2e-07 0.00091 0.0074 0.035  0.16 0.18  200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2] 0.096 0.073 3.8e-03 6.2e-03 0.03917 0.0780 0.133  0.26 0.27  200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3] 0.171 0.099 2.1e-02 2.6e-02 0.10117 0.1482 0.235  0.39 0.46  200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4] 0.267 0.124 5.0e-02 6.5e-02 0.17357 0.2465 0.350  0.53 0.60  200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5] 0.343 0.132 1.2e-01 1.4e-01 0.23668 0.3180 0.441  0.60 0.67  200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6] 0.417 0.130 1.4e-01 1.6e-01 0.32295 0.4169 0.511  0.67 0.71  200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7] 0.488 0.129 2.3e-01 2.4e-01 0.39518 0.4913 0.583  0.72 0.74  200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8] 0.576 0.143 2.8e-01 3.0e-01 0.47713 0.5788 0.685  0.82 0.89  200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9] 0.647 0.133 3.1e-01 3.5e-01 0.55550 0.6566 0.753  0.86 0.89  200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10] 0.740 0.119 4.5e-01 5.0e-01 0.65916 0.7551 0.826  0.93 0.95  200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11] 0.808 0.102 5.4e-01 5.7e-01 0.74899 0.8226 0.878  0.97 0.98  200</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [12] 0.898 0.083 6.2e-01 6.4e-01 0.86225 0.9171 0.957  0.99 1.00  200</span>
+<span class='r-in'></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -204,11 +213,11 @@ Computing 17:3, 235-244.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Jouni Kerman, Joseph Stachelek.</p>
+  <p><p>Developed by Jouni Kerman, Jemma Stachelek.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
       </footer>
@@ -216,6 +225,8 @@ Computing 17:3, 235-244.</p>
 
   
 
+
+  
 
   </body>
 </html>

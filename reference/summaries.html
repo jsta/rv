@@ -47,6 +47,8 @@ simulations etc.)" />
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -58,9 +60,15 @@ simulations etc.)" />
 
 
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -81,12 +89,6 @@ simulations etc.)" />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -108,7 +110,7 @@ simulations etc.)" />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jsta/rv/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -136,15 +138,15 @@ each scalar component of a random variable (quantiles, mean, sd, number of
 simulations etc.)</p>
     </div>
 
-    <pre class="usage"><span class='fu'>as.rvsummary</span>(<span class='no'>x</span>, <span class='no'>...</span>)
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>as.rvsummary</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>is.rvsummary</span>(<span class='no'>x</span>)
+<span class='fu'>is.rvsummary</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
 <span class='co'># S3 method for data.frame</span>
-<span class='fu'>as.rvsummary</span>(<span class='no'>x</span>, <span class='kw'>quantiles</span> <span class='kw'>=</span> <span class='fu'><a href='rvpar.html'>rvpar</a></span>(<span class='st'>"summary.quantiles.numeric"</span>), <span class='no'>...</span>)
+<span class='fu'>as.rvsummary</span><span class='op'>(</span><span class='va'>x</span>, quantiles <span class='op'>=</span> <span class='fu'><a href='rvpar.html'>rvpar</a></span><span class='op'>(</span><span class='st'>"summary.quantiles.numeric"</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for rvsummary_rvfactor</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='kw'>all.levels</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, all.levels <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -177,8 +179,8 @@ details)</p></td>
 
     <p>The <code>rvsummary</code> class provides a means to store a concise
 representation of the marginal posterior distributions of the vector
-components.  By default, the 201 quantiles</p><pre> 0, 0.005, 0.01,
-0.015, ..., 0.990, 0.995, 1 </pre><p>are saved for each vector component in an
+components.  By default, the 201 quantiles</p><pre><code> 0, 0.005, 0.01,
+0.015, ..., 0.990, 0.995, 1 </code></pre><p>are saved for each vector component in an
 <code>rvsummary</code> object.</p>
 <p><code>is.rvsummary</code> tests whether the object is an <code>rvsummary</code> object;
 <code>as.rvsummary</code> coerces a random vector object to a <code>rvsummary</code>
@@ -208,53 +210,64 @@ Computing 17:3, 235-244.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='rvfactor.html'>rvfactor</a></code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Jouni Kerman <a href='mailto:jouni@kerman.com'>jouni@kerman.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-  <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='rvnorm.html'>rvnorm</a></span>(<span class='kw'>mean</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='fl'>12</span>)
-  <span class='no'>sx</span> <span class='kw'>&lt;-</span> <span class='fu'>as.rvsummary</span>(<span class='no'>x</span>)
-  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>sx</span>)          <span class='co'># prints the summary of the rvsummary object</span></div><div class='output co'>#&gt;        mean    sd     1%   2.5%    25%    50%    75%  97.5%    99% sims
-#&gt;  [1]  1.019 0.960 -1.208 -0.928  0.373  1.006  1.695  2.839  3.237 2500
-#&gt;  [2]  2.004 0.985 -0.219  0.061  1.325  1.985  2.665  3.926  4.298 2500
-#&gt;  [3]  3.010 0.983  0.801  1.138  2.322  2.997  3.685  5.000  5.278 2500
-#&gt;  [4]  3.990 0.977  1.717  2.086  3.339  3.999  4.637  5.914  6.327 2500
-#&gt;  [5]  5.017 0.981  2.760  3.093  4.364  5.004  5.682  6.981  7.248 2500
-#&gt;  [6]  5.989 1.019  3.622  3.999  5.283  5.988  6.685  7.959  8.325 2500
-#&gt;  [7]  6.999 0.998  4.727  5.036  6.306  7.004  7.693  8.898  9.180 2500
-#&gt;  [8]  8.022 0.983  5.842  6.168  7.345  8.000  8.690  9.997 10.314 2500
-#&gt;  [9]  8.994 0.959  6.807  7.153  8.335  8.977  9.612 10.938 11.288 2500
-#&gt; [10]  9.998 1.007  7.723  8.063  9.328  9.981 10.649 12.026 12.433 2500
-#&gt; [11] 10.991 0.986  8.813  9.090 10.313 11.012 11.653 12.957 13.423 2500
-#&gt; [12] 11.973 1.013  9.573  9.929 11.312 11.969 12.656 13.906 14.358 2500</div><div class='input'>  <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>sx</span>)         <span class='co'># 12</span></div><div class='output co'>#&gt; [1] 12</div><div class='input'>  <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span>(<span class='no'>sx</span>)            <span class='co'># NULL</span></div><div class='output co'>#&gt; NULL</div><div class='input'>  <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span>(<span class='no'>sx</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>,<span class='fl'>4</span>)  <span class='co'>#   </span>
-  <span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span>(<span class='no'>sx</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fl'>1</span>:<span class='fl'>4</span>)
-  <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>sx</span>) <span class='kw'>&lt;-</span> <span class='fl'>1</span>:<span class='fl'>12</span>  <span class='co'># </span>
-  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>sx</span>)          <span class='co'># prints the names and dimnames as well  </span></div><div class='output co'>#&gt;       row col   name   mean    sd     1%   2.5%    25%    50%    75%  97.5%
-#&gt; [1,1]   1   1 :    1  1.019 0.960 -1.208 -0.928  0.373  1.006  1.695  2.839
-#&gt; [2,1]   2   1 :    2  2.004 0.985 -0.219  0.061  1.325  1.985  2.665  3.926
-#&gt; [3,1]   3   1 :    3  3.010 0.983  0.801  1.138  2.322  2.997  3.685  5.000
-#&gt; [1,2]   1   2 :    4  3.990 0.977  1.717  2.086  3.339  3.999  4.637  5.914
-#&gt; [2,2]   2   2 :    5  5.017 0.981  2.760  3.093  4.364  5.004  5.682  6.981
-#&gt; [3,2]   3   2 :    6  5.989 1.019  3.622  3.999  5.283  5.988  6.685  7.959
-#&gt; [1,3]   1   3 :    7  6.999 0.998  4.727  5.036  6.306  7.004  7.693  8.898
-#&gt; [2,3]   2   3 :    8  8.022 0.983  5.842  6.168  7.345  8.000  8.690  9.997
-#&gt; [3,3]   3   3 :    9  8.994 0.959  6.807  7.153  8.335  8.977  9.612 10.938
-#&gt; [1,4]   1   4 :   10  9.998 1.007  7.723  8.063  9.328  9.981 10.649 12.026
-#&gt; [2,4]   2   4 :   11 10.991 0.986  8.813  9.090 10.313 11.012 11.653 12.957
-#&gt; [3,4]   3   4 :   12 11.973 1.013  9.573  9.929 11.312 11.969 12.656 13.906
-#&gt;          99% sims
-#&gt; [1,1]  3.237 2500
-#&gt; [2,1]  4.298 2500
-#&gt; [3,1]  5.278 2500
-#&gt; [1,2]  6.327 2500
-#&gt; [2,2]  7.248 2500
-#&gt; [3,2]  8.325 2500
-#&gt; [1,3]  9.180 2500
-#&gt; [2,3] 10.314 2500
-#&gt; [3,3] 11.288 2500
-#&gt; [1,4] 12.433 2500
-#&gt; [2,4] 13.423 2500
-#&gt; [3,4] 14.358 2500</div><div class='input'>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'></span>
+<span class='r-in'>  <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='rvnorm.html'>rvnorm</a></span><span class='op'>(</span>mean<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>12</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>sx</span> <span class='op'>&lt;-</span> <span class='fu'>as.rvsummary</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>sx</span><span class='op'>)</span>          <span class='co'># prints the summary of the rvsummary object</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>        mean    sd     1%   2.5%    25%    50%    75%  97.5%    99% sims</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1]  1.019 0.960 -1.208 -0.928  0.373  1.006  1.695  2.839  3.237 2500</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [2]  2.004 0.985 -0.219  0.061  1.325  1.985  2.665  3.926  4.298 2500</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [3]  3.010 0.983  0.801  1.138  2.322  2.997  3.685  5.000  5.278 2500</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [4]  3.990 0.977  1.717  2.086  3.339  3.999  4.637  5.914  6.327 2500</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [5]  5.017 0.981  2.760  3.093  4.364  5.004  5.682  6.981  7.248 2500</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [6]  5.989 1.019  3.622  3.999  5.283  5.988  6.685  7.959  8.325 2500</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7]  6.999 0.998  4.727  5.036  6.306  7.004  7.693  8.898  9.180 2500</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [8]  8.022 0.983  5.842  6.168  7.345  8.000  8.690  9.997 10.314 2500</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [9]  8.994 0.959  6.807  7.153  8.335  8.977  9.612 10.938 11.288 2500</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10]  9.998 1.007  7.723  8.063  9.328  9.981 10.649 12.026 12.433 2500</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [11] 10.991 0.986  8.813  9.090 10.313 11.012 11.653 12.957 13.423 2500</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [12] 11.973 1.013  9.573  9.929 11.312 11.969 12.656 13.906 14.358 2500</span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>sx</span><span class='op'>)</span>         <span class='co'># 12</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 12</span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>sx</span><span class='op'>)</span>            <span class='co'># NULL</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> NULL</span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>sx</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>4</span><span class='op'>)</span>  <span class='co'>#   </span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span><span class='op'>(</span><span class='va'>sx</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>sx</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>12</span>  <span class='co'># </span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>sx</span><span class='op'>)</span>          <span class='co'># prints the names and dimnames as well  </span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>       row col   name   mean    sd     1%   2.5%    25%    50%    75%  97.5%</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,1]   1   1 :    1  1.019 0.960 -1.208 -0.928  0.373  1.006  1.695  2.839</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,1]   2   1 :    2  2.004 0.985 -0.219  0.061  1.325  1.985  2.665  3.926</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,1]   3   1 :    3  3.010 0.983  0.801  1.138  2.322  2.997  3.685  5.000</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,2]   1   2 :    4  3.990 0.977  1.717  2.086  3.339  3.999  4.637  5.914</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,2]   2   2 :    5  5.017 0.981  2.760  3.093  4.364  5.004  5.682  6.981</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,2]   3   2 :    6  5.989 1.019  3.622  3.999  5.283  5.988  6.685  7.959</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,3]   1   3 :    7  6.999 0.998  4.727  5.036  6.306  7.004  7.693  8.898</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,3]   2   3 :    8  8.022 0.983  5.842  6.168  7.345  8.000  8.690  9.997</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,3]   3   3 :    9  8.994 0.959  6.807  7.153  8.335  8.977  9.612 10.938</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,4]   1   4 :   10  9.998 1.007  7.723  8.063  9.328  9.981 10.649 12.026</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,4]   2   4 :   11 10.991 0.986  8.813  9.090 10.313 11.012 11.653 12.957</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,4]   3   4 :   12 11.973 1.013  9.573  9.929 11.312 11.969 12.656 13.906</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>          99% sims</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,1]  3.237 2500</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,1]  4.298 2500</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,1]  5.278 2500</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,2]  6.327 2500</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,2]  7.248 2500</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,2]  8.325 2500</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,3]  9.180 2500</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,3] 10.314 2500</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,3] 11.288 2500</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1,4] 12.433 2500</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [2,4] 13.423 2500</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [3,4] 14.358 2500</span>
+<span class='r-in'></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -266,11 +279,11 @@ Computing 17:3, 235-244.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Jouni Kerman, Joseph Stachelek.</p>
+  <p><p>Developed by Jouni Kerman, Jemma Stachelek.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
       </footer>
@@ -278,6 +291,8 @@ Computing 17:3, 235-244.</p>
 
   
 
+
+  
 
   </body>
 </html>

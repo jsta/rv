@@ -46,6 +46,8 @@ vector as horizontal intervals, grouped by row." />
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -57,9 +59,15 @@ vector as horizontal intervals, grouped by row." />
 
 
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -80,12 +88,6 @@ vector as horizontal intervals, grouped by row." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -107,7 +109,7 @@ vector as horizontal intervals, grouped by row." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jsta/rv/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -134,29 +136,29 @@ vector as horizontal intervals, grouped by row." />
 vector as horizontal intervals, grouped by row.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>mlplot</span>(<span class='no'>X</span>, <span class='no'>...</span>)
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>mlplot</span><span class='op'>(</span><span class='va'>X</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>mlplot</span>(
-  <span class='no'>X</span>,
-  <span class='kw'>y.center</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>y.shift</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>y.map</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>mar</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='st'>"mar"</span>),
-  <span class='kw'>left.margin</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-  <span class='kw'>vline</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>top.axis</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>exp.labels</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>x.ticks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>axes</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>xlab</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/deparse.html'>deparse</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>substitute</a></span>(<span class='no'>X</span>)),
-  <span class='kw'>ylab</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>las</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)</pre>
+<span class='fu'>mlplot</span><span class='op'>(</span>
+  <span class='va'>X</span>,
+  y.center <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  y.shift <span class='op'>=</span> <span class='fl'>0</span>,
+  y.map <span class='op'>=</span> <span class='cn'>NULL</span>,
+  mar <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span><span class='st'>"mar"</span><span class='op'>)</span>,
+  left.margin <span class='op'>=</span> <span class='fl'>3</span>,
+  vline <span class='op'>=</span> <span class='cn'>NULL</span>,
+  top.axis <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  exp.labels <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  x.ticks <span class='op'>=</span> <span class='cn'>NULL</span>,
+  axes <span class='op'>=</span> <span class='cn'>NULL</span>,
+  xlim <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ylim <span class='op'>=</span> <span class='cn'>NULL</span>,
+  xlab <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/deparse.html'>deparse</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/substitute.html'>substitute</a></span><span class='op'>(</span><span class='va'>X</span><span class='op'>)</span><span class='op'>)</span>,
+  ylab <span class='op'>=</span> <span class='cn'>NULL</span>,
+  las <span class='op'>=</span> <span class='cn'>NULL</span>,
+  add <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -250,7 +252,7 @@ the scalars within a row are controlled by the arguments <code>y.center</code>,
 plot; if two arrays or vectors are plotted over on top of each other (using
 <code>add=TRUE</code>) then you should probably change <code>y.shift</code> which
 controls the vertical position of the array elements.</p>
-<p>See <code><a href='https://rdrr.io/r/utils/demo.html'>demo(mlplot)</a></code> for a detailed</p>
+<p>See <code>demo(mlplot)</code> for a detailed</p>
 <p>To change the color of the random components of the vector, use
 <code>rvcol</code>. Typically this is of the same length as <code>X</code>, giving the
 color `theme' for each component.</p>
@@ -265,36 +267,41 @@ each 2-dimensional array <code>X[,,k]</code> for each <code>k</code>.</p>
 Posterior Simulations Using Random Variable Objects. Statistics and
 Computing 17:3, 235-244.</p>
 <p>See also <code>vignette("rv")</code>.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Jouni Kerman <a href='mailto:jouni@kerman.com'>jouni@kerman.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-  <span class='co'># You can run this complete example by typing demo("mlplot")</span>
-
-  <span class='no'>n.rows</span> <span class='kw'>&lt;-</span> <span class='fl'>4</span>; <span class='no'>n.cols</span> <span class='kw'>&lt;-</span> <span class='fl'>5</span>; <span class='no'>n</span> <span class='kw'>&lt;-</span> (<span class='no'>n.rows</span>*<span class='no'>n.cols</span>)
-  <span class='co'># Draw some fixed numbers</span>
-  <span class='no'>mu.true</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>1</span>:<span class='no'>n.rows</span>, <span class='kw'>mean</span><span class='kw'>=</span><span class='fl'>1</span>:<span class='no'>n.rows</span>, <span class='kw'>sd</span><span class='kw'>=</span><span class='fl'>1</span>)
-  <span class='no'>sigma.true</span> <span class='kw'>&lt;-</span> <span class='fl'>1</span>
-  <span class='no'>theta</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='rvarray.html'>rvmatrix</a></span>(<span class='fu'><a href='rvnorm.html'>rvnorm</a></span>(<span class='kw'>n</span><span class='kw'>=</span><span class='no'>n.cols</span>, <span class='kw'>mean</span><span class='kw'>=</span><span class='no'>mu.true</span>, <span class='kw'>sd</span><span class='kw'>=</span><span class='no'>sigma.true</span>), <span class='kw'>nrow</span><span class='kw'>=</span><span class='no'>n.rows</span>)
-  <span class='co'>#</span>
-  <span class='no'>col.labels</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='st'>"Time"</span>, <span class='fl'>1</span>:<span class='no'>n.cols</span>, <span class='kw'>sep</span><span class='kw'>=</span><span class='st'>":"</span>)
-  <span class='no'>row.labels</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span>(<span class='st'>"Unit"</span>, <span class='fl'>1</span>:<span class='no'>n.rows</span>, <span class='kw'>sep</span><span class='kw'>=</span><span class='st'>":"</span>)
-  <span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span>(<span class='no'>theta</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='no'>row.labels</span>, <span class='no'>col.labels</span>)
-  <span class='co'>#</span>
-  <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>2</span>))
-  <span class='fu'>mlplot</span>(<span class='no'>theta</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"theta"</span>)
-  <span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span>(<span class='kw'>v</span><span class='kw'>=</span><span class='fl'>0</span>, <span class='kw'>lty</span><span class='kw'>=</span><span class='st'>"dotted"</span>)
-  <span class='fu'>mlplot</span>(<span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='no'>theta</span>), <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"theta transposed"</span>)
-  <span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span>(<span class='kw'>v</span><span class='kw'>=</span><span class='fl'>0</span>, <span class='kw'>lty</span><span class='kw'>=</span><span class='st'>"dotted"</span>)
-  <span class='no'>row.sd</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='apply.rv.html'>apply.rv</a></span>(<span class='no'>theta</span>, <span class='fl'>1</span>, <span class='no'>sd.rv</span>)
-  <span class='no'>col.sd</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='apply.rv.html'>apply.rv</a></span>(<span class='no'>theta</span>, <span class='fl'>2</span>, <span class='no'>sd.rv</span>)
-  <span class='no'>x.max</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='fu'><a href='rvquantile.html'>rvquantile</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='no'>row.sd</span>, <span class='no'>col.sd</span>), <span class='fl'>0.99</span>))
-  <span class='fu'>mlplot</span>(<span class='no'>row.sd</span>, <span class='kw'>xlim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='no'>x.max</span>), <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"theta: within-row sd for each unit"</span>)
-  <span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span>(<span class='kw'>v</span><span class='kw'>=</span><span class='fl'>0</span>)
-  <span class='fu'>mlplot</span>(<span class='no'>col.sd</span>, <span class='kw'>xlim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='no'>x.max</span>), <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"theta: between-row sd for each time point"</span>)
-  <span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span>(<span class='kw'>v</span><span class='kw'>=</span><span class='fl'>0</span>)
-}</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'>  <span class='co'># You can run this complete example by typing demo("mlplot")</span></span>
+<span class='r-in'></span>
+<span class='r-in'>  <span class='va'>n.rows</span> <span class='op'>&lt;-</span> <span class='fl'>4</span>; <span class='va'>n.cols</span> <span class='op'>&lt;-</span> <span class='fl'>5</span>; <span class='va'>n</span> <span class='op'>&lt;-</span> <span class='op'>(</span><span class='va'>n.rows</span><span class='op'>*</span><span class='va'>n.cols</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='co'># Draw some fixed numbers</span></span>
+<span class='r-in'>  <span class='va'>mu.true</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='va'>n.rows</span>, mean<span class='op'>=</span><span class='fl'>1</span><span class='op'>:</span><span class='va'>n.rows</span>, sd<span class='op'>=</span><span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>sigma.true</span> <span class='op'>&lt;-</span> <span class='fl'>1</span></span>
+<span class='r-in'>  <span class='va'>theta</span> <span class='op'>&lt;-</span> <span class='fu'><a href='rvarray.html'>rvmatrix</a></span><span class='op'>(</span><span class='fu'><a href='rvnorm.html'>rvnorm</a></span><span class='op'>(</span>n<span class='op'>=</span><span class='va'>n.cols</span>, mean<span class='op'>=</span><span class='va'>mu.true</span>, sd<span class='op'>=</span><span class='va'>sigma.true</span><span class='op'>)</span>, nrow<span class='op'>=</span><span class='va'>n.rows</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='co'>#</span></span>
+<span class='r-in'>  <span class='va'>col.labels</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"Time"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='va'>n.cols</span>, sep<span class='op'>=</span><span class='st'>":"</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>row.labels</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"Unit"</span>, <span class='fl'>1</span><span class='op'>:</span><span class='va'>n.rows</span>, sep<span class='op'>=</span><span class='st'>":"</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/dimnames.html'>dimnames</a></span><span class='op'>(</span><span class='va'>theta</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>row.labels</span>, <span class='va'>col.labels</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='co'>#</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'>mlplot</span><span class='op'>(</span><span class='va'>theta</span>, main<span class='op'>=</span><span class='st'>"theta"</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span><span class='op'>(</span>v<span class='op'>=</span><span class='fl'>0</span>, lty<span class='op'>=</span><span class='st'>"dotted"</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'>mlplot</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='va'>theta</span><span class='op'>)</span>, main<span class='op'>=</span><span class='st'>"theta transposed"</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span><span class='op'>(</span>v<span class='op'>=</span><span class='fl'>0</span>, lty<span class='op'>=</span><span class='st'>"dotted"</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>row.sd</span> <span class='op'>&lt;-</span> <span class='fu'><a href='apply.rv.html'>apply.rv</a></span><span class='op'>(</span><span class='va'>theta</span>, <span class='fl'>1</span>, <span class='va'>sd.rv</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>col.sd</span> <span class='op'>&lt;-</span> <span class='fu'><a href='apply.rv.html'>apply.rv</a></span><span class='op'>(</span><span class='va'>theta</span>, <span class='fl'>2</span>, <span class='va'>sd.rv</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>x.max</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='fu'><a href='rvquantile.html'>rvquantile</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>row.sd</span>, <span class='va'>col.sd</span><span class='op'>)</span>, <span class='fl'>0.99</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'>mlplot</span><span class='op'>(</span><span class='va'>row.sd</span>, xlim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='va'>x.max</span><span class='op'>)</span>, main<span class='op'>=</span><span class='st'>"theta: within-row sd for each unit"</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span><span class='op'>(</span>v<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'>mlplot</span><span class='op'>(</span><span class='va'>col.sd</span>, xlim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='va'>x.max</span><span class='op'>)</span>, main<span class='op'>=</span><span class='st'>"theta: between-row sd for each time point"</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/graphics/abline.html'>abline</a></span><span class='op'>(</span>v<span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-in'></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -306,11 +313,11 @@ Computing 17:3, 235-244.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Jouni Kerman, Joseph Stachelek.</p>
+  <p><p>Developed by Jouni Kerman, Jemma Stachelek.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
       </footer>
@@ -318,6 +325,8 @@ Computing 17:3, 235-244.</p>
 
   
 
+
+  
 
   </body>
 </html>

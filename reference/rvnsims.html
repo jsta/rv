@@ -47,6 +47,8 @@ getnsims retrieves the default number of simulations." />
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -58,9 +60,15 @@ getnsims retrieves the default number of simulations." />
 
 
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -81,12 +89,6 @@ getnsims retrieves the default number of simulations." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -108,7 +110,7 @@ getnsims retrieves the default number of simulations." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jsta/rv/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -136,7 +138,7 @@ its argument; <code>setnsims</code> sets the default number of simulations;
 <code>getnsims</code> retrieves the default number of simulations.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rvnsims</span>(<span class='no'>x</span>)</pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>rvnsims</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -163,14 +165,31 @@ its argument; <code>setnsims</code> sets the default number of simulations;
 Posterior Simulations Using Random Variable Objects. Statistics and
 Computing 17:3, 235-244.</p>
 <p>See also <code>vignette("rv")</code>.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Jouni Kerman <a href='mailto:jouni@kerman.com'>jouni@kerman.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-  <span class='co'>#</span>
-  <span class='fu'>rvnsims</span>(<span class='fl'>1.23</span>)             <span class='co'># 1</span></div><div class='output co'>#&gt; [1] 1</div><div class='input'>  <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='rvnorm.html'>rvnorm</a></span>(<span class='fl'>1</span>)            <span class='co'># an rv</span>
-  <span class='fu'>rvnsims</span>(<span class='no'>x</span>)                <span class='co'># equal to setnsims()</span></div><div class='output co'>#&gt; [1] 200</div><div class='input'>  <span class='fu'>rvnsims</span>(<span class='no'>x</span>)<span class='kw'>==</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span>(<span class='fu'><a href='sims.html'>sims</a></span>(<span class='no'>x</span>)) <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>  <span class='fu'>rvnsims</span>(<span class='no'>x</span>)<span class='kw'>==</span><span class='fu'>getnsims</span>()    <span class='co'># TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>  <span class='fu'>setnsims</span>(<span class='fl'>1000</span>)            <span class='co'># set n.sims to 1000</span></div><div class='output co'>#&gt; [1] 200</div><div class='input'>  <span class='no'>n.sims</span> <span class='kw'>&lt;-</span> <span class='fu'>setnsims</span>(<span class='fl'>10000</span>) <span class='co'># s is now 1000</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>getnsims</span>())         <span class='co'># prints 10000</span></div><div class='output co'>#&gt; [1] 10000</div><div class='input'>  <span class='fu'>setnsims</span>(<span class='no'>n.sims</span>)          <span class='co'># restore the number of simulations back to 1000</span></div><div class='output co'>#&gt; [1] 10000</div><div class='input'>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'></span>
+<span class='r-in'>  <span class='co'>#</span></span>
+<span class='r-in'>  <span class='fu'>rvnsims</span><span class='op'>(</span><span class='fl'>1.23</span><span class='op'>)</span>             <span class='co'># 1</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1</span>
+<span class='r-in'>  <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='rvnorm.html'>rvnorm</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>            <span class='co'># an rv</span></span>
+<span class='r-in'>  <span class='fu'>rvnsims</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>                <span class='co'># equal to setnsims()</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 200</span>
+<span class='r-in'>  <span class='fu'>rvnsims</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>==</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='fu'><a href='sims.html'>sims</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>)</span> <span class='co'># TRUE</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-in'>  <span class='fu'>rvnsims</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>==</span><span class='fu'>getnsims</span><span class='op'>(</span><span class='op'>)</span>    <span class='co'># TRUE</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-in'>  <span class='fu'>setnsims</span><span class='op'>(</span><span class='fl'>1000</span><span class='op'>)</span>            <span class='co'># set n.sims to 1000</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 200</span>
+<span class='r-in'>  <span class='va'>n.sims</span> <span class='op'>&lt;-</span> <span class='fu'>setnsims</span><span class='op'>(</span><span class='fl'>10000</span><span class='op'>)</span> <span class='co'># s is now 1000</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'>getnsims</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>         <span class='co'># prints 10000</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 10000</span>
+<span class='r-in'>  <span class='fu'>setnsims</span><span class='op'>(</span><span class='va'>n.sims</span><span class='op'>)</span>          <span class='co'># restore the number of simulations back to 1000</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 10000</span>
+<span class='r-in'></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -182,11 +201,11 @@ Computing 17:3, 235-244.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Jouni Kerman, Joseph Stachelek.</p>
+  <p><p>Developed by Jouni Kerman, Jemma Stachelek.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
       </footer>
@@ -194,6 +213,8 @@ Computing 17:3, 235-244.</p>
 
   
 
+
+  
 
   </body>
 </html>

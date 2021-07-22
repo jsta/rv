@@ -46,6 +46,8 @@ simulations, and returns a random vector (an object of type 'rv')" />
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -57,9 +59,15 @@ simulations, and returns a random vector (an object of type 'rv')" />
 
 
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -80,12 +88,6 @@ simulations, and returns a random vector (an object of type 'rv')" />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -107,7 +109,7 @@ simulations, and returns a random vector (an object of type 'rv')" />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jsta/rv/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -134,7 +136,7 @@ simulations, and returns a random vector (an object of type 'rv')" />
 simulations, and returns a random vector (an object of type 'rv')</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rvsims</span>(<span class='no'>sims</span>, <span class='kw'>n.sims</span> <span class='kw'>=</span> <span class='fu'><a href='rvnsims.html'>getnsims</a></span>(), <span class='kw'>permute</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>rvsims</span><span class='op'>(</span><span class='va'>sims</span>, n.sims <span class='op'>=</span> <span class='fu'><a href='rvnsims.html'>getnsims</a></span><span class='op'>(</span><span class='op'>)</span>, permute <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -174,23 +176,32 @@ joint draws are permuted randomly.</p>
 Posterior Simulations Using Random Variable Objects. Statistics and
 Computing 17:3, 235-244.</p>
 <p>See also <code>vignette("rv")</code>.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Jouni Kerman <a href='mailto:jouni@kerman.com'>jouni@kerman.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-  <span class='co'>## x and y have the same distributions but not the same simulations:</span>
-  <span class='no'>n.sims</span> <span class='kw'>&lt;-</span> <span class='fl'>200L</span>
-  <span class='fu'><a href='rvnsims.html'>setnsims</a></span>(<span class='no'>n.sims</span>)</div><div class='output co'>#&gt; [1] 1000</div><div class='input'>  <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='rvnorm.html'>rvnorm</a></span>(<span class='fl'>1</span>)
-  <span class='no'>x1</span> <span class='kw'>&lt;-</span> <span class='fu'>rvsims</span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>n.sims</span>))
-  <span class='co'>##</span>
-  <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sims.html'>sims</a></span>(<span class='no'>x1</span>)
-  <span class='no'>z</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span>(<span class='no'>s</span>) <span class='co'>## One-dimensional array</span>
-  <span class='no'>x2</span> <span class='kw'>&lt;-</span> <span class='fu'>rvsims</span>(<span class='no'>z</span>) <span class='co'>## Same as </span>
-  <span class='co'>##</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='no'>x1</span>, <span class='no'>x2</span>) <span class='co'>## TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>  <span class='co'>##</span>
-  <span class='no'>s</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='no'>n.sims</span> * <span class='fl'>2</span>, <span class='kw'>mean</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>)), <span class='kw'>dim</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='no'>n.sims</span>)))
-  <span class='no'>x3</span> <span class='kw'>&lt;-</span> <span class='fu'>rvsims</span>(<span class='no'>s</span>)
-  <span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='fl'>2L</span>, <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>x3</span>)) <span class='co'>## TRUE</span></div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'></span>
+<span class='r-in'>  <span class='co'>## x and y have the same distributions but not the same simulations:</span></span>
+<span class='r-in'>  <span class='va'>n.sims</span> <span class='op'>&lt;-</span> <span class='fl'>200L</span></span>
+<span class='r-in'>  <span class='fu'><a href='rvnsims.html'>setnsims</a></span><span class='op'>(</span><span class='va'>n.sims</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] 1000</span>
+<span class='r-in'>  <span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='rvnorm.html'>rvnorm</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>x1</span> <span class='op'>&lt;-</span> <span class='fu'>rvsims</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>n.sims</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='co'>##</span></span>
+<span class='r-in'>  <span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sims.html'>sims</a></span><span class='op'>(</span><span class='va'>x1</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='va'>s</span><span class='op'>)</span> <span class='co'>## One-dimensional array</span></span>
+<span class='r-in'>  <span class='va'>x2</span> <span class='op'>&lt;-</span> <span class='fu'>rvsims</span><span class='op'>(</span><span class='va'>z</span><span class='op'>)</span> <span class='co'>## Same as </span></span>
+<span class='r-in'>  <span class='co'>##</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='va'>x1</span>, <span class='va'>x2</span><span class='op'>)</span> <span class='co'>## TRUE</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-in'>  <span class='co'>##</span></span>
+<span class='r-in'>  <span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/t.html'>t</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/array.html'>array</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='va'>n.sims</span> <span class='op'>*</span> <span class='fl'>2</span>, mean<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>, dim<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='va'>n.sims</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>x3</span> <span class='op'>&lt;-</span> <span class='fu'>rvsims</span><span class='op'>(</span><span class='va'>s</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='fl'>2L</span>, <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='va'>x3</span><span class='op'>)</span><span class='op'>)</span> <span class='co'>## TRUE</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] TRUE</span>
+<span class='r-in'></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -202,11 +213,11 @@ Computing 17:3, 235-244.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Jouni Kerman, Joseph Stachelek.</p>
+  <p><p>Developed by Jouni Kerman, Jemma Stachelek.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
       </footer>
@@ -214,6 +225,8 @@ Computing 17:3, 235-244.</p>
 
   
 
+
+  
 
   </body>
 </html>

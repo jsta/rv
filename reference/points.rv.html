@@ -46,6 +46,8 @@ x-coordinates." />
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -57,9 +59,15 @@ x-coordinates." />
 
 
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -80,12 +88,6 @@ x-coordinates." />
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -107,7 +109,7 @@ x-coordinates." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/jsta/rv/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -134,19 +136,19 @@ x-coordinates." />
 x-coordinates.</p>
     </div>
 
-    <pre class="usage"><span class='co'># S3 method for rv</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span>(
-  <span class='no'>x</span>,
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"p"</span>,
-  <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>rvlwd</span> <span class='kw'>=</span> <span class='fu'><a href='rvpar.html'>rvpar</a></span>(<span class='st'>"rvlwd"</span>),
-  <span class='kw'>rvcol</span> <span class='kw'>=</span> <span class='fu'><a href='rvpar.html'>rvpar</a></span>(<span class='st'>"rvcol"</span>),
-  <span class='kw'>rvpoint</span> <span class='kw'>=</span> <span class='fu'><a href='rvpar.html'>rvpar</a></span>(<span class='st'>"rvpoint"</span>),
-  <span class='kw'>rvlex</span> <span class='kw'>=</span> <span class='fu'><a href='rvpar.html'>rvpar</a></span>(<span class='st'>"rvlex"</span>),
-  <span class='no'>...</span>
-)</pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='co'># S3 method for rv</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/points.html'>points</a></span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  y <span class='op'>=</span> <span class='cn'>NULL</span>,
+  type <span class='op'>=</span> <span class='st'>"p"</span>,
+  xlim <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ylim <span class='op'>=</span> <span class='cn'>NULL</span>,
+  rvlwd <span class='op'>=</span> <span class='fu'><a href='rvpar.html'>rvpar</a></span><span class='op'>(</span><span class='st'>"rvlwd"</span><span class='op'>)</span>,
+  rvcol <span class='op'>=</span> <span class='fu'><a href='rvpar.html'>rvpar</a></span><span class='op'>(</span><span class='st'>"rvcol"</span><span class='op'>)</span>,
+  rvpoint <span class='op'>=</span> <span class='fu'><a href='rvpar.html'>rvpar</a></span><span class='op'>(</span><span class='st'>"rvpoint"</span><span class='op'>)</span>,
+  rvlex <span class='op'>=</span> <span class='fu'><a href='rvpar.html'>rvpar</a></span><span class='op'>(</span><span class='st'>"rvlex"</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -218,16 +220,16 @@ color, the thick line is colored using a darker hue (numbered '2', e.g.
 <code>"red2"</code>) and the dot is colored using the darkest hue (numbered '3',
 e.g. <code>"red3"</code>).  That is, for example. if <code>rvcol='red'</code>, the color
 scheme generated for the dot, the thick line, and the thin line,
-respectively, are <code><a href='https://rdrr.io/r/base/c.html'>c('red3', 'red2', 'red')</a></code>.</p>
+respectively, are <code>c('red3', 'red2', 'red')</code>.</p>
 <p>Special color themes: the default <code>rvcol</code> color scheme is called
-<code>"default"</code> and yields the color scheme <code><a href='https://rdrr.io/r/base/c.html'>c("grey20", "grey40", "grey60")</a></code>.  Other special color themes: <code>"grey"</code>, <code>"lightgrey"</code>,
+<code>"default"</code> and yields the color scheme <code>c("grey20", "grey40", "grey60")</code>.  Other special color themes: <code>"grey"</code>, <code>"lightgrey"</code>,
 <code>"darkgrey"</code>.  (The spellings 'gray' and 'grey' are interchangeable).</p>
 <p>The parameter <code>rvpoint</code> is a character vector of length 3, with the
 first component indicating what to plot as a dot (possible values: "mean",
 "median"), the second component indicating what to plot as a "thick
 interval" (possible values: "n\<!-- %" such as "50\\%" or "80\\%"), and the second -->
 component indicating what to plot as a "thin interval".  Default:
-<code><a href='https://rdrr.io/r/base/c.html'>c("mean", "50%", "95%")</a></code>.  If you wish only to plot the mean and the
+<code>c("mean", "50%", "95%")</code>.  If you wish only to plot the mean and the
 95\<!-- % interval, use \code{rvpoint=c("mean", NA, "95\%")} or -->
 <code>rvpoint=c("mean", "95%", NA)</code>.</p>
 <p>The color <code>col</code> is used for plotting fully fixed dots (both x and y
@@ -242,20 +244,27 @@ not yet fully functional.</p>
 Posterior Simulations Using Random Variable Objects. Statistics and
 Computing 17:3, 235-244.</p>
 <p>See also <code>vignette("rv")</code>.</p>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Jouni Kerman <a href='mailto:jouni@kerman.com'>jouni@kerman.com</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-  <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='rv.html'>as.rv</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>)
-  <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='rvnorm.html'>rvnorm</a></span>(<span class='kw'>mean</span><span class='kw'>=</span><span class='no'>x</span>)
-  <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span>(<span class='kw'>mfrow</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>2</span>))
-  <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Fixed x-coordinate"</span>)
-  <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>y</span>, <span class='no'>x</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Fixed y-coordinate"</span>)
-  <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>lwd</span><span class='kw'>=</span><span class='fl'>4</span>, <span class='kw'>rvcol</span><span class='kw'>=</span><span class='st'>"red"</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Color and line width changed"</span>)
-  <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>type</span><span class='kw'>=</span><span class='st'>"b"</span>, <span class='kw'>main</span><span class='kw'>=</span><span class='st'>"Intervals and random lines"</span>, <span class='kw'>rvcol</span><span class='kw'>=</span><span class='st'>"blue"</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"gray"</span>)</div><div class='img'><img src='points.rv-1.png' alt='' width='700' height='433' /></div><div class='input'>  <span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-    <span class='co'># Don't use the rv-only parameters when plotting fixed vectors.</span>
-    <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='fu'><a href='rvmean.html'>E</a></span>(<span class='no'>y</span>), <span class='kw'>rvcol</span><span class='kw'>=</span><span class='st'>"blue"</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"gray"</span>)
-    <span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='fu'><a href='rvmean.html'>E</a></span>(<span class='no'>y</span>), <span class='kw'>rvcol</span><span class='kw'>=</span><span class='st'>"blue"</span>, <span class='kw'>col</span><span class='kw'>=</span><span class='st'>"gray"</span>)
-  }</div></pre>
+    <div class="ref-examples sourceCode"><pre class='sourceCode r'><code><span class='r-in'></span>
+<span class='r-in'>  <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='rv.html'>as.rv</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='rvnorm.html'>rvnorm</a></span><span class='op'>(</span>mean<span class='op'>=</span><span class='va'>x</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, main<span class='op'>=</span><span class='st'>"Fixed x-coordinate"</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>y</span>, <span class='va'>x</span>, main<span class='op'>=</span><span class='st'>"Fixed y-coordinate"</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, lwd<span class='op'>=</span><span class='fl'>4</span>, rvcol<span class='op'>=</span><span class='st'>"red"</span>, main<span class='op'>=</span><span class='st'>"Color and line width changed"</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, type<span class='op'>=</span><span class='st'>"b"</span>, main<span class='op'>=</span><span class='st'>"Intervals and random lines"</span>, rvcol<span class='op'>=</span><span class='st'>"blue"</span>, col<span class='op'>=</span><span class='st'>"gray"</span><span class='op'>)</span></span>
+<span class='r-plt'><img src='points.rv-1.png' alt='' width='700' height='433' /></span>
+<span class='r-in'>  <span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'>    <span class='co'># Don't use the rv-only parameters when plotting fixed vectors.</span></span>
+<span class='r-in'>    <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='rvmean.html'>E</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>, rvcol<span class='op'>=</span><span class='st'>"blue"</span>, col<span class='op'>=</span><span class='st'>"gray"</span><span class='op'>)</span></span>
+<span class='r-in'>    <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='fu'><a href='rvmean.html'>E</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>)</span>, rvcol<span class='op'>=</span><span class='st'>"blue"</span>, col<span class='op'>=</span><span class='st'>"gray"</span><span class='op'>)</span></span>
+<span class='r-in'>  <span class='op'>}</span></span>
+<span class='r-in'></span>
+</code></pre></div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -267,11 +276,11 @@ Computing 17:3, 235-244.</p>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Jouni Kerman, Joseph Stachelek.</p>
+  <p><p>Developed by Jouni Kerman, Jemma Stachelek.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
       </footer>
@@ -279,6 +288,8 @@ Computing 17:3, 235-244.</p>
 
   
 
+
+  
 
   </body>
 </html>
