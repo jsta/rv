@@ -31,4 +31,4 @@ devtools::install_github("jsta/rv")
 
 ## Examples
 
-See [website](https://jsta.github.io/rv)
+See [website](https://jsta.github.io/rv/)

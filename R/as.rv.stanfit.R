@@ -9,7 +9,7 @@
 #' @param \dots (ignored)
 #' @return A list of rv objects, with the names set for each rv object.
 #' @author J Kerman
-#' @references Stan: \url{http://mc-stan.org/}
+#' @references Stan: \url{https://mc-stan.org/}
 #' @keywords manip
 #' 
 #' @export
