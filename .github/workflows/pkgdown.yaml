@@ -4,6 +4,9 @@ on:
 
 name: pkgdown
 
+ env:
+      GITHUB_PAT: ${{ secrets.GITHUB_PAT }}
+
 jobs:
   pkgdown:
     runs-on: macOS-latest
