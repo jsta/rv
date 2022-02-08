@@ -10,8 +10,8 @@ citEntry(
   pages = "235--244",
   title = "Manipulating and Summarizing Posterior Simulations Using Random Variable Objects",
   author = personList(
-    person(first="Jouni", last="Kerman", email="jouni@kerman.com"),
-    person(first="Andrew", last="Gelman", email="gelman@stat.columbia.edu")
+    person(given="Jouni", last="Kerman", email="jouni@kerman.com"),
+    person(given="Andrew", last="Gelman", email="gelman@stat.columbia.edu")
   ),
   #url  = "http://www.stat.columbia.edu/~kerman/",
   textVersion = paste("Kerman, J. and Gelman, A. (2007).",

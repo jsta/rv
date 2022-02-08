@@ -1,8 +1,10 @@
 ## Submission
-The purpose of this package update is to resolve the CRAN check warnings about dots in documentation objects.
+
+The purpose of this package update is to resolve a CRAN message about use of deprecated arguments to the person function.
 
 ## Test environments
-* ubuntu 16.04 (on travis-ci), R 3.6.2
+
+* ubuntu 20.04 (on Github Actions), R 4.1.2
 * win-builder (devel and release)
 
 ## R CMD check results

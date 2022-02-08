@@ -1,3 +1,6 @@
+# Version 2.3.5
+  * Minor documentation fix to resolve CRAN message.
+
 # Version 2.3.4
   * Minor documentation fixes to resolve CRAN warnings
 

@@ -1,6 +1,6 @@
 Package: rv
 Title: Simulation-Based Random Variable Objects
-Version: 2.3.4
+Version: 2.3.5
 Authors@R: c(
   person("Jouni", "Kerman", role = c("aut"), email = "jouni@kerman.com"),
   person("Jemma", "Stachelek", role = c("ctb", "cre"), email = "stachel2@msu.edu")
@@ -15,7 +15,7 @@ Description: Implements a simulation-based random variable class and a suite of
 Depends: R(>= 2.15.1), stats, utils, grDevices, graphics
 License: GPL-2
 Encoding: UTF-8
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.2
 Suggests: 
     knitr,
     rmarkdown,
