@@ -106,13 +106,13 @@ Computing 17:3, 235-244.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in">  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="rvnorm.html">rvnorm</a></span><span class="op">(</span>mean<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, sd<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
 <span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     name mean   sd   1% 2.5%  25%   50%  75% 97.5%  99% sims</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  min  0.8 0.90 -1.5 -1.0 0.19  0.81  1.4   2.5  2.8  200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2]  max 10.2 0.81  8.6  8.8 9.57 10.12 10.7  11.8 11.9  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     name  mean   sd   1%  2.5%  25%   50%  75% 97.5%  99% sims</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  min  0.84 0.86 -1.1 -0.74 0.26  0.89  1.4   2.6  2.8  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2]  max 10.27 0.83  8.7  8.82 9.69 10.26 10.8  11.9 12.2  200</span>
 <span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     name mean   sd   1% 2.5%  25%   50%  75% 97.5%  99% sims</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]   0%  0.8 0.90 -1.5 -1.0 0.19  0.81  1.4   2.5  2.8  200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2] 100% 10.2 0.81  8.6  8.8 9.57 10.12 10.7  11.8 11.9  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     name  mean   sd   1%  2.5%  25%   50%  75% 97.5%  99% sims</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]   0%  0.84 0.86 -1.1 -0.74 0.26  0.89  1.4   2.6  2.8  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2] 100% 10.27 0.83  8.7  8.82 9.69 10.26 10.8  11.9 12.2  200</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
