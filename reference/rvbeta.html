@@ -99,33 +99,33 @@ Computing 17:3, 235-244.</p>
 <span class="r-in">   <span class="va">y</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>  <span class="co"># observations</span></span>
 <span class="r-in">   <span class="va">a</span> <span class="op">&lt;-</span> <span class="va">b</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">/</span><span class="fl">3</span>   <span class="co"># the neutral beta prior</span></span>
 <span class="r-in">   <span class="fu">rvbeta</span><span class="op">(</span><span class="fl">1</span>, shape1<span class="op">=</span><span class="va">a</span><span class="op">+</span><span class="va">y</span>, shape2<span class="op">=</span><span class="va">b</span><span class="op">+</span><span class="va">n</span><span class="op">-</span><span class="va">y</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       mean    sd      1%    2.5%    25%   50%  75% 97.5%  99% sims</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.029 0.046 1.3e-08 2.3e-06 0.0012 0.012 0.04  0.15 0.24  200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2] 0.113 0.093 8.8e-03 1.1e-02 0.0444 0.090 0.15  0.35 0.39  200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] 0.192 0.102 2.6e-02 3.8e-02 0.1145 0.175 0.27  0.41 0.46  200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] 0.270 0.123 6.7e-02 8.1e-02 0.1795 0.255 0.34  0.57 0.60  200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] 0.347 0.126 1.0e-01 1.2e-01 0.2499 0.342 0.45  0.58 0.61  200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] 0.420 0.134 1.2e-01 1.7e-01 0.3190 0.413 0.52  0.66 0.73  200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] 0.508 0.136 2.4e-01 2.8e-01 0.3960 0.511 0.61  0.78 0.82  200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] 0.577 0.133 2.8e-01 3.2e-01 0.4890 0.588 0.68  0.81 0.85  200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 0.670 0.132 3.4e-01 3.9e-01 0.5921 0.678 0.76  0.89 0.92  200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10] 0.749 0.114 4.9e-01 5.2e-01 0.6838 0.766 0.83  0.92 0.95  200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] 0.809 0.103 5.6e-01 5.7e-01 0.7363 0.816 0.89  0.96 0.97  200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [12] 0.905 0.069 7.0e-01 7.5e-01 0.8565 0.917 0.96  1.00 1.00  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       mean    sd      1%    2.5%     25%    50%   75% 97.5%  99% sims</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.026 0.044 4.6e-08 1.7e-07 0.00089 0.0078 0.031  0.14 0.20  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2] 0.109 0.089 1.6e-03 5.4e-03 0.04036 0.0871 0.153  0.32 0.37  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] 0.174 0.098 1.3e-02 2.7e-02 0.10311 0.1609 0.238  0.41 0.46  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] 0.265 0.112 6.8e-02 8.1e-02 0.18209 0.2495 0.346  0.51 0.53  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] 0.348 0.138 1.1e-01 1.2e-01 0.24703 0.3449 0.437  0.64 0.66  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] 0.450 0.146 1.3e-01 1.6e-01 0.34363 0.4524 0.565  0.71 0.75  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] 0.499 0.144 2.1e-01 2.3e-01 0.39287 0.5069 0.605  0.74 0.81  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] 0.573 0.131 2.8e-01 3.0e-01 0.49150 0.5712 0.663  0.81 0.83  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 0.665 0.131 3.8e-01 3.9e-01 0.56898 0.6758 0.761  0.89 0.91  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10] 0.742 0.121 4.6e-01 4.8e-01 0.65342 0.7565 0.843  0.92 0.95  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] 0.820 0.103 5.7e-01 5.9e-01 0.75447 0.8467 0.896  0.96 0.98  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [12] 0.892 0.083 6.6e-01 7.0e-01 0.84922 0.9111 0.953  0.99 1.00  200</span>
 <span class="r-in">   <span class="fu">rvnbeta</span><span class="op">(</span><span class="fl">1</span>, shape1<span class="op">=</span><span class="va">y</span>, shape2<span class="op">=</span><span class="va">n</span><span class="op">-</span><span class="va">y</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       mean    sd      1%    2.5%    25%    50%   75% 97.5%  99% sims</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.028 0.046 9.9e-08 1.6e-06 0.0008 0.0074 0.036  0.15 0.24  200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [2] 0.099 0.076 5.7e-03 1.0e-02 0.0419 0.0808 0.136  0.30 0.33  200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] 0.190 0.108 2.4e-02 2.9e-02 0.1199 0.1760 0.255  0.46 0.47  200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] 0.270 0.125 7.0e-02 8.5e-02 0.1785 0.2544 0.347  0.57 0.60  200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] 0.328 0.128 8.6e-02 9.9e-02 0.2324 0.3153 0.411  0.56 0.59  200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] 0.415 0.127 1.6e-01 1.9e-01 0.3278 0.4036 0.506  0.66 0.68  200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] 0.495 0.152 1.7e-01 1.9e-01 0.3705 0.5047 0.605  0.78 0.81  200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] 0.581 0.123 2.7e-01 3.4e-01 0.5080 0.5873 0.663  0.79 0.83  200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 0.645 0.129 3.7e-01 4.0e-01 0.5527 0.6534 0.735  0.89 0.92  200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10] 0.740 0.106 4.6e-01 4.9e-01 0.6782 0.7574 0.810  0.91 0.93  200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] 0.811 0.113 4.6e-01 5.4e-01 0.7480 0.8221 0.896  0.97 0.98  200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [12] 0.892 0.089 6.2e-01 6.8e-01 0.8436 0.9131 0.962  0.99 1.00  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       mean    sd      1%    2.5%     25%    50%   75% 97.5%  99% sims</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 0.025 0.042 3.9e-07 6.3e-07 0.00087 0.0069 0.026  0.16 0.19  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2] 0.111 0.082 4.8e-03 6.6e-03 0.04721 0.0955 0.153  0.31 0.37  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] 0.178 0.103 3.6e-02 4.5e-02 0.09907 0.1541 0.241  0.41 0.44  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] 0.245 0.114 4.5e-02 5.8e-02 0.15306 0.2402 0.315  0.48 0.52  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] 0.338 0.123 9.0e-02 1.3e-01 0.24947 0.3384 0.413  0.59 0.64  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] 0.430 0.126 1.8e-01 2.0e-01 0.34091 0.4325 0.512  0.67 0.70  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] 0.503 0.131 2.1e-01 2.8e-01 0.40981 0.4936 0.591  0.77 0.78  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] 0.584 0.130 2.8e-01 3.3e-01 0.49441 0.5942 0.672  0.82 0.84  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] 0.653 0.134 3.5e-01 3.8e-01 0.56318 0.6698 0.753  0.88 0.90  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10] 0.729 0.126 4.1e-01 4.4e-01 0.64277 0.7454 0.834  0.92 0.95  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] 0.813 0.117 4.9e-01 5.2e-01 0.75030 0.8393 0.902  0.97 0.98  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [12] 0.895 0.083 5.5e-01 7.0e-01 0.85852 0.9141 0.954  0.99 1.00  200</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>

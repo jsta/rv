@@ -115,14 +115,14 @@ Computing 17:3, 235-244.</p>
 <span class="r-in">  <span class="co"># Probabilities of each integer of trunc(Z) where Z ~ N(0,1) ?</span></span>
 <span class="r-in">  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="rvnorm.html">rvnorm</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span class="r-in">  <span class="fu">rvfactor</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">trunc</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        -3   -2   -1     0    1    2 sims</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.005 0.01 0.15 0.675 0.14 0.02  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        -2    -1     0   1     2 sims</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.015 0.145 0.725 0.1 0.015  200</span>
 <span class="r-in">  <span class="fu">rvfactor</span><span class="op">(</span><span class="va">x</span><span class="op">&gt;</span><span class="fl">0</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     FALSE  TRUE sims</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.455 0.545  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.505 0.495  200</span>
 <span class="r-in">  <span class="fu">rvfactor</span><span class="op">(</span><span class="fu"><a href="rvpois.html">rvpois</a></span><span class="op">(</span><span class="fl">1</span>, lambda<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        0     1     2    3 sims</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.59 0.325 0.055 0.03  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         0     1    2    3 sims</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.635 0.295 0.06 0.01  200</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>

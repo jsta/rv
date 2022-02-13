@@ -95,11 +95,11 @@ Computing 17:3, 235-244.</p>
 <span class="r-in">  <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">30</span><span class="op">)</span> <span class="co"># Some data: 30 draws from standard normal.</span></span>
 <span class="r-in">  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu">rvboot</span><span class="op">(</span><span class="va">y</span><span class="op">)</span> <span class="co"># A random vector of length 30 (each component has the same distribution)</span></span>
 <span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="co"># Bootstrap estimate of the mean.</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       mean   sd    1%  2.5%   25%   50%   75% 97.5% 99% sims</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.041 0.16 -0.47 -0.38 -0.14 -0.04 0.065  0.26 0.3  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      mean   sd    1%  2.5%   25%   50%    75% 97.5%  99% sims</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.16 0.14 -0.48 -0.45 -0.26 -0.18 -0.067 0.097 0.11  200</span>
 <span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="distrib_rv.html">sd.rv</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>   <span class="co"># Bootstrap estimate of the sd.</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     mean   sd   1% 2.5%  25%  50%  75% 97.5% 99% sims</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.89 0.14 0.57 0.66 0.78 0.89 0.98   1.2 1.2  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     mean    sd   1% 2.5%  25%  50%  75% 97.5% 99% sims</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.83 0.083 0.66 0.67 0.77 0.84 0.89     1   1  200</span>
 <span class="r-in">  <span class="co"># rvinci(mean(x), 0) # Hypothesis test: mean of x is zero (at 5% level) FALSE =&gt; reject.</span></span>
 <span class="r-in"></span>
 </code></pre></div>

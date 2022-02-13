@@ -105,35 +105,35 @@ Computing 17:3, 235-244.</p>
 <span class="r-in">  <span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="rvbern.html">rvbern</a></span><span class="op">(</span><span class="fl">2</span>, prob<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span></span>
 <span class="r-in">  <span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
 <span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        mean   sd   1% 2.5%  25%     50%  75% 97.5% 99% sims</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.0081 0.99 -2.3 -1.9 -0.7 -0.0154 0.65   2.0 2.4 4000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2] -0.0152 1.00 -2.3 -2.0 -0.7 -0.0098 0.65   1.9 2.4 4000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3]  0.5028 0.50  0.0  0.0  0.0  1.0000 1.00   1.0 1.0 4000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4]  0.4800 0.50  0.0  0.0  0.0  0.0000 1.00   1.0 1.0 4000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       mean   sd   1% 2.5%   25%    50%  75% 97.5% 99% sims</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -0.019 0.98 -2.2 -1.9 -0.68 -0.028 0.63   1.9 2.3 4000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2] -0.014 1.00 -2.4 -1.9 -0.69 -0.012 0.66   1.9 2.3 4000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3]  0.488 0.50  0.0  0.0  0.00  0.000 1.00   1.0 1.0 4000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4]  0.516 0.50  0.0  0.0  0.00  1.000 1.00   1.0 1.0 4000</span>
 <span class="r-in">  <span class="va">z1</span> <span class="op">&lt;-</span> <span class="fu">cc</span><span class="op">(</span><span class="fl">1</span>, <span class="va">z</span><span class="op">)</span></span>
 <span class="r-in">  <span class="va">z2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="rv.html">as.rv</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, <span class="va">z</span><span class="op">)</span></span>
 <span class="r-in">  <span class="va">z3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="rv.html">as.rv</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, <span class="va">z</span><span class="op">)</span></span>
 <span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">z1</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        mean   sd   1% 2.5%  25%     50%  75% 97.5% 99% sims</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  1.0000 0.00  1.0  1.0  1.0  1.0000 1.00   1.0 1.0    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2] -0.0081 0.99 -2.3 -1.9 -0.7 -0.0154 0.65   2.0 2.4 4000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3] -0.0152 1.00 -2.3 -2.0 -0.7 -0.0098 0.65   1.9 2.4 4000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4]  0.5028 0.50  0.0  0.0  0.0  1.0000 1.00   1.0 1.0 4000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5]  0.4800 0.50  0.0  0.0  0.0  0.0000 1.00   1.0 1.0 4000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       mean   sd   1% 2.5%   25%    50%  75% 97.5% 99% sims</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  1.000 0.00  1.0  1.0  1.00  1.000 1.00   1.0 1.0    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2] -0.019 0.98 -2.2 -1.9 -0.68 -0.028 0.63   1.9 2.3 4000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3] -0.014 1.00 -2.4 -1.9 -0.69 -0.012 0.66   1.9 2.3 4000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4]  0.488 0.50  0.0  0.0  0.00  0.000 1.00   1.0 1.0 4000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5]  0.516 0.50  0.0  0.0  0.00  1.000 1.00   1.0 1.0 4000</span>
 <span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">z2</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        mean   sd   1% 2.5%  25%     50%  75% 97.5% 99% sims</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  1.0000 0.00  1.0  1.0  1.0  1.0000 1.00   1.0 1.0    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2] -0.0081 0.99 -2.3 -1.9 -0.7 -0.0154 0.65   2.0 2.4 4000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3] -0.0152 1.00 -2.3 -2.0 -0.7 -0.0098 0.65   1.9 2.4 4000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4]  0.5028 0.50  0.0  0.0  0.0  1.0000 1.00   1.0 1.0 4000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5]  0.4800 0.50  0.0  0.0  0.0  0.0000 1.00   1.0 1.0 4000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       mean   sd   1% 2.5%   25%    50%  75% 97.5% 99% sims</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  1.000 0.00  1.0  1.0  1.00  1.000 1.00   1.0 1.0    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2] -0.019 0.98 -2.2 -1.9 -0.68 -0.028 0.63   1.9 2.3 4000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3] -0.014 1.00 -2.4 -1.9 -0.69 -0.012 0.66   1.9 2.3 4000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4]  0.488 0.50  0.0  0.0  0.00  0.000 1.00   1.0 1.0 4000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5]  0.516 0.50  0.0  0.0  0.00  1.000 1.00   1.0 1.0 4000</span>
 <span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">z3</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        mean   sd   1% 2.5%  25%     50%  75% 97.5% 99% sims</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  1.0000 0.00  1.0  1.0  1.0  1.0000 1.00   1.0 1.0    1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2] -0.0081 0.99 -2.3 -1.9 -0.7 -0.0154 0.65   2.0 2.4 4000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3] -0.0152 1.00 -2.3 -2.0 -0.7 -0.0098 0.65   1.9 2.4 4000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4]  0.5028 0.50  0.0  0.0  0.0  1.0000 1.00   1.0 1.0 4000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [5]  0.4800 0.50  0.0  0.0  0.0  0.0000 1.00   1.0 1.0 4000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       mean   sd   1% 2.5%   25%    50%  75% 97.5% 99% sims</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1]  1.000 0.00  1.0  1.0  1.00  1.000 1.00   1.0 1.0    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2] -0.019 0.98 -2.2 -1.9 -0.68 -0.028 0.63   1.9 2.3 4000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3] -0.014 1.00 -2.4 -1.9 -0.69 -0.012 0.66   1.9 2.3 4000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4]  0.488 0.50  0.0  0.0  0.00  0.000 1.00   1.0 1.0 4000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [5]  0.516 0.50  0.0  0.0  0.00  1.000 1.00   1.0 1.0 4000</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>

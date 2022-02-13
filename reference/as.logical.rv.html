@@ -101,7 +101,7 @@ Computing 17:3, 235-244.</p>
 <span class="r-in">  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="rvbern.html">rvbern</a></span><span class="op">(</span>prob<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span>   <span class="co"># some 0/1 valued random variable</span></span>
 <span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     mean  sd 1% 2.5% 25% 50% 75% 97.5% 99% sims</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.52 0.5  0    0   0   1   1     1   1 4000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.49 0.5  0    0   0   0   1     1   1 4000</span>
 <span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/logical.html" class="external-link">is.logical</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>           <span class="co"># FALSE, because by default x is 'double'</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
 <span class="r-in">  <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/logical.html" class="external-link">as.logical</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>      <span class="co"># coerce to logical; all zeros become FALSE, ones become TRUE</span></span>
@@ -109,7 +109,7 @@ Computing 17:3, 235-244.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] FALSE</span>
 <span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>                <span class="co"># Shows the expectations and not the quantiles</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     mean  sd 1% 2.5% 25% 50% 75% 97.5% 99% sims</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.52 0.5  0    0   0   1   1     1   1 4000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.49 0.5  0    0   0   0   1     1   1 4000</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>

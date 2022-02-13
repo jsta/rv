@@ -111,18 +111,18 @@ Computing 17:3, 235-244.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
 <span class="r-in">  <span class="fu">rvbern</span><span class="op">(</span><span class="fl">2</span>, prob<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     mean  sd 1% 2.5% 25% 50% 75% 97.5% 99% sims</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.53 0.5  0    0   0   1   1     1   1  200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2] 0.53 0.5  0    0   0   1   1     1   1  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.51 0.5  0    0   0   1   1     1   1  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2] 0.44 0.5  0    0   0   0   1     1   1  200</span>
 <span class="r-in">  <span class="fu"><a href="rvbinom.html">rvbinom</a></span><span class="op">(</span><span class="fl">2</span>, size<span class="op">=</span><span class="fl">1</span>, prob<span class="op">=</span><span class="fl">0.5</span><span class="op">)</span> <span class="co"># Equivalent</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     mean  sd 1% 2.5% 25% 50% 75% 97.5% 99% sims</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.56 0.5  0    0   0   1   1     1   1  200</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2] 0.51 0.5  0    0   0   1   1     1   1  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.53 0.5  0    0   0   1   1     1   1  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2] 0.55 0.5  0    0   0   1   1     1   1  200</span>
 <span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">rvbern</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.5</span>, logical<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="co"># won't show the quantiles</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     mean  sd 1% 2.5% 25% 50% 75% 97.5% 99% sims</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.52 0.5  0    0   0   1   1     1   1  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.49 0.5  0    0   0   0   1     1   1  200</span>
 <span class="r-in">  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/logical.html" class="external-link">as.logical</a></span><span class="op">(</span><span class="fu">rvbern</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="co"># equivalent</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     mean  sd 1% 2.5% 25% 50% 75% 97.5% 99% sims</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.47 0.5  0    0   0   0   1     1   1  200</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.48 0.5  0    0   0   0   1     1   1  200</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
